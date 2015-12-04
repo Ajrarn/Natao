@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Natao">
+<head>
+    <meta charset="UTF-8">
+    <title>Natao</title>
+    <link rel="stylesheet" href="src/styles/index.css" />
+</head>
+<body ng-controller="AppController as appCtrl" layout="column">
+    <div class="bandeau" ng-show="!appCtrl.inPrint">
+        <button ng-click="appCtrl.zoomHigher()">+</button>
+        <button ng-click="appCtrl.zoomLower()">-</button>
+        <button ng-click="appCtrl.print()">print</button>
+    </div>
+    <div class="principal" flex layout="row">
+        <div class="menu" ng-show="!appCtrl.inPrint">menu</div>
+        <div flex layout="column">
+            <div class="content" flex layout=row">
+                <div class="editor" flex layout="column" ng-show="!appCtrl.inPrint">
+                    editeur
+                <textarea flex rows="4" cols="50" ng-model="appCtrl.myMarkdown" ng-change="appCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                </textarea>
+                </div>
+                <div class="visualiser" flex>
+                    <span id="rendu" markdown-to-html="appCtrl.myMarkdown"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/showdown/dist/showdown.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
+<script src="bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
+<script src="src/ui/app/app.js"></script>
+<script src="src/ui/app/appConfig.js"></script>
+<script src="src/ui/app/appController.js"></script>
+</body>
+</html>

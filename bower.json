@@ -1,0 +1,29 @@
+{
+  "name": "Natao",
+  "version": "0.0.1",
+  "authors": [
+    "Christophe Dos Santos <christophe.ajrarn@gmail.com>"
+  ],
+  "description": "An editor for school",
+  "main": "index.html",
+  "keywords": [
+    "school"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "ng-showdown": "~1.1.0",
+    "MathJax": "~2.5.3"
+  },
+  "resolutions": {
+    "angular": "~1.4.8"
+  }
+}
