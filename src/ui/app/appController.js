@@ -6,12 +6,14 @@
         .controller('AppController', AppController);
 
 
-    function AppController($showdown,$rootScope,$timeout) {
+    function AppController($showdown,$rootScope,$timeout,DatabaseService,ReferencesService) {
         console.log('AppController');
 
         var self = this;
         self.$showdown = $showdown;
         self.$timeout = $timeout;
+        self.DatabaseService = DatabaseService;
+        self.ReferencesService = ReferencesService;
         self.zoomLevel = 0;
         self.$showdown.setOption('tables',true);
         self.inPrint = false;
