@@ -1,0 +1,22 @@
+<div flex layout="column" ng-controller="EditorController as EditorCtrl">
+    <div class="bandeau" ng-show="!appCtrl.EditorCtrl">
+        <button ng-click="EditorCtrl.zoomHigher()">+</button>
+        <button ng-click="EditorCtrl.zoomLower()">-</button>
+        <button ng-click="EditorCtrl.print()">print</button>
+    </div>
+    <div class="principal" flex layout="row">
+        <div class="menu" ng-show="!EditorCtrl.inPrint">menu</div>
+        <div flex layout="column">
+            <div class="content" flex layout=row">
+                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint">
+                    editeur
+                <textarea flex rows="4" cols="50" ng-model="appCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                </textarea>
+                </div>
+                <div class="visualiser" flex>
+                    <span id="rendu" markdown-to-html="EditorCtrl.myMarkdown"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
