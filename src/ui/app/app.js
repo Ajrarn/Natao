@@ -9,7 +9,7 @@
         .module('Natao', modules)
         .run(run);
 
-    function run($rootScope,$location) {
+    function run($rootScope,$location,SettingsService) {
         console.log('run');
 
         //Detect webkit and version
@@ -30,8 +30,10 @@
         }
 
         //detect config file
-        if (!fs.existsSync('NataoConfig.json')) {
-            $location.path( "/settings" );
+        if (!SettingsService.fileExist()) {
+            $location.path( '/settings' );
+        } else {
+            SettingsService.init();
         }
     }
 }());

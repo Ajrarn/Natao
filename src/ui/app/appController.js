@@ -1,6 +1,8 @@
 (function () {
     "use strict";
 
+    var fs = require('fs');
+
     angular
         .module('Natao')
         .controller('AppController', AppController)

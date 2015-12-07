@@ -6,7 +6,7 @@
         .controller('EditorController', EditorController);
 
 
-    function AppController($showdown,$rootScope,$timeout,DatabaseService,ReferencesService) {
+    function EditorController($showdown,$rootScope,$timeout,DatabaseService,ReferencesService) {
         console.log('EditorController');
 
         var self = this;
@@ -22,8 +22,6 @@
 
         self.myMarkdown = '$$sqrt(2)/2$$ \n'
             +'$$'+self.myMath+'$$';
-
-
 
 
         self.refresh = function() {
@@ -64,9 +62,9 @@
                 var win = gui.Window.get();
                 win.zoomLevel = self.zoomLevel;
             }
-
-
         }
+
+        self.DatabaseService.init();
 
     }
 
