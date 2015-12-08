@@ -17,19 +17,16 @@
 
 
     //Service itself
-    function DatabaseService() {
+    function DatabaseService(SettingsService) {
         console.log('DatabaseService');
 
         var self = this;
-        var myConfig;
+        self.SettingsService = SettingsService;
 
-        var data = fs.readFileSync('myConfig.json',myConfig);
-        try {
-            myConfig = JSON.parse(data);
-            console.log('DataFile',myConfig);
-            //var db = new Datastore({ filename: path.join(require('nw.gui').App.dataPath, myConfig.databaseFile) });
-            var db = new Datastore({ filename: myConfig.databaseFile, autoload:true});
-            console.log('db',db);
+        self.init = function() {
+            console.log('databaseFile',self.SettingsService.settings.databaseFile);
+            self.db = new Datastore({ filename: self.SettingsService.settings.databaseFile, autoload:true});
+            console.log('db',self.db );
             var schoolLevel = {
                 level:'6ème',
                 subjects: {
@@ -38,7 +35,7 @@
                 }
             }
 
-            db.insert(schoolLevel, function(err,newDoc) {
+            self.db .insert(schoolLevel, function(err,newDoc) {
                 if (err) {
                     console.log(err);
                 }
@@ -46,16 +43,6 @@
                 console.log('schoolLevel',schoolLevel);
             });
         }
-        catch (err) {
-            console.log('There has been an error parsing your JSON.')
-            console.log(err);
-        }
-
-
-
-
-
-
 
         return self;
 
