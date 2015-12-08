@@ -1,16 +1,18 @@
 (function () {
     "use strict";
 
-    var modules = ['ngSanitize','ng-showdown'];
+    var fs = require('fs');
+
+    var modules = ['ngSanitize','ng-showdown','ngRoute'];
 
     angular
         .module('Natao', modules)
         .run(run);
 
-    function run($rootScope) {
+    function run($rootScope,$location,SettingsService) {
         console.log('run');
 
-        //Détecter si on est sur node-webkit, et quelle version.
+        //Detect webkit and version
         if (typeof process !== "undefined") {
             $rootScope.nodeWebkitVersion = process.versions['node-webkit'];
 
@@ -25,6 +27,13 @@
 
         }else{
             $rootScope.nodeWebkitVersion = 'browser';
+        }
+
+        //detect config file
+        if (!SettingsService.fileExist()) {
+            $location.path( '/settings' );
+        } else {
+            SettingsService.init();
         }
     }
 }());
