@@ -1,56 +1,66 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
     <div class="bandeau" ng-show="!appCtrl.EditorCtrl" layout="row" layout-align="space-between center">
         <div layout="row" layput-align="start center">
-            <button class="transparent" ng-click="EditorCtrl.zoomLower()" title="Zoome"><span class="typcn typcn-zoom-out-outline"></span></button>
-            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Dézoome"><span class="typcn typcn-zoom-in-outline"></span></button>
-            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Dyslexie"><span class="typcn typcn-feather"></span></button>
+            <button ng-click="EditorCtrl.zoomLower()" title="Dézoome"><span class="typcn typcn-zoom-out-outline"></span></button>
+            <button ng-click="EditorCtrl.zoomHigher()" title="Zoome"><span class="typcn typcn-zoom-in-outline"></span></button>
+            <button class="toggle" ng-class="{off: !EditorCtrl.showDys}" ng-click="EditorCtrl.toggleDys()" title="Dyslexie"><span class="typcn typcn-feather"></span></button>
         </div>
         <div layout="row" layput-align="start center">
-            <button class="transparent" ng-click="EditorCtrl.zoomLower()" title="Menu"><span class="typcn typcn-th-menu-outline"></span></button>
-            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Editeur"><span class="typcn typcn-edit"></span></button>
-            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Visualiseur"><span class="typcn typcn-eye-outline"></span></button>
+            <button class="toggle" ng-class="{off: !EditorCtrl.showMenu}" ng-click="EditorCtrl.toggleMenu()" title="Menu"><span class="typcn typcn-th-menu-outline"></span></button>
+            <button class="toggle" ng-class="{off: !EditorCtrl.showEditor}" ng-click="EditorCtrl.toggleEditor()" title="Editeur"><span class="typcn typcn-edit"></span></button>
+            <button class="toggle" ng-class="{off: !EditorCtrl.showVisualiser}" ng-click="EditorCtrl.toggleVisualiser()" title="Visualiseur"><span class="typcn typcn-eye-outline"></span></button>
         </div>
 
         <div layout="row" layput-align="start center">
-            <button class="transparent" ng-click="EditorCtrl.print()" title="Imprime"><span class="typcn typcn-printer"></span></button>
-            <button class="transparent" ng-click="EditorCtrl.print()" title="Aide"><span class="typcn typcn-compass"></span></button>
-            <button class="transparent" ng-click="EditorCtrl.print()" title="Règlages"><span class="typcn typcn-cog-outline"></span></button>
+            <button ng-click="EditorCtrl.print()" title="Imprime"><span class="typcn typcn-printer"></span></button>
+            <button ng-click="EditorCtrl.print()" title="Aide"><span class="typcn typcn-compass"></span></button>
+            <button ng-click="EditorCtrl.print()" title="Règlages"><span class="typcn typcn-cog-outline"></span></button>
         </div>
 
     </div>
     <div class="principal" flex layout="row">
-        <div class="menu" ng-show="!EditorCtrl.inPrint">
-            <menu>
-                <ul>
-                    <li>6ème</li>
-                    <li>5ème</li>
-                    <li>4ème</li>
-                </ul>
-            </menu>
-            <menu>
-                <ul>
-                    <li>
-                        <p>Mathématiques</p>
-                        <ul>
-                            <li>Algèbre</li>
-                            <li>Arithmétique</li>
-                        </ul>
-                    </li>
-                    <li>Français</li>
-                    <li>Anglais</li>
-                    <li>Espagnol</li>
-                </ul>
-            </menu>
+        <div class="left-panel" layout="row" ng-class="{hidden: !EditorCtrl.showMenu}">
+            <div class="menu" ng-show="!EditorCtrl.inPrint" layout="column">
+                <menu>
+                    <ul>
+                        <li>6ème</li>
+                        <li>5ème</li>
+                        <li>4ème</li>
+                    </ul>
+                </menu>
+                <menu>
+                    <ul>
+                        <li>
+                            <p>Mathématiques</p>
+                            <ul>
+                                <li>Algèbre</li>
+                                <li>Arithmétique</li>
+                            </ul>
+                        </li>
+                        <li>Français</li>
+                        <li>Anglais</li>
+                        <li>Espagnol</li>
+                    </ul>
+                </menu>
 
+            </div>
+            <div class="files">
+                <ul>
+                    <li>Blabla</li>
+                    <li>Blibli</li>
+                    <li>Bloblo</li>
+                </ul>
+            </div>
         </div>
-        <div flex layout="column">
-            <div class="content" flex layout=row">
-                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint">
+
+        <div flex layout="column" class="content" ng-class="{goright: EditorCtrl.showMenu}">
+            <div flex layout=row">
+                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-hide="!EditorCtrl.showEditor">
                     editeur
-                <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                </textarea>
+                    <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </textarea>
                 </div>
-                <div class="visualiser" flex>
+                <div class="visualiser" flex ng-hide="!EditorCtrl.showVisualiser">
                     <span id="rendu" markdown-to-html="EditorCtrl.myMarkdown"></span>
                 </div>
             </div>

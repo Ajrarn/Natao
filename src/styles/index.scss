@@ -6,49 +6,109 @@
 
 html, body {
   height: 100%;
-  font-family: sans-serif;
+  //font-family: sans-serif;
   padding: 0;
   margin: 0;
   overflow: hidden;
-  font-size: 24px;
+  font-size: 16px;
   color: #000;
   font-family: Arial ;
 }
-.bandeau {
-  background-color: black;
-  color:white;
-  height: 50px;
+
+textarea {
+  font-family: sans-serif;
+  font-size: 16px;
+
 }
 
-button {
+
+/*button {
   background-color: #363636;
   color: white;
   padding: 3px 7px;
   margin: 5px;
   border: solid $colorPurpleMM 2px;
   border-radius: 2px;
-  font-size: 1em;
+  font-size: 1.5em;
+}*/
 
-  &.transparent {
+.bandeau {
+  background-color: black;
+  color:white;
+  height: 50px;
+
+  button {
     border-color: transparent;
     background-color: transparent;
+    padding: 3px 7px;
+    margin: 5px;
     color:white;
+    font-size: 1.5em;
 
     &:hover {
       background-color: $colorPurpleDD;
     }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.toggle {
+      padding: 3px 5px;
+      border: solid 2px white;
+      border-radius: 30px;
+
+      &.off {
+        color: $colorPurpleMD;
+        border-color: $colorPurpleMD;
+      }
+    }
   }
-}
 
-
-.menu {
-  background-color: $colorPurpleMD;
-  border-right: black solid 1px;
-  color:white;
 }
 
 .principal {
+  position: relative;
   //background-color: pink;
+}
+
+.left-panel {
+  width:300;
+  opacity: 1;
+  transition: opacity 1s;
+  &.hidden {
+    opacity: 0;
+    transition: opacity 1s;
+  }
+}
+
+.menu {
+  background-color: $colorPurpleDD;
+  //border-right: black solid 1px;
+  color:white;
+  width: 150;
+}
+
+.files {
+  background-color: $colorPurpleMD;
+  width: 150;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+
+  transition: all 1s;
+
+  &.goright{
+    left: 300px;
+
+    transition: all 1s;
+  }
+  //background-color: dodgerblue;
 }
 
 .editor {
@@ -60,6 +120,3 @@ button {
   overflow: auto;
 }
 
-.content {
-  //background-color: dodgerblue;
-}

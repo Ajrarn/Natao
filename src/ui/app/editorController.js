@@ -17,6 +17,10 @@
         self.zoomLevel = 0;
         self.$showdown.setOption('tables',true);
         self.inPrint = false;
+        self.showMenu = true;
+        self.showEditor = true;
+        self.showVisualiser = true;
+        self.showDys = false;
 
         self.myMath = 'x+\\sqrt{1-x^2}';
 
@@ -47,6 +51,27 @@
             self.inPrint = false;
         };
 
+        self.toggleMenu = function() {
+            self.showMenu = !self.showMenu;
+        };
+
+        self.toggleEditor = function() {
+            if (self.showEditor && !self.showVisualiser) {
+                self.toggleVisualiser();
+            }
+            self.showEditor = !self.showEditor;
+        };
+
+        self.toggleVisualiser = function() {
+            if (self.showVisualiser && !self.showEditor) {
+                self.toggleEditor();
+            }
+            self.showVisualiser = !self.showVisualiser;
+        };
+
+        self.toggleDys = function() {
+            self.showDys = !self.showDys;
+        };
 
 
         self.print = function() {
@@ -62,7 +87,7 @@
                 var win = gui.Window.get();
                 win.zoomLevel = self.zoomLevel;
             }
-        }
+        };
 
         self.DatabaseService.init();
 
