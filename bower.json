@@ -21,7 +21,8 @@
   "dependencies": {
     "angular": "~1.4.8",
     "ng-showdown": "~1.1.0",
-    "MathJax": "~2.5.3"
+    "MathJax": "~2.5.3",
+    "typicons": "~2.0.7"
   },
   "resolutions": {
     "angular": "~1.4.8"

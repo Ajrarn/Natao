@@ -1,8 +1,22 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
-    <div class="bandeau" ng-show="!appCtrl.EditorCtrl">
-        <button ng-click="EditorCtrl.zoomHigher()">+</button>
-        <button ng-click="EditorCtrl.zoomLower()">-</button>
-        <button ng-click="EditorCtrl.print()">print</button>
+    <div class="bandeau" ng-show="!appCtrl.EditorCtrl" layout="row" layout-align="space-between center">
+        <div layout="row" layput-align="start center">
+            <button class="transparent" ng-click="EditorCtrl.zoomLower()" title="Zoome"><span class="typcn typcn-zoom-out-outline"></span></button>
+            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Dézoome"><span class="typcn typcn-zoom-in-outline"></span></button>
+            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Dyslexie"><span class="typcn typcn-feather"></span></button>
+        </div>
+        <div layout="row" layput-align="start center">
+            <button class="transparent" ng-click="EditorCtrl.zoomLower()" title="Menu"><span class="typcn typcn-th-menu-outline"></span></button>
+            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Editeur"><span class="typcn typcn-edit"></span></button>
+            <button class="transparent" ng-click="EditorCtrl.zoomHigher()" title="Visualiseur"><span class="typcn typcn-eye-outline"></span></button>
+        </div>
+
+        <div layout="row" layput-align="start center">
+            <button class="transparent" ng-click="EditorCtrl.print()" title="Imprime"><span class="typcn typcn-printer"></span></button>
+            <button class="transparent" ng-click="EditorCtrl.print()" title="Aide"><span class="typcn typcn-compass"></span></button>
+            <button class="transparent" ng-click="EditorCtrl.print()" title="Règlages"><span class="typcn typcn-cog-outline"></span></button>
+        </div>
+
     </div>
     <div class="principal" flex layout="row">
         <div class="menu" ng-show="!EditorCtrl.inPrint">

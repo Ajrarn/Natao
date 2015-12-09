@@ -1,21 +1,50 @@
 @import 'variables';
 @import 'layout';
 
+
+
+
 html, body {
   height: 100%;
   font-family: sans-serif;
   padding: 0;
   margin: 0;
   overflow: hidden;
+  font-size: 24px;
+  color: #000;
+  font-family: Arial ;
 }
-
-
 .bandeau {
-  //background-color: chartreuse;
+  background-color: black;
+  color:white;
+  height: 50px;
 }
+
+button {
+  background-color: #363636;
+  color: white;
+  padding: 3px 7px;
+  margin: 5px;
+  border: solid $colorPurpleMM 2px;
+  border-radius: 2px;
+  font-size: 1em;
+
+  &.transparent {
+    border-color: transparent;
+    background-color: transparent;
+    color:white;
+
+    &:hover {
+      background-color: $colorPurpleDD;
+    }
+  }
+}
+
 
 .menu {
-  //background-color: greenyellow;
+  background-color: $colorPurpleMD;
+  border-right: black solid 1px;
+  color:white;
 }
 
 .principal {
