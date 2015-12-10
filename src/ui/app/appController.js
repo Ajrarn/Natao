@@ -29,10 +29,16 @@
 
         var self = this;
         self.databaseFile = '';
+        self.showDys = false;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
         }
+
+        self.toggleDys = function() {
+            console.log('dys !')
+            self.showDys = !self.showDys;
+        };
 
     }
 

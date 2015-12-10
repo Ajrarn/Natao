@@ -69,10 +69,6 @@
             self.showVisualiser = !self.showVisualiser;
         };
 
-        self.toggleDys = function() {
-            self.showDys = !self.showDys;
-        };
-
 
         self.print = function() {
             self.inPrint = true;

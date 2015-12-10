@@ -1,8 +1,11 @@
 @import 'variables';
 @import 'layout';
+@import 'opendyslexic';
 
-
-
+textarea {
+  font-family: $font-family ;;
+  font-size: 16px;
+}
 
 html, body {
   height: 100%;
@@ -11,13 +14,22 @@ html, body {
   overflow: hidden;
   font-size: 16px;
   color: #000;
-  font-family: $font-family ;
+  font-family: $font-family;
+
+  &.dyslexic {
+    font-family: opendyslexic !important;
+
+    textarea {
+      font-family: opendyslexic !important;
+    }
+  }
 }
 
-textarea {
-  font-family: $font-family ;;
-  font-size: 16px;
+.MathJax {
+  font-family: $font-family;
 }
+
+
 
 
 /*button {
