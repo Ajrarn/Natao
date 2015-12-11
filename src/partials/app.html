@@ -3,8 +3,8 @@
         <div layout="row" layput-align="start center">
             <button ng-click="EditorCtrl.zoomLower()" title="Dézoome"><span class="typcn typcn-zoom-out-outline"></span></button>
             <button ng-click="EditorCtrl.zoomHigher()" title="Zoome"><span class="typcn typcn-zoom-in-outline"></span></button>
-            <button class="toggle" ng-class="{off: !appCtrl.showDys}" ng-click="appCtrl.toggleDys()" title="Dyslexie"><span class="typcn typcn-feather"></span></button>
         </div>
+        <button class="toggle" ng-class="{off: !appCtrl.showDys}" ng-click="appCtrl.toggleDys()" title="Dyslexie"><span class="typcn typcn-feather"></span></button>
         <div layout="row" layput-align="start center">
             <button class="toggle" ng-class="{off: !EditorCtrl.showMenu}" ng-click="EditorCtrl.toggleMenu()" title="Menu"><span class="typcn typcn-th-menu-outline"></span></button>
             <button class="toggle" ng-class="{off: !EditorCtrl.showEditor}" ng-click="EditorCtrl.toggleEditor()" title="Editeur"><span class="typcn typcn-edit"></span></button>
