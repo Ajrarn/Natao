@@ -72,8 +72,8 @@
 
         self.print = function() {
             self.inPrint = true;
-            setTimeout(window.print, 50);       //without angular $digest
-            self.$timeout(self.offPrint, 100);  //with angular $digest
+            setTimeout(window.print, 1050);       //without angular $digest
+            self.$timeout(self.offPrint, 1150);  //with angular $digest
         };
 
         self.zoomChange = function() {

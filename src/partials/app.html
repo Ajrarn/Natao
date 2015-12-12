@@ -14,7 +14,7 @@
         <div layout="row" layput-align="start center">
             <button ng-click="EditorCtrl.print()" title="Imprime"><span class="typcn typcn-printer"></span></button>
             <button ng-click="EditorCtrl.print()" title="Aide"><span class="typcn typcn-compass"></span></button>
-            <button ng-click="EditorCtrl.print()" title="Règlages"><span class="typcn typcn-cog-outline"></span></button>
+            <button ng-click="appCtrl.goSettings()" title="Règlages"><span class="typcn typcn-cog-outline"></span></button>
         </div>
 
     </div>
@@ -53,14 +53,14 @@
             </div>
         </div>
 
-        <div flex layout="column" class="content" ng-class="{goright: EditorCtrl.showMenu}">
+        <div flex layout="column" class="content" ng-class="{goright: (EditorCtrl.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor}">
                     editeur
                     <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>
-                <div class="visualiser" flex ng-class="{hidden: !EditorCtrl.showVisualiser}">
+                <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualiser},{inprint: EditorCtrl.inPrint}]">
                     <span id="rendu" markdown-to-html="EditorCtrl.myMarkdown"></span>
                 </div>
             </div>

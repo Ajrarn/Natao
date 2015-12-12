@@ -24,10 +24,11 @@
         }]);;
 
 
-    function AppController() {
+    function AppController($location) {
         console.log('AppController');
 
         var self = this;
+        self.$location = $location;
         self.databaseFile = '';
         self.showDys = false;
 
@@ -36,9 +37,16 @@
         }
 
         self.toggleDys = function() {
-            console.log('dys !')
             self.showDys = !self.showDys;
         };
+
+        self.goSettings = function() {
+            self.$location.path( '/settings' );
+        }
+
+        self.goApp = function() {
+            self.$location.path( '/app' );
+        }
 
     }
 

@@ -92,7 +92,7 @@ html, body {
 
 .principal {
   position: relative;
-  //background-color: pink;
+  background-color: $colorPurpleML;
 }
 
 .left-panel {
@@ -107,7 +107,6 @@ html, body {
 
 .menu {
   background-color: $colorPurpleDD;
-  //border-right: black solid 1px;
   color:white;
   width: 150;
 }
@@ -118,7 +117,6 @@ html, body {
 }
 
 .content {
-  background-color: $colorPurpleML;
   position: absolute;
   top: 0;
   left: 0;
@@ -156,11 +154,21 @@ html, body {
   box-shadow: 0px 10px 32px 0px rgba(0,0,0,0.75);
   margin: 10px;
   padding: 10px;
+  opacity:1;
+
+  &.inprint {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
 
   transition: flex-grow 1s;
   &.hidden {
     flex-grow:0.0001;
-    transition: flex-grow 1s;
+    opacity:0;
+    margin: 0;
+    padding: 0;
+    transition: all 1s;
   }
 }
 
