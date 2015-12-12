@@ -1,7 +1,7 @@
 <div layout="column" flex>
     <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
-        <button ng-click="appCtrl.goApp()" title="Editeur"><span class="typcn typcn-home-outline"></span></button>
-        <button ng-click="SettingCtrl.save()" title="Enregistrer"><span class="typcn typcn-input-checked-outline"></span></button>
+        <button ng-click="appCtrl.goApp()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-home-outline"></span></button>
+        <button ng-click="SettingCtrl.save()" title="{{'SAVE' | translate}}"><span class="typcn typcn-input-checked-outline"></span></button>
     </div>
     <div flex layout="column" ng-controller="SettingsController as SettingCtrl" layout-align="center center">
         <input  id="fileDialog" type="file" fileread="SettingCtrl.directory" webkitdirectory/>

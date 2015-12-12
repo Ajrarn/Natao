@@ -22,7 +22,9 @@
     "angular": "~1.4.8",
     "ng-showdown": "~1.1.0",
     "MathJax": "~2.5.3",
-    "typicons": "~2.0.7"
+    "typicons": "~2.0.7",
+    "angular-translate": "~2.8.1",
+    "angular-translate-loader-static-files": "~2.8.1"
   },
   "resolutions": {
     "angular": "~1.4.8"
