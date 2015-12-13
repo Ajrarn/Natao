@@ -1,12 +1,12 @@
 {
-  "ZOOM_LOWER": "Dézoome",
-  "ZOOM_HIGHER": "Zoomz",
+  "ZOOM_OUT": "Dézoome",
+  "ZOOM_IN": "Zoome",
   "DYS": "Dyslexie",
   "MENU":"Menu",
-  "EDITOR":"Editeur",
-  "VISUALIZER":"Visualiseur",
+  "EDITOR":"Edite",
+  "VISUALIZER":"Visualise",
   "PRINT":"Imprime",
   "HELP":"Aide",
-  "SETTINGS":"Règlages",
-  "SAVE":"Sauvegarder"
+  "SETTINGS":"Réglages",
+  "SAVE":"Sauvegarde"
 }
