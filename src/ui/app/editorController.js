@@ -69,6 +69,85 @@
             self.showVisualiser = !self.showVisualiser;
         };
 
+        /*************Tree **********/
+
+        self.treeOptions = {
+            nodeChildren: "children",
+            dirSelectable: true,
+            injectClasses: {
+                ul: "a1",
+                li: "a2",
+                liSelected: "a7",
+                iExpanded: "a3",
+                iCollapsed: "a4",
+                iLeaf: "a5",
+                label: "a6",
+                labelSelected: "a8"
+            }
+        }
+        self.dataForTheTree = [
+            {
+                name:'CM2',
+                children: [
+                    {
+                        name: 'Mathématiques',
+                        children: [
+                            {name:'Géomètrie'},
+                            {name:'Algèbre'},
+                            {name:'Trigonométrie'}
+                        ]
+                    },
+                    {
+                        name:'Français',
+                        children:[]
+                    },
+                    {
+                        name:'Histoire',
+                        children:[]
+                    }
+                ]
+            },
+            {
+                name:'6ème',
+                children: [
+                    {name:'Mathématiques'},
+                    {name:'Français'},
+                    {name:'Histoire'}
+                ]
+            },
+            {
+                name:'5ème',
+                children: [
+                    {name:'Mathématiques'},
+                    {name:'Français'},
+                    {name:'Histoire'}
+                ]
+            }
+
+        ];
+
+        self.selectNode = function(node) {
+
+            var indexNodeInExpanded = self.expandedNodes.indexOf(node);
+
+            if (indexNodeInExpanded >= 0) {
+                self.expandedNodes.splice(indexNodeInExpanded,1);
+            } else {
+                if (node.children && node.children.length > 0) {
+                    self.expandedNodes.push(node);
+                }
+            }
+        };
+
+        self.isNodeOpen = function(node) {
+            if (node === self.selectedNode || self.expandedNodes.indexOf(node) >= 0) {
+                return 'open';
+            } else {
+                return 'close';
+            }
+        };
+
+        /**************************************/
 
         self.print = function() {
             self.inPrint = true;

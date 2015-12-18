@@ -21,28 +21,20 @@
     <div class="principal" flex layout="row">
         <div class="left-panel" layout="row" ng-class="{hidden: !EditorCtrl.showMenu}" ng-show="!EditorCtrl.inPrint">
             <div class="menu" layout="column">
-                <menu>
-                    <ul>
-                        <li>6ème</li>
-                        <li>5ème</li>
-                        <li>4ème</li>
-                    </ul>
-                </menu>
-                <menu>
-                    <ul>
-                        <li>
-                            <p>Mathématiques</p>
-                            <ul>
-                                <li>Algèbre</li>
-                                <li>Arithmétique</li>
-                            </ul>
-                        </li>
-                        <li>Français</li>
-                        <li>Anglais</li>
-                        <li>Espagnol</li>
-                    </ul>
-                </menu>
-
+                <div class="treeContainer" flex>
+                    <treecontrol class="tree-light"
+                                 tree-model="EditorCtrl.dataForTheTree"
+                                 options="EditorCtrl.treeOptions"
+                                 on-selection="EditorCtrl.selectNode(node,selected)"
+                                 selected-node="EditorCtrl.selectedNode"
+                                 expanded-nodes="EditorCtrl.expandedNodes">
+                    <span ng-switch="" on="EditorCtrl.isNodeOpen(node)">
+                         <span ng-switch-when="close" class="typcn typcn-folder" aria-hidden="true"></span>
+                         <span ng-switch-when="open" class="typcn typcn-folder-open" aria-hidden="true"></span>
+                     </span>
+                        <!--span class="typcn typcn-folder"></span-->{{node.name}}
+                    </treecontrol>
+                </div>
             </div>
             <div class="files">
                 <ul>

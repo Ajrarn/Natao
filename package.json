@@ -10,8 +10,8 @@
   "main": "index.html",
   "window": {
     "toolbar": true,
-    "width": 1200,
-    "height": 800
+    "width": 1366,
+    "height": 768
   },
   "dependencies": {
     "nedb": "^1.5.0"

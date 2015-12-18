@@ -24,7 +24,8 @@
     "MathJax": "~2.5.3",
     "typicons": "~2.0.7",
     "angular-translate": "~2.8.1",
-    "angular-translate-loader-static-files": "~2.8.1"
+    "angular-translate-loader-static-files": "~2.8.1",
+    "angular-tree-control": "~0.2.22"
   },
   "resolutions": {
     "angular": "~1.4.8"

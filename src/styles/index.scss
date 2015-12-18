@@ -96,7 +96,7 @@ html, body {
 }
 
 .left-panel {
-  width: 300px;
+  //width: 300px;
   opacity: 1;
   transition: opacity 1s;
   &.hidden {
@@ -108,12 +108,12 @@ html, body {
 .menu {
   background-color: $colorPurpleDD;
   color:white;
-  width: 150;
+  //width: 200px;
 }
 
 .files {
   background-color: $colorPurpleMD;
-  width: 150;
+  width: 300px;
 }
 
 .content {
@@ -126,7 +126,7 @@ html, body {
   transition: all 1s;
 
   &.goright{
-    left: 300px;
+    left: 500px;
 
     transition: all 1s;
   }
@@ -170,5 +170,26 @@ html, body {
     padding: 0;
     transition: all 1s;
   }
+}
+
+
+.tree-light {
+  color: white;
+
+  .typcn {
+    font-size: 1.5em;
+  }
+}
+
+.treeContainer {
+  //width: 150px;
+  overflow: auto;
+}
+
+
+
+
+.tree-branch-head {
+  display:none !important;
 }
 
