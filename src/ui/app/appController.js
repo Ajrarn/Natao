@@ -24,14 +24,29 @@
         }]);;
 
 
-    function AppController() {
+    function AppController($location,SettingsService) {
         console.log('AppController');
 
         var self = this;
+        self.$location = $location;
         self.databaseFile = '';
+        self.showDys = false;
+        self.SettingsService = SettingsService;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
+        }
+
+        self.toggleDys = function() {
+            self.showDys = !self.showDys;
+        };
+
+        self.goSettings = function() {
+            self.$location.path( '/settings' );
+        }
+
+        self.goApp = function() {
+            self.$location.path( '/app' );
         }
 
     }

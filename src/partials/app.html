@@ -1,42 +1,58 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
-    <div class="bandeau" ng-show="!appCtrl.EditorCtrl">
-        <button ng-click="EditorCtrl.zoomHigher()">+</button>
-        <button ng-click="EditorCtrl.zoomLower()">-</button>
-        <button ng-click="EditorCtrl.print()">print</button>
+    <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
+        <div layout="row" layput-align="start center">
+            <button ng-click="EditorCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}"><span class="typcn typcn-zoom-out-outline"></span></button>
+            <button ng-click="EditorCtrl.zoomHigher()" title="{{'ZOOM_IN' | translate}}"><span class="typcn typcn-zoom-in-outline"></span></button>
+        </div>
+        <button class="toggle" ng-class="{off: !appCtrl.showDys}" ng-click="appCtrl.toggleDys()" title="{{'DYS' | translate}}"><span class="typcn typcn-feather"></span></button>
+        <div layout="row" layput-align="start center">
+            <button class="toggle" ng-class="{off: !EditorCtrl.showMenu}" ng-click="EditorCtrl.toggleMenu()" title="{{'MENU' | translate}}"><span class="typcn typcn-th-menu-outline"></span></button>
+            <button class="toggle" ng-class="{off: !EditorCtrl.showEditor}" ng-click="EditorCtrl.toggleEditor()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-edit"></span></button>
+            <button class="toggle" ng-class="{off: !EditorCtrl.showVisualiser}" ng-click="EditorCtrl.toggleVisualiser()" title="{{'VISUALIZER' | translate}}"><span class="typcn typcn-eye-outline"></span></button>
+        </div>
+
+        <div layout="row" layput-align="start center">
+            <button ng-click="EditorCtrl.print()" title="{{'PRINT' | translate}}"><span class="typcn typcn-printer"></span></button>
+            <button ng-click="EditorCtrl.print()" title="{{'HELP' | translate}}"><span class="typcn typcn-compass"></span></button>
+            <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}"><span class="typcn typcn-cog-outline"></span></button>
+        </div>
+
     </div>
     <div class="principal" flex layout="row">
-        <div class="menu" ng-show="!EditorCtrl.inPrint">
-            <menu>
-                <ul>
-                    <li>6ème</li>
-                    <li>5ème</li>
-                    <li>4ème</li>
-                </ul>
-            </menu>
-            <menu>
-                <ul>
-                    <li>
-                        <p>Mathématiques</p>
-                        <ul>
-                            <li>Algèbre</li>
-                            <li>Arithmétique</li>
-                        </ul>
-                    </li>
-                    <li>Français</li>
-                    <li>Anglais</li>
-                    <li>Espagnol</li>
-                </ul>
-            </menu>
-
-        </div>
-        <div flex layout="column">
-            <div class="content" flex layout=row">
-                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint">
-                    editeur
-                <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                </textarea>
+        <div class="left-panel" layout="row" ng-class="{hidden: !EditorCtrl.showMenu}" ng-show="!EditorCtrl.inPrint">
+            <div class="menu" layout="column">
+                <div class="treeContainer" flex>
+                    <treecontrol class="tree-light"
+                                 tree-model="EditorCtrl.dataForTheTree"
+                                 options="EditorCtrl.treeOptions"
+                                 on-selection="EditorCtrl.selectNode(node,selected)"
+                                 selected-node="EditorCtrl.selectedNode"
+                                 expanded-nodes="EditorCtrl.expandedNodes">
+                    <span ng-switch="" on="EditorCtrl.isNodeOpen(node)">
+                         <span ng-switch-when="close" class="typcn typcn-folder" aria-hidden="true"></span>
+                         <span ng-switch-when="open" class="typcn typcn-folder-open" aria-hidden="true"></span>
+                     </span>
+                        <!--span class="typcn typcn-folder"></span-->{{node.name}}
+                    </treecontrol>
                 </div>
-                <div class="visualiser" flex>
+            </div>
+            <div class="files">
+                <ul>
+                    <li>Blabla</li>
+                    <li>Blibli</li>
+                    <li>Bloblo</li>
+                </ul>
+            </div>
+        </div>
+
+        <div flex layout="column" class="content" ng-class="{goright: (EditorCtrl.showMenu && !EditorCtrl.inPrint)}">
+            <div flex layout=row">
+                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor}">
+                    editeur
+                    <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </textarea>
+                </div>
+                <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualiser},{inprint: EditorCtrl.inPrint}]">
                     <span id="rendu" markdown-to-html="EditorCtrl.myMarkdown"></span>
                 </div>
             </div>

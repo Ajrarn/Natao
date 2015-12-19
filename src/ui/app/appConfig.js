@@ -6,12 +6,21 @@
         .config(AppConfig);
 
 
-    function AppConfig($showdownProvider) {
+    function AppConfig($showdownProvider,$translateProvider) {
         console.log('AppConfig');
 
+        $translateProvider.useStaticFilesLoader({
+            prefix: './translations/locale-',
+            suffix: '.json'
+        });
+            /*.registerAvailableLanguageKeys({
+            "fr":"fr_FR",
+            "*":"fr_FR"
+        }).determinePreferredLanguage();*/
+
+        $translateProvider.preferredLanguage('fr_FR');
+
         $showdownProvider.loadExtension(mathjax);
-
-
 
         MathJax.Hub.Config({
             asciimath2jax: {

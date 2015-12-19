@@ -8,3 +8,57 @@ $layout-breakpoint-md: 960px !default;
 $layout-breakpoint-lg: 1200px !default;
 $layout-gutter-width: ($baseline-grid * 2) !default;
 // App bar variables
+
+
+$purpleTheme: (
+        DD: #54278f,
+        MD: #756bb1,
+        MM: #9e9ac8,
+        ML: #cbc9e2,
+        LL: #f2f0f7
+);
+
+$greenTheme: (
+        DD: #006d2c,
+        MD: #2ca25f,
+        MM: #66c2a4,
+        ML: #b2e2e2,
+        LL: #edf8fb
+);
+
+$orangeTheme: (
+        DD: #a63603,
+        MD: #e6550d,
+        MM: #fd8d3c,
+        ML: #fdbe85,
+        LL: #feedde
+);
+
+$redTheme: (
+        DD: #a50f15,
+        MD: #de2d26,
+        MM: #fb6a4a,
+        ML: #fcae91,
+        LL: #fee5d9
+);
+
+$greyTheme: (
+        DD: #252525,
+        MD: #636363,
+        MM: #969696,
+        ML: #cccccc,
+        LL: #f7f7f7
+);
+
+$blueTheme: (
+        DD: #08519c,
+        MD: #3182bd,
+        MM: #6baed6,
+        ML: #bdd7e7,
+        LL: #eff3ff
+);
+
+
+
+
+

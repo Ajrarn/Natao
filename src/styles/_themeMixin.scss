@@ -1,0 +1,28 @@
+
+@mixin color-theme($color_map) {
+  .bandeau {
+    button {
+      &:hover {
+        background-color: map-get($color_map, DD);
+      }
+      &.toggle {
+        &.off {
+          color: map-get($color_map, MD);
+        }
+      }
+    }
+  }
+
+  .principal {
+    background-color: map-get($color_map, ML);
+  }
+
+  .menu {
+    background-color: map-get($color_map, DD);
+  }
+
+  .files {
+    background-color: map-get($color_map, MD);
+  }
+}
+

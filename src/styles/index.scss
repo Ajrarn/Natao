@@ -1,36 +1,219 @@
 @import 'variables';
 @import 'layout';
+@import 'opendyslexic';
+@import 'themeMixin';
+
+textarea {
+  font-family: $font-family ;;
+  font-size: 16px;
+  resize: none;
+  margin: 10px 5px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 3px 0px 14px -2px rgba(0,0,0,0.75);
+}
 
 html, body {
   height: 100%;
-  font-family: sans-serif;
   padding: 0;
   margin: 0;
   overflow: hidden;
+  font-size: 16px;
+  color: #000;
+  font-family: $font-family;
+
+  &.dyslexic {
+    font-family: opendyslexic !important;
+
+    textarea {
+      font-family: opendyslexic !important;
+    }
+  }
 }
 
+
+//hack for MathJax when opendyslexic is on
+.MathJax {
+  font-family: $font-family;
+}
+
+// A tester plus tard
+/*@page {
+  size: A4;
+  //margin: 30mm 45mm 30mm 45mm; /* change the margins as you want them to be.
+}*/
+
+
+/*button {
+  background-color: #363636;
+  color: white;
+  padding: 3px 7px;
+  margin: 5px;
+  border: solid $colorPurpleMM 2px;
+  border-radius: 2px;
+  font-size: 1.5em;
+}*/
 
 .bandeau {
-  //background-color: chartreuse;
-}
+  background-color: black;
+  color:white;
+  height: 50px;
 
-.menu {
-  //background-color: greenyellow;
+  button {
+    border-color: transparent;
+    background-color: transparent;
+    padding: 3px 7px;
+    margin: 5px;
+    color:white;
+    font-size: 1.5em;
+
+
+    &:focus {
+      outline: none;
+    }
+
+    &.toggle {
+      padding: 3px 5px;
+      border: solid 2px;
+      border-radius: 30px;
+      border-color: white;
+
+
+      &.off {
+        border-color: transparent;
+      }
+    }
+  }
 }
 
 .principal {
-  //background-color: pink;
+  position: relative;
+}
+
+.left-panel {
+  //width: 300px;
+  opacity: 1;
+  transition: opacity 1s;
+  &.hidden {
+    opacity: 0;
+    transition: opacity 1s;
+  }
+}
+
+.menu {
+  color:white;
+  width: 200px;
+  overflow-x: auto;
+}
+
+.files {
+  width: 300px;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+
+  transition: all 1s;
+
+  &.goright{
+    left: 500px;
+
+    transition: all 1s;
+  }
+
 }
 
 .editor {
+  flex-grow:1;
+  opacity: 1;
+
+  transition: flex-grow 1s, opacity 1s;
+
+  &.hidden {
+    flex-grow:0.0001;
+    opacity:0;
+    transition: flex-grow 1s, opacity 1s;
+  }
   //background-color: yellow;
 }
 
 .visualiser {
-  //background-color: plum;
+  flex-grow:1;
+  background-color: white;
   overflow: auto;
+  box-shadow: 0px 10px 32px 0px rgba(0,0,0,0.75);
+  margin: 10px;
+  padding: 10px;
+  opacity:1;
+
+  &.inprint {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  transition: flex-grow 1s;
+  &.hidden {
+    flex-grow:0.0001;
+    opacity:0;
+    margin: 0;
+    padding: 0;
+    transition: all 1s;
+  }
 }
 
-.content {
-  //background-color: dodgerblue;
+
+.tree-light {
+  color: white;
+
+  .typcn {
+    font-size: 1.5em;
+  }
 }
+
+.treeContainer {
+  //width: 150px;
+  //overflow: auto;
+}
+
+
+treecontrol li{
+  //display:inline-table;
+}
+
+.tree-branch-head {
+  display:none !important;
+  width:0 !important;
+  height: 0 !important;
+}
+
+
+/**************************Themes********************/
+.purple {
+  @include color-theme($purpleTheme);
+}
+
+.blue {
+  @include color-theme($blueTheme);
+}
+
+.red {
+  @include color-theme($redTheme);
+}
+
+.orange {
+  @include color-theme($orangeTheme);
+}
+
+.green {
+  @include color-theme($greenTheme);
+}
+
+.grey{
+  @include color-theme($greyTheme);
+}
+

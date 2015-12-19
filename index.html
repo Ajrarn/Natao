@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Natao</title>
+    <link rel='stylesheet' href='bower_components/typicons.font/src/font/typicons.min.css' />
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-tree-control/css/tree-control.css">
     <link rel="stylesheet" href="src/styles/index.css" />
 </head>
-<body ng-controller="AppController as appCtrl" layout="column">
-    <div flex layout="row"ng-view></div>
+<body ng-controller="AppController as appCtrl" layout="column" ng-class="{dyslexic : appCtrl.showDys}">
+    <div flex layout="row" ng-view ng-class="appCtrl.SettingsService.settings.theme"></div>
 
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/showdown/dist/showdown.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/angular-tree-control/angular-tree-control.js"></script>
     <script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
     <script src="bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
     <script src="src/ui/app/app.js"></script>
