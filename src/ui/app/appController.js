@@ -24,13 +24,14 @@
         }]);;
 
 
-    function AppController($location) {
+    function AppController($location,SettingsService) {
         console.log('AppController');
 
         var self = this;
         self.$location = $location;
         self.databaseFile = '';
         self.showDys = false;
+        self.SettingsService = SettingsService;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);

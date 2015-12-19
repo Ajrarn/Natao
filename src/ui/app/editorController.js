@@ -87,40 +87,46 @@
         }
         self.dataForTheTree = [
             {
+                id:'1',
                 name:'CM2',
                 children: [
                     {
+                        id:'11',
                         name: 'Mathématiques',
                         children: [
-                            {name:'Géomètrie'},
-                            {name:'Algèbre'},
-                            {name:'Trigonométrie'}
+                            {id:'111', name:'Géomètrie'},
+                            {id:'112', name:'Algèbre'},
+                            {id:'113', name:'Trigonométrie'}
                         ]
                     },
                     {
+                        id:'12',
                         name:'Français',
                         children:[]
                     },
                     {
+                        id:'13',
                         name:'Histoire',
                         children:[]
                     }
                 ]
             },
             {
+                id:'2',
                 name:'6ème',
                 children: [
-                    {name:'Mathématiques'},
-                    {name:'Français'},
-                    {name:'Histoire'}
+                    {id:'21',name:'Mathématiques'},
+                    {id:'22',name:'Français'},
+                    {id:'23',name:'Histoire'}
                 ]
             },
             {
+                id:'3',
                 name:'5ème',
                 children: [
-                    {name:'Mathématiques'},
-                    {name:'Français'},
-                    {name:'Histoire'}
+                    {id:'31',name:'Mathématiques'},
+                    {id:'32',name:'Français'},
+                    {id:'33',name:'Histoire'}
                 ]
             }
 

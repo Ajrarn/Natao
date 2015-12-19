@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="src/styles/index.css" />
 </head>
 <body ng-controller="AppController as appCtrl" layout="column" ng-class="{dyslexic : appCtrl.showDys}">
-    <div flex layout="row" ng-view></div>
+    <div flex layout="row" ng-view ng-class="appCtrl.SettingsService.settings.theme"></div>
 
 
     <script src="bower_components/angular/angular.js"></script>

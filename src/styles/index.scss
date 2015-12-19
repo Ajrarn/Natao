@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'layout';
 @import 'opendyslexic';
+@import 'themeMixin';
 
 textarea {
   font-family: $font-family ;;
@@ -66,9 +67,6 @@ html, body {
     color:white;
     font-size: 1.5em;
 
-    &:hover {
-      background-color: $colorPurpleDD;
-    }
 
     &:focus {
       outline: none;
@@ -82,8 +80,6 @@ html, body {
 
 
       &.off {
-        color: $colorPurpleMD;
-        //border-color: $colorPurpleMD;
         border-color: transparent;
       }
     }
@@ -92,7 +88,6 @@ html, body {
 
 .principal {
   position: relative;
-  background-color: $colorPurpleML;
 }
 
 .left-panel {
@@ -106,13 +101,12 @@ html, body {
 }
 
 .menu {
-  background-color: $colorPurpleDD;
   color:white;
-  //width: 200px;
+  width: 200px;
+  overflow-x: auto;
 }
 
 .files {
-  background-color: $colorPurpleMD;
   width: 300px;
 }
 
@@ -183,13 +177,43 @@ html, body {
 
 .treeContainer {
   //width: 150px;
-  overflow: auto;
+  //overflow: auto;
 }
 
 
-
+treecontrol li{
+  //display:inline-table;
+}
 
 .tree-branch-head {
   display:none !important;
+  width:0 !important;
+  height: 0 !important;
+}
+
+
+/**************************Themes********************/
+.purple {
+  @include color-theme($purpleTheme);
+}
+
+.blue {
+  @include color-theme($blueTheme);
+}
+
+.red {
+  @include color-theme($redTheme);
+}
+
+.orange {
+  @include color-theme($orangeTheme);
+}
+
+.green {
+  @include color-theme($greenTheme);
+}
+
+.grey{
+  @include color-theme($greyTheme);
 }
 
