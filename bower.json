@@ -25,7 +25,8 @@
     "typicons": "~2.0.7",
     "angular-translate": "~2.8.1",
     "angular-translate-loader-static-files": "~2.8.1",
-    "angular-tree-control": "~0.2.22"
+    "angular-tree-control": "~0.2.22",
+    "open-dyslexic": "*"
   },
   "resolutions": {
     "angular": "~1.4.8"
