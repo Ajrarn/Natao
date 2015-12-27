@@ -24,14 +24,14 @@
         }]);;
 
 
-    function AppController($location,SettingsService) {
+    function AppController($location,PreferencesService) {
         console.log('AppController');
 
         var self = this;
         self.$location = $location;
         self.databaseFile = '';
         self.showDys = false;
-        self.SettingsService = SettingsService;
+        self.PreferencesService = PreferencesService;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
@@ -43,11 +43,13 @@
 
         self.goSettings = function() {
             self.$location.path( '/settings' );
-        }
+        };
 
         self.goApp = function() {
             self.$location.path( '/app' );
-        }
+        };
+
+        self.PreferencesService.init($location.path);
 
     }
 

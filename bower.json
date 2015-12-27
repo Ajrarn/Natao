@@ -26,7 +26,9 @@
     "angular-translate": "~2.8.1",
     "angular-translate-loader-static-files": "~2.8.1",
     "angular-tree-control": "~0.2.22",
-    "open-dyslexic": "*"
+    "open-dyslexic": "*",
+    "flag-icon-css": "~0.8.5",
+    "nw-fileDialog": "git://github.com/DWand/nw-fileDialog#b50f8c1b7aa1bb19be8f90b24ab1e3ed049dc1eb"
   },
   "resolutions": {
     "angular": "~1.4.8"

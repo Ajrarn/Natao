@@ -13,10 +13,6 @@
             prefix: './translations/locale-',
             suffix: '.json'
         });
-            /*.registerAvailableLanguageKeys({
-            "fr":"fr_FR",
-            "*":"fr_FR"
-        }).determinePreferredLanguage();*/
 
         $translateProvider.preferredLanguage('fr_FR');
 

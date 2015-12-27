@@ -1,9 +1,45 @@
-<div layout="column" flex>
-    <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
-        <button ng-click="appCtrl.goApp()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-home-outline"></span></button>
-        <button ng-click="SettingCtrl.save()" title="{{'SAVE' | translate}}"><span class="typcn typcn-input-checked-outline"></span></button>
+<div layout="column" flex ng-controller="SettingsController as SettingCtrl">
+    <div class="bandeau" layout="row" layout-align="space-between center">
+        <!--button ng-show="!SettingCtrl.firstTime" ng-click="appCtrl.goApp()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-home-outline"></span></button-->
+        <button ng-click="SettingCtrl.save()" ng-show="SettingCtrl.valid" title="{{'SAVE' | translate}}"><span class="typcn typcn-input-checked-outline"></span></button>
     </div>
-    <div flex layout="column" ng-controller="SettingsController as SettingCtrl" layout-align="center center">
-        <input  id="fileDialog" type="file" fileread="SettingCtrl.directory" webkitdirectory/>
+    <div flex layout="column"  layout-align="start center">
+        <div flex layout="row" layout-align="center center">
+
+            <label for="fr_FR" layout="column" layout-align="center center">
+                <span class="flag-icon flag-icon-fr"></span>
+                <P>Français</P>
+                <input type="radio" name="language" value="fr_FR" id="fr_FR" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-change="SettingCtrl.changeLanguage()">
+            </label>
+
+            <label for="en_US" layout="column" layout-align="center center">
+                <span class="flag-icon flag-icon-gb"></span>
+                <p>English</p>
+                <input type="radio" name="language" value="en_US" id="en_US" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-change="SettingCtrl.changeLanguage()">
+            </label>
+        </div>
+        <div ng-bind-html="SettingCtrl.message"></div>
+        <label for="fileDatabase" layout="column" layout-align="center center">
+            <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
+            <input type="text" id="fileDatabase" ng-model="SettingCtrl.PreferencesService.settings.fileDatabase">
+        </label>
+        <button ng-click="SettingCtrl.chooseDatabase()">Choose File</button>
+        <button ng-click="SettingCtrl.newDatabase()">New File</button>
+
+        <div flex layout="row" layout-align="center center">
+
+            <label for="name" layout="column" layout-align="center center">
+                <p>{{ 'PROFILE_NAME' | translate }}</p>
+                <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.settingsValide()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+            </label>
+
+            <label for="firstName" layout="column" layout-align="center center">
+                <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
+                <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.settingsValide()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+            </label>
+        </div>
+
+
+        <!--input id="fileDialog" type="file" fileread="SettingCtrl.SettingService.settings.directory" webkitdirectory/-->
     </div>
 </div>

@@ -17,32 +17,21 @@
 
 
     //Service itself
-    function DatabaseService(SettingsService) {
+    function DatabaseService() {
         console.log('DatabaseService');
 
         var self = this;
-        self.SettingsService = SettingsService;
 
-        self.init = function() {
-            console.log('databaseFile',self.SettingsService.settings.databaseFile);
-            self.db = new Datastore({ filename: self.SettingsService.settings.databaseFile, autoload:true});
-            console.log('db',self.db );
-            var schoolLevel = {
-                level:'6ème',
-                subjects: {
-                    subject: 'Français',
-                    subSubject: ['Grammaire','Conjugaison','Orthographe']
-                }
+
+        self.getDB = function(file) {
+            if (!self.db) {
+                self.db = new Datastore({ filename: file, autoload:true});
+            } else {
+                self.db = null;
             }
+            return self.db;
+        };
 
-            self.db .insert(schoolLevel, function(err,newDoc) {
-                if (err) {
-                    console.log(err);
-                }
-                schoolLevel = newDoc;
-                console.log('schoolLevel',schoolLevel);
-            });
-        }
 
         return self;
 

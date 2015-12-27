@@ -3,13 +3,13 @@
 
     var fs = require('fs');
 
-    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','treeControl'];
+    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','treeControl','DWand.nw-fileDialog'];
 
     angular
         .module('Natao', modules)
         .run(run);
 
-    function run($rootScope,$location,SettingsService) {
+    function run($rootScope,$location,PreferencesService) {
         console.log('run');
 
         //Detect webkit and version
@@ -29,11 +29,6 @@
             $rootScope.nodeWebkitVersion = 'browser';
         }
 
-        //detect config file
-        if (!SettingsService.fileExist()) {
-            $location.path( '/settings' );
-        } else {
-            SettingsService.init();
-        }
+
     }
 }());

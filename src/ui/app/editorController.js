@@ -22,6 +22,8 @@
         self.showVisualiser = true;
         self.showDys = false;
 
+
+
         self.myMath = 'x+\\sqrt{1-x^2}';
 
         self.myMarkdown = '$$sqrt(2)/2$$ \n'
@@ -102,7 +104,11 @@
                     {
                         id:'12',
                         name:'Français',
-                        children:[]
+                        children:[
+                            {id:'121', name:'Orthographe'},
+                            {id:'122', name:'Grammaire'},
+                            {id:'123', name:'Conjugaisons'}
+                        ]
                     },
                     {
                         id:'13',
@@ -170,7 +176,6 @@
             }
         };
 
-        self.DatabaseService.init();
 
     }
 
