@@ -12,5 +12,7 @@
   "PROFILE_FIRSTNAME":"Prénom",
   "PROFILE_NAME":"Nom",
   "FILE_DATABASE":"Ta base de données",
-  "SETTING_MESSAGE":"<h1>Bienvenue</h1><p>Avant d'aller plus loin, j'ai besoin de ton nom et prénom, un thème et le dossier dans lequel mettre ta base de données Natao<p>"
+  "FILE_NEW":"Nouvelle base de données",
+  "FILE_LOAD":"Ouvrir Base de données",
+  "SETTING_MESSAGE":"#Bienvenue\n\n Avant d'aller plus loin, j'ai besoin de ton nom et prénom, un thème et le dossier dans lequel mettre ta base de données Natao"
 }

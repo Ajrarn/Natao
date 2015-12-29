@@ -5,28 +5,41 @@
     </div>
     <div flex layout="column"  layout-align="start center">
         <div flex layout="row" layout-align="center center">
-
-            <label for="fr_FR" layout="column" layout-align="center center">
+            <button ng-click="SettingCtrl.changeLanguage('fr_FR')">
+                <span class="flag-icon flag-icon-fr"></span>
+                <p>Français</p>
+            </button>
+            <button ng-click="SettingCtrl.changeLanguage('en_US')">
+                <span class="flag-icon flag-icon-gb"></span>
+                <p>English</p>
+            </button>
+            <!--label for="fr_FR" layout="column" layout-align="center center">
                 <span class="flag-icon flag-icon-fr"></span>
                 <P>Français</P>
-                <input type="radio" name="language" value="fr_FR" id="fr_FR" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-change="SettingCtrl.changeLanguage()">
+                <input type="radio" name="language" value="fr_FR" id="fr_FR" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage()">
             </label>
 
             <label for="en_US" layout="column" layout-align="center center">
                 <span class="flag-icon flag-icon-gb"></span>
                 <p>English</p>
-                <input type="radio" name="language" value="en_US" id="en_US" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-change="SettingCtrl.changeLanguage()">
-            </label>
+                <input type="radio" name="language" value="en_US" id="en_US" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage()">
+            </label-->
         </div>
-        <div ng-bind-html="SettingCtrl.message"></div>
-        <label for="fileDatabase" layout="column" layout-align="center center">
-            <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
-            <input type="text" id="fileDatabase" ng-model="SettingCtrl.PreferencesService.settings.fileDatabase">
-        </label>
-        <button ng-click="SettingCtrl.chooseDatabase()">Choose File</button>
-        <button ng-click="SettingCtrl.newDatabase()">New File</button>
 
-        <div flex layout="row" layout-align="center center">
+        <!--div ng-bind-html="SettingCtrl.message" ng-show="SettingCtrl.showMessage()"></div-->
+        <div markdown-to-html="SettingCtrl.message" ng-show="SettingCtrl.showMessage()"></div>
+
+        <div ng-show="SettingCtrl.showFile()">
+            <label for="fileDatabase" layout="column" layout-align="center center">
+                <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
+                <input type="text" id="fileDatabase" ng-model="SettingCtrl.PreferencesService.settings.fileDatabase">
+            </label>
+            <button ng-click="SettingCtrl.chooseDatabase()">{{ 'FILE_LOAD' | translate }}</button>
+            <button ng-click="SettingCtrl.newDatabase()">{{ 'FILE_NEW' | translate }}</button>
+        </div>
+
+
+        <div flex layout="row" layout-align="center center" ng-show="SettingCtrl.showId()">
 
             <label for="name" layout="column" layout-align="center center">
                 <p>{{ 'PROFILE_NAME' | translate }}</p>
@@ -39,7 +52,5 @@
             </label>
         </div>
 
-
-        <!--input id="fileDialog" type="file" fileread="SettingCtrl.SettingService.settings.directory" webkitdirectory/-->
     </div>
 </div>

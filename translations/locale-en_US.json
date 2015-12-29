@@ -12,5 +12,7 @@
   "PROFILE_FIRSTNAME":"First Name",
   "PROFILE_NAME":"Name",
   "FILE_DATABASE":"Your Database",
-  "SETTING_MESSAGE":"<h1>Welcome</h1><p>Before going further, I need your name, firstname, color and folder where to put the Natao database<p>"
+  "FILE_NEW":"New Database",
+  "FILE_LOAD":"Choose Database",
+  "SETTING_MESSAGE":"#Welcome\n\n Before going further, I need your name, firstname, color and folder where to put the Natao database"
 }
