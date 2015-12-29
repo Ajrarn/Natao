@@ -16,11 +16,12 @@
 
 
     //Service itself
-    function PreferencesService(DatabaseService) {
+    function PreferencesService(DatabaseService,$location) {
         console.log('PreferencesService');
 
         var self = this;
         self.DatabaseService = DatabaseService;
+        self.$location = $location;
 
         self.fileExist = function() {
             return fs.existsSync(fileName);
@@ -40,7 +41,7 @@
 
 
 
-        self.init = function(callback) {
+        self.init = function() {
             if (self.fileExist()) {
                 var data = fs.readFileSync(fileName,self.settings);
                 try {
@@ -50,12 +51,12 @@
                     console.log('There has been an error parsing your JSON.');
                     console.log(err);
                     self.settings = {fileDatabase:null};
-                    callback('/settings');
+                    self.$location.path('/settings');
                 }
             } else {
                 console.log('No setting file yet.');
                 self.settings = {fileDatabase:null};
-                callback('/settings');
+                self.$location.path('/settings');
             }
 
             if (self.settings.fileDatabase) {
@@ -63,10 +64,10 @@
                 self.db.find({docName:'Preferences'}, function (err, docs) {
                     if (err) {
                         console.log('Document not found');
-                        callback('/settings');
+                        self.$location.path('/settings');
                     } else {
                         self.preferences = docs[0];
-                        callback('/app');
+                        self.$location.path('/app');
                     }
                 });
             }

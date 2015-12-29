@@ -49,7 +49,7 @@
             self.$location.path( '/app' );
         };
 
-        self.PreferencesService.init($location.path);
+        self.PreferencesService.init();
 
     }
 
