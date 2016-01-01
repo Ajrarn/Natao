@@ -39,10 +39,17 @@
             language: null
         };
 
+        self.saveFile = function() {
+            fs.writeFile('NataoSetting.json',JSON.stringify(self.settings));
+        };
 
 
         self.init = function() {
-            if (self.fileExist()) {
+
+
+
+
+            if (self.fileExist() && (!self.settings || (self.settings && !self.settings.fileDatabase))) {
                 var data = fs.readFileSync(fileName,self.settings);
                 try {
                     self.settings = JSON.parse(data);
@@ -54,9 +61,15 @@
                     self.$location.path('/settings');
                 }
             } else {
-                console.log('No setting file yet.');
-                self.settings = {fileDatabase:null};
-                self.$location.path('/settings');
+                //When the user choose an existing database on setting page, his setting file isn't yet save but he has settings
+                if (self.settings && self.settings.fileDatabase) {
+                    self.saveFile();
+                } else {
+                    // here he doesn't have any settings
+                    console.log('No setting file yet.');
+                    self.settings = {fileDatabase:null};
+                    self.$location.path('/settings');
+                }
             }
 
             if (self.settings.fileDatabase) {
@@ -67,6 +80,7 @@
                         self.$location.path('/settings');
                     } else {
                         self.preferences = docs[0];
+                        console.log(self.preferences);
                         self.$location.path('/app');
                     }
                 });
@@ -96,7 +110,7 @@
                 self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
             }
 
-            fs.writeFile('NataoSetting.json',JSON.stringify(self.settings));
+            self.saveFile();
 
             if (self.preferences._id) {
                 self.db.update({ _id: self.preferences._id }, self.preferences, {}, function (err) {
@@ -108,6 +122,7 @@
                         console.error('error:',err);
                     } else {
                         self.preferences = newDoc;
+                        console.log(newDoc);
                     }
                 });
             }

@@ -6,7 +6,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,PreferencesService,DatabaseService,$location,$translate,$sce,fileDialog) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$translate,$sce,fileDialog) {
         console.log('SettingsController');
 
         var self = this;
@@ -14,6 +14,7 @@
         self.PreferencesService = PreferencesService;
         self.$sce = $sce;
         self.DatabaseService = DatabaseService;
+        self.$scope = $scope;
 
         self.firstTime = self.PreferencesService.fileExist();
         self.fileDialog = fileDialog;
@@ -43,7 +44,6 @@
         self.changeLanguage = function(language) {
             self.PreferencesService.preferences.language = language;
             $translate.use(self.PreferencesService.preferences.language);
-            //self.initMessage();
             self.settingsValide();
             self.step = 2;
         };
@@ -53,6 +53,8 @@
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;
                 console.log('fileDatabase',self.PreferencesService.settings.fileDatabase);
+                self.step = 3;
+                self.$scope.$apply();
             },'Natao.db',['db']);
         };
 
@@ -60,6 +62,7 @@
             self.fileDialog.openFile(function(filename){
                 self.PreferencesService.settings.fileDatabase = filename;
                 self.PreferencesService.init();
+                self.$scope.$apply();
             }, false, ['db']);
 
         };

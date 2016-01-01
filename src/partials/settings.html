@@ -3,37 +3,36 @@
         <!--button ng-show="!SettingCtrl.firstTime" ng-click="appCtrl.goApp()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-home-outline"></span></button-->
         <button ng-click="SettingCtrl.save()" ng-show="SettingCtrl.valid" title="{{'SAVE' | translate}}"><span class="typcn typcn-input-checked-outline"></span></button>
     </div>
-    <div flex layout="column"  layout-align="start center">
+    <div flex layout="column"  layout-align="start stretch" class="setting">
         <div flex layout="row" layout-align="center center">
-            <button ng-click="SettingCtrl.changeLanguage('fr_FR')">
+            <!--button ng-click="SettingCtrl.changeLanguage('fr_FR')">
                 <span class="flag-icon flag-icon-fr"></span>
                 <p>Français</p>
             </button>
             <button ng-click="SettingCtrl.changeLanguage('en_US')">
                 <span class="flag-icon flag-icon-gb"></span>
                 <p>English</p>
-            </button>
-            <!--label for="fr_FR" layout="column" layout-align="center center">
+            </button-->
+            <label for="fr_FR" layout="column" layout-align="center center">
                 <span class="flag-icon flag-icon-fr"></span>
                 <P>Français</P>
-                <input type="radio" name="language" value="fr_FR" id="fr_FR" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage()">
+                <input type="radio" name="language" value="fr_FR" id="fr_FR" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage('fr_FR')">
             </label>
 
             <label for="en_US" layout="column" layout-align="center center">
                 <span class="flag-icon flag-icon-gb"></span>
                 <p>English</p>
-                <input type="radio" name="language" value="en_US" id="en_US" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage()">
-            </label-->
+                <input type="radio" name="language" value="en_US" id="en_US" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage('en_US')">
+            </label>
         </div>
 
-        <!--div ng-bind-html="SettingCtrl.message" ng-show="SettingCtrl.showMessage()"></div-->
-        <div markdown-to-html="SettingCtrl.message" ng-show="SettingCtrl.showMessage()"></div>
+        <div flex markdown-to-html="SettingCtrl.message" ng-show="SettingCtrl.showMessage()"></div>
 
-        <div ng-show="SettingCtrl.showFile()">
+        <div flex ng-show="SettingCtrl.showFile()" layout="row" layout-align="start center">
             <label for="fileDatabase" layout="column" layout-align="center center">
-                <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
-                <input type="text" id="fileDatabase" ng-model="SettingCtrl.PreferencesService.settings.fileDatabase">
+                <p>{{ 'FILE_DATABASE' | translate }}</p>
             </label>
+            <input readonly type="text" id="fileDatabase" ng-model="SettingCtrl.PreferencesService.settings.fileDatabase">
             <button ng-click="SettingCtrl.chooseDatabase()">{{ 'FILE_LOAD' | translate }}</button>
             <button ng-click="SettingCtrl.newDatabase()">{{ 'FILE_NEW' | translate }}</button>
         </div>
