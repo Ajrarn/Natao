@@ -35,7 +35,7 @@
             docName:'Preferences',
             name: null,
             firstName: null,
-            colorTheme: 'blue',
+            colorTheme: null,
             language: null
         };
 

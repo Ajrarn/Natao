@@ -26,3 +26,12 @@
   }
 }
 
+@mixin color-square($color_map) {
+  min-height: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  background-color: map-get($color_map,MM);
+  border: solid 1px map-get($color_map,DD);
+}
+

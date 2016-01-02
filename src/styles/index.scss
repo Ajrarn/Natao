@@ -208,6 +208,33 @@ treecontrol li{
   border: solid black 1px;
 }
 
+/***********************ColorChooser*****************/
+.chooser-purple {
+  @include color-square($purpleTheme);
+}
+
+.chooser-blue {
+  @include color-square($blueTheme);
+}
+
+.chooser-red {
+  @include color-square($redTheme);
+}
+
+.chooser-orange {
+  @include color-square($orangeTheme);
+}
+
+.chooser-green {
+  @include color-square($greenTheme);
+}
+
+.chooser-grey{
+  @include color-square($greyTheme);
+}
+
+
+
 /**************************Themes********************/
 .purple {
   @include color-theme($purpleTheme);
@@ -232,4 +259,6 @@ treecontrol li{
 .grey{
   @include color-theme($greyTheme);
 }
+
+
 

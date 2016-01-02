@@ -36,6 +36,13 @@
             self.valid = self.PreferencesService.isValid();
         };
 
+        self.changeName = function() {
+            self.settingsValide();
+            if (self.PreferencesService.preferences.name && self.PreferencesService.preferences.firstName && self.PreferencesService.preferences.name !== '' && self.PreferencesService.preferences.firstName !== '') {
+                self.step = 4;
+            }
+        };
+
         self.save = function() {
             self.PreferencesService.save();
             $location.path( '/app' );

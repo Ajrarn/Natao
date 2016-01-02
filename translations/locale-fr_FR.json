@@ -11,8 +11,10 @@
   "SAVE":"Sauvegarde",
   "PROFILE_FIRSTNAME":"Prénom",
   "PROFILE_NAME":"Nom",
-  "FILE_DATABASE":"Ta base de données",
   "FILE_NEW":"Nouvelle base de données",
   "FILE_LOAD":"Ouvrir Base de données",
-  "SETTING_MESSAGE":"#Bienvenue dans Natao\n\n Avant d'aller plus loin, j'ai besoin d'informations pour apprendre à te connaître."
+  "SETTING_MESSAGE":"#Bienvenue dans Natao\n\n Avant d'aller plus loin, j'ai besoin d'informations pour apprendre à te connaître.",
+  "SETTING_MESSAGE_DATABASE":"Ton fichier base de données pour commencer",
+  "SETTING_MESSAGE_NAME":" J'ai aussi besoin de ton nom et de ton prénom",
+  "SETTING_MESSAGE_THEME":" Enfin, il te faut choisir un thème coloré"
 }
