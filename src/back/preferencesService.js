@@ -16,15 +16,28 @@
 
 
     //Service itself
-    function PreferencesService(DatabaseService,$location) {
+    function PreferencesService(DatabaseService,$location,$rootScope) {
         console.log('PreferencesService');
 
         var self = this;
         self.DatabaseService = DatabaseService;
         self.$location = $location;
+        self.$rootScope=$rootScope;
 
-        self.fileExist = function() {
+
+
+        self.fileSettingsExist = function() {
             return fs.existsSync(fileName);
+        };
+
+
+
+        self.fileDatabaseExist = function() {
+            if (self.settings && self.settings.fileDatabase) {
+                return fs.existsSync(self.settings.fileDatabase);
+            } else {
+                return false;
+            }
         };
 
         /* only one preferences will be in NataoSettings, the path to find the database
@@ -39,53 +52,13 @@
             language: null
         };
 
+
+
+
         self.saveFile = function() {
             fs.writeFile('NataoSetting.json',JSON.stringify(self.settings));
         };
 
-
-        self.init = function() {
-
-
-
-
-            if (self.fileExist() && (!self.settings || (self.settings && !self.settings.fileDatabase))) {
-                var data = fs.readFileSync(fileName,self.settings);
-                try {
-                    self.settings = JSON.parse(data);
-                }
-                catch (err) {
-                    console.log('There has been an error parsing your JSON.');
-                    console.log(err);
-                    self.settings = {fileDatabase:null};
-                    self.$location.path('/settings');
-                }
-            } else {
-                //When the user choose an existing database on setting page, his setting file isn't yet save but he has settings
-                if (self.settings && self.settings.fileDatabase) {
-                    self.saveFile();
-                } else {
-                    // here he doesn't have any settings
-                    console.log('No setting file yet.');
-                    self.settings = {fileDatabase:null};
-                    self.$location.path('/settings');
-                }
-            }
-
-            if (self.settings.fileDatabase) {
-                self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
-                self.db.find({docName:'Preferences'}, function (err, docs) {
-                    if (err) {
-                        console.log('Document not found');
-                        self.$location.path('/settings');
-                    } else {
-                        self.preferences = docs[0];
-                        console.log(self.preferences);
-                        self.$location.path('/app');
-                    }
-                });
-            }
-        };
 
 
 
@@ -103,9 +76,11 @@
         };
 
 
+
+
         self.save = function() {
 
-            if(!self.fileExist()) {
+            if(!self.fileSettingsExist()) {
                 //the database is not yet connected
                 self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
             }
@@ -128,6 +103,60 @@
             }
 
         };
+
+
+
+
+        self.init = function() {
+
+            //First we have to parse the json file and check if it exist
+            if (self.fileSettingsExist()) {
+                var data = fs.readFileSync(fileName,self.settings);
+                try {
+                    self.settings = JSON.parse(data);
+                }
+                catch (err) {
+                    console.log('There has been an error parsing your JSON.');
+                    console.log(err);
+                    self.settings = {fileDatabase:null};
+                    self.$location.path('/settings');
+                }
+            } else {
+                //When the user choose an existing database on setting page, his setting file isn't yet save but he has settings
+                if (self.fileDatabaseExist()) {
+                    self.saveFile();
+                } else {
+                    // here he doesn't have any settings
+                    console.log('No setting file yet.');
+                    self.settings = {fileDatabase:null};
+                    self.$location.path('/settings');
+                }
+            }
+
+            //here the JSON is parsed successfully, we have to open the database to find the embeddable preferences
+            if (self.fileDatabaseExist()) {
+                self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
+                self.db.find({docName:'Preferences'}, function (err, docs) {
+                    if (err) {
+                        console.log('Document not found');
+                        self.$location.path('/settings');
+                    } else {
+                        self.preferences = docs[0];
+                        console.log(self.preferences);
+                        if (self.isValid()) {
+                            self.$location.path('/app');
+                            self.$rootScope.$digest();
+                        } else {
+                            self.$location.path('/settings');
+                        }
+                    }
+                });
+            } else {
+                self.settings.fileDatabase = null;
+                self.$location.path('/settings');
+            }
+        };
+
 
         return self;
 

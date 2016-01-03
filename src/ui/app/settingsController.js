@@ -16,11 +16,10 @@
         self.DatabaseService = DatabaseService;
         self.$scope = $scope;
 
-        self.firstTime = self.PreferencesService.fileExist();
         self.fileDialog = fileDialog;
 
         // for the first time, we have to go step by step
-        if (!self.PreferencesService.fileExist()) {
+        if (!self.PreferencesService.fileSettingsExist()) {
             self.step = 1;
         } else {
             self.step = 5;
@@ -88,6 +87,10 @@
 
         self.showColor = function() {
             return (self.step > 3)
+        };
+
+        self.showDone = function() {
+            return (self.step > 3 && self.valid)
         };
 
         self.settingsValide();

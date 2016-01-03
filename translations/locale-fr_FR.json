@@ -16,5 +16,6 @@
   "SETTING_MESSAGE":"#Bienvenue dans Natao\n\n Avant d'aller plus loin, j'ai besoin d'informations pour apprendre à te connaître.",
   "SETTING_MESSAGE_DATABASE":"Ton fichier base de données pour commencer",
   "SETTING_MESSAGE_NAME":" J'ai aussi besoin de ton nom et de ton prénom",
-  "SETTING_MESSAGE_THEME":" Enfin, il te faut choisir un thème coloré"
+  "SETTING_MESSAGE_THEME":" Enfin, il te faut choisir un thème coloré",
+  "SETTING_MESSAGE_DONE":"Et c'est tout, nous avons fini. Il ne te reste plus qu'à cliquer sur le bouton en haut à gauche"
 }
