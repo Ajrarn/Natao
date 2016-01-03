@@ -37,9 +37,42 @@
             console.log('file',self.databaseFile);
         };
 
-        //This toggle is at a higher level, so everything will be concerned by the dyslexic font
+
         self.toggleDys = function() {
             self.PreferencesService.preferences.showDys = !self.PreferencesService.preferences.showDys;
+            self.PreferencesService.savePreferences();
+        };
+
+        self.zoomHigher = function() {
+            self.PreferencesService.preferences.zoomLevel++;
+            self.PreferencesService.savePreferences();
+            self.PreferencesService.zoomChange();
+        };
+
+        self.zoomLower = function() {
+            self.PreferencesService.preferences.zoomLevel--;
+            self.PreferencesService.savePreferences();
+            self.PreferencesService.zoomChange();
+        };
+
+        self.toggleMenu = function() {
+            self.PreferencesService.preferences.showMenu = !self.PreferencesService.preferences.showMenu;
+            self.PreferencesService.savePreferences();
+        };
+
+        self.toggleEditor = function() {
+            if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showVisualiser) {
+                self.toggleVisualiser();
+            }
+            self.PreferencesService.preferences.showEditor = !self.PreferencesService.preferences.showEditor;
+            self.PreferencesService.savePreferences();
+        };
+
+        self.toggleVisualiser = function() {
+            if (self.PreferencesService.preferences.showVisualiser && !self.PreferencesService.preferences.showEditor) {
+                self.toggleEditor();
+            }
+            self.PreferencesService.preferences.showVisualiser = !self.PreferencesService.preferences.showVisualiser;
             self.PreferencesService.savePreferences();
         };
 

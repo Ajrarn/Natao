@@ -1,14 +1,14 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
     <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
         <div layout="row" layput-align="start center">
-            <button ng-click="EditorCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}"><span class="typcn typcn-zoom-out-outline"></span></button>
-            <button ng-click="EditorCtrl.zoomHigher()" title="{{'ZOOM_IN' | translate}}"><span class="typcn typcn-zoom-in-outline"></span></button>
+            <button ng-click="appCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}"><span class="typcn typcn-zoom-out-outline"></span></button>
+            <button ng-click="appCtrl.zoomHigher()" title="{{'ZOOM_IN' | translate}}"><span class="typcn typcn-zoom-in-outline"></span></button>
         </div>
         <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showDys}" ng-click="appCtrl.toggleDys()" title="{{'DYS' | translate}}"><span class="typcn typcn-feather"></span></button>
         <div layout="row" layput-align="start center">
-            <button class="toggle" ng-class="{off: !EditorCtrl.PreferencesService.preferences.showMenu}" ng-click="EditorCtrl.toggleMenu()" title="{{'MENU' | translate}}"><span class="typcn typcn-th-menu-outline"></span></button>
-            <button class="toggle" ng-class="{off: !EditorCtrl.PreferencesService.preferences.showEditor}" ng-click="EditorCtrl.toggleEditor()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-edit"></span></button>
-            <button class="toggle" ng-class="{off: !EditorCtrl.PreferencesService.preferences.showVisualiser}" ng-click="EditorCtrl.toggleVisualiser()" title="{{'VISUALIZER' | translate}}"><span class="typcn typcn-eye-outline"></span></button>
+            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showMenu}" ng-click="appCtrl.toggleMenu()" title="{{'MENU' | translate}}"><span class="typcn typcn-th-menu-outline"></span></button>
+            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showEditor}" ng-click="appCtrl.toggleEditor()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-edit"></span></button>
+            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showVisualiser}" ng-click="appCtrl.toggleVisualiser()" title="{{'VISUALIZER' | translate}}"><span class="typcn typcn-eye-outline"></span></button>
         </div>
 
         <div layout="row" layput-align="start center">
@@ -19,8 +19,9 @@
 
     </div>
     <div class="principal" flex layout="row">
-        <div class="left-panel" layout="row" ng-class="{hidden: !EditorCtrl.PreferencesService.preferences.showMenu}" ng-show="!EditorCtrl.inPrint">
+        <div class="left-panel" layout="row" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showMenu}" ng-show="!EditorCtrl.inPrint">
             <div class="menu" layout="column">
+                <button>{{'BTN_ADD_CLASS' | translate}}</button>
                 <div class="treeContainer" flex>
                     <treecontrol class="tree-light"
                                  tree-model="EditorCtrl.dataForTheTree"
@@ -37,22 +38,32 @@
                 </div>
             </div>
             <div class="files">
-                <ul>
-                    <li>Blabla</li>
-                    <li>Blibli</li>
-                    <li>Bloblo</li>
-                </ul>
+                <div id="node">
+                    <label for="nodeName" layout="column" layout-align="center center">
+                        <p>{{ 'NODE_NAME' | translate }}</p>
+                        <input id="nodeName" ng-model="EditorCtrl.selectedNode.name">
+                    </label>
+                    <button ng-click="EditorCtrl.addFolder()">{{'BTN_ADD_FOLDER' | translate}}</button>
+
+                </div>
+                <div id="files">
+                    <ul>
+                        <li>François 1er</li>
+                        <li>Henry IV</li>
+                        <li>Napoléon Bonaparte</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div flex layout="column" class="content" ng-class="{goright: (EditorCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
+        <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
-                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.PreferencesService.preferences.showEditor}">
+                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showEditor}">
                     editeur
                     <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>
-                <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]">
+                <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]">
                     <span id="rendu" markdown-to-html="EditorCtrl.myMarkdown"></span>
                 </div>
             </div>

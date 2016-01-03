@@ -1,6 +1,8 @@
 (function () {
     "use strict";
 
+    var uuid = require('node-uuid');
+
     angular
         .module('Natao')
         .controller('EditorController', EditorController);
@@ -32,43 +34,13 @@
             MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         };
 
-        self.zoomHigher = function() {
-            self.PreferencesService.preferences.zoomLevel++;
-            self.PreferencesService.savePreferences();
-            self.PreferencesService.zoomChange();
-        };
-
-        self.zoomLower = function() {
-            self.PreferencesService.preferences.zoomLevel--;
-            self.PreferencesService.savePreferences();
-            self.PreferencesService.zoomChange();
-        };
 
         self.offPrint = function() {
             self.inPrint = false;
         };
 
 
-        self.toggleMenu = function() {
-            self.PreferencesService.preferences.showMenu = !self.PreferencesService.preferences.showMenu;
-            self.PreferencesService.savePreferences();
-        };
 
-        self.toggleEditor = function() {
-            if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showVisualiser) {
-                self.toggleVisualiser();
-            }
-            self.PreferencesService.preferences.showEditor = !self.PreferencesService.preferences.showEditor;
-            self.PreferencesService.savePreferences();
-        };
-
-        self.toggleVisualiser = function() {
-            if (self.PreferencesService.preferences.showVisualiser && !self.PreferencesService.preferences.showEditor) {
-                self.toggleEditor();
-            }
-            self.PreferencesService.preferences.showVisualiser = !self.PreferencesService.preferences.showVisualiser;
-            self.PreferencesService.savePreferences();
-        };
 
         /*************Tree **********/
 
@@ -156,6 +128,19 @@
             } else {
                 return 'close';
             }
+        };
+
+        self.addFolder = function() {
+            var newNode = {
+                id: uuid.v4(),
+                name: 'New Folder'
+            };
+            if (!self.selectedNode.children) {
+                self.selectedNode.children = [];
+            }
+            self.selectedNode.children.push(newNode);
+            self.expandedNodes.push(self.selectedNode);
+            self.selectedNode = newNode;
         };
 
         /**************************************/

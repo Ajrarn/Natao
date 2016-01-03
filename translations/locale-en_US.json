@@ -14,8 +14,11 @@
   "FILE_NEW":"New Database",
   "FILE_LOAD":"Choose Database",
   "SETTING_MESSAGE":"#Welcome in Natao\n\n Before going further, I need some informations to know you better",
-  "SETTING_MESSAGE_DATABASE":"Your database file to start",
+  "SETTING_MESSAGE_DATABASE":"Your database file to start, a good advice is to have it in your Dropbox",
   "SETTING_MESSAGE_NAME":" I also need your first name and your name",
   "SETTING_MESSAGE_THEME":" Finnally, you must choose a color theme",
-  "SETTING_MESSAGE_DONE":"And that's it, we can start after you click on the upper left button"
+  "SETTING_MESSAGE_DONE":"And that's it, we can start after you click on the upper left button",
+  "BTN_ADD_CLASS":"Add a class",
+  "NODE_NAME":"Folder name",
+  "BTN_ADD_FOLDER":"Add a folder"
 }
