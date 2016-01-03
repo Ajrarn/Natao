@@ -127,6 +127,10 @@
             }
         };
 
+        self.getDB = function() {
+           return self.db;
+        };
+
 
 
 

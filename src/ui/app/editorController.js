@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$rootScope,$timeout,DatabaseService,PreferencesService) {
+    function EditorController($showdown,$rootScope,$timeout,DatabaseService,PreferencesService,PrincipalTreeService) {
         console.log('EditorController');
 
         var self = this;
@@ -16,6 +16,8 @@
         self.$timeout = $timeout;
         self.DatabaseService = DatabaseService;
         self.PreferencesService = PreferencesService;
+        self.PrincipalTreeService = PrincipalTreeService;
+        self.PrincipalTreeService.init();
         self.$showdown.setOption('tables',true);
         self.inPrint = false;
 
@@ -44,20 +46,7 @@
 
         /*************Tree **********/
 
-        self.treeOptions = {
-            nodeChildren: "children",
-            dirSelectable: true,
-            injectClasses: {
-                ul: "a1",
-                li: "a2",
-                liSelected: "a7",
-                iExpanded: "a3",
-                iCollapsed: "a4",
-                iLeaf: "a5",
-                label: "a6",
-                labelSelected: "a8"
-            }
-        }
+
         self.dataForTheTree = [
             {
                 id:'1',
@@ -109,39 +98,7 @@
 
         ];
 
-        self.selectNode = function(node) {
 
-            var indexNodeInExpanded = self.expandedNodes.indexOf(node);
-
-            if (indexNodeInExpanded >= 0) {
-                self.expandedNodes.splice(indexNodeInExpanded,1);
-            } else {
-                if (node.children && node.children.length > 0) {
-                    self.expandedNodes.push(node);
-                }
-            }
-        };
-
-        self.isNodeOpen = function(node) {
-            if (node === self.selectedNode || self.expandedNodes.indexOf(node) >= 0) {
-                return 'open';
-            } else {
-                return 'close';
-            }
-        };
-
-        self.addFolder = function() {
-            var newNode = {
-                id: uuid.v4(),
-                name: 'New Folder'
-            };
-            if (!self.selectedNode.children) {
-                self.selectedNode.children = [];
-            }
-            self.selectedNode.children.push(newNode);
-            self.expandedNodes.push(self.selectedNode);
-            self.selectedNode = newNode;
-        };
 
         /**************************************/
 

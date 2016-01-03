@@ -21,19 +21,19 @@
     <div class="principal" flex layout="row">
         <div class="left-panel" layout="row" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showMenu}" ng-show="!EditorCtrl.inPrint">
             <div class="menu" layout="column">
-                <button>{{'BTN_ADD_CLASS' | translate}}</button>
+                <button ng-click="EditorCtrl.PrincipalTreeService.addClass()">{{'BTN_ADD_CLASS' | translate}}</button>
                 <div class="treeContainer" flex>
                     <treecontrol class="tree-light"
-                                 tree-model="EditorCtrl.dataForTheTree"
-                                 options="EditorCtrl.treeOptions"
-                                 on-selection="EditorCtrl.selectNode(node,selected)"
-                                 selected-node="EditorCtrl.selectedNode"
-                                 expanded-nodes="EditorCtrl.expandedNodes">
-                    <span ng-switch="" on="EditorCtrl.isNodeOpen(node)">
+                                 tree-model="EditorCtrl.PrincipalTreeService.principalTree.tree"
+                                 options="EditorCtrl.PrincipalTreeService.treeOptions"
+                                 on-selection="EditorCtrl.PrincipalTreeService.selectNode(node,selected)"
+                                 selected-node="EditorCtrl.PrincipalTreeService.selectedNode"
+                                 expanded-nodes="EditorCtrl.PrincipalTreeService.expandedNodes">
+                    <span ng-switch="" on="EditorCtrl.PrincipalTreeService.isNodeOpen(node)">
                          <span ng-switch-when="close" class="typcn typcn-folder" aria-hidden="true"></span>
                          <span ng-switch-when="open" class="typcn typcn-folder-open" aria-hidden="true"></span>
                      </span>
-                        <!--span class="typcn typcn-folder"></span-->{{node.name}}
+                        {{node.name}}
                     </treecontrol>
                 </div>
             </div>
@@ -41,9 +41,9 @@
                 <div id="node">
                     <label for="nodeName" layout="column" layout-align="center center">
                         <p>{{ 'NODE_NAME' | translate }}</p>
-                        <input id="nodeName" ng-model="EditorCtrl.selectedNode.name">
+                        <input id="nodeName" ng-model="EditorCtrl.PrincipalTreeService.selectedNode.name" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ng-change="EditorCtrl.PrincipalTreeService.save()">
                     </label>
-                    <button ng-click="EditorCtrl.addFolder()">{{'BTN_ADD_FOLDER' | translate}}</button>
+                    <button ng-click="EditorCtrl.PrincipalTreeService.addFolder()">{{'BTN_ADD_FOLDER' | translate}}</button>
 
                 </div>
                 <div id="files">
