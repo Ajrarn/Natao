@@ -6,23 +6,16 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$rootScope,$timeout,DatabaseService,ReferencesService) {
+    function EditorController($showdown,$rootScope,$timeout,DatabaseService,PreferencesService) {
         console.log('EditorController');
 
         var self = this;
         self.$showdown = $showdown;
         self.$timeout = $timeout;
         self.DatabaseService = DatabaseService;
-        self.ReferencesService = ReferencesService;
-        self.zoomLevel = 0;
+        self.PreferencesService = PreferencesService;
         self.$showdown.setOption('tables',true);
         self.inPrint = false;
-        self.showMenu = true;
-        self.showEditor = true;
-        self.showVisualiser = true;
-        self.showDys = false;
-
-
 
         self.myMath = 'x+\\sqrt{1-x^2}';
 
@@ -40,35 +33,41 @@
         };
 
         self.zoomHigher = function() {
-            self.zoomLevel++;
-            self.zoomChange();
+            self.PreferencesService.preferences.zoomLevel++;
+            self.PreferencesService.savePreferences();
+            self.PreferencesService.zoomChange();
         };
 
         self.zoomLower = function() {
-            self.zoomLevel--;
-            self.zoomChange();
+            self.PreferencesService.preferences.zoomLevel--;
+            self.PreferencesService.savePreferences();
+            self.PreferencesService.zoomChange();
         };
 
         self.offPrint = function() {
             self.inPrint = false;
         };
 
+
         self.toggleMenu = function() {
-            self.showMenu = !self.showMenu;
+            self.PreferencesService.preferences.showMenu = !self.PreferencesService.preferences.showMenu;
+            self.PreferencesService.savePreferences();
         };
 
         self.toggleEditor = function() {
-            if (self.showEditor && !self.showVisualiser) {
+            if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showVisualiser) {
                 self.toggleVisualiser();
             }
-            self.showEditor = !self.showEditor;
+            self.PreferencesService.preferences.showEditor = !self.PreferencesService.preferences.showEditor;
+            self.PreferencesService.savePreferences();
         };
 
         self.toggleVisualiser = function() {
-            if (self.showVisualiser && !self.showEditor) {
+            if (self.PreferencesService.preferences.showVisualiser && !self.PreferencesService.preferences.showEditor) {
                 self.toggleEditor();
             }
-            self.showVisualiser = !self.showVisualiser;
+            self.PreferencesService.preferences.showVisualiser = !self.PreferencesService.preferences.showVisualiser;
+            self.PreferencesService.savePreferences();
         };
 
         /*************Tree **********/
@@ -166,17 +165,6 @@
             setTimeout(window.print, 1050);       //without angular $digest
             self.$timeout(self.offPrint, 1150);  //with angular $digest
         };
-
-        self.zoomChange = function() {
-
-            if ($rootScope.nodeWebkitVersion !== 'browser') {
-                var gui = require('nw.gui');
-                var win = gui.Window.get();
-                win.zoomLevel = self.zoomLevel;
-            }
-        };
-
-
     }
 
 }());

@@ -35,11 +35,14 @@
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
-        }
-
-        self.toggleDys = function() {
-            self.showDys = !self.showDys;
         };
+
+        //This toggle is at a higher level, so everything will be concerned by the dyslexic font
+        self.toggleDys = function() {
+            self.PreferencesService.preferences.showDys = !self.PreferencesService.preferences.showDys;
+            self.PreferencesService.savePreferences();
+        };
+
 
         self.goSettings = function() {
             self.$location.path( '/settings' );
