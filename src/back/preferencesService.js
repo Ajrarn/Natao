@@ -3,7 +3,7 @@
 
     var fs = require('fs');
 
-    const fileName = 'NataoSetting.json';
+    var fileName = 'NataoSetting.json';
 
     angular
         .module('Natao')

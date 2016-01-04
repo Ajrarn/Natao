@@ -48,23 +48,23 @@
                 </div>
                 <div id="files">
                     <ul>
-                        <li>François 1er</li>
-                        <li>Henry IV</li>
-                        <li>Napoléon Bonaparte</li>
+                        <li ng-repeat="doc in EditorCtrl.PrincipalTreeService.docsMarkdown" ng-click="EditorCtrl.PrincipalTreeService.selectMarkdown(doc)">{{doc.title}}</li>
                     </ul>
                 </div>
+                <button ng-click="EditorCtrl.PrincipalTreeService.addMarkdown()">{{'BTN_ADD_MARKDOWN' | translate}}</button>
             </div>
         </div>
 
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showEditor}">
-                    editeur
-                    <textarea flex rows="4" cols="50" ng-model="EditorCtrl.myMarkdown" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    <input type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    <input type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    <textarea flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>
                 <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]">
-                    <span id="rendu" markdown-to-html="EditorCtrl.myMarkdown"></span>
+                    <span id="rendu" markdown-to-html="EditorCtrl.PrincipalTreeService.currentMarkdown.md"></span>
                 </div>
             </div>
         </div>

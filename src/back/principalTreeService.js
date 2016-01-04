@@ -21,6 +21,7 @@
         var self = this;
         self.PreferencesService = PreferencesService;
         self.$rootScope = $rootScope;
+        self.docsMarkdown = [];
 
         self.treeOptions = {
             nodeChildren: "children",
@@ -67,7 +68,7 @@
         self.save = function() {
             var copyPrincipalTree = {};
             angular.copy(self.principalTree,copyPrincipalTree);
-            self.db.update({ _id: self.principalTree._id }, copyPrincipalTree, {}, function (err,doc) {
+            self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err,doc) {
                 if (err) {
                     console.error('error:',err);
                 } /*else {
@@ -87,6 +88,16 @@
                     self.expandedNodes.push(node);
                 }
             }
+
+            //Find the documents linked to this node
+            self.db.find({docName:'markdown',nodeId:node.id}, function (err, docs) {
+                if (err) {
+                    console.log('Markdown not found');
+                } else {
+                    self.docsMarkdown = docs;
+                    self.$rootScope.$digest();
+                }
+            });
         };
 
         self.isNodeOpen = function(node) {
@@ -120,6 +131,43 @@
             self.selectedNode = newNode;
 
             self.save();
+        };
+
+        self.addMarkdown = function() {
+
+            var newMarkDown = {
+                docName:'markdown',
+                title:'test',
+                nodeId: self.selectedNode.id,
+                created: new Date(),
+                md:''
+            };
+
+            self.db.insert(newMarkDown, function (err, newDoc) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    self.docsMarkdown.push(newDoc);
+                    self.currentMarkdown = newDoc;
+                    self.$rootScope.$digest();
+                }
+            });
+        };
+
+        self.selectMarkdown = function(doc) {
+            self.currentMarkdown = doc;
+        };
+
+        self.saveCurrent = function() {
+            var copyCurrent = {};
+            angular.copy(self.currentMarkdown,copyCurrent);
+            self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err,doc) {
+                if (err) {
+                    console.error(err);
+                } /*else {
+                    self.currentMarkdown = doc;
+                }*/
+            });
         };
 
 
