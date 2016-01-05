@@ -36,7 +36,7 @@
                 label: "a6",
                 labelSelected: "a8"
             }
-        }
+        };
 
 
         self.init = function() {
@@ -154,9 +154,7 @@
             });
         };
 
-        self.selectMarkdown = function(doc) {
-            self.currentMarkdown = doc;
-        };
+
 
         self.saveCurrent = function() {
             var copyCurrent = {};

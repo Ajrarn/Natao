@@ -48,7 +48,7 @@
                 </div>
                 <div id="files">
                     <ul>
-                        <li ng-repeat="doc in EditorCtrl.PrincipalTreeService.docsMarkdown" ng-click="EditorCtrl.PrincipalTreeService.selectMarkdown(doc)">{{doc.title}}</li>
+                        <li ng-repeat="doc in EditorCtrl.PrincipalTreeService.docsMarkdown" ng-click="EditorCtrl.selectMarkdown(doc)">{{doc.title}}</li>
                     </ul>
                 </div>
                 <button ng-click="EditorCtrl.PrincipalTreeService.addMarkdown()">{{'BTN_ADD_MARKDOWN' | translate}}</button>
@@ -58,8 +58,17 @@
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showEditor}">
-                    <input type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                    <input type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    <label for="title" layout="row" layout-align="start center">
+                        <p>{{ 'DOC_TITLE' | translate }}</p>
+                        <input id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </label>
+
+                    <label for="created" layout="row" layout-align="start center">
+                        <p>{{ 'DOC_CREATED' | translate }}</p>
+                        <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </label>
+
+
                     <textarea flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>

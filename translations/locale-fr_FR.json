@@ -21,5 +21,7 @@
   "BTN_ADD_CLASS":"Ajouter une classe",
   "NODE_NAME":"Nom du dossier",
   "BTN_ADD_FOLDER":"Ajouter un dossier",
-  "BTN_ADD_MARKDOWN": "Ajouter une leçon"
+  "BTN_ADD_MARKDOWN": "Ajouter une leçon",
+  "DOC_TITLE":"Titre",
+  "DOC_CREATED":"Créé le"
 }

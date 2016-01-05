@@ -41,6 +41,11 @@
             self.inPrint = false;
         };
 
+        self.selectMarkdown = function(doc) {
+            self.PrincipalTreeService.currentMarkdown = doc;
+            self.refresh();
+        };
+
 
 
 
