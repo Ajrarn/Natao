@@ -16,13 +16,15 @@
 
 
     //Service itself
-    function PreferencesService(DatabaseService,$location,$rootScope) {
+    function PreferencesService(DatabaseService,$location,$rootScope,$translate,tmhDynamicLocale) {
         console.log('PreferencesService');
 
         var self = this;
         self.DatabaseService = DatabaseService;
         self.$location = $location;
         self.$rootScope=$rootScope;
+        self.$translate = $translate;
+        self.tmhDynamicLocale = tmhDynamicLocale;
 
 
 
@@ -127,6 +129,15 @@
            return self.db;
         };
 
+        //This function use the language in the settings
+        self.changeLanguage = function(language) {
+            if (language){
+                self.preferences.language = language;
+            }
+            self.$translate.use(self.preferences.language);
+            self.tmhDynamicLocale.set(self.preferences.language.toLowerCase().replace('_','-'));
+        };
+
 
 
 
@@ -166,6 +177,10 @@
                     } else {
                         self.preferences = docs[0];
                         if (self.isValid()) {
+                            // language settings
+                            self.changeLanguage();
+
+                            // and then go to the editor
                             self.$location.path('/app');
                             self.zoomChange();
                             self.$rootScope.$digest();

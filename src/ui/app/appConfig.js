@@ -6,15 +6,16 @@
         .config(AppConfig);
 
 
-    function AppConfig($showdownProvider,$translateProvider) {
+    function AppConfig($showdownProvider,$translateProvider,tmhDynamicLocaleProvider) {
         console.log('AppConfig');
 
         $translateProvider.useStaticFilesLoader({
             prefix: './translations/locale-',
             suffix: '.json'
         });
-
         $translateProvider.preferredLanguage('fr_FR');
+
+        tmhDynamicLocaleProvider.localeLocationPattern('./bower_components/angular-i18n/angular-locale_{{locale}}.js');
 
         $showdownProvider.loadExtension(mathjax);
 

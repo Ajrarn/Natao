@@ -72,8 +72,23 @@
                     <textarea flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>
-                <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]">
-                    <span id="rendu" markdown-to-html="EditorCtrl.PrincipalTreeService.currentMarkdown.md"></span>
+                <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]" layout="column" layout-align="start stretch">
+                    <div class="haut" layout="row" layout-align="start stretch">
+                        <div class="identity" layout="column" layout-align="center center">
+                            <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
+                            <p>{{EditorCtrl.PreferencesService.preferences.firstName}}</p>
+                        </div>
+                        <div class="title-zone" layout="column" layout-align="center center">
+                            <h1>{{EditorCtrl.PrincipalTreeService.currentMarkdown.title}}</h1>
+                            <p>{{EditorCtrl.PrincipalTreeService.currentMarkdown.created | date : 'longDate'}}</p>
+                        </div>
+                    </div>
+                    <div class="notation"></div>
+                    <div class="devoir">
+                        <div class="marge"></div>
+                        <div id="rendu" markdown-to-html="EditorCtrl.PrincipalTreeService.currentMarkdown.md"></div>
+                    </div>
+
                 </div>
             </div>
         </div>

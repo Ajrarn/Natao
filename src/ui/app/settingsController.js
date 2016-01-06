@@ -48,8 +48,7 @@
         };
 
         self.changeLanguage = function(language) {
-            self.PreferencesService.preferences.language = language;
-            $translate.use(self.PreferencesService.preferences.language);
+            self.PreferencesService.changeLanguage(language);
             self.settingsValide();
             self.step = 2;
         };
