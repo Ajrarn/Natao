@@ -43,7 +43,7 @@
         };
 
         self.selectMarkdown = function(doc) {
-            self.PrincipalTreeService.currentMarkdown = doc;
+            self.PrincipalTreeService.selectMarkdown(doc);
             self.refresh();
         };
 

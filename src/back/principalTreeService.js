@@ -2,6 +2,7 @@
     "use strict";
 
     var uuid = require('node-uuid');
+    var _ = require('lodash');
 
 
     angular
@@ -64,7 +65,8 @@
 
                 } else {
                     self.principalTree = docs[0];
-                    console.log(self.principalTree);
+                    console.log('principalTree',self.principalTree);
+                    self.initMarkdown();
                     self.$rootScope.$digest();
                 }
             });
@@ -91,17 +93,6 @@
                     self.principalTree.expandedNodes.push(node);
                 }
             }
-
-            //Find the documents linked to this node
-            self.db.find({docName:'markdown',nodeId:node.id}, function (err, docs) {
-                if (err) {
-                    console.log('Markdown not found');
-                } else {
-                    self.docsMarkdown = docs;
-                    self.$rootScope.$digest();
-                }
-            });
-
         };
 
         // if we do the save on the select node, the selected node is not yet set
@@ -109,11 +100,29 @@
         self.$rootScope.$watch(function(){
                 return self.principalTree.selectedNode;
         },function() {
+            self.initMarkdown();
             self.save();
         });
 
+        self.initMarkdown = function() {
+            //Find the documents linked to this node
+            if (self.principalTree.selectedNode) {
+                self.db.find({docName:'markdown',nodeId:self.principalTree.selectedNode.id}, function (err, docs) {
+                    if (err) {
+                        console.log('Markdown not found');
+                    } else {
+                        self.docsMarkdown = docs;
+                        if (self.principalTree.currentMarkDownId) {
+                            self.currentMarkdown = _.find(self.docsMarkdown,{_id:self.principalTree.currentMarkDownId});
+                        }
+                        self.$rootScope.$digest();
+                    }
+                });
+            }
+        };
+
         self.isNodeOpen = function(node) {
-            if (node === self.principalTree.selectedNode || self.principalTree.expandedNodes.indexOf(node) >= 0) {
+            if (node.id === self.principalTree.selectedNode.id || _.findIndex(self.principalTree.expandedNodes,{id:node.id}) >= 0) {
                 return 'open';
             } else {
                 return 'close';
@@ -161,9 +170,17 @@
                 } else {
                     self.docsMarkdown.push(newDoc);
                     self.currentMarkdown = newDoc;
+                    self.principalTree.currentMarkDownId = newDoc._id;
+                    self.save();
                     self.$rootScope.$digest();
                 }
             });
+        };
+
+        self.selectMarkdown = function(doc) {
+            self.currentMarkdown = doc;
+            self.principalTree.currentMarkDownId = doc._id;
+            self.save();
         };
 
 

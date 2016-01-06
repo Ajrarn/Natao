@@ -75,14 +75,10 @@
                         console.error('error:',err);
                     } else {
                         self.preferences = newDoc;
-                        console.log(newDoc);
                     }
                 });
             }
         };
-
-
-
 
         /*
          Check if the preferences/settings are valid
@@ -169,7 +165,6 @@
                         self.$location.path('/settings');
                     } else {
                         self.preferences = docs[0];
-                        console.log(self.preferences);
                         if (self.isValid()) {
                             self.$location.path('/app');
                             self.zoomChange();
