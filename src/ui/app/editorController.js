@@ -18,6 +18,7 @@
         self.PrincipalTreeService = PrincipalTreeService;
         self.PrincipalTreeService.init();
         self.$showdown.setOption('tables',true);
+        self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
 
         self.myMath = 'x+\\sqrt{1-x^2}';
