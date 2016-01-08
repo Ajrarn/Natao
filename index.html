@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Natao">
+<html lang="en" ng-app="Natao" ng-controller="AppController as appCtrl">
 <head>
     <meta charset="UTF-8">
     <title>Natao</title>
     <link rel='stylesheet' href='bower_components/typicons.font/src/font/typicons.min.css' />
     <link rel="stylesheet" type="text/css" href="bower_components/angular-tree-control/css/tree-control.css">
     <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="src/styles/index.css" />
+    <link rel="stylesheet" href="src/styles/index.css"/>
+    <style ng-bind-html="appCtrl.CssService.currentCss.css"></style>
 </head>
-<body ng-controller="AppController as appCtrl" layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
+<body layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
     <div flex layout="row" ng-view ng-class="appCtrl.PreferencesService.preferences.colorTheme"></div>
-
-
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/showdown/dist/showdown.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -32,6 +31,7 @@
     <script src="src/back/dataBaseService.js"></script>
     <script src="src/back/principalTreeService.js"></script>
     <script src="src/back/preferencesService.js"></script>
+    <script src="src/back/cssService.js"></script>
     <script src="src/ui/app/appController.js"></script>
     <script src="src/ui/app/settingsController.js"></script>
     <script src="src/ui/app/editorController.js"></script>

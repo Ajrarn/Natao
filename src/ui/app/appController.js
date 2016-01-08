@@ -21,10 +21,10 @@
                     });
                 }
             }
-        }]);;
+        }]);
 
 
-    function AppController($location,PreferencesService) {
+    function AppController($location,PreferencesService,CssService) {
         console.log('AppController');
 
         var self = this;
@@ -32,6 +32,7 @@
         self.databaseFile = '';
         self.showDys = false;
         self.PreferencesService = PreferencesService;
+        self.CssService = CssService;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);

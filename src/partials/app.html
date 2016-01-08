@@ -16,7 +16,6 @@
             <button ng-click="EditorCtrl.print()" title="{{'HELP' | translate}}"><span class="typcn typcn-compass"></span></button>
             <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}"><span class="typcn typcn-cog-outline"></span></button>
         </div>
-
     </div>
     <div class="principal" flex layout="row">
         <div class="left-panel" layout="row" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showMenu}" ng-show="!EditorCtrl.inPrint">
@@ -41,7 +40,10 @@
                 <div id="node">
                     <label for="nodeName" layout="column" layout-align="center center">
                         <p>{{ 'NODE_NAME' | translate }}</p>
-                        <input id="nodeName" ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.name" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ng-change="EditorCtrl.PrincipalTreeService.save()">
+                        <input id="nodeName" ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.name"
+                               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ng-change="EditorCtrl.PrincipalTreeService.save()">
+                        <select ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.css" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss">
+                        </select>
                     </label>
                     <button ng-click="EditorCtrl.PrincipalTreeService.addFolder()">{{'BTN_ADD_FOLDER' | translate}}</button>
 
@@ -72,7 +74,8 @@
                     <textarea flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>
-                <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]" layout="column" layout-align="start stretch">
+                <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]"
+                     layout="column" layout-align="start stretch">
                     <div class="haut" layout="row" layout-align="start stretch">
                         <div class="identity" layout="column" layout-align="center center">
                             <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>

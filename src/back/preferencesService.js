@@ -16,7 +16,7 @@
 
 
     //Service itself
-    function PreferencesService(DatabaseService,$location,$rootScope,$translate,tmhDynamicLocale) {
+    function PreferencesService(DatabaseService,CssService,$location,$rootScope,$translate,tmhDynamicLocale) {
         console.log('PreferencesService');
 
         var self = this;
@@ -25,6 +25,8 @@
         self.$rootScope=$rootScope;
         self.$translate = $translate;
         self.tmhDynamicLocale = tmhDynamicLocale;
+
+        self.CssService = CssService;
 
 
 

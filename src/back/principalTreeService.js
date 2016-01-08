@@ -16,11 +16,12 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,$rootScope) {
+    function PrincipalTreeService(PreferencesService,CssService,$rootScope) {
         console.log('PrincipalTreeService');
 
         var self = this;
         self.PreferencesService = PreferencesService;
+        self.CssService = CssService;
         self.$rootScope = $rootScope;
         self.docsMarkdown = [];
         self.principalTree = {};
@@ -67,6 +68,8 @@
                     self.principalTree = docs[0];
                     console.log('principalTree',self.principalTree);
                     self.initMarkdown();
+                    //Init the css service
+                    self.CssService.init(self.db,self.principalTree.selectedNode.css);
                     self.$rootScope.$digest();
                 }
             });
@@ -132,7 +135,8 @@
         self.addFolder = function() {
             var newNode = {
                 id: uuid.v4(),
-                name: 'New Folder'
+                name: 'New Folder',
+                css:'default'
             };
             if (!self.principalTree.selectedNode.children) {
                 self.principalTree.selectedNode.children = [];
@@ -146,7 +150,8 @@
         self.addClass = function() {
             var newNode = {
                 id: uuid.v4(),
-                name: 'New Folder'
+                name: 'New Folder',
+                css: 'default'
             };
             self.principalTree.tree.push(newNode);
             self.principalTree.selectedNode = newNode;
