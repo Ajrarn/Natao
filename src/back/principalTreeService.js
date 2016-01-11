@@ -97,6 +97,11 @@
                 }
             }
 
+            /*if (node.css) {
+                self.CssService.initCurrent(node.css);
+            }*/
+
+
         };
 
         // if we do the save on the select node, the selected node is not yet set
@@ -117,7 +122,11 @@
                     } else {
                         self.docsMarkdown = docs;
                         if (self.principalTree.currentMarkDownId) {
-                            self.currentMarkdown = _.find(self.docsMarkdown,{_id:self.principalTree.currentMarkDownId});
+                            // If the selected node contains the saved markedDown doc id then show it
+                            if (_.findIndex(self.docsMarkdown, {_id:self.principalTree.currentMarkDownId}) >= 0) {
+                                self.currentMarkdown = _.find(self.docsMarkdown,{_id:self.principalTree.currentMarkDownId});
+                            }
+
                         }
                         self.$rootScope.$digest();
                     }
@@ -184,19 +193,21 @@
         };
 
         self.selectMarkdown = function(doc) {
-            self.currentMarkdown = doc;
-            self.principalTree.currentMarkDownId = doc._id;
-            self.save();
-            //set the good css
-            self.CssService.initCss(self.selectedNode.css);
+            if (!angular.equals(doc,self.currentMarkdown)) {
+                angular.copy(doc,self.currentMarkdown);
+                self.principalTree.currentMarkDownId = doc._id;
+                self.save();
+                //set the good css
+                if (self.principalTree.selectedNode.css) {
+                    self.CssService.initCurrent(self.principalTree.selectedNode.css);
+                }
+            }
         };
-
-
 
         self.saveCurrent = function() {
             var copyCurrent = {};
             angular.copy(self.currentMarkdown,copyCurrent);
-            self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+             self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
                 if (err) {
                     console.error(err);
                 }

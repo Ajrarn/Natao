@@ -59,7 +59,7 @@
 
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
-                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showEditor}">
+                <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor()}">
                     <label for="title" layout="row" layout-align="start center">
                         <p>{{ 'DOC_TITLE' | translate }}</p>
                         <input id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
@@ -74,7 +74,7 @@
                     <textarea flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </textarea>
                 </div>
-                <div class="visualiser" flex ng-class="[{hidden: !appCtrl.PreferencesService.preferences.showVisualiser},{inprint: EditorCtrl.inPrint}]"
+                <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"
                      layout="column" layout-align="start stretch">
                     <div class="haut" layout="row" layout-align="start stretch">
                         <div class="identity" layout="column" layout-align="center center">

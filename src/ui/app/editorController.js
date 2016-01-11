@@ -48,7 +48,13 @@
         };
 
 
-        /**************************************/
+        self.showVisualizer = function() {
+            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showVisualiser;
+        };
+
+        self.showEditor = function() {
+            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showEditor;
+        };
 
         self.print = function() {
             self.inPrint = true;
