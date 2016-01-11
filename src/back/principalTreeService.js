@@ -96,6 +96,7 @@
                     self.principalTree.expandedNodes.push(node);
                 }
             }
+
         };
 
         // if we do the save on the select node, the selected node is not yet set
@@ -186,6 +187,8 @@
             self.currentMarkdown = doc;
             self.principalTree.currentMarkDownId = doc._id;
             self.save();
+            //set the good css
+            self.CssService.initCss(self.selectedNode.css);
         };
 
 

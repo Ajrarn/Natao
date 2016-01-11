@@ -41,16 +41,32 @@
         };
 
         self.defaultCss = function() {
-            var newCss = {
+            var greenCss = {
                 docName:'css',
-                name:'default',
+                name:'red',
                 css:'h1 {color:red;}'
             };
-            self.db.insert(newCss,function(err,doc) {
+
+            var redCss = {
+                docName:'css',
+                name:'green',
+                css:'h1 {color:green;}'
+            };
+
+            self.availableCss = [];
+
+            self.db.insert(redCss,function(err,doc) {
                 if (err) {
                     console.error(err);
                 } else {
-                    self.availableCss = [];
+                    self.availableCss.push(doc);
+                }
+            });
+
+            self.db.insert(greenCss,function(err,doc) {
+                if (err) {
+                    console.error(err);
+                } else {
                     self.availableCss.push(doc);
                 }
             });
