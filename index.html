@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="bower_components/angular-tree-control/css/tree-control.css">
     <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="src/styles/index.css"/>
-    <style ng-bind-html="appCtrl.CssService.currentCss.css"></style>
+    <style ng-bind="appCtrl.CssService.currentCss.css"></style>
 </head>
 <body layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
     <div flex layout="row" ng-view ng-class="appCtrl.PreferencesService.preferences.colorTheme"></div>

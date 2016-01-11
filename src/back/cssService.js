@@ -1,7 +1,9 @@
 (function () {
     "use strict";
 
-    var _ = require('lodash');
+    var _ = require('lodash')
+        ,fs = require('fs');
+
 
     angular
         .module('Natao')
@@ -34,14 +36,41 @@
                          self.defaultCss();
                      } else {
                          self.availableCss = docs;
-                         self.initCurrent(nameCss);
+                         console.log('css',docs);
+                         if (nameCss) {
+                             self.initCurrent(nameCss);
+                         }
                      }
                  }
              });
         };
 
         self.defaultCss = function() {
-            var greenCss = {
+            var pathCss = './default_css';
+            self.availableCss = [];
+
+            var defaultFilesCss = fs.readdirSync(pathCss);
+
+
+            defaultFilesCss.forEach(function(file) {
+                var cssContent = fs.readFileSync(pathCss + '/' + file,'utf8');
+                var docCss = {
+                    docName:'css',
+                    name: file,
+                    css: cssContent
+                };
+
+                self.db.insert(docCss,function(err,doc) {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        self.availableCss.push(doc);
+                    }
+                });
+            });
+
+
+            /*var greenCss = {
                 docName:'css',
                 name:'red',
                 css:'h1 {color:red;}'
@@ -53,7 +82,7 @@
                 css:'h1 {color:green;}'
             };
 
-            self.availableCss = [];
+
 
             self.db.insert(redCss,function(err,doc) {
                 if (err) {
@@ -69,7 +98,7 @@
                 } else {
                     self.availableCss.push(doc);
                 }
-            });
+            });*/
         };
 
         self.addCss = function(newCss) {

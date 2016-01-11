@@ -64,12 +64,19 @@
                         }
                     });
 
+                    self.CssService.init(self.db,null);
+
                 } else {
                     self.principalTree = docs[0];
                     console.log('principalTree',self.principalTree);
                     self.initMarkdown();
                     //Init the css service
-                    self.CssService.init(self.db,self.principalTree.selectedNode.css);
+                    if (self.principalTree.selectedNode) {
+                        self.CssService.init(self.db,self.principalTree.selectedNode.css);
+                    } else {
+                        self.CssService.init(self.db,null);
+                    }
+
                     self.$rootScope.$digest();
                 }
             });
