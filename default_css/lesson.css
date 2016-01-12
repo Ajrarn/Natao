@@ -1,0 +1,16 @@
+.notation {
+    display: none;
+}
+
+.identity {
+    display: none;
+    width: 0px;
+}
+
+.marge {
+    display: none;
+}
+
+#rendu  h1 {
+    color: red;
+}

@@ -1,0 +1,23 @@
+.notation {
+    height: 50px;
+    border-top: blue solid 1px;
+    border-bottom: blue solid 1px;
+}
+
+.identity {
+    width: 100px;
+}
+
+.marge {
+    width: 100px;
+    min-width: 100px;
+    border-right: red solid 1px;
+}
+
+h1 {
+    color: red;
+}
+
+#rendu  h1 {
+    color: blue;
+}

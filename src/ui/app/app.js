@@ -3,7 +3,7 @@
 
     var fs = require('fs');
 
-    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog'];
+    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog','nsPopover'];
 
     angular
         .module('Natao', modules)

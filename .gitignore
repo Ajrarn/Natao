@@ -1,6 +1,6 @@
 bower_components/
 node_modules/
 .idea/
-**/*.css
+src/styles/*.css
 **/*.map
 **/.DS_Store
