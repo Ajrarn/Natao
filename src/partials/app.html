@@ -20,7 +20,29 @@
     <div class="principal" flex layout="row">
         <div class="left-panel" layout="row" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showMenu}" ng-show="!EditorCtrl.inPrint">
             <div class="menu" layout="column">
-                <button ng-click="EditorCtrl.PrincipalTreeService.addClass()">{{'BTN_ADD_CLASS' | translate}}</button>
+                <div layout="row" layout-align="space-between center">
+                    <p>Cartable</p>
+                    <script type="text/ng-template" id="popoverNewClass">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                            <form novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)">
+                                <label for="newClassName" layout="column" layout-align="center center">
+                                    <p>{{ 'NODE_NAME' | translate }}</p>
+                                    <input id="newClassName" ng-model="EditorCtrl.newClass">
+                                </label>
+                                <button type="submit" id="submit" value="Submit">Add</button>
+                                <button type="reset" ng-click="EditorCtrl.closeClassPopover(hidePopover)">Cancel</button>
+                            </form>
+
+                        </div>
+                    </script>
+                    <button ns-popover
+                            ns-popover-template="popoverNewClass"
+                            ns-popover-trigger="click"
+                            ns-popover-placement="right"
+                            ns-popover-theme="ns-popover-tooltip-theme"
+                            ng-click="EditorCtrl.openClassPopover()" title="{{'BTN_ADD_CLASS' | translate}}"><span class="typcn typcn-folder-add"></span></button>
+                </div>
                 <div class="treeContainer" flex>
                     <treecontrol class="tree-light"
                                  tree-model="EditorCtrl.PrincipalTreeService.principalTree.tree"
@@ -37,36 +59,14 @@
                 </div>
             </div>
             <div class="files">
-                <script type="text/ng-template" id="popoverClass">
-
-                    <div class="triangle"></div>
-
-                    <div class="ns-popover-tooltip">
-                        <ul>
-                            <li><a>Toto</a></li>
-                            <li><a>Tata</a></li>
-                        </ul>
-
-                        <button ng-click="EditorCtrl.closeClassPopover(hidePopover)">Close</button>
-
-                    </div>
-                </script>
-
-                <button ns-popover="EditorCtrl.showClassPopover"
-                        ns-popover-template="popoverClass"
-                        ns-popover-trigger="click"
-                        ns-popover-placement="right"
-                        ns-popover-theme="ns-popover-tooltip-theme">
-                    Popover
-                </button>
                 <div id="node">
                     <label for="nodeName" layout="column" layout-align="center center">
                         <p>{{ 'NODE_NAME' | translate }}</p>
                         <input id="nodeName" ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.name"
                                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ng-change="EditorCtrl.PrincipalTreeService.save()">
-                        <select ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.css" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss">
-                        </select>
                     </label>
+                    <select ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.css" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss">
+                    </select>
                     <button ng-click="EditorCtrl.PrincipalTreeService.addFolder()">{{'BTN_ADD_FOLDER' | translate}}</button>
 
                 </div>

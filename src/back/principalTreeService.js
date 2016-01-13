@@ -164,10 +164,10 @@
             self.save();
         };
 
-        self.addClass = function() {
+        self.addClass = function(nameClass) {
             var newNode = {
                 id: uuid.v4(),
-                name: 'New Folder',
+                name: nameClass,
                 css: 'default'
             };
             self.principalTree.tree.push(newNode);

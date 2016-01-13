@@ -63,8 +63,17 @@
             self.$timeout(self.offPrint, 1150);  //with angular $digest
         };
 
+        self.openClassPopover = function() {
+            self.newClass = null;
+        };
+
 
         self.closeClassPopover = function(hide){
+            hide();
+        };
+
+        self.addClassPopover = function(hide){
+            self.PrincipalTreeService.addClass(self.newClass);
             hide();
         };
     }
