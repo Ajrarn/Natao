@@ -37,17 +37,26 @@
                 </div>
             </div>
             <div class="files">
-                <script type="text/ng-template" id="popover">
-                    <ul>
-                        <li><a>Toto</a></li>
-                        <li><a>Tata</a></li>
-                    </ul>
+                <script type="text/ng-template" id="popoverClass">
+
+                    <div class="triangle"></div>
+
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li><a>Toto</a></li>
+                            <li><a>Tata</a></li>
+                        </ul>
+
+                        <button ng-click="EditorCtrl.closeClassPopover(hidePopover)">Close</button>
+
+                    </div>
                 </script>
 
-                <button ns-popover
-                        ns-popover-template="popover"
+                <button ns-popover="EditorCtrl.showClassPopover"
+                        ns-popover-template="popoverClass"
                         ns-popover-trigger="click"
-                        ns-popover-placement="bottom">
+                        ns-popover-placement="right"
+                        ns-popover-theme="ns-popover-tooltip-theme">
                     Popover
                 </button>
                 <div id="node">

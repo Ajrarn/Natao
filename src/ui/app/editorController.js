@@ -21,6 +21,7 @@
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
 
+
         self.myMath = 'x+\\sqrt{1-x^2}';
 
         self.myMarkdown = '$$sqrt(2)/2$$ \n'
@@ -60,6 +61,11 @@
             self.inPrint = true;
             setTimeout(window.print, 1050);       //without angular $digest
             self.$timeout(self.offPrint, 1150);  //with angular $digest
+        };
+
+
+        self.closeClassPopover = function(hide){
+            hide();
         };
     }
 
