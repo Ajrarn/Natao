@@ -59,30 +59,36 @@ html, body {
   background-color: black;
   color:white;
   height: 50px;
+}
 
-  button {
+button {
+
+  padding: 3px 7px;
+  margin: 5px;
+  font-size: 1.5em;
+  border-radius: 5px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.transparent {
     border-color: transparent;
     background-color: transparent;
-    padding: 3px 7px;
-    margin: 5px;
     color:white;
-    font-size: 1.5em;
+  }
+
+  &.toggle {
+    background-color: transparent;
+    color:white;
+    padding: 3px 5px;
+    border: solid 2px;
+    border-radius: 30px;
+    border-color: white;
 
 
-    &:focus {
-      outline: none;
-    }
-
-    &.toggle {
-      padding: 3px 5px;
-      border: solid 2px;
-      border-radius: 30px;
-      border-color: white;
-
-
-      &.off {
-        border-color: transparent;
-      }
+    &.off {
+      border-color: transparent;
     }
   }
 }
@@ -178,7 +184,12 @@ input,label,p{
 }
 /***********************TreeView***********************/
 
-.tree-light {
+.treeContainer {
+  background-color: white;
+}
+
+
+/*.tree-light {
   color: white;
 
   .typcn {
@@ -200,7 +211,7 @@ treecontrol li{
   display:none !important;
   width:0 !important;
   height: 0 !important;
-}
+}*/
 
 /**********************flags*************************/
 .flag-icon {

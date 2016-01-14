@@ -39,6 +39,9 @@
                 iLeaf: "a5",
                 label: "a6",
                 labelSelected: "a8"
+            },
+            isLeaf: function(node) {
+                return node.leaf;
             }
         };
 
@@ -69,7 +72,8 @@
                 } else {
                     self.principalTree = docs[0];
                     console.log('principalTree',self.principalTree);
-                    self.initMarkdown();
+                    self.initTreeView();
+                    //self.initMarkdown();
                     //Init the css service
                     if (self.principalTree.selectedNode) {
                         self.CssService.init(self.db,self.principalTree.selectedNode.css);
@@ -80,6 +84,40 @@
                     self.$rootScope.$digest();
                 }
             });
+        };
+
+        //recursive function that read the tree of folders and add the markdown documents
+        self.initTreeView = function(nodeTree) {
+            var children = [];
+            if (!nodeTree) {
+                self.treeView = self.principalTree.tree.map(function(item) {
+                    return item;
+                });
+                children = self.treeView;
+            } else {
+                children = nodeTree.children;
+            }
+
+            if (children && children.length >0) {
+                children.forEach(function(node) {
+                    self.db.find({docName:'markdown',nodeId:node.id}, function (err, docs) {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            if (docs && docs.length > 0) {
+                                node.children = docs.map(function(item) {
+                                    return {
+                                        id: item._id,
+                                        name: item.title,
+                                        leaf: true
+                                    };
+                                });
+                            }
+                        }
+                    });
+                    self.initTreeView(node);
+                });
+            }
         };
 
         self.save = function() {
@@ -93,8 +131,20 @@
         };
 
         self.selectNode = function(node) {
-
-            var indexNodeInExpanded = self.principalTree.expandedNodes.indexOf(node);
+            if (!node.children) {
+                self.principalTree.currentMarkDownId = node.id;
+                self.db.find({docName:'markdown',_id:node.id}, function (err, docs) {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        if (docs && docs.length > 0) {
+                            self.currentMarkdown = docs[0];
+                            self.$rootScope.$digest();
+                        }
+                    }
+                });
+            }
+            /*var indexNodeInExpanded = self.principalTree.expandedNodes.indexOf(node);
 
             if (indexNodeInExpanded >= 0) {
                 self.principalTree.expandedNodes.splice(indexNodeInExpanded,1);
@@ -102,7 +152,7 @@
                 if (node.children && node.children.length > 0) {
                     self.principalTree.expandedNodes.push(node);
                 }
-            }
+            }*/
 
             /*if (node.css) {
                 self.CssService.initCurrent(node.css);
@@ -116,11 +166,10 @@
         self.$rootScope.$watch(function(){
                 return self.principalTree.selectedNode;
         },function() {
-            self.initMarkdown();
             self.save();
         });
 
-        self.initMarkdown = function() {
+        /*self.initMarkdown = function() {
             //Find the documents linked to this node
             if (self.principalTree.selectedNode) {
                 self.db.find({docName:'markdown',nodeId:self.principalTree.selectedNode.id}, function (err, docs) {
@@ -139,15 +188,15 @@
                     }
                 });
             }
-        };
+        };*/
 
-        self.isNodeOpen = function(node) {
+        /*self.isNodeOpen = function(node) {
             if (node.id === self.principalTree.selectedNode.id || _.findIndex(self.principalTree.expandedNodes,{id:node.id}) >= 0) {
                 return 'open';
             } else {
                 return 'close';
             }
-        };
+        };*/
 
         self.addFolder = function() {
             var newNode = {

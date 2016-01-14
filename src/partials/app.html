@@ -1,8 +1,8 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
     <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
         <div layout="row" layput-align="start center">
-            <button ng-click="appCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}"><span class="typcn typcn-zoom-out-outline"></span></button>
-            <button ng-click="appCtrl.zoomHigher()" title="{{'ZOOM_IN' | translate}}"><span class="typcn typcn-zoom-in-outline"></span></button>
+            <button ng-click="appCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}" class="transparent"><span class="typcn typcn-zoom-out-outline"></span></button>
+            <button ng-click="appCtrl.zoomHigher()" title="{{'ZOOM_IN' | translate}}" class="transparent"><span class="typcn typcn-zoom-in-outline"></span></button>
         </div>
         <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showDys}" ng-click="appCtrl.toggleDys()" title="{{'DYS' | translate}}"><span class="typcn typcn-feather"></span></button>
         <div layout="row" layput-align="start center">
@@ -12,9 +12,9 @@
         </div>
 
         <div layout="row" layput-align="start center">
-            <button ng-click="EditorCtrl.print()" title="{{'PRINT' | translate}}"><span class="typcn typcn-printer"></span></button>
-            <button ng-click="EditorCtrl.print()" title="{{'HELP' | translate}}"><span class="typcn typcn-compass"></span></button>
-            <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}"><span class="typcn typcn-cog-outline"></span></button>
+            <button ng-click="EditorCtrl.print()" title="{{'PRINT' | translate}}" class="transparent"><span class="typcn typcn-printer"></span></button>
+            <button ng-click="EditorCtrl.print()" title="{{'HELP' | translate}}" class="transparent"><span class="typcn typcn-compass"></span></button>
+            <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}" class="transparent"><span class="typcn typcn-cog-outline"></span></button>
         </div>
     </div>
     <div class="principal" flex layout="row">
@@ -33,10 +33,9 @@
                                 <button type="submit" id="submit" value="Submit">Add</button>
                                 <button type="reset" ng-click="EditorCtrl.closeClassPopover(hidePopover)">Cancel</button>
                             </form>
-
                         </div>
                     </script>
-                    <button ns-popover
+                    <button ns-popover  class="transparent light"
                             ns-popover-template="popoverNewClass"
                             ns-popover-trigger="click"
                             ns-popover-placement="right"
@@ -44,16 +43,16 @@
                             ng-click="EditorCtrl.openClassPopover()" title="{{'BTN_ADD_CLASS' | translate}}"><span class="typcn typcn-folder-add"></span></button>
                 </div>
                 <div class="treeContainer" flex>
-                    <treecontrol class="tree-light"
-                                 tree-model="EditorCtrl.PrincipalTreeService.principalTree.tree"
+                    <treecontrol class="tree-classic"
+                                 tree-model="EditorCtrl.PrincipalTreeService.treeView"
                                  options="EditorCtrl.PrincipalTreeService.treeOptions"
                                  on-selection="EditorCtrl.PrincipalTreeService.selectNode(node,selected)"
                                  selected-node="EditorCtrl.PrincipalTreeService.principalTree.selectedNode"
                                  expanded-nodes="EditorCtrl.PrincipalTreeService.principalTree.expandedNodes">
-                    <span ng-switch="" on="EditorCtrl.PrincipalTreeService.isNodeOpen(node)">
+                    <!--span ng-switch="" on="EditorCtrl.PrincipalTreeService.isNodeOpen(node)">
                          <span ng-switch-when="close" class="typcn typcn-folder" aria-hidden="true"></span>
                          <span ng-switch-when="open" class="typcn typcn-folder-open" aria-hidden="true"></span>
-                     </span>
+                     </span-->
                         {{node.name}}
                     </treecontrol>
                 </div>

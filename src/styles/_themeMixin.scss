@@ -1,15 +1,25 @@
 
 @mixin color-theme($color_map) {
-  .bandeau {
-    button {
+
+
+  .transparent {
+    &:hover {
+      background-color: map-get($color_map, DD);
+    }
+
+    &.light{
       &:hover {
-        background-color: map-get($color_map, DD);
+        background-color: map-get($color_map, MD);
       }
-      &.toggle {
-        &.off {
-          color: map-get($color_map, MD);
-        }
-      }
+    }
+  }
+
+  .toggle {
+    &:hover {
+      background-color: map-get($color_map, DD);
+    }
+    &.off {
+      color: map-get($color_map, MD);
     }
   }
 
