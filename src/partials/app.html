@@ -32,7 +32,7 @@
                                 </label>
                                 <span flex layout="row" layout-align="center center">
                                     <button type="submit" id="submit" value="Submit" title="{{ 'BTN_ADD' | translate }}"><span class="typcn typcn-input-checked-outline"></span></button>
-                                <button type="reset" ng-click="EditorCtrl.closeClassPopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
+                                <button type="reset" ng-click="EditorCtrl.closePopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
                                 </span>
                             </form>
                         </div>
@@ -49,13 +49,13 @@
                         <div class="triangle"></div>
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
                             <form novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)" layout="column">
-                                <label for="newClassName" layout="column" layout-align="center center">
+                                <label for="folderName" layout="column" layout-align="center center">
                                     <p>{{ 'CLASS_NAME' | translate }}</p>
-                                    <input id="newClassName" ng-model="EditorCtrl.newClass">
+                                    <input id="folderName" ng-model="EditorCtrl.currentNode.name">
                                 </label>
                                 <span flex layout="row" layout-align="center center">
                                     <button type="submit" id="submit" value="Submit" title="{{ 'BTN_ADD' | translate }}"><span class="typcn typcn-input-checked-outline"></span></button>
-                                <button type="reset" ng-click="EditorCtrl.closeClassPopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
+                                <button type="reset" ng-click="EditorCtrl.closePopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
                                 </span>
                             </form>
                         </div>
@@ -71,7 +71,7 @@
                                     ns-popover-template="popoverNewFolder"
                                     ns-popover-trigger="click"
                                     ns-popover-placement="right"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)">
                                 <span class="typcn typcn-edit"></span>
                             </button> <span>{{node.name}}</span>
                     </treecontrol>

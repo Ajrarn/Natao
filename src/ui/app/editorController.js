@@ -68,7 +68,7 @@
         };
 
 
-        self.closeClassPopover = function(hide){
+        self.closePopover = function(hide){
             hide();
         };
 
@@ -76,6 +76,11 @@
             self.PrincipalTreeService.addClass(self.newClass);
             hide();
         };
+
+        self.openFolderPopover = function(node) {
+            self.currentNode = node;
+            self.newFolder = null;
+        }
     }
 
 }());
