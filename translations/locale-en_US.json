@@ -19,9 +19,12 @@
   "SETTING_MESSAGE_THEME":" Finnally, you must choose a color theme",
   "SETTING_MESSAGE_DONE":"And that's it, we can start after you click on the upper left button",
   "BTN_ADD_CLASS":"Add a class",
+  "CLASS_NAME": "Name of the class",
   "NODE_NAME":"Folder name",
   "BTN_ADD_FOLDER":"Add a folder",
   "BTN_ADD_MARKDOWN": "Add a lesson",
+  "BTN_ADD":"Add",
+  "BTN_CANCEL":"Annuler",
   "DOC_TITLE":"Title",
   "DOC_CREATED":"Created on"
 }

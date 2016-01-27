@@ -19,9 +19,12 @@
   "SETTING_MESSAGE_THEME":" Enfin, il te faut choisir un thème coloré",
   "SETTING_MESSAGE_DONE":"Et c'est tout, nous avons fini. Il ne te reste plus qu'à cliquer sur le bouton en haut à gauche",
   "BTN_ADD_CLASS":"Ajouter une classe",
+  "CLASS_NAME": "Nom de la classe",
   "NODE_NAME":"Nom du dossier",
   "BTN_ADD_FOLDER":"Ajouter un dossier",
   "BTN_ADD_MARKDOWN": "Ajouter une leçon",
+  "BTN_ADD":"Ajouter",
+  "BTN_CANCEL":"Annuler",
   "DOC_TITLE":"Titre",
   "DOC_CREATED":"Créé le"
 }

@@ -27,11 +27,11 @@
                         <div class="ns-popover-tooltip">
                             <form novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)">
                                 <label for="newClassName" layout="column" layout-align="center center">
-                                    <p>{{ 'NODE_NAME' | translate }}</p>
+                                    <p>{{ 'CLASS_NAME' | translate }}</p>
                                     <input id="newClassName" ng-model="EditorCtrl.newClass">
                                 </label>
-                                <button type="submit" id="submit" value="Submit">Add</button>
-                                <button type="reset" ng-click="EditorCtrl.closeClassPopover(hidePopover)">Cancel</button>
+                                <button type="submit" id="submit" value="Submit">{{ 'BTN_ADD' | translate }}</button>
+                                <button type="reset" ng-click="EditorCtrl.closeClassPopover(hidePopover)">{{ 'BTN_CANCEL' | translate }}</button>
                             </form>
                         </div>
                     </script>
@@ -57,7 +57,7 @@
                     </treecontrol>
                 </div>
             </div>
-            <div class="files">
+            <!--div class="files">
                 <div id="node">
                     <label for="nodeName" layout="column" layout-align="center center">
                         <p>{{ 'NODE_NAME' | translate }}</p>
@@ -76,7 +76,7 @@
                 </div>
                 <button ng-click="EditorCtrl.PrincipalTreeService.addMarkdown()">{{'BTN_ADD_MARKDOWN' | translate}}</button>
             </div>
-        </div>
+        </div-->
 
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
