@@ -1,25 +1,42 @@
 
 @mixin color-theme($color_map) {
 
+  button {
+    background-color: map-get($color_map, DD);
+    color:white;
 
-  .transparent {
     &:hover {
-      background-color: map-get($color_map, DD);
+      background-color: map-get($color_map, MD);
     }
 
-    &.light{
+    &.transparent {
+
+      background-color: transparent;
+
       &:hover {
-        background-color: map-get($color_map, MD);
+        background-color: map-get($color_map, DD);
+      }
+
+      &.light{
+        &:hover {
+          background-color: map-get($color_map, MD);
+        }
       }
     }
-  }
 
-  .toggle {
-    &:hover {
-      background-color: map-get($color_map, DD);
-    }
-    &.off {
-      color: map-get($color_map, MD);
+    &.toggle {
+      background-color: transparent;
+      color:white;
+      border-color: white;
+
+      &:hover {
+        background-color: map-get($color_map, DD);
+      }
+
+      &.off {
+        color: map-get($color_map, MD);
+        border-color: transparent;
+      }
     }
   }
 
