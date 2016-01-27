@@ -68,6 +68,17 @@ button {
   font-size: 1.5em;
   border-radius: 5px;
   border: none;
+  color:white;
+
+  &.small {
+    padding: 1px 3px;
+    margin: 2px;
+    font-size: 1.2em;
+  }
+
+  &.black {
+    color: black;
+  }
 
   &:focus {
     outline: none;

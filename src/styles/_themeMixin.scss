@@ -3,7 +3,7 @@
 
   button {
     background-color: map-get($color_map, DD);
-    color:white;
+
 
     &:hover {
       background-color: map-get($color_map, MD);
