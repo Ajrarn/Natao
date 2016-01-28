@@ -1,7 +1,7 @@
 
 @mixin color-theme($color_map) {
 
-  button {
+  button,.button {
     background-color: map-get($color_map, DD);
 
 

@@ -20,6 +20,7 @@
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
+        self.showAddFolder = false;
 
 
         self.myMath = 'x+\\sqrt{1-x^2}';
@@ -73,13 +74,40 @@
         };
 
         self.addClassPopover = function(hide){
-            self.PrincipalTreeService.addClass(self.newClass);
+            if (self.newClass && self.newClass !== '') {
+                self.PrincipalTreeService.addClass(self.newClass);
+            }
             hide();
         };
 
         self.openFolderPopover = function(node) {
             self.currentNode = node;
-            self.newFolder = null;
+            self.oldNameFolder = node.name;
+
+        }
+
+        self.switchAddFolder = function(node) {
+            if (self.showAddFolder){
+                self.addFolder(node);
+            } else {
+                self.newFolder = null;
+            }
+
+            //switch
+            self.showAddFolder = !self.showAddFolder;
+        }
+
+        self.addFolder = function(node) {
+            self.PrincipalTreeService.addFolder(self.newFolder, node);
+        }
+
+        self.saveFolder = function() {
+            self.PrincipalTreeService.save();
+        }
+
+        self.cancelFolderPopover = function(hide) {
+            self.currentNode.name = self.oldNameFolder;
+            hide();
         }
     }
 

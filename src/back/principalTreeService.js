@@ -198,31 +198,27 @@
             }
         };*/
 
-        self.addFolder = function() {
+        self.addFolder = function(nodeName,node) {
+
             var newNode = {
                 id: uuid.v4(),
-                name: 'New Folder',
+                name: nodeName,
                 css:'default'
             };
-            if (!self.principalTree.selectedNode.children) {
-                self.principalTree.selectedNode.children = [];
+
+            if (node) {
+                if (!node.children) {
+                    node.children = [];
+                }
+                node.children.push(newNode);
+            } else {
+                self.principalTree.tree.push(newNode);
             }
-            self.principalTree.selectedNode.children.push(newNode);
-            self.principalTree.expandedNodes.push(self.principalTree.selectedNode);
-            self.principalTree.selectedNode = newNode;
             self.save();
         };
 
         self.addClass = function(nameClass) {
-            var newNode = {
-                id: uuid.v4(),
-                name: nameClass,
-                css: 'default'
-            };
-            self.principalTree.tree.push(newNode);
-            self.principalTree.selectedNode = newNode;
-
-            self.save();
+            self.addFolder(nameClass);
         };
 
         self.addMarkdown = function() {
