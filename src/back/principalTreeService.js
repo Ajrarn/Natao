@@ -53,7 +53,7 @@
                     console.log('Principal Document not found');
 
                     self.principalTree = {
-                        docName:'PrincipalTree',
+                        docName: 'PrincipalTree',
                         tree: [],
                         expandedNodes: [],
                         selectedNode: null
@@ -61,64 +61,42 @@
 
                     self.db.insert(self.principalTree, function (err, newDoc) {
                         if (err) {
-                            console.error('error:',err);
+                            console.error('error:', err);
                         } else {
                             self.principalTree = newDoc;
                         }
                     });
 
-                    self.CssService.init(self.db,null);
+                    self.CssService.init(self.db, null);
 
                 } else {
                     self.principalTree = docs[0];
-                    console.log('principalTree',self.principalTree);
-                    self.initTreeView();
-                    //self.initMarkdown();
-                    //Init the css service
+                    console.log('principalTree', self.principalTree);
                     if (self.principalTree.selectedNode) {
-                        self.CssService.init(self.db,self.principalTree.selectedNode.css);
+                        self.CssService.init(self.db, self.principalTree.selectedNode.css);
                     } else {
-                        self.CssService.init(self.db,null);
+                        self.CssService.init(self.db, null);
                     }
 
-                    self.$rootScope.$digest();
+                    if (self.principalTree.currentMarkdownId) {
+                        self.db.find({
+                            docName: 'markdown',
+                            _id: self.principalTree.currentMarkdownId
+                        }, function (err, docs) {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                self.currentMarkdown = docs[0];
+                            }
+                        });
+
+                        self.$rootScope.$digest();
+                    }
                 }
             });
         };
 
-        //recursive function that read the tree of folders and add the markdown documents
-        self.initTreeView = function(nodeTree) {
-            var children = [];
-            if (!nodeTree) {
-                self.treeView = self.principalTree.tree.map(function(item) {
-                    return item;
-                });
-                children = self.treeView;
-            } else {
-                children = nodeTree.children;
-            }
 
-            if (children && children.length >0) {
-                children.forEach(function(node) {
-                    self.db.find({docName:'markdown',nodeId:node.id}, function (err, docs) {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            if (docs && docs.length > 0) {
-                                node.children = docs.map(function(item) {
-                                    return {
-                                        id: item._id,
-                                        name: item.title,
-                                        leaf: true
-                                    };
-                                });
-                            }
-                        }
-                    });
-                    self.initTreeView(node);
-                });
-            }
-        };
 
         self.save = function() {
             var copyPrincipalTree = {};
@@ -133,13 +111,15 @@
         self.selectNode = function(node) {
 
             if (node.leaf) {
-                if (node.id !== self.currentMarkdown._id) {
+                if ( !self.principalTree.currentMarkdownId || (self.principalTree.currentMarkdownId && node.id !== self.principalTree.currentMarkdownId)) {
                     self.db.find({docName:'markdown',_id: node.id}, function (err, docs) {
                         if (err) {
                             console.error(err);
                         } else {
                             if (docs && docs.length > 0){
                                 self.currentMarkdown = docs[0];
+                                self.principalTree.currentMarkdownId = self.currentMarkdown._id;
+                                self.save();
                                 self.$rootScope.$digest();
                             }
                         }
@@ -147,19 +127,6 @@
                 }
             }
 
-            /*if (!node.children) {
-                self.principalTree.currentMarkDownId = node.id;
-                self.db.find({docName:'markdown',_id:node.id}, function (err, docs) {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        if (docs && docs.length > 0) {
-                            self.currentMarkdown = docs[0];
-                            self.$rootScope.$digest();
-                        }
-                    }
-                });
-            }*/
 
         };
 
