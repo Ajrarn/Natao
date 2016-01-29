@@ -131,7 +131,23 @@
         };
 
         self.selectNode = function(node) {
-            if (!node.children) {
+
+            if (node.leaf) {
+                if (node.id !== self.currentMarkdown._id) {
+                    self.db.find({docName:'markdown',_id: node.id}, function (err, docs) {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            if (docs && docs.length > 0){
+                                self.currentMarkdown = docs[0];
+                                self.$rootScope.$digest();
+                            }
+                        }
+                    });
+                }
+            }
+
+            /*if (!node.children) {
                 self.principalTree.currentMarkDownId = node.id;
                 self.db.find({docName:'markdown',_id:node.id}, function (err, docs) {
                     if (err) {
@@ -143,21 +159,7 @@
                         }
                     }
                 });
-            }
-            /*var indexNodeInExpanded = self.principalTree.expandedNodes.indexOf(node);
-
-            if (indexNodeInExpanded >= 0) {
-                self.principalTree.expandedNodes.splice(indexNodeInExpanded,1);
-            } else {
-                if (node.children && node.children.length > 0) {
-                    self.principalTree.expandedNodes.push(node);
-                }
             }*/
-
-            /*if (node.css) {
-                self.CssService.initCurrent(node.css);
-            }*/
-
 
         };
 
@@ -221,12 +223,11 @@
             self.addFolder(nameClass);
         };
 
-        self.addMarkdown = function() {
+        self.addMarkdown = function(node) {
 
             var newMarkDown = {
                 docName:'markdown',
                 title:'test',
-                nodeId: self.principalTree.selectedNode.id,
                 created: new Date(),
                 md:''
             };
@@ -235,26 +236,41 @@
                 if (err) {
                     console.error(err);
                 } else {
-                    self.docsMarkdown.push(newDoc);
+
+                    var newNode = {
+                        id: newDoc._id,
+                        name: newDoc.title,
+                        leaf: true
+                    };
+
+                    if (!node.children) {
+                        node.children = [];
+                    }
+                    node.children.push(newNode);
+
                     self.currentMarkdown = newDoc;
-                    self.principalTree.currentMarkDownId = newDoc._id;
+                    self.principalTree.selectedNode = newNode;
                     self.save();
                     self.$rootScope.$digest();
                 }
             });
         };
 
-        self.selectMarkdown = function(doc) {
-            if (!angular.equals(doc,self.currentMarkdown)) {
-                angular.copy(doc,self.currentMarkdown);
-                self.principalTree.currentMarkDownId = doc._id;
-                self.save();
-                //set the good css
-                if (self.principalTree.selectedNode.css) {
-                    self.CssService.initCurrent(self.principalTree.selectedNode.css);
-                }
+        /*self.selectMarkdown = function(node) {
+
+            if (node.id !== self.currentMarkdown._id) {
+                self.db.find({docName:'markdown',_id: node.id}, function (err, docs) {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        if (docs && docs.length > 0){
+                            self.currentMarkdown = docs[0];
+                        }
+                    }
+                });
             }
-        };
+
+        };*/
 
         self.saveCurrent = function() {
             var copyCurrent = {};
@@ -262,7 +278,11 @@
              self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
                 if (err) {
                     console.error(err);
+                } else {
+                    self.principalTree.selectedNode.name = self.currentMarkdown.title;
+                    self.save();
                 }
+
             });
         };
 

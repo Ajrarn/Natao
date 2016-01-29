@@ -20,7 +20,7 @@
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
-        self.showAddFolder = false;
+
 
 
         self.myMath = 'x+\\sqrt{1-x^2}';
@@ -83,6 +83,7 @@
         self.openFolderPopover = function(node) {
             self.currentNode = node;
             self.oldNameFolder = node.name;
+            self.showAddFolder = false;
 
         }
 

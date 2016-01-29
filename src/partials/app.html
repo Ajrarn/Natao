@@ -64,6 +64,7 @@
                                         <input id="addFolderName" ng-model="EditorCtrl.newFolder">
                                     </label>
                                 </div>
+                                <span class="button" ng-click="EditorCtrl.PrincipalTreeService.addMarkdown(node)"><span class="typcn typcn-document-add"></span></span>
                                 <span flex layout="row" layout-align="center center">
                                     <button type="reset" ng-click="EditorCtrl.cancelFolderPopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
                                 </span>
