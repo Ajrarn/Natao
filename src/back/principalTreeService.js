@@ -91,6 +91,7 @@
                         });
 
                         self.$rootScope.$digest();
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
                     }
                 }
             });
@@ -121,13 +122,17 @@
                                 self.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.save();
                                 self.$rootScope.$digest();
+
+                                setTimeout(self.refreshMath, 100);  //without angular $digest
                             }
                         }
                     });
                 }
             }
+        };
 
-
+        self.refreshMath = function() {
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         };
 
         // if we do the save on the select node, the selected node is not yet set
@@ -138,34 +143,6 @@
             self.save();
         });
 
-        /*self.initMarkdown = function() {
-            //Find the documents linked to this node
-            if (self.principalTree.selectedNode) {
-                self.db.find({docName:'markdown',nodeId:self.principalTree.selectedNode.id}, function (err, docs) {
-                    if (err) {
-                        console.log('Markdown not found');
-                    } else {
-                        self.docsMarkdown = docs;
-                        if (self.principalTree.currentMarkDownId) {
-                            // If the selected node contains the saved markedDown doc id then show it
-                            if (_.findIndex(self.docsMarkdown, {_id:self.principalTree.currentMarkDownId}) >= 0) {
-                                self.currentMarkdown = _.find(self.docsMarkdown,{_id:self.principalTree.currentMarkDownId});
-                            }
-
-                        }
-                        self.$rootScope.$digest();
-                    }
-                });
-            }
-        };*/
-
-        /*self.isNodeOpen = function(node) {
-            if (node.id === self.principalTree.selectedNode.id || _.findIndex(self.principalTree.expandedNodes,{id:node.id}) >= 0) {
-                return 'open';
-            } else {
-                return 'close';
-            }
-        };*/
 
         self.addFolder = function(nodeName,node) {
 
@@ -223,22 +200,6 @@
             });
         };
 
-        /*self.selectMarkdown = function(node) {
-
-            if (node.id !== self.currentMarkdown._id) {
-                self.db.find({docName:'markdown',_id: node.id}, function (err, docs) {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        if (docs && docs.length > 0){
-                            self.currentMarkdown = docs[0];
-                        }
-                    }
-                });
-            }
-
-        };*/
-
         self.saveCurrent = function() {
             var copyCurrent = {};
             angular.copy(self.currentMarkdown,copyCurrent);
@@ -248,6 +209,7 @@
                 } else {
                     self.principalTree.selectedNode.name = self.currentMarkdown.title;
                     self.save();
+                    setTimeout(self.refreshMath, 100);  //without angular $digest
                 }
 
             });

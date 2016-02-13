@@ -31,24 +31,11 @@
 
         self.refresh = function() {
             self.PrincipalTreeService.saveCurrent();
-            //self.myHtml =  self.$showdown.makeHtml(self.myMarkdown);
-            setTimeout(self.refreshMath, 100);  //without angular $digest
         };
-
-        self.refreshMath = function() {
-            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-        };
-
 
         self.offPrint = function() {
             self.inPrint = false;
         };
-
-        self.selectMarkdown = function(doc) {
-            self.PrincipalTreeService.selectMarkdown(doc);
-            self.refresh();
-        };
-
 
         self.showVisualizer = function() {
             return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showVisualiser;
