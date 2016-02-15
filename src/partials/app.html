@@ -13,7 +13,7 @@
 
         <div layout="row" layput-align="start center">
             <button ng-click="EditorCtrl.print()" title="{{'PRINT' | translate}}" class="transparent"><span class="typcn typcn-printer"></span></button>
-            <button ng-click="EditorCtrl.print()" title="{{'HELP' | translate}}" class="transparent"><span class="typcn typcn-compass"></span></button>
+            <button ng-click="appCtrl.help()" title="{{'HELP' | translate}}" class="transparent"><span class="typcn typcn-compass"></span></button>
             <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}" class="transparent"><span class="typcn typcn-cog-outline"></span></button>
         </div>
     </div>
@@ -34,7 +34,6 @@
                                     <button type="submit" id="submit" value="Submit" title="{{ 'BTN_ADD' | translate }}"><span class="typcn typcn-input-checked-outline"></span></button>
                                 <button type="reset" ng-click="EditorCtrl.closePopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
                                 </span>
-                                <button>test</button>
                             </form>
                         </div>
                     </script>
@@ -109,8 +108,8 @@
                     </ul>
                 </div>
                 <button ng-click="EditorCtrl.PrincipalTreeService.addMarkdown()">{{'BTN_ADD_MARKDOWN' | translate}}</button>
-            </div>
-        </div-->
+            </div-->
+        </div>
 
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">

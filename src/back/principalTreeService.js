@@ -160,6 +160,12 @@
             } else {
                 self.principalTree.tree.push(newNode);
             }
+
+            // if the new folder is the first one
+            if (!self.principalTree.selectedNode) {
+                self.principalTree.selectedNode = newNode;
+            }
+
             self.save();
         };
 

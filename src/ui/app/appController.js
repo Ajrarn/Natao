@@ -38,6 +38,10 @@
             console.log('file',self.databaseFile);
         };
 
+        self.help = function() {
+            window.open('help.html', '_blank');
+        };
+
 
         self.toggleDys = function() {
             self.PreferencesService.preferences.showDys = !self.PreferencesService.preferences.showDys;
