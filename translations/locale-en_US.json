@@ -28,5 +28,6 @@
   "BTN_ADD":"Add",
   "BTN_CANCEL":"Annuler",
   "DOC_TITLE":"Title",
-  "DOC_CREATED":"Created on"
+  "DOC_CREATED":"Created on",
+  "DOC_CSS":"Style"
 }

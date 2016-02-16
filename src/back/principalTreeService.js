@@ -119,6 +119,7 @@
                         } else {
                             if (docs && docs.length > 0){
                                 self.currentMarkdown = docs[0];
+                                self.CssService.initCurrent(self.currentMarkdown.css);
                                 self.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.save();
                                 self.$rootScope.$digest();
@@ -157,6 +158,10 @@
                     node.children = [];
                 }
                 node.children.push(newNode);
+
+                //and we open the node parent
+                self.principalTree.expandedNodes.push(node);
+
             } else {
                 self.principalTree.tree.push(newNode);
             }
@@ -179,6 +184,7 @@
                 docName:'markdown',
                 title:'test',
                 created: new Date(),
+                css:'lesson.css',
                 md:''
             };
 
@@ -199,7 +205,10 @@
                     node.children.push(newNode);
 
                     self.currentMarkdown = newDoc;
+                    self.CssService.initCurrent(self.currentMarkdown.css);
                     self.principalTree.selectedNode = newNode;
+                    //and we open the node parent
+                    self.principalTree.expandedNodes.push(node);
                     self.save();
                     self.$rootScope.$digest();
                 }
@@ -214,6 +223,7 @@
                     console.error(err);
                 } else {
                     self.principalTree.selectedNode.name = self.currentMarkdown.title;
+                    self.CssService.initCurrent(self.currentMarkdown.css);
                     self.save();
                     setTimeout(self.refreshMath, 100);  //without angular $digest
                 }

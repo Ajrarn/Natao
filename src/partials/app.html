@@ -119,6 +119,12 @@
                         <input id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </label>
 
+                    <label for="css" layout="row" layout-align="start center">
+                        <p>{{ 'DOC_CSS' | translate }}</p>
+                        <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
+                        </select>
+                    </label>
+
                     <label for="created" layout="row" layout-align="start center">
                         <p>{{ 'DOC_CREATED' | translate }}</p>
                         <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">

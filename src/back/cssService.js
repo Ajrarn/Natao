@@ -69,36 +69,6 @@
                 });
             });
 
-
-            /*var greenCss = {
-                docName:'css',
-                name:'red',
-                css:'h1 {color:red;}'
-            };
-
-            var redCss = {
-                docName:'css',
-                name:'green',
-                css:'h1 {color:green;}'
-            };
-
-
-
-            self.db.insert(redCss,function(err,doc) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    self.availableCss.push(doc);
-                }
-            });
-
-            self.db.insert(greenCss,function(err,doc) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    self.availableCss.push(doc);
-                }
-            });*/
         };
 
         self.addCss = function(newCss) {
