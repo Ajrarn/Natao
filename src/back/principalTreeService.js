@@ -87,6 +87,7 @@
                                 console.error(err);
                             } else {
                                 self.currentMarkdown = docs[0];
+                                self.CssService.initCurrent(self.currentMarkdown.css);
                             }
                         });
 
@@ -216,6 +217,8 @@
         };
 
         self.saveCurrent = function() {
+
+            self.CssService.initCurrent(self.currentMarkdown.css);
             var copyCurrent = {};
             angular.copy(self.currentMarkdown,copyCurrent);
              self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
@@ -223,7 +226,7 @@
                     console.error(err);
                 } else {
                     self.principalTree.selectedNode.name = self.currentMarkdown.title;
-                    self.CssService.initCurrent(self.currentMarkdown.css);
+
                     self.save();
                     setTimeout(self.refreshMath, 100);  //without angular $digest
                 }
