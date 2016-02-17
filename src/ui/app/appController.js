@@ -24,7 +24,7 @@
         }]);
 
 
-    function AppController($location,PreferencesService,CssService) {
+    function AppController($location,PreferencesService,CssService,$translate) {
         console.log('AppController');
 
         var self = this;
@@ -33,13 +33,15 @@
         self.showDys = false;
         self.PreferencesService = PreferencesService;
         self.CssService = CssService;
+        self.$translate = $translate;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
         };
 
         self.help = function() {
-            window.open('help.html', '_blank');
+            console.log(self.$translate.use());
+            window.open('help.html?file=' + process.cwd() + '/translations/help-' + self.$translate.use() + '.md', '_blank');
         };
 
 
