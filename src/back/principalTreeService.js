@@ -179,14 +179,14 @@
             self.addFolder(nameClass);
         };
 
-        self.addMarkdown = function(node) {
+        self.addMarkdown = function(node,title) {
 
             var newMarkDown = {
-                docName:'markdown',
-                title:'test',
+                docName: 'markdown',
+                title: title,
                 created: new Date(),
-                css:'lesson.css',
-                md:''
+                css: 'lesson.css',
+                md: ''
             };
 
             self.db.insert(newMarkDown, function (err, newDoc) {
