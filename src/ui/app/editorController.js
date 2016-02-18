@@ -21,6 +21,10 @@
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
 
+        self.showEditFolder = false;
+        self.showAddFolder = false;
+        self.showButtonBar = true;
+
 
 
         self.myMath = 'x+\\sqrt{1-x^2}';
@@ -73,6 +77,16 @@
             self.showAddFolder = false;
 
         }
+
+        self.editFolder = function() {
+            self.showEditFolder = true;
+            self.showButtonBar = false;
+        };
+
+        self.openAddFolder = function() {
+            self.showAddFolder = true;
+            self.showButtonBar = false;
+        };
 
         self.switchAddFolder = function(node) {
             if (self.showAddFolder){
