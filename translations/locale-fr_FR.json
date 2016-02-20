@@ -34,5 +34,8 @@
   "BTN_CANCEL":"Annuler",
   "DOC_TITLE":"Titre",
   "DOC_CREATED":"Créé le",
-  "DOC_CSS":"Style"
+  "DOC_CSS":"Style",
+  "CONFIRM_DELETE_FOLDER":"Es tu sûr de vouloir supprimer ce dossier ?",
+  "YES":"Oui",
+  "NO":"Non"
 }

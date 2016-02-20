@@ -59,7 +59,7 @@
 
         // -------------------Folder Popover -----------------
 
-        // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument']
+        // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete']
 
         self.openFolderPopover = function(node) {
             self.currentNode = node;
@@ -81,6 +81,15 @@
             self.newDocumentName = null;
         };
 
+        self.OpenDelete = function() {
+            self.folderPopover = 'delete';
+            self.cancel = false;
+        };
+
+        self.cancelDelete = function() {
+            self.cancel = true;
+        };
+
         self.submitFolderPopover = function(hide){
             switch (self.folderPopover) {
                 case 'edit':
@@ -92,9 +101,18 @@
                 case 'addDocument':
                     self.addDocument();
                     break;
+                case 'delete':
+                    if (!self.cancel) {
+                        self.PrincipalTreeService.deleteNode(self.currentNode);
+                    }
+                    break;
                 default: break;
             }
             hide();
+        };
+
+        self.copyFolder = function(node) {
+            console.log('documents',self.PrincipalTreeService.documentsInStructure(node));
         };
 
 

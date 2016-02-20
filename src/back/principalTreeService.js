@@ -216,6 +216,116 @@
             });
         };
 
+        //delete of a document
+        self.deleteDocument = function(node) {
+            self.db.remove({ _id: node.id }, {}, function (err, numRemoved) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log('removed',numRemoved);
+                }
+            });
+        };
+
+        //delete of a node
+        self.deleteNode = function(node) {
+            if (node.leaf) {
+                // If it's a document we have to delete it first from the markdown collection
+                self.deleteDocument(node);
+            } else {
+                //If it's a folder we have to find all his documents in him
+                var documents = self.documentsInStructure(node);
+                //and then delete all the documents
+                documents.forEach(function(document) {
+                    self.deleteDocument(document);
+                });
+            }
+            // In all case we have to delete it from the tree
+            var parent = self.findParent(node);
+
+            var tableauParent;
+            if (parent.children) {
+                tableauParent = parent.children;
+            } else {
+                tableauParent = parent;
+            }
+
+
+            if (tableauParent && tableauParent.length > 0) {
+                var indexOfNode = _.findIndex(tableauParent,{id:node.id});
+                if (indexOfNode >=0) {
+                    tableauParent.splice(indexOfNode,1);
+                }
+            }
+            self.save();
+        };
+
+        //Inventory of all documents in a structure
+        self.documentsInStructure = function(node,storeDocuments) {
+            if (!node.leaf) {
+                // When call the first time without storeDocuments
+                if (!storeDocuments) {
+                    storeDocuments = [];
+                }
+                // now we will accumulate the documents in storeDocuments
+                if (node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        if (item.leaf) {
+                            storeDocuments.push(item);
+                        } else {
+                            self.documentsInStructure(item,storeDocuments);
+                        }
+                    })
+                }
+
+                return storeDocuments;
+            } else {
+                return null;
+            }
+        };
+
+        //Method to find the parent of a node
+        self.findParent = function(node, nodeParent) {
+            if (!nodeParent) {
+                return self.findParent(node, self.principalTree.tree);
+            } else {
+                var tableauRecherche;
+                if (nodeParent.children) {
+                    tableauRecherche = nodeParent.children;
+                } else {
+                    tableauRecherche = nodeParent;
+                }
+                var item = _.find(tableauRecherche,{id:node.id});
+                if (item) {
+                    return nodeParent;
+                } else {
+                    var result = null;
+                    for(var i=0; result == null && i < tableauRecherche.length; i++){
+                        result = self.findParent(node,tableauRecherche[i]);
+                    }
+                    return result;
+                }
+            }
+        };
+
+        //Copy of a folder with documents
+        self.copyNodeFolder = function(node) {
+            self.bufferCopy = {};
+            angular.copy(node,self.bufferCopy);
+        };
+
+        //Cut of a folder with documents
+        self.cutNodefolder = function(node) {
+            self.bufferCopy = {};
+            angular.copy(node,self.bufferCopy);
+        };
+
+        self.pasteNodefolder = function(node) {
+            node.children.push(self.bufferCopy); // Not good enough because the documents are not copied yet
+        };
+
+
+
         self.saveCurrent = function() {
 
             self.CssService.initCurrent(self.currentMarkdown.css);
