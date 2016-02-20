@@ -111,8 +111,19 @@
             hide();
         };
 
-        self.copyFolder = function(node) {
-            console.log('documents',self.PrincipalTreeService.documentsInStructure(node));
+        self.copyFolder = function(hide) {
+            self.PrincipalTreeService.copyNodeFolder(self.currentNode);
+            hide();
+        };
+
+        self.cutFolder = function(hide) {
+            self.PrincipalTreeService.cutNodefolder(self.currentNode);
+            hide();
+        };
+
+        self.pasteFolder = function(hide) {
+            self.PrincipalTreeService.pasteNodefolder(self.currentNode);
+            hide();
         };
 
 
