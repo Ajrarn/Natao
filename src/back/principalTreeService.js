@@ -426,8 +426,13 @@
                 }
                 nodeDestinationParent.children.push(nodeToGo);
             }
+        };
 
-
+        self.pasteBufferToNode = function(nodeDestinationParent) {
+            if (self.principalTree.bufferTreeCopy) {
+                self.pasteNodefolder(nodeDestinationParent);
+                self.principalTree.bufferTreeCopy = null;
+            }
         };
 
 

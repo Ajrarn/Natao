@@ -32,6 +32,8 @@
   "BTN_PASTE":"Coller",
   "BTN_DELETE":"Supprimer",
   "BTN_CANCEL":"Annuler",
+  "BTN_EXPORT":"Exporter",
+  "BTN_IMPORT":"Importer",
   "DOC_TITLE":"Titre",
   "DOC_CREATED":"Créé le",
   "DOC_CSS":"Style",

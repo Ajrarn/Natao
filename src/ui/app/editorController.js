@@ -67,6 +67,11 @@
             self.currentNode = node;
             self.newNameFolder = node.name;
             self.folderPopover = 'buttonBar';
+            console.log('disabled',self.pasteButtonDisabled());
+        };
+
+        self.pasteButtonDisabled = function() {
+            return !(self.PrincipalTreeService.principalTree.bufferTreeCopy  && self.PrincipalTreeService.docsPendingForBuffer === 0);
         };
 
         self.editFolder = function() {
@@ -128,7 +133,7 @@
         };
 
         self.pasteFolder = function(hide) {
-            self.PrincipalTreeService.pasteNodefolder(self.currentNode);
+            self.PrincipalTreeService.pasteBufferToNode(self.currentNode);
             hide();
         };
 
