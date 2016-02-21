@@ -31,14 +31,6 @@
         self.cutNodePending = null;
         self.docsPendingForBuffer = 0;
 
-        //We watch if the buffer has finished and if the is a node to cut we delete it
-        self.$rootScope.$watch(function() { return self.docsPendingForBuffer; },function(newValue) {
-            if (newValue === 0 && self.cutNodePending) {
-                self.deleteNode(self.cutNodePending);
-                self.cutNodePending = null;
-            }
-        });
-
         self.treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,
@@ -263,13 +255,14 @@
                         nodeParent.children = [];
                     }
                     nodeParent.children.push(newNode);
-
                     self.save();
                     self.$rootScope.$digest();
                 }
             });
         };
 
+
+        //Copy a document and push in  the bufferDocuments
         self.copyDocumentInBuffer = function(node) {
 
             self.db.find({
@@ -283,6 +276,12 @@
                     self.save();
                 }
                 self.docsPendingForBuffer--;
+
+                //And delete the job is done
+                if (self.docsPendingForBuffer === 0 && self.cutNodePending) {
+                    self.deleteNode(self.cutNodePending);
+                    self.cutNodePending = null;
+                }
             });
         };
 
@@ -317,6 +316,7 @@
                 }
             }
             self.save();
+            self.$rootScope.$digest();
         };
 
         //Inventory of all documents in a structure
@@ -396,15 +396,41 @@
 
         //Cut of a folder with documents
         self.cutNodefolder = function(node) {
-            // It's the same tha copy except we add a node to cut for the watcher
+            // It's the same that copy except we add a node to delete when finish
             self.cutNodePending = node;
             self.copyNodeFolder(node);
         };
 
-        self.pasteNodefolder = function(node) {
-            console.log('buffer',self.principalTree.bufferTreeCopy);
-            console.log('bufferDocs',self.principalTree.bufferDocuments);
+
+
+        //paste a node from the buffer
+        self.pasteNodefolder = function(nodeDestinationParent, nodeSource) {
+            if (!nodeSource) {
+                nodeSource = self.principalTree.bufferTreeCopy;
+            }
+            if (nodeSource.leaf) {
+                //If it's a document we have to copy and save it
+                var document = _.find(self.principalTree.bufferDocuments,{_id:nodeSource.id});
+                if (document) {
+                    self.copyDocumentTo(document,nodeDestinationParent);
+                }
+            } else {
+                var nodeToGo = {};
+                angular.copy(nodeSource,nodeToGo);
+                nodeToGo.id = uuid.v4();
+                nodeToGo.children = [];
+                if (nodeSource.children && nodeSource.children.length > 0) {
+                    nodeSource.children.forEach(function(item) {
+                        self.pasteNodefolder(nodeToGo, item);
+                    });
+                }
+                nodeDestinationParent.children.push(nodeToGo);
+            }
+
+
         };
+
+
 
 
 
