@@ -4,7 +4,7 @@
             <button ng-click="appCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}" class="transparent"><span class="typcn typcn-zoom-out-outline"></span></button>
             <button ng-click="appCtrl.zoomHigher()" title="{{'ZOOM_IN' | translate}}" class="transparent"><span class="typcn typcn-zoom-in-outline"></span></button>
         </div>
-        <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showDys}" ng-click="appCtrl.toggleDys()" title="{{'DYS' | translate}}"><span class="typcn typcn-feather"></span></button>
+        <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showDys}" ng-click="appCtrl.toggleDys()" title="{{'DYS' | translate}}"><span class="typcn typcn-lightbulb"></span></button>
         <div layout="row" layput-align="start center">
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showMenu}" ng-click="appCtrl.toggleMenu()" title="{{'MENU' | translate}}"><span class="typcn typcn-th-menu-outline"></span></button>
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showEditor}" ng-click="appCtrl.toggleEditor()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-edit"></span></button>
@@ -25,15 +25,11 @@
                     <script type="text/ng-template" id="popoverNewClass">
                         <div class="triangle"></div>
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
-                            <form novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)" layout="column">
+                            <form name="popoverNewClass" novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)" layout="column">
                                 <label for="newClassName" layout="column" layout-align="center center">
                                     <p>{{ 'CLASS_NAME' | translate }}</p>
                                     <input id="newClassName" ng-model="EditorCtrl.newClass">
                                 </label>
-                                <span flex layout="row" layout-align="center center">
-                                    <button type="submit" id="submit" value="Submit" title="{{ 'BTN_ADD' | translate }}"><span class="typcn typcn-input-checked-outline"></span></button>
-                                <button type="reset" ng-click="EditorCtrl.closePopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
-                                </span>
                             </form>
                         </div>
                     </script>
@@ -48,25 +44,42 @@
                             ng-click="EditorCtrl.openClassPopover()" title="{{'BTN_ADD_CLASS' | translate}}"><span class="typcn typcn-plus-outline"></span></button>
                 </div>
                 <div class="treeContainer" flex>
-                    <script type="text/ng-template" id="popoverNewFolder">
+                    <script type="text/ng-template" id="popoverActionsFolder">
                         <div class="triangle"></div>
-                        <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
-                            <form novalidate ng-submit="EditorCtrl.closePopover(hidePopover)" layout="column">
+                        <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
+                            <div class="buttonBar" layout="row" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'buttonBar'">
+                                <span class="button" ng-click="EditorCtrl.editFolder()" title="{{ 'BTN_EDIT_FOLDER' | translate }}"><span class="typcn typcn-edit"></span></span>
+                                <span class="button" ng-click="EditorCtrl.openAddFolder()" title="{{ 'BTN_ADD_FOLDER' | translate }}"><span class="typcn typcn-folder-add"></span></span>
+                                <span class="button" ng-click="EditorCtrl.openAddDocument()" title="{{ 'BTN_ADD_MARKDOWN' | translate }}"><span class="typcn typcn-document-add"></span></span>
+                                <span class="button" ng-click="EditorCtrl.copyFolder(hidePopover)" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></span>
+                                <span class="button" ng-click="EditorCtrl.cutFolder(hidePopover)" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></span>
+                                <span class="button" ng-click="EditorCtrl.pasteFolder(hidePopover)" title="{{ 'BTN_PASTE' | translate }}"><span class="typcn typcn-puzzle-outline"></span></span>
+                                <span class="button" ng-click="EditorCtrl.OpenDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
+                            </div>
+                            <form name="EditFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'edit'">
                                 <label for="folderName" layout="column" layout-align="center center">
                                     <p>{{ 'NODE_NAME' | translate }}</p>
-                                    <input id="folderName" ng-model="EditorCtrl.currentNode.name">
+                                    <input id="folderName" ng-model="EditorCtrl.newNameFolder">
                                 </label>
+                            </form>
+                            <form name="AddFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addFolder'">
+                                <label for="addFolderName" layout="column" layout-align="center center">
+                                    <p>{{ 'SUB_NODE_NAME' | translate }}</p>
+                                    <input id="addFolderName" ng-model="EditorCtrl.newFolderName">
+                                </label>
+                            </form>
+                            <form name="AddDocument" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addDocument'">
+                                <label for="addDocumentName" layout="column" layout-align="center center">
+                                    <p>{{ 'DOC_TITLE' | translate }}</p>
+                                    <input id="addDocumentName" ng-model="EditorCtrl.newDocumentName">
+                                </label>
+                            </form>
+                            <form name="Delete" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'delete'">
+                                <p>{{ 'CONFIRM_DELETE_FOLDER' | translate }}</p>
                                 <div layout="row" layout-align="center center">
-                                    <span class="button" ng-click="EditorCtrl.switchAddFolder(node)"><span class="typcn typcn-folder-add"></span></span>
-                                    <label for="addFolderName" layout="column" layout-align="center center" ng-if="EditorCtrl.showAddFolder">
-                                        <p>{{ 'SUB_NODE_NAME' | translate }}</p>
-                                        <input id="addFolderName" ng-model="EditorCtrl.newFolder">
-                                    </label>
+                                    <button type="submit"  value="Submit">{{ 'YES' | translate }}</button>
+                                    <button ng-click="EditorCtrl.cancelDelete()">{{ 'NO' | translate }}</button>
                                 </div>
-                                <span class="button" ng-click="EditorCtrl.PrincipalTreeService.addMarkdown(node)"><span class="typcn typcn-document-add"></span></span>
-                                <span flex layout="row" layout-align="center center">
-                                    <button type="reset" ng-click="EditorCtrl.cancelFolderPopover(hidePopover)" title="{{ 'BTN_CANCEL' | translate }}"><span class="typcn typcn-arrow-back-outline"></span></button>
-                                </span>
                             </form>
                         </div>
                     </script>
@@ -76,39 +89,17 @@
                                  on-selection="EditorCtrl.PrincipalTreeService.selectNode(node)"
                                  selected-node="EditorCtrl.PrincipalTreeService.principalTree.selectedNode"
                                  expanded-nodes="EditorCtrl.PrincipalTreeService.principalTree.expandedNodes">
-                            <button class="small black transparent light"
-                                    ns-popover ns-popover-timeout="-1"
-                                    ns-popover-template="popoverNewFolder"
-                                    ns-popover-trigger="click"
-                                    ns-popover-hide-on-click="false"
-                                    ns-popover-hide-on-inside-click="false"
-                                    ns-popover-placement="right"
-                                    ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)"
-                                    ng-if="!node.leaf">
-                                <span class="typcn typcn-edit"></span>
-                            </button> <span>{{node.name}}</span>
+                        <span ns-popover ns-popover-timeout="-1"
+                              ns-popover-template="popoverActionsFolder"
+                              ns-popover-trigger="click"
+                              ns-popover-hide-on-click="false"
+                              ns-popover-hide-on-inside-click="false"
+                              ns-popover-placement="right"
+                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf">{{node.name}}</span>
+                        <span ng-if="node.leaf">{{node.name}}</span>
                     </treecontrol>
                 </div>
             </div>
-            <!--div class="files">
-                <div id="node">
-                    <label for="nodeName" layout="column" layout-align="center center">
-                        <p>{{ 'NODE_NAME' | translate }}</p>
-                        <input id="nodeName" ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.name"
-                               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }" ng-change="EditorCtrl.PrincipalTreeService.save()">
-                    </label>
-                    <select ng-model="EditorCtrl.PrincipalTreeService.principalTree.selectedNode.css" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss">
-                    </select>
-                    <button ng-click="EditorCtrl.PrincipalTreeService.addFolder()">{{'BTN_ADD_FOLDER' | translate}}</button>
-
-                </div>
-                <div id="files">
-                    <ul>
-                        <li ng-repeat="doc in EditorCtrl.PrincipalTreeService.docsMarkdown" ng-click="EditorCtrl.selectMarkdown(doc)">{{doc.title}}</li>
-                    </ul>
-                </div>
-                <button ng-click="EditorCtrl.PrincipalTreeService.addMarkdown()">{{'BTN_ADD_MARKDOWN' | translate}}</button>
-            </div-->
         </div>
 
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">

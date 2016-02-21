@@ -22,13 +22,6 @@
         self.inPrint = false;
 
 
-
-        self.myMath = 'x+\\sqrt{1-x^2}';
-
-        self.myMarkdown = '$$sqrt(2)/2$$ \n'
-            +'$$'+self.myMath+'$$';
-
-
         self.refresh = function() {
             self.PrincipalTreeService.saveCurrent();
         };
@@ -56,10 +49,6 @@
         };
 
 
-        self.closePopover = function(hide){
-            hide();
-        };
-
         self.addClassPopover = function(hide){
             if (self.newClass && self.newClass !== '') {
                 self.PrincipalTreeService.addClass(self.newClass);
@@ -67,36 +56,96 @@
             hide();
         };
 
+
+        // -------------------Folder Popover -----------------
+
+        // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete']
+
         self.openFolderPopover = function(node) {
             self.currentNode = node;
-            self.oldNameFolder = node.name;
-            self.showAddFolder = false;
+            self.newNameFolder = node.name;
+            self.folderPopover = 'buttonBar';
+        };
 
-        }
+        self.editFolder = function() {
+            self.folderPopover = 'edit';
+        };
 
-        self.switchAddFolder = function(node) {
-            if (self.showAddFolder){
-                self.addFolder(node);
-            } else {
-                self.newFolder = null;
+        self.openAddFolder = function() {
+            self.newFolderName = null;
+            self.folderPopover = 'addFolder';
+        };
+
+        self.openAddDocument = function() {
+            self.folderPopover = 'addDocument';
+            self.newDocumentName = null;
+        };
+
+        self.OpenDelete = function() {
+            self.folderPopover = 'delete';
+            self.cancel = false;
+        };
+
+        self.cancelDelete = function() {
+            self.cancel = true;
+        };
+
+        self.submitFolderPopover = function(hide){
+            switch (self.folderPopover) {
+                case 'edit':
+                    self.saveFolder();
+                    break;
+                case 'addFolder':
+                    self.addFolder();
+                    break;
+                case 'addDocument':
+                    self.addDocument();
+                    break;
+                case 'delete':
+                    if (!self.cancel) {
+                        self.PrincipalTreeService.deleteNode(self.currentNode);
+                    }
+                    break;
+                default: break;
             }
+            hide();
+        };
 
-            //switch
-            self.showAddFolder = !self.showAddFolder;
-        }
+        self.copyFolder = function(hide) {
+            self.PrincipalTreeService.copyNodeFolder(self.currentNode);
+            hide();
+        };
 
-        self.addFolder = function(node) {
-            self.PrincipalTreeService.addFolder(self.newFolder, node);
-        }
+        self.cutFolder = function(hide) {
+            self.PrincipalTreeService.cutNodefolder(self.currentNode);
+            hide();
+        };
+
+        self.pasteFolder = function(hide) {
+            self.PrincipalTreeService.pasteNodefolder(self.currentNode);
+            hide();
+        };
+
+
+        self.addFolder = function() {
+            if (self.newFolderName && self.newFolderName.length > 0) {
+                self.PrincipalTreeService.addFolder(self.newFolderName, self.currentNode);
+            }
+        };
 
         self.saveFolder = function() {
-            self.PrincipalTreeService.save();
-        }
+            if (self.newNameFolder && self.newNameFolder.length > 0) {
+                self.currentNode.name = self.newNameFolder;
+                self.PrincipalTreeService.save();
+            }
+        };
 
-        self.cancelFolderPopover = function(hide) {
-            self.currentNode.name = self.oldNameFolder;
-            hide();
-        }
+        self.addDocument = function() {
+            if (self.newDocumentName && self.newDocumentName.length > 0) {
+                self.PrincipalTreeService.addMarkdown(self.currentNode,self.newDocumentName);
+            }
+        };
+
     }
 
 }());
