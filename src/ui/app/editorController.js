@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService) {
+    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,focus) {
         console.log('EditorController');
 
         var self = this;
@@ -20,6 +20,7 @@
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
+        self.focus = focus;
 
 
         self.refresh = function() {
@@ -46,6 +47,7 @@
 
         self.openClassPopover = function() {
             self.newClass = null;
+            self.focus('newClassName');
         };
 
 
@@ -69,16 +71,20 @@
 
         self.editFolder = function() {
             self.folderPopover = 'edit';
+            self.focus('folderName');
+
         };
 
         self.openAddFolder = function() {
             self.newFolderName = null;
             self.folderPopover = 'addFolder';
+            self.focus('addFolderName');
         };
 
         self.openAddDocument = function() {
             self.folderPopover = 'addDocument';
             self.newDocumentName = null;
+            self.focus('addDocumentName');
         };
 
         self.OpenDelete = function() {

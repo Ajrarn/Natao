@@ -28,7 +28,7 @@
                             <form name="popoverNewClass" novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)" layout="column">
                                 <label for="newClassName" layout="column" layout-align="center center">
                                     <p>{{ 'CLASS_NAME' | translate }}</p>
-                                    <input id="newClassName" ng-model="EditorCtrl.newClass">
+                                    <input id="newClassName" ng-model="EditorCtrl.newClass" focus-on="newClassName">
                                 </label>
                             </form>
                         </div>
@@ -59,19 +59,19 @@
                             <form name="EditFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'edit'">
                                 <label for="folderName" layout="column" layout-align="center center">
                                     <p>{{ 'NODE_NAME' | translate }}</p>
-                                    <input id="folderName" ng-model="EditorCtrl.newNameFolder">
+                                    <input id="folderName" ng-model="EditorCtrl.newNameFolder" focus-on="folderName">
                                 </label>
                             </form>
                             <form name="AddFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addFolder'">
                                 <label for="addFolderName" layout="column" layout-align="center center">
                                     <p>{{ 'SUB_NODE_NAME' | translate }}</p>
-                                    <input id="addFolderName" ng-model="EditorCtrl.newFolderName">
+                                    <input id="addFolderName" ng-model="EditorCtrl.newFolderName" focus-on="addFolderName">
                                 </label>
                             </form>
                             <form name="AddDocument" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addDocument'">
                                 <label for="addDocumentName" layout="column" layout-align="center center">
                                     <p>{{ 'DOC_TITLE' | translate }}</p>
-                                    <input id="addDocumentName" ng-model="EditorCtrl.newDocumentName">
+                                    <input id="addDocumentName" ng-model="EditorCtrl.newDocumentName" focus-on="addDocumentName">
                                 </label>
                             </form>
                             <form name="Delete" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'delete'">
