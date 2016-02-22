@@ -34,6 +34,7 @@
   "BTN_CANCEL":"Cancel",
   "BTN_EXPORT":"Export",
   "BTN_IMPORT":"Import",
+  "BTN_MAKE_MODEL":"Save the structure",
   "DOC_TITLE":"Title",
   "DOC_CREATED":"Created on",
   "DOC_CSS":"Style",

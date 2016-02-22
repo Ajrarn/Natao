@@ -133,8 +133,13 @@
         };
 
         self.pasteFolder = function(hide) {
-            self.PrincipalTreeService.pasteBufferToNode(self.currentNode);
-            hide();
+            if (hide) {
+                self.PrincipalTreeService.pasteBufferToNode(self.currentNode);
+                hide();
+            } else {
+                //it's done without selecting a node so the node will be the tree himself
+                self.PrincipalTreeService.pasteBufferToNode(self.PrincipalTreeService.principalTree.tree);
+            }
         };
 
 

@@ -424,7 +424,13 @@
                         self.pasteNodefolder(nodeToGo, item);
                     });
                 }
-                nodeDestinationParent.children.push(nodeToGo);
+
+                if (nodeDestinationParent.children) {
+                    nodeDestinationParent.children.push(nodeToGo);
+                } else {
+                    // in case the node parent is the tree himself
+                    nodeDestinationParent.push(nodeToGo);
+                }
             }
         };
 
