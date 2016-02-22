@@ -3,6 +3,7 @@
 
     var uuid = require('node-uuid');
     var _ = require('lodash');
+    var fs = require('fs');
 
 
     angular
@@ -24,11 +25,20 @@
         self.CssService = CssService;
         self.$rootScope = $rootScope;
         self.docsMarkdown = [];
-        self.principalTree = {};
-        self.principalTree.selectedNode = null;
-        self.principalTree.bufferDocuments = [];
-        self.principalTree.bufferTreeCopy = null;
+        self.principalTree = {
+            docName: 'PrincipalTree',
+            tree: [],
+            expandedNodes: [],
+            selectedNode: null,
+            buffer: {
+                tree: null,
+                documents: []
+            }
+        };
+
+
         self.cutNodePending = null;
+        self.exportFileName = null;
         self.docsPendingForBuffer = 0;
 
         self.treeOptions = {
@@ -49,6 +59,13 @@
             }
         };
 
+        self.initBuffer = function() {
+            self.principalTree.buffer = {
+                tree: null,
+                documents: []
+            };
+        };
+
 
         self.init = function() {
             self.db = self.PreferencesService.getDB();
@@ -56,12 +73,16 @@
                 if (err || docs.length === 0) {
                     console.log('Principal Document not found');
 
-                    self.principalTree = {
+                    /*self.principalTree = {
                         docName: 'PrincipalTree',
                         tree: [],
                         expandedNodes: [],
-                        selectedNode: null
-                    };
+                        selectedNode: null,
+                        buffer: {
+                            documents: [],
+                            tree: null
+                        }
+                    };*/
 
                     self.db.insert(self.principalTree, function (err, newDoc) {
                         if (err) {
@@ -155,7 +176,8 @@
             var newNode = {
                 id: uuid.v4(),
                 name: nodeName,
-                css:'default'
+                css:'default',
+                children:[]
             };
 
             if (node) {
@@ -262,7 +284,7 @@
         };
 
 
-        //Copy a document and push in  the bufferDocuments
+        //Copy a document and push in  the buffer.documents
         self.copyDocumentInBuffer = function(node) {
 
             self.db.find({
@@ -272,15 +294,27 @@
                 if (err) {
                     console.error(err);
                 } else {
-                    self.principalTree.bufferDocuments.push(docs[0]);
+                    self.principalTree.buffer.documents.push(docs[0]);
                     self.save();
                 }
                 self.docsPendingForBuffer--;
 
                 //And delete the job is done
-                if (self.docsPendingForBuffer === 0 && self.cutNodePending) {
-                    self.deleteNode(self.cutNodePending);
-                    self.cutNodePending = null;
+                if (self.docsPendingForBuffer === 0) {
+                    if ( self.cutNodePending) {
+                        //it's a cut, so have to delete the node
+                        self.deleteNode(self.cutNodePending);
+                        self.cutNodePending = null;
+                    } else {
+                        if (self.exportFileName) {
+                            //it's an export
+                            self.writeToFile();
+                        } else {
+                            // it was just a copy
+                            self.$rootScope.$digest();
+                        }
+
+                    }
                 }
             });
         };
@@ -370,13 +404,14 @@
         //Copy of a folder with documents
         self.copyNodeFolder = function(node) {
             //First we copy the structure
-            self.principalTree.bufferTreeCopy = {};
-            angular.copy(node,self.principalTree.bufferTreeCopy);
+            self.initBuffer();
+            self.principalTree.buffer.tree = {};
+            angular.copy(node,self.principalTree.buffer.tree);
 
             self.save();
 
             //we initialize the buffer for documents
-            self.principalTree.bufferDocuments = [];
+            self.principalTree.buffer.documents = [];
 
             //then we'll copy the documents of this structure
             var documents = [];
@@ -406,11 +441,11 @@
         //paste a node from the buffer
         self.pasteNodefolder = function(nodeDestinationParent, nodeSource) {
             if (!nodeSource) {
-                nodeSource = self.principalTree.bufferTreeCopy;
+                nodeSource = self.principalTree.buffer.tree;
             }
             if (nodeSource.leaf) {
                 //If it's a document we have to copy and save it
-                var document = _.find(self.principalTree.bufferDocuments,{_id:nodeSource.id});
+                var document = _.find(self.principalTree.buffer.documents,{_id:nodeSource.id});
                 if (document) {
                     self.copyDocumentTo(document,nodeDestinationParent);
                 }
@@ -435,14 +470,45 @@
         };
 
         self.pasteBufferToNode = function(nodeDestinationParent) {
-            if (self.principalTree.bufferTreeCopy) {
+            if (self.principalTree.buffer.tree) {
                 self.pasteNodefolder(nodeDestinationParent);
-                self.principalTree.bufferTreeCopy = null;
+                self.principalTree.buffer.tree = null;
             }
         };
 
+        //export the buffer in a file
+        self.exportTo = function(node,filename) {
+            self.exportFileName = filename;
+            self.copyNodeFolder(node);
+        };
+
+        self.writeToFile = function() {
+            fs.writeFile(self.exportFileName, JSON.stringify(self.principalTree.buffer), 'utf8', function(err) {
+                if (err) throw err;
+                console.log('It\'s saved!');
+            });
+            self.exportFileName = null;
+        };
+
+        self.importFrom = function(node,filename) {
+            self.initBuffer();
+            fs.readFile(filename,'utf8',function(err,data) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    try {
+                        self.principalTree.buffer = JSON.parse(data);
+                        self.pasteBufferToNode(node);
+                    }
+                    catch (err) {
+                        console.log('There has been an error parsing your JSON.');
+                        console.log(err);
+                    }
+                }
+            });
 
 
+        };
 
 
         self.saveCurrent = function() {

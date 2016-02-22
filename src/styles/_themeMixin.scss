@@ -22,7 +22,11 @@
 
       &:hover {
         background-color: map-get($color_map, DD);
-        &:disabled {
+      }
+
+      &:disabled {
+        color: map-get($color_map, MM);
+        &:hover {
           background-color: transparent;
         }
       }
@@ -31,7 +35,11 @@
 
         &:hover {
           background-color: map-get($color_map, MD);
-          &:disabled {
+        }
+
+        &:disabled {
+          color: map-get($color_map, MM);
+          &:hover {
             background-color: transparent;
           }
         }

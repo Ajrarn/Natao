@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,focus) {
+    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,focus,fileDialog) {
         console.log('EditorController');
 
         var self = this;
@@ -16,6 +16,7 @@
         self.$timeout = $timeout;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.fileDialog = fileDialog;
         self.PrincipalTreeService.init();
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
@@ -71,7 +72,7 @@
         };
 
         self.pasteButtonDisabled = function() {
-            return !(self.PrincipalTreeService.principalTree.bufferTreeCopy  && self.PrincipalTreeService.docsPendingForBuffer === 0);
+            return !(self.PrincipalTreeService.principalTree.buffer.tree  && self.PrincipalTreeService.docsPendingForBuffer === 0);
         };
 
         self.editFolder = function() {
@@ -140,6 +141,24 @@
                 //it's done without selecting a node so the node will be the tree himself
                 self.PrincipalTreeService.pasteBufferToNode(self.PrincipalTreeService.principalTree.tree);
             }
+        };
+
+        self.exportTo = function(hide) {
+            self.fileDialog.saveAs(function(filename) {
+                self.PrincipalTreeService.exportTo(self.currentNode,filename);
+                hide();
+            },'nataoExport.json',['json']);
+        };
+
+        self.importFrom = function(hide) {
+            self.fileDialog.openFile(function(filename) {
+                if (hide) {
+                    self.PrincipalTreeService.importFrom(self.currentNode,filename);
+                    hide();
+                } else {
+                    self.PrincipalTreeService.importFrom(self.PrincipalTreeService.principalTree.tree,filename);
+                }
+            }, false, ['json']);
         };
 
 

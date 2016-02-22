@@ -37,7 +37,7 @@
                         <button class="transparent light" ng-disabled="EditorCtrl.pasteButtonDisabled()" ng-click="EditorCtrl.pasteFolder()" title="{{ 'BTN_PASTE' | translate }}">
                             <span class="typcn typcn-book"></span>
                         </button>
-                        <button class="transparent light" title="{{ 'BTN_IMPORT' | translate }}">
+                        <button class="transparent light" ng-click="EditorCtrl.importFrom()" title="{{ 'BTN_IMPORT' | translate }}">
                             <span class="typcn typcn-download-outline"></span>
                         </button>
                         <button ns-popover class="transparent light"
@@ -68,8 +68,8 @@
                                     <span class="button" ng-class="{'disabled':EditorCtrl.pasteButtonDisabled()}" ng-click="EditorCtrl.pasteFolder(hidePopover)" title="{{ 'BTN_PASTE' | translate }}"><span class="typcn typcn-book"></span></span>
                                 </div>
                                 <div layout="column" layout-align="start start">
-                                    <span class="button" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></span>
-                                    <span class="button" title="{{ 'BTN_IMPORT' | translate }}"><span class="typcn typcn-download-outline"></span></span>
+                                    <span class="button" ng-click="EditorCtrl.exportTo(hidePopover)" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></span>
+                                    <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)"title="{{ 'BTN_IMPORT' | translate }}"><span class="typcn typcn-download-outline"></span></span>
                                 </div>
                                 <span class="button" title="{{ 'BTN_MAKE_MODEL' | translate }}"><span class="typcn typcn-flow-children"></span></span>
                                 <span class="button" ng-click="EditorCtrl.OpenDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
