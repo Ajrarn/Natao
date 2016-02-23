@@ -48,13 +48,14 @@
 
         self.openClassPopover = function() {
             self.newClass = null;
+            self.templateName = null;
             self.focus('newClassName');
         };
 
 
         self.addClassPopover = function(hide){
             if (self.newClass && self.newClass !== '') {
-                self.PrincipalTreeService.addClass(self.newClass);
+                self.PrincipalTreeService.addClass(self.newClass,self.templateName);
             }
             hide();
         };
@@ -62,7 +63,7 @@
 
         // -------------------Folder Popover -----------------
 
-        // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete']
+        // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete','saveTemplate']
 
         self.openFolderPopover = function(node) {
             self.currentNode = node;
@@ -78,6 +79,13 @@
         self.editFolder = function() {
             self.folderPopover = 'edit';
             self.focus('folderName');
+
+        };
+
+        self.openSaveTemplate = function() {
+            self.folderPopover = 'saveTemplate';
+            self.focus('templateName');
+            self.templateName = null;
 
         };
 
@@ -112,6 +120,9 @@
                     break;
                 case 'addDocument':
                     self.addDocument();
+                    break;
+                case 'saveTemplate':
+                    self.saveTemplate();
                     break;
                 case 'delete':
                     if (!self.cancel) {
@@ -159,6 +170,12 @@
                     self.PrincipalTreeService.importFrom(self.PrincipalTreeService.principalTree.tree,filename);
                 }
             }, false, ['json']);
+        };
+
+        self.saveTemplate = function() {
+            if (self.templateName && self.templateName.length > 0) {
+                self.PrincipalTreeService.saveTemplate(self.currentNode,self.templateName);
+            }
         };
 
 

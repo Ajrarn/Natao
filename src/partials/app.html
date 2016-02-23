@@ -26,6 +26,12 @@
                         <div class="triangle"></div>
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
                             <form name="popoverNewClass" novalidate ng-submit="EditorCtrl.addClassPopover(hidePopover)" layout="column">
+                                <label for="templateClass" layout="row" layout-align="start center">
+                                    <p>{{ 'TEMPLATE' | translate }}</p>
+                                    <select id="templateClass" ng-model="EditorCtrl.templateName" ng-options="template.name as template.name for template in EditorCtrl.PrincipalTreeService.TemplateTreeService.availableTemplates">
+                                        <option value="aucun">Aucun</option>
+                                    </select>
+                                </label>
                                 <label for="newClassName" layout="column" layout-align="center center">
                                     <p>{{ 'CLASS_NAME' | translate }}</p>
                                     <input id="newClassName" ng-model="EditorCtrl.newClass" focus-on="newClassName">
@@ -69,9 +75,9 @@
                                 </div>
                                 <div layout="column" layout-align="start start">
                                     <span class="button" ng-click="EditorCtrl.exportTo(hidePopover)" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)"title="{{ 'BTN_IMPORT' | translate }}"><span class="typcn typcn-download-outline"></span></span>
+                                    <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)" title="{{ 'BTN_IMPORT' | translate }}"><span class="typcn typcn-download-outline"></span></span>
                                 </div>
-                                <span class="button" title="{{ 'BTN_MAKE_MODEL' | translate }}"><span class="typcn typcn-flow-children"></span></span>
+                                <span class="button" ng-click="EditorCtrl.openSaveTemplate(hidePopover)" title="{{ 'BTN_MAKE_MODEL' | translate }}"><span class="typcn typcn-flow-children"></span></span>
                                 <span class="button" ng-click="EditorCtrl.OpenDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
                             </div>
                             <form name="EditFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'edit'">
@@ -90,6 +96,12 @@
                                 <label for="addDocumentName" layout="column" layout-align="center center">
                                     <p>{{ 'DOC_TITLE' | translate }}</p>
                                     <input id="addDocumentName" ng-model="EditorCtrl.newDocumentName" focus-on="addDocumentName">
+                                </label>
+                            </form>
+                            <form name="SaveTemplate" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'saveTemplate'">
+                                <label for="templateName" layout="column" layout-align="center center">
+                                    <p>{{ 'TEMPLATE_NAME' | translate }}</p>
+                                    <input id="templateName" ng-model="EditorCtrl.templateName" focus-on="templateName">
                                 </label>
                             </form>
                             <form name="Delete" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'delete'">

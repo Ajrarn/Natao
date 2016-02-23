@@ -17,12 +17,13 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,$rootScope) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope) {
         console.log('PrincipalTreeService');
 
         var self = this;
         self.PreferencesService = PreferencesService;
         self.CssService = CssService;
+        self.TemplateTreeService = TemplateTreeService;
         self.$rootScope = $rootScope;
         self.docsMarkdown = [];
         self.principalTree = {
@@ -35,7 +36,6 @@
                 documents: []
             }
         };
-
 
         self.cutNodePending = null;
         self.exportFileName = null;
@@ -69,20 +69,10 @@
 
         self.init = function() {
             self.db = self.PreferencesService.getDB();
+            self.TemplateTreeService.init(self.db);
             self.db.find({docName:'PrincipalTree'}, function (err, docs) {
                 if (err || docs.length === 0) {
                     console.log('Principal Document not found');
-
-                    /*self.principalTree = {
-                        docName: 'PrincipalTree',
-                        tree: [],
-                        expandedNodes: [],
-                        selectedNode: null,
-                        buffer: {
-                            documents: [],
-                            tree: null
-                        }
-                    };*/
 
                     self.db.insert(self.principalTree, function (err, newDoc) {
                         if (err) {
@@ -170,8 +160,24 @@
             self.save();
         });
 
+        self.addFolder = function(nodeName,nodeParent,templateName) {
+            if (templateName) {
+                if (!nodeParent) {
+                    nodeParent = self.principalTree.tree;
+                }
 
-        self.addFolder = function(nodeName,node) {
+                var template = self.TemplateTreeService.getTemplate(templateName);
+                var newFolder = {};
+                angular.copy(template,newFolder);
+                newFolder.name = nodeName;
+                self.pasteNodefolder(nodeParent,newFolder);
+            } else {
+                self.addFolderOnly(nodeName,nodeParent);
+            }
+        };
+
+
+        self.addFolderOnly = function(nodeName,nodeParent) {
 
             var newNode = {
                 id: uuid.v4(),
@@ -180,14 +186,14 @@
                 children:[]
             };
 
-            if (node) {
-                if (!node.children) {
-                    node.children = [];
+            if (nodeParent) {
+                if (!nodeParent.children) {
+                    nodeParent.children = [];
                 }
-                node.children.push(newNode);
+                nodeParent.children.push(newNode);
 
                 //and we open the node parent
-                self.principalTree.expandedNodes.push(node);
+                self.principalTree.expandedNodes.push(nodeParent);
 
             } else {
                 self.principalTree.tree.push(newNode);
@@ -201,8 +207,8 @@
             self.save();
         };
 
-        self.addClass = function(nameClass) {
-            self.addFolder(nameClass);
+        self.addClass = function(nameClass,nameTemplate) {
+            self.addFolder(nameClass,null,nameTemplate);
         };
 
         self.addMarkdown = function(node,title) {
@@ -506,8 +512,11 @@
                     }
                 }
             });
+        };
 
 
+        self.saveTemplate = function(node,nameTemplate) {
+            self.TemplateTreeService.saveTemplate(node,nameTemplate);
         };
 
 
