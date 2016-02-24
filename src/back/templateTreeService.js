@@ -57,19 +57,36 @@
             angular.copy(node,template);
             //then delete the document reference from the copy
             self.deleteDocReference(node);
-            //customize it the find in the template collection
-            template.docName = 'template';
-            template.name = nameTemplate;
-            delete template.id;
 
-            //and finally save it in the database
-            self.db.insert(template, function (err,doc) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    self.availableTemplates.push(doc);
-                }
-            });
+            //we search if the template already exist
+            var oldTemplate = self.getTemplate(nameTemplate);
+            if (oldTemplate) {
+
+                oldTemplate.children = template.children;
+
+                self.db.update({_id: oldTemplate._id }, oldTemplate, {}, function (err) {
+                    if (err){
+                        console.error(err);
+                    }
+                });
+
+            } else {
+                //We insert the new template
+                //customize it the find in the template collection
+                template.docName = 'template';
+                template.name = nameTemplate;
+                delete template.id;
+
+                //and finally save it in the database
+                self.db.insert(template, function (err,doc) {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        self.availableTemplates.push(doc);
+                    }
+                });
+            }
+
         };
 
         self.getTemplate = function(name) {

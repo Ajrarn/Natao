@@ -78,7 +78,7 @@
                                     <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)" title="{{ 'BTN_IMPORT' | translate }}"><span class="typcn typcn-download-outline"></span></span>
                                 </div>
                                 <span class="button" ng-click="EditorCtrl.openSaveTemplate(hidePopover)" title="{{ 'BTN_MAKE_MODEL' | translate }}"><span class="typcn typcn-flow-children"></span></span>
-                                <span class="button" ng-click="EditorCtrl.OpenDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
+                                <span class="button" ng-click="EditorCtrl.openDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
                             </div>
                             <form name="EditFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'edit'">
                                 <label for="folderName" layout="column" layout-align="center center">
@@ -108,7 +108,14 @@
                                 <p>{{ 'CONFIRM_DELETE_FOLDER' | translate }}</p>
                                 <div layout="row" layout-align="center center">
                                     <button type="submit"  value="Submit">{{ 'YES' | translate }}</button>
-                                    <button ng-click="EditorCtrl.cancelDelete()">{{ 'NO' | translate }}</button>
+                                    <button ng-click="EditorCtrl.cancel()">{{ 'NO' | translate }}</button>
+                                </div>
+                            </form>
+                            <form name="ConfirmTemplate" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'confirmTemplate'">
+                                <p>{{ 'CONFIRM_SAVE_TEMPLATE' | translate }}</p>
+                                <div layout="row" layout-align="center center">
+                                    <button type="submit"  value="Submit">{{ 'YES' | translate }}</button>
+                                    <button ng-click="EditorCtrl.cancel(hidePopover)">{{ 'NO' | translate }}</button>
                                 </div>
                             </form>
                         </div>
