@@ -22,6 +22,7 @@
   "BTN_ADD_CLASS":"Ajouter une classe",
   "CLASS_NAME": "Nom de la classe",
   "NODE_NAME":"Nom du dossier",
+  "TEMPLATE_NAME":"Nom du modèle",
   "SUB_NODE_NAME":"Nom du sous-dossier",
   "BTN_ADD_FOLDER":"Ajouter un sous-dossier",
   "BTN_EDIT_FOLDER":"Modifer",
@@ -32,10 +33,15 @@
   "BTN_PASTE":"Coller",
   "BTN_DELETE":"Supprimer",
   "BTN_CANCEL":"Annuler",
+  "BTN_EXPORT":"Exporter",
+  "BTN_IMPORT":"Importer",
+  "BTN_MAKE_MODEL":"Sauver la structure",
   "DOC_TITLE":"Titre",
   "DOC_CREATED":"Créé le",
   "DOC_CSS":"Style",
+  "TEMPLATE":"d'après un modèle",
   "CONFIRM_DELETE_FOLDER":"Es tu sûr de vouloir supprimer ce dossier ?",
+  "CONFIRM_SAVE_TEMPLATE":"Es tu sur de vouloir remplacer la structure existante par celle-ci ?",
   "YES":"Oui",
   "NO":"Non"
 }

@@ -3,6 +3,7 @@
 
     var uuid = require('node-uuid');
     var _ = require('lodash');
+    var fs = require('fs');
 
 
     angular
@@ -16,19 +17,30 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,$rootScope) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope) {
         console.log('PrincipalTreeService');
 
         var self = this;
         self.PreferencesService = PreferencesService;
         self.CssService = CssService;
+        self.TemplateTreeService = TemplateTreeService;
         self.$rootScope = $rootScope;
         self.docsMarkdown = [];
-        self.principalTree = {};
-        self.principalTree.selectedNode = null;
-        self.principalTree.bufferDocuments = [];
-        self.principalTree.bufferTreeCopy = null;
+        self.principalTree = {
+            docName: 'PrincipalTree',
+            tree: {
+                children:[]
+            },
+            expandedNodes: [],
+            selectedNode: null,
+            buffer: {
+                tree: null,
+                documents: []
+            }
+        };
+
         self.cutNodePending = null;
+        self.exportFileName = null;
         self.docsPendingForBuffer = 0;
 
         self.treeOptions = {
@@ -49,29 +61,40 @@
             }
         };
 
+        self.initBuffer = function() {
+            self.principalTree.buffer = {
+                tree: null,
+                documents: []
+            };
+        };
+
 
         self.init = function() {
             self.db = self.PreferencesService.getDB();
+            self.TemplateTreeService.init(self.db);
+            self.CssService.init(self.db, null);
             self.db.find({docName:'PrincipalTree'}, function (err, docs) {
                 if (err || docs.length === 0) {
                     console.log('Principal Document not found');
 
-                    self.principalTree = {
-                        docName: 'PrincipalTree',
-                        tree: [],
-                        expandedNodes: [],
-                        selectedNode: null
-                    };
+                    var cssName = _.find(self.CssService.cssNames,{default:true});
+
+                    if (cssName) {
+                        self.principalTree.tree.defaultCss = cssName.inDatabaseName;
+                    } else {
+                        self.principalTree.tree.defaultCss = null;
+                    }
+
 
                     self.db.insert(self.principalTree, function (err, newDoc) {
                         if (err) {
                             console.error('error:', err);
                         } else {
                             self.principalTree = newDoc;
+                            console.log('principalTree',self.principalTree);
                         }
                     });
 
-                    self.CssService.init(self.db, null);
 
                 } else {
                     self.principalTree = docs[0];
@@ -149,26 +172,46 @@
             self.save();
         });
 
+        self.addFolder = function(nodeName,nodeParent,templateName) {
+            if (templateName) {
+                if (!nodeParent) {
+                    nodeParent = self.principalTree.tree;
+                }
 
-        self.addFolder = function(nodeName,node) {
+                var template = self.TemplateTreeService.getTemplate(templateName);
+                var newFolder = {};
+                angular.copy(template,newFolder);
+                newFolder.name = nodeName;
+                delete newFolder.docName;
+                self.pasteNodefolder(nodeParent,newFolder);
+            } else {
+                self.addFolderOnly(nodeName,nodeParent);
+            }
+            self.save();
+            //self.$rootScope.$digest();
+        };
+
+
+        self.addFolderOnly = function(nodeName,nodeParent) {
 
             var newNode = {
                 id: uuid.v4(),
                 name: nodeName,
-                css:'default'
+                children:[]
             };
 
-            if (node) {
-                if (!node.children) {
-                    node.children = [];
+            if (nodeParent) {
+                if (!nodeParent.children) {
+                    nodeParent.children = [];
                 }
-                node.children.push(newNode);
+                newNode.defaultCss = nodeParent.defaultCss;
+                nodeParent.children.push(newNode);
 
                 //and we open the node parent
-                self.principalTree.expandedNodes.push(node);
+                self.principalTree.expandedNodes.push(nodeParent);
 
             } else {
-                self.principalTree.tree.push(newNode);
+                self.principalTree.tree.children.push(newNode);
             }
 
             // if the new folder is the first one
@@ -176,11 +219,10 @@
                 self.principalTree.selectedNode = newNode;
             }
 
-            self.save();
         };
 
-        self.addClass = function(nameClass) {
-            self.addFolder(nameClass);
+        self.addClass = function(nameClass,nameTemplate) {
+            self.addFolder(nameClass,null,nameTemplate);
         };
 
         self.addMarkdown = function(node,title) {
@@ -262,7 +304,7 @@
         };
 
 
-        //Copy a document and push in  the bufferDocuments
+        //Copy a document and push in  the buffer.documents
         self.copyDocumentInBuffer = function(node) {
 
             self.db.find({
@@ -272,15 +314,27 @@
                 if (err) {
                     console.error(err);
                 } else {
-                    self.principalTree.bufferDocuments.push(docs[0]);
+                    self.principalTree.buffer.documents.push(docs[0]);
                     self.save();
                 }
                 self.docsPendingForBuffer--;
 
-                //And delete the job is done
-                if (self.docsPendingForBuffer === 0 && self.cutNodePending) {
-                    self.deleteNode(self.cutNodePending);
-                    self.cutNodePending = null;
+                //And delete when the job is done
+                if (self.docsPendingForBuffer === 0) {
+                    if ( self.cutNodePending) {
+                        //it's a cut, so have to delete the node
+                        self.deleteNode(self.cutNodePending);
+                        self.cutNodePending = null;
+                    } else {
+                        if (self.exportFileName) {
+                            //it's an export
+                            self.writeToFile();
+                        } else {
+                            // it was just a copy
+                            self.$rootScope.$digest();
+                        }
+
+                    }
                 }
             });
         };
@@ -301,18 +355,10 @@
             // In all case we have to delete it from the tree
             var parent = self.findParent(node);
 
-            var tableauParent;
-            if (parent.children) {
-                tableauParent = parent.children;
-            } else {
-                tableauParent = parent;
-            }
-
-
-            if (tableauParent && tableauParent.length > 0) {
-                var indexOfNode = _.findIndex(tableauParent,{id:node.id});
+            if (parent.children && parent.children.length > 0) {
+                var indexOfNode = _.findIndex(parent.children,{id:node.id});
                 if (indexOfNode >=0) {
-                    tableauParent.splice(indexOfNode,1);
+                    parent.children.splice(indexOfNode,1);
                 }
             }
             self.save();
@@ -348,19 +394,13 @@
             if (!nodeParent) {
                 return self.findParent(node, self.principalTree.tree);
             } else {
-                var tableauRecherche;
-                if (nodeParent.children) {
-                    tableauRecherche = nodeParent.children;
-                } else {
-                    tableauRecherche = nodeParent;
-                }
-                var item = _.find(tableauRecherche,{id:node.id});
+                var item = _.find(nodeParent.children,{id:node.id});
                 if (item) {
                     return nodeParent;
                 } else {
                     var result = null;
-                    for(var i=0; result == null && i < tableauRecherche.length; i++){
-                        result = self.findParent(node,tableauRecherche[i]);
+                    for(var i=0; result == null && i < nodeParent.children.length; i++){
+                        result = self.findParent(node,nodeParent.children[i]);
                     }
                     return result;
                 }
@@ -370,13 +410,14 @@
         //Copy of a folder with documents
         self.copyNodeFolder = function(node) {
             //First we copy the structure
-            self.principalTree.bufferTreeCopy = {};
-            angular.copy(node,self.principalTree.bufferTreeCopy);
+            self.initBuffer();
+            self.principalTree.buffer.tree = {};
+            angular.copy(node,self.principalTree.buffer.tree);
 
             self.save();
 
             //we initialize the buffer for documents
-            self.principalTree.bufferDocuments = [];
+            self.principalTree.buffer.documents = [];
 
             //then we'll copy the documents of this structure
             var documents = [];
@@ -391,6 +432,8 @@
                 documents.forEach(function(node) {
                     self.copyDocumentInBuffer(node);
                 });
+            } else {
+                self.writeToFile();
             }
         };
 
@@ -406,11 +449,11 @@
         //paste a node from the buffer
         self.pasteNodefolder = function(nodeDestinationParent, nodeSource) {
             if (!nodeSource) {
-                nodeSource = self.principalTree.bufferTreeCopy;
+                nodeSource = self.principalTree.buffer.tree;
             }
             if (nodeSource.leaf) {
                 //If it's a document we have to copy and save it
-                var document = _.find(self.principalTree.bufferDocuments,{_id:nodeSource.id});
+                var document = _.find(self.principalTree.buffer.documents,{_id:nodeSource.id});
                 if (document) {
                     self.copyDocumentTo(document,nodeDestinationParent);
                 }
@@ -424,14 +467,59 @@
                         self.pasteNodefolder(nodeToGo, item);
                     });
                 }
-                nodeDestinationParent.children.push(nodeToGo);
+
+                if (nodeDestinationParent.children) {
+                    nodeDestinationParent.children.push(nodeToGo);
+                } else {
+                    // in case the node parent is the tree himself
+                    nodeDestinationParent.push(nodeToGo);
+                }
             }
+        };
 
+        self.pasteBufferToNode = function(nodeDestinationParent) {
+            if (self.principalTree.buffer.tree) {
+                self.pasteNodefolder(nodeDestinationParent);
+                self.principalTree.buffer.tree = null;
+            }
+        };
 
+        //export the buffer in a file
+        self.exportTo = function(node,filename) {
+            self.exportFileName = filename;
+            self.copyNodeFolder(node);
+        };
+
+        self.writeToFile = function() {
+            fs.writeFile(self.exportFileName, JSON.stringify(self.principalTree.buffer), 'utf8', function(err) {
+                if (err) throw err;
+                console.log('It\'s saved!');
+            });
+            self.exportFileName = null;
+        };
+
+        self.importFrom = function(node,filename) {
+            self.initBuffer();
+            fs.readFile(filename,'utf8',function(err,data) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    try {
+                        self.principalTree.buffer = JSON.parse(data);
+                        self.pasteBufferToNode(node);
+                    }
+                    catch (err) {
+                        console.log('There has been an error parsing your JSON.');
+                        console.log(err);
+                    }
+                }
+            });
         };
 
 
-
+        self.saveTemplate = function(node,nameTemplate) {
+            self.TemplateTreeService.saveTemplate(node,nameTemplate);
+        };
 
 
         self.saveCurrent = function() {
