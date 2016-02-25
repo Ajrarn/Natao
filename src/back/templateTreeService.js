@@ -17,8 +17,9 @@
 
 
     //Service itself
-    function TemplateTreeService() {
+    function TemplateTreeService($translate) {
         console.log('TemplateTreeService');
+        this.$translate = $translate;
 
         var self = this;
         self.availableTemplates = [];
@@ -30,13 +31,35 @@
                     console.error(err);
                 } else {
                     if (docs.length === 0) {
-                        self.defaultCss();
+                        self.defaultTemplate();
                     } else {
                         self.availableTemplates = docs;
                         console.log('templates',self.availableTemplates);
                     }
                 }
             });
+        };
+
+        self.defaultTemplate = function() {
+            //First we load the names of the css in the appropriate language
+            var templateFile = fs.readFileSync('./translations/templates-' + self.$translate.use() + '.json','utf8');
+
+            var templates = [];
+
+            if (templateFile) {
+                try {
+                    templates = JSON.parse(templateFile);
+
+                    templates.forEach(function(template) {
+                        self.saveTemplate(template,template.name);
+                    });
+                }
+                catch (err) {
+                    console.log('There has been an error parsing your JSON.');
+                    console.log(err);
+                }
+
+            }
         };
 
         self.deleteDocReference = function(node) {

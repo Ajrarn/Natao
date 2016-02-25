@@ -28,7 +28,9 @@
         self.docsMarkdown = [];
         self.principalTree = {
             docName: 'PrincipalTree',
-            tree: [],
+            tree: {
+                children:[]
+            },
             expandedNodes: [],
             selectedNode: null,
             buffer: {
@@ -70,19 +72,29 @@
         self.init = function() {
             self.db = self.PreferencesService.getDB();
             self.TemplateTreeService.init(self.db);
+            self.CssService.init(self.db, null);
             self.db.find({docName:'PrincipalTree'}, function (err, docs) {
                 if (err || docs.length === 0) {
                     console.log('Principal Document not found');
+
+                    var cssName = _.find(self.CssService.cssNames,{default:true});
+
+                    if (cssName) {
+                        self.principalTree.tree.defaultCss = cssName.inDatabaseName;
+                    } else {
+                        self.principalTree.tree.defaultCss = null;
+                    }
+
 
                     self.db.insert(self.principalTree, function (err, newDoc) {
                         if (err) {
                             console.error('error:', err);
                         } else {
                             self.principalTree = newDoc;
+                            console.log('principalTree',self.principalTree);
                         }
                     });
 
-                    self.CssService.init(self.db, null);
 
                 } else {
                     self.principalTree = docs[0];
@@ -170,10 +182,13 @@
                 var newFolder = {};
                 angular.copy(template,newFolder);
                 newFolder.name = nodeName;
+                delete newFolder.docName;
                 self.pasteNodefolder(nodeParent,newFolder);
             } else {
                 self.addFolderOnly(nodeName,nodeParent);
             }
+            self.save();
+            //self.$rootScope.$digest();
         };
 
 
@@ -182,7 +197,6 @@
             var newNode = {
                 id: uuid.v4(),
                 name: nodeName,
-                css:'default',
                 children:[]
             };
 
@@ -190,13 +204,14 @@
                 if (!nodeParent.children) {
                     nodeParent.children = [];
                 }
+                newNode.defaultCss = nodeParent.defaultCss;
                 nodeParent.children.push(newNode);
 
                 //and we open the node parent
                 self.principalTree.expandedNodes.push(nodeParent);
 
             } else {
-                self.principalTree.tree.push(newNode);
+                self.principalTree.tree.children.push(newNode);
             }
 
             // if the new folder is the first one
@@ -204,7 +219,6 @@
                 self.principalTree.selectedNode = newNode;
             }
 
-            self.save();
         };
 
         self.addClass = function(nameClass,nameTemplate) {
@@ -305,7 +319,7 @@
                 }
                 self.docsPendingForBuffer--;
 
-                //And delete the job is done
+                //And delete when the job is done
                 if (self.docsPendingForBuffer === 0) {
                     if ( self.cutNodePending) {
                         //it's a cut, so have to delete the node
@@ -341,18 +355,10 @@
             // In all case we have to delete it from the tree
             var parent = self.findParent(node);
 
-            var tableauParent;
-            if (parent.children) {
-                tableauParent = parent.children;
-            } else {
-                tableauParent = parent;
-            }
-
-
-            if (tableauParent && tableauParent.length > 0) {
-                var indexOfNode = _.findIndex(tableauParent,{id:node.id});
+            if (parent.children && parent.children.length > 0) {
+                var indexOfNode = _.findIndex(parent.children,{id:node.id});
                 if (indexOfNode >=0) {
-                    tableauParent.splice(indexOfNode,1);
+                    parent.children.splice(indexOfNode,1);
                 }
             }
             self.save();
@@ -388,19 +394,13 @@
             if (!nodeParent) {
                 return self.findParent(node, self.principalTree.tree);
             } else {
-                var tableauRecherche;
-                if (nodeParent.children) {
-                    tableauRecherche = nodeParent.children;
-                } else {
-                    tableauRecherche = nodeParent;
-                }
-                var item = _.find(tableauRecherche,{id:node.id});
+                var item = _.find(nodeParent.children,{id:node.id});
                 if (item) {
                     return nodeParent;
                 } else {
                     var result = null;
-                    for(var i=0; result == null && i < tableauRecherche.length; i++){
-                        result = self.findParent(node,tableauRecherche[i]);
+                    for(var i=0; result == null && i < nodeParent.children.length; i++){
+                        result = self.findParent(node,nodeParent.children[i]);
                     }
                     return result;
                 }
@@ -432,6 +432,8 @@
                 documents.forEach(function(node) {
                     self.copyDocumentInBuffer(node);
                 });
+            } else {
+                self.writeToFile();
             }
         };
 
