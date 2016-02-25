@@ -29,6 +29,12 @@ html, body {
     textarea {
       font-family: opendyslexic !important;
     }
+
+    .tree-label {
+      span {
+        font-family: opendyslexic !important;
+      }
+    }
   }
 }
 
@@ -194,29 +200,6 @@ input,label,p{
 }
 
 
-/*.tree-light {
-  color: white;
-
-  .typcn {
-    font-size: 1.5em;
-  }
-}
-
-.treeContainer {
-  //width: 150px;
-  //overflow: auto;
-}
-
-
-treecontrol li{
-  //display:inline-table;
-}
-
-.tree-branch-head {
-  display:none !important;
-  width:0 !important;
-  height: 0 !important;
-}*/
 
 /**********************flags*************************/
 .flag-icon {
