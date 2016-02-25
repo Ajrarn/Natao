@@ -39,6 +39,7 @@
   "DOC_TITLE":"Title",
   "DOC_CREATED":"Created on",
   "DOC_CSS":"Style",
+  "DEFAULT_CSS":"Default Style",
   "TEMPLATE":"Apply a template",
   "CONFIRM_DELETE_FOLDER":"Are you sure you want to delete this folder ?",
   "CONFIRM_SAVE_TEMPLATE":"Are you sure you want to change this template structure ?",

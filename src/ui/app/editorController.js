@@ -68,6 +68,7 @@
         self.openFolderPopover = function(node) {
             self.currentNode = node;
             self.newNameFolder = node.name;
+            self.newDefaultCss = node.defaultCss;
             self.folderPopover = 'buttonBar';
             console.log('disabled',self.pasteButtonDisabled());
         };
@@ -213,6 +214,7 @@
         self.saveFolder = function(hide) {
             if (self.newNameFolder && self.newNameFolder.length > 0) {
                 self.currentNode.name = self.newNameFolder;
+                self.currentNode.defaultCss = self.newDefaultCss;
                 self.PrincipalTreeService.save();
             }
             hide();

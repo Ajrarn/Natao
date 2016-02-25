@@ -231,7 +231,7 @@
                 docName: 'markdown',
                 title: title,
                 created: new Date(),
-                css: 'lesson.css',
+                css: node.defaultCss,
                 md: ''
             };
 

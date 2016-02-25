@@ -85,6 +85,11 @@
                                     <p>{{ 'NODE_NAME' | translate }}</p>
                                     <input id="folderName" ng-model="EditorCtrl.newNameFolder" focus-on="folderName">
                                 </label>
+                                <label for="defaultCss" layout="column" layout-align="center center">
+                                    <p>{{ 'DEFAULT_CSS' | translate }}</p>
+                                    <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss">
+                                    </select>
+                                </label>
                             </form>
                             <form name="AddFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addFolder'">
                                 <label for="addFolderName" layout="column" layout-align="center center">
