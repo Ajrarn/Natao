@@ -114,7 +114,7 @@ button,.button {
 .menu {
   color:white;
   width: 300px;
-  overflow-x: auto;
+  //overflow-x: auto;
 }
 
 .files {
@@ -190,6 +190,7 @@ input,label,p{
 
 .treeContainer {
   background-color: white;
+  overflow-x: auto;
 }
 
 
