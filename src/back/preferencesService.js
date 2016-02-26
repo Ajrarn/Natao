@@ -5,6 +5,8 @@
 
     var fileName = 'NataoSetting.json';
 
+    var urlFirstSetting = '/firstTimeSettings';
+
     angular
         .module('Natao')
         .service('PreferencesService', PreferencesService)
@@ -154,7 +156,7 @@
                     console.log('There has been an error parsing your JSON.');
                     console.log(err);
                     self.settings = {fileDatabase:null};
-                    self.$location.path('/settings');
+                    self.$location.path(urlFirstSetting);
                 }
             } else {
                 //When the user choose an existing database on setting page, his setting file isn't yet save but he has settings
@@ -164,7 +166,7 @@
                     // here he doesn't have any settings
                     console.log('No setting file yet.');
                     self.settings = {fileDatabase:null};
-                    self.$location.path('/settings');
+                    self.$location.path(urlFirstSetting);
                 }
             }
 
@@ -186,13 +188,13 @@
                             self.zoomChange();
                             self.$rootScope.$digest();
                         } else {
-                            self.$location.path('/settings');
+                            self.$location.path(urlFirstSetting);
                         }
                     }
                 });
             } else {
                 self.settings.fileDatabase = null;
-                self.$location.path('/settings');
+                self.$location.path(urlFirstSetting);
             }
         };
 
