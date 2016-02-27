@@ -44,5 +44,12 @@
   "CONFIRM_DELETE_FOLDER":"Es tu sûr de vouloir supprimer ce dossier ?",
   "CONFIRM_SAVE_TEMPLATE":"Es tu sur de vouloir remplacer la structure existante par celle-ci ?",
   "YES":"Oui",
-  "NO":"Non"
+  "NO":"Non",
+  "SETTING_DATABASE":"Fichier Base de données",
+  "SETTING_LANGUAGE":"Langage",
+  "SETTING_THEME":"Thème",
+  "SETTING_SETTING":"Préférences",
+  "SETTING_STYLE":"Style",
+  "SETTING_TEMPLATE":"Structures",
+  "SETTING_IDENTITY":"Identité"
 }

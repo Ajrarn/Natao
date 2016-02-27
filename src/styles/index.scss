@@ -4,15 +4,7 @@
 @import 'themeMixin';
 @import '../../bower_components/nsPopover/sass/ns-popover';
 
-textarea {
-  font-family: $font-family ;;
-  font-size: 16px;
-  resize: none;
-  margin: 10px 5px;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: inset 3px 0px 14px -2px rgba(0,0,0,0.75);
-}
+
 
 html, body {
   height: 100%;
@@ -36,6 +28,20 @@ html, body {
       }
     }
   }
+}
+
+textarea {
+  font-family: $font-family ;;
+  font-size: 16px;
+  resize: none;
+  margin: 10px 5px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 3px 0px 14px -2px rgba(0,0,0,0.75);
+}
+
+input, select {
+  font-size: 16px;
 }
 
 
@@ -141,8 +147,9 @@ button,.button {
 
     transition: all 1s;
   }
-
 }
+
+
 
 .editor {
   flex-grow:1;
@@ -190,7 +197,54 @@ input,label,p{
 
 /***********************Setting************************/
 .setting {
-  padding: 50px;
+  margin: 50px;
+
+  h1 {
+    color: black;
+    font-size: 24px;
+  }
+
+  table {
+    tbody {
+      tr {
+        border-bottom: 1px solid #ddd;
+        &:last-child {
+          border-bottom: 0px;
+        }
+
+        td {
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
+.tab-content {
+  .tab-pane {
+    display:none;
+
+    &.active {
+      display:block;
+    }
+  }
+}
+
+.nav-tabs {
+  width: 150px;
+  margin: 0;
+  list-style-type: none;
+  padding: 0px;
+
+  li {
+    padding: 10px 2px;
+    border-bottom: 1px solid;
+
+    span {
+      font-size: 1.5em;
+    }
+  }
+
+
 }
 /***********************TreeView***********************/
 

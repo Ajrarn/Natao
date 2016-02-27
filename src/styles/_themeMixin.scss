@@ -73,6 +73,20 @@
   .files {
     background-color: map-get($color_map, MD);
   }
+
+  .nav-tabs {
+    background-color: map-get($color_map, MM);
+
+    li {
+      background-color: map-get($color_map, ML);
+
+      border-color: map-get($color_map, MD);
+
+      &.active {
+        background-color: white;
+      }
+    }
+  }
 }
 
 @mixin color-square($color_map) {
