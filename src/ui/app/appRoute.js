@@ -9,6 +9,9 @@
     function AppRoute($routeProvider) {
         console.log('RouteConfig');
         $routeProvider.
+        when('/firstTimeSettings', {
+            templateUrl: 'src/partials/firstTimeSettings.html'
+        }).
         when('/settings', {
             templateUrl: 'src/partials/settings.html'
         }).
@@ -18,8 +21,6 @@
         otherwise({
             redirectTo: '/app'
         });
-
-
 
     }
 

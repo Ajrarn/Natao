@@ -7,7 +7,7 @@
 
     angular
         .module('Natao', modules)
-        .directive('focusOn', function() {
+        /*.directive('focusOn', function() {
             return function(scope, elem, attr) {
                 scope.$on('focusOn', function(e, name) {
                     if(name === attr.focusOn) {
@@ -22,7 +22,7 @@
                     $rootScope.$broadcast('focusOn', name);
                 });
             }
-        })
+        })*/
         .run(run);
 
     function run($rootScope,$location,PreferencesService) {
