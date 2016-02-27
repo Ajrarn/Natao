@@ -6,7 +6,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService) {
         console.log('SettingsController');
 
         var self = this;
@@ -17,6 +17,7 @@
         self.$scope = $scope;
 
         self.fileDialog = fileDialog;
+        self.CssService = CssService;
 
         self.settingsValide = function() {
             self.valid = self.PreferencesService.isValid();
@@ -57,6 +58,10 @@
                 self.$scope.$apply();
             }, false, ['db']);
 
+        };
+
+        self.saveCss = function() {
+            console.log('save Css');
         };
 
 

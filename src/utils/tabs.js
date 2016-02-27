@@ -30,7 +30,7 @@
                 '<p><span class="typcn {{pane.icon}}"></span> {{pane.title}}</p>' +
                 '</li>' +
                 '</ul>' +
-                '<div class="tab-content" ng-transclude></div>' +
+                '<div class="tab-content" flex layout="column" layout-align="start stretch" ng-transclude></div>' +
                 '</div>',
                 replace: true
             };
@@ -46,7 +46,7 @@
                     tabsController.addPane(scope);
                 },
                 template:
-                '<div class="tab-pane" ng-class="{active: selected}" ng-transclude>' +
+                '<div class="tab-pane" flex flex layout="column" layout-align="start stretch" ng-class="{active: selected}" ng-transclude>' +
                 '</div>',
                 replace: true
             };
