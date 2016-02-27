@@ -104,7 +104,7 @@
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <p>{{ 'SETTING_DOCUMENT_TEST' | translate }}</p>
-                            <select id="document" ng-model="SettingCtrl.currentDoc" ng-options="document as document.title for document in SettingCtrl.documents">
+                            <select id="document" ng-model="SettingCtrl.currentDoc" ng-options="document as document.title for document in SettingCtrl.documents" ng-change="SettingCtrl.changeDocument()">
                             </select>
                         </div>
                         <div class="visualiser" flex
@@ -122,7 +122,7 @@
                             <div class="notation"></div>
                             <div class="devoir" flex layout="row" layout-align="start stretch">
                                 <div class="marge"></div>
-                                <div id="rendu" markdown-to-html="SettingCtrl.currentDoc.md" flex></div>
+                                <div id="rendu" ng-bind-html="SettingCtrl.currentHTML" flex></div>
                             </div>
 
                         </div>

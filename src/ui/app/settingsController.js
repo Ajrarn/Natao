@@ -6,7 +6,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,$showdown) {
         console.log('SettingsController');
 
         var self = this;
@@ -19,6 +19,7 @@
         self.fileDialog = fileDialog;
         self.CssService = CssService;
         self.DocumentsService = DocumentsService;
+        self.$showdown = $showdown;
 
 
         self.documentsPromise = self.DocumentsService.getDocuments();
@@ -71,6 +72,10 @@
 
         self.saveCss = function() {
             console.log('save Css');
+        };
+
+        self.changeDocument = function() {
+          self.currentHTML = self.$showdown.makeHtml(self.currentDoc.md);
         };
 
 
