@@ -51,5 +51,6 @@
   "SETTING_SETTING":"Préférences",
   "SETTING_STYLE":"Styles",
   "SETTING_TEMPLATE":"Structures",
-  "SETTING_IDENTITY":"Identité"
+  "SETTING_IDENTITY":"Identité",
+  "SETTING_DOCUMENT_TEST":"Document pour exemple"
 }

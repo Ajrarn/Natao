@@ -26,8 +26,6 @@
         self.getDB = function(file) {
             if (!self.db) {
                 self.db = new Datastore({ filename: file, autoload:true});
-            } else {
-                self.db = null;
             }
             return self.db;
         };

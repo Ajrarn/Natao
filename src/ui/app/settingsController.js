@@ -6,7 +6,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService) {
         console.log('SettingsController');
 
         var self = this;
@@ -18,6 +18,15 @@
 
         self.fileDialog = fileDialog;
         self.CssService = CssService;
+        self.DocumentsService = DocumentsService;
+
+
+        self.documentsPromise = self.DocumentsService.getDocuments();
+        self.documentsPromise.then(function(docs) {
+            self.documents = docs;
+            console.log('documents',self.documents);
+        });
+
 
         self.settingsValide = function() {
             self.valid = self.PreferencesService.isValid();
