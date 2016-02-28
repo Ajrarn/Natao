@@ -87,7 +87,7 @@
                                 </label>
                                 <label for="defaultCss" layout="column" layout-align="center center">
                                     <p>{{ 'DEFAULT_CSS' | translate }}</p>
-                                    <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss">
+                                    <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss">
                                     </select>
                                 </label>
                             </form>
@@ -154,7 +154,7 @@
 
                     <label for="css" layout="row" layout-align="start center">
                         <p>{{ 'DOC_CSS' | translate }}</p>
-                        <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css.name as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
+                        <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
                         </select>
                     </label>
 

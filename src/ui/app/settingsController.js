@@ -72,10 +72,15 @@
 
         self.saveCss = function() {
             console.log('save Css');
+            self.CssService.initCurrentByContent(self.currentCss.css);
         };
 
         self.changeDocument = function() {
           self.currentHTML = self.$showdown.makeHtml(self.currentDoc.md);
+        };
+
+        self.changeCss = function() {
+            self.CssService.initCurrentByContent(self.currentCss.css);
         };
 
 

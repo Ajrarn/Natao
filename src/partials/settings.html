@@ -95,7 +95,7 @@
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <p>{{ 'DOC_CSS' | translate }}</p>
-                            <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss">
+                            <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
                             </select>
                         </div>
                         <textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
@@ -107,30 +107,35 @@
                             <select id="document" ng-model="SettingCtrl.currentDoc" ng-options="document as document.title for document in SettingCtrl.documents" ng-change="SettingCtrl.changeDocument()">
                             </select>
                         </div>
-                        <div class="visualiser" flex
-                             layout="column" layout-align="start stretch">
-                            <div class="haut" layout="row" layout-align="start stretch">
-                                <div class="identity" layout="column" layout-align="center center">
-                                    <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
-                                    <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
-                                </div>
-                                <div class="title-zone" layout="column" layout-align="center center">
-                                    <h1>{{SettingCtrl.currentDoc.title}}</h1>
-                                    <p>{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
-                                </div>
-                            </div>
-                            <div class="notation"></div>
-                            <div class="devoir" flex layout="row" layout-align="start stretch">
-                                <div class="marge"></div>
-                                <div id="rendu" ng-bind-html="SettingCtrl.currentHTML" flex></div>
-                            </div>
+                        <tabs>
+                            <pane title="HTML">
+                                <textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentHTML" readonly="readonly">
+                                </textarea>
+                            </pane>
+                            <pane title="Visu">
+                                <div class="visualiser" flex
+                                     layout="column" layout-align="start stretch">
+                                    <div class="haut" layout="row" layout-align="start stretch">
+                                        <div class="identity" layout="column" layout-align="center center">
+                                            <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
+                                            <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
+                                        </div>
+                                        <div class="title-zone" layout="column" layout-align="center center">
+                                            <h1>{{SettingCtrl.currentDoc.title}}</h1>
+                                            <p>{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="notation"></div>
+                                    <div class="devoir" flex layout="row" layout-align="start stretch">
+                                        <div class="marge"></div>
+                                        <div id="rendu" ng-bind-html="SettingCtrl.currentHTML" flex></div>
+                                    </div>
 
-                        </div>
+                                </div>
+                            </pane>
+                        </tabs>
                     </div>
                 </div>
-
-
-
             </pane>
             <pane title="{{ 'SETTING_TEMPLATE' | translate }}" icon="typcn-flow-children" class="setting">
                 <h1>Templates</h1>
