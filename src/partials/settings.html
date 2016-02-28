@@ -106,16 +106,13 @@
                             <p>{{ 'SETTING_DOCUMENT_TEST' | translate }}</p>
                             <select id="document" ng-model="SettingCtrl.currentDoc" ng-options="document as document.title for document in SettingCtrl.documents" ng-change="SettingCtrl.changeDocument()">
                             </select>
+                            <switch id="enabled" name="enabled" ng-model="SettingCtrl.viewer" on="{{ 'SETTING_SWITCH_VIEWER' | translate }}" off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
                         </div>
-                        <div layout="row" layout-align="start center">
-                            <button ng-click="SettingCtrl.CssVisualizer = 'HTML'">HTML</button>
-                            <button ng-click="SettingCtrl.CssVisualizer = 'Visu'">Visualisation</button>
-                        </div>
-                        <div ng-if="SettingCtrl.CssVisualizer === 'HTML'">
+                        <div ng-if="!SettingCtrl.viewer">
                             <textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentHTML" readonly="readonly">
                             </textarea>
                         </div>
-                        <div ng-if="SettingCtrl.CssVisualizer === 'Visu'">
+                        <div ng-if="SettingCtrl.viewer">
                             <div class="visualiser" flex
                                  layout="column" layout-align="start stretch">
                                 <div class="haut" layout="row" layout-align="start stretch">
