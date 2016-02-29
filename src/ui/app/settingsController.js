@@ -70,8 +70,8 @@
 
         };
 
-        self.saveCss = function() {
-            console.log('save Css');
+        self.saveCss = function(e) {
+            console.log('e',e);
             self.CssService.initCurrentByContent(self.currentCss.css);
         };
 

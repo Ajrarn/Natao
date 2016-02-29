@@ -98,8 +98,16 @@
                             <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
                             </select>
                         </div>
-                        <textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </textarea>
+
+                        <!--textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                        </textarea-->
+                        <div class="customEditor" ui-ace="{
+                             useWrapMode : false,
+                             showGutter: false,
+                             theme:'xcode',
+                             mode: 'css',
+                             onChange: SettingCtrl.saveCss}"
+                             flex ng-model="SettingCtrl.currentCss.css"></div>
                     </div>
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="space-between center">
