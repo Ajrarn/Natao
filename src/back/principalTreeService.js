@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope,$q) {
         console.log('PrincipalTreeService');
 
         var self = this;
@@ -25,6 +25,7 @@
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.$rootScope = $rootScope;
+        self.$q = $q;
         self.docsMarkdown = [];
         self.principalTree = {
             docName: 'PrincipalTree',
@@ -71,58 +72,63 @@
 
         self.init = function() {
             self.db = self.PreferencesService.getDB();
-            self.TemplateTreeService.init(self.db);
-            self.CssService.init(self.db, null);
-            self.db.find({docName:'PrincipalTree'}, function (err, docs) {
-                if (err || docs.length === 0) {
-                    console.log('Principal Document not found');
 
-                    var cssName = _.find(self.CssService.cssNames,{default:true});
+            //self.TemplateTreeService.init(self.db);
 
-                    if (cssName) {
-                        self.principalTree.tree.defaultCss = cssName.inDatabaseName;
-                    } else {
-                        self.principalTree.tree.defaultCss = null;
-                    }
+            //self.CssService.init(self.db, null);
 
+            var initTemplate = self.TemplateTreeService.getInitTemplate(self.db);
 
-                    self.db.insert(self.principalTree, function (err, newDoc) {
-                        if (err) {
-                            console.error('error:', err);
-                        } else {
-                            self.principalTree = newDoc;
-                            console.log('principalTree',self.principalTree);
-                        }
-                    });
+            var initCss = self.CssService.getInitCss(self.db);
 
+            var start = self.$q.all([initTemplate,initCss]);
 
-                } else {
-                    self.principalTree = docs[0];
-                    console.log('principalTree', self.principalTree);
-                    if (self.principalTree.selectedNode) {
-                        self.CssService.init(self.db, self.principalTree.selectedNode.css);
-                    } else {
-                        self.CssService.init(self.db, null);
-                    }
+            start.then(function(result) {
 
-                    if (self.principalTree.currentMarkdownId) {
-                        self.db.find({
-                            docName: 'markdown',
-                            _id: self.principalTree.currentMarkdownId
-                        }, function (err, docs) {
+                var defaultCss = result[1];
+
+                self.db.find({docName:'PrincipalTree'}, function (err, docs) {
+                    if (err || docs.length === 0) {
+                        console.log('Principal Document not found');
+
+                        self.principalTree.tree.defaultCss = defaultCss._id;
+
+                        self.db.insert(self.principalTree, function (err, newDoc) {
                             if (err) {
-                                console.error(err);
+                                console.error('error:', err);
                             } else {
-                                self.currentMarkdown = docs[0];
-                                self.CssService.initCurrent(self.currentMarkdown.css);
+                                self.principalTree = newDoc;
+                                console.log('principalTree',self.principalTree);
                             }
                         });
 
-                        self.$rootScope.$digest();
-                        setTimeout(self.refreshMath, 100);  //without angular $digest
+
+                    } else {
+                        self.principalTree = docs[0];
+                        console.log('principalTree', self.principalTree);
+
+                        if (self.principalTree.currentMarkdownId) {
+                            self.db.find({
+                                docName: 'markdown',
+                                _id: self.principalTree.currentMarkdownId
+                            }, function (err, docs) {
+                                if (err) {
+                                    console.error(err);
+                                } else {
+                                    self.currentMarkdown = docs[0];
+                                    self.CssService.initCurrentById(self.currentMarkdown.css);
+                                }
+                            });
+
+                            self.$rootScope.$digest();
+                            setTimeout(self.refreshMath, 100);  //without angular $digest
+                        }
                     }
-                }
+                });
+            }).then(null,function(err){
+                    console.error(err);
             });
+
         };
 
 
@@ -147,7 +153,7 @@
                         } else {
                             if (docs && docs.length > 0){
                                 self.currentMarkdown = docs[0];
-                                self.CssService.initCurrent(self.currentMarkdown.css);
+                                self.CssService.initCurrentById(self.currentMarkdown.css);
                                 self.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.save();
                                 self.$rootScope.$digest();
@@ -200,19 +206,20 @@
                 children:[]
             };
 
-            if (nodeParent) {
-                if (!nodeParent.children) {
-                    nodeParent.children = [];
-                }
-                newNode.defaultCss = nodeParent.defaultCss;
-                nodeParent.children.push(newNode);
-
-                //and we open the node parent
-                self.principalTree.expandedNodes.push(nodeParent);
-
-            } else {
-                self.principalTree.tree.children.push(newNode);
+            if (!nodeParent) {
+                nodeParent = self.principalTree.tree;
             }
+
+            if (!nodeParent.children) {
+                nodeParent.children = [];
+            }
+            newNode.defaultCss = nodeParent.defaultCss;
+            nodeParent.children.push(newNode);
+
+            //and we open the node parent
+            self.principalTree.expandedNodes.push(nodeParent);
+
+
 
             // if the new folder is the first one
             if (!self.principalTree.selectedNode) {
@@ -252,7 +259,7 @@
                     node.children.push(newNode);
 
                     self.currentMarkdown = newDoc;
-                    self.CssService.initCurrent(self.currentMarkdown.css);
+                    self.CssService.initCurrentById(self.currentMarkdown.css);
                     self.principalTree.selectedNode = newNode;
                     //and we open the node parent
                     self.principalTree.expandedNodes.push(node);
@@ -524,7 +531,7 @@
 
         self.saveCurrent = function() {
 
-            self.CssService.initCurrent(self.currentMarkdown.css);
+            self.CssService.initCurrentById(self.currentMarkdown.css);
             var copyCurrent = {};
             angular.copy(self.currentMarkdown,copyCurrent);
              self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {

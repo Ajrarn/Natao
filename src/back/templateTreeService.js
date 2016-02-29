@@ -17,14 +17,15 @@
 
 
     //Service itself
-    function TemplateTreeService($translate) {
+    function TemplateTreeService($translate,$q) {
         console.log('TemplateTreeService');
         this.$translate = $translate;
+        this.$q = $q;
 
         var self = this;
         self.availableTemplates = [];
 
-        self.init = function(db) {
+        /*self.init = function(db) {
             self.db = db;
             self.db.find({docName:'template'},function(err,docs) {
                 if (err) {
@@ -38,9 +39,56 @@
                     }
                 }
             });
+        };*/
+
+        self.getInitTemplate = function(db) {
+            self.db = db;
+
+            return self.$q(function (resolve, reject) {
+                self.db.find({docName:'template'},function(err,docs) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        if (docs.length === 0) {
+                            var templateFile = fs.readFileSync('./translations/templates-' + self.$translate.use() + '.json','utf8');
+
+                            var templates = [];
+
+                            if (templateFile) {
+                                try {
+                                    templates = JSON.parse(templateFile);
+
+                                    var nbTemplatesPending = templates.length;
+
+                                    templates.forEach(function(template) {
+                                        self.db.insert(template, function (err,doc) {
+                                            if (err) {
+                                                reject(err);
+                                            } else {
+                                                self.availableTemplates.push(doc);
+                                                nbTemplatesPending--;
+                                                if (nbTemplatesPending === 0) {
+                                                    resolve();
+                                                }
+                                            }
+                                        });
+                                    });
+                                }
+                                catch (err) {
+                                    reject(err);
+                                }
+
+                            }
+                        } else {
+                            self.availableTemplates = docs;
+                            resolve();
+                        }
+                    }
+                });
+            });
         };
 
-        self.defaultTemplate = function() {
+        /*self.defaultTemplate = function() {
             //First we load the names of the css in the appropriate language
             var templateFile = fs.readFileSync('./translations/templates-' + self.$translate.use() + '.json','utf8');
 
@@ -60,7 +108,7 @@
                 }
 
             }
-        };
+        };*/
 
         self.deleteDocReference = function(node) {
             if (node.children && node.children.length > 0) {

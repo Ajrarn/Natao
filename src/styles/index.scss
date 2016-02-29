@@ -197,7 +197,7 @@ input,label,p{
 
 /***********************Setting************************/
 .setting {
-  margin: 50px;
+  margin: 10px;
 
   h1 {
     color: black;
@@ -224,7 +224,7 @@ input,label,p{
     display:none;
 
     &.active {
-      display:block;
+      display:flex;
     }
   }
 }
@@ -246,6 +246,10 @@ input,label,p{
 
 
 }
+
+/*.switch.wide {
+  width:200px;
+}*/
 /***********************TreeView***********************/
 
 .treeContainer {

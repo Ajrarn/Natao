@@ -6,8 +6,9 @@
     <link rel='stylesheet' href='bower_components/typicons.font/src/font/typicons.min.css' />
     <link rel="stylesheet" type="text/css" href="bower_components/angular-tree-control/css/tree-control.css">
     <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-switch/angular-ui-switch.css">
     <link rel="stylesheet" href="src/styles/index.css"/>
-    <style ng-bind="appCtrl.CssService.currentCss.css"></style>
+    <style ng-bind="appCtrl.CssService.currentCss"></style>
 </head>
 <body layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
     <div flex layout="row" ng-view ng-class="appCtrl.PreferencesService.preferences.colorTheme"></div>
@@ -22,6 +23,7 @@
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/angular-tree-control/angular-tree-control.js"></script>
     <script src="bower_components/nw-fileDialog/nw-fileDialog.js"></script>
+    <script src="bower_components/angular-ui-switch/angular-ui-switch.js"></script>
     <script src="bower_components/nsPopover/src/nsPopover.js"></script>
     <script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
     <script src="bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
@@ -31,6 +33,7 @@
     <script src="src/ui/app/appConfig.js"></script>
     <script src="src/ui/app/appRoute.js"></script>
     <script src="src/back/dataBaseService.js"></script>
+    <script src="src/back/documentsService.js"></script>
     <script src="src/back/principalTreeService.js"></script>
     <script src="src/back/preferencesService.js"></script>
     <script src="src/back/cssService.js"></script>

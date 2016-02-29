@@ -49,7 +49,10 @@
   "SETTING_LANGUAGE":"Language",
   "SETTING_THEME":"Colors",
   "SETTING_SETTING":"Preferences",
-  "SETTING_STYLE":"Style",
+  "SETTING_STYLE":"Styles",
   "SETTING_TEMPLATE":"Templates",
-  "SETTING_IDENTITY":"Identity"
+  "SETTING_IDENTITY":"Identity",
+  "SETTING_DOCUMENT_TEST":"Document for sample",
+  "SETTING_SWITCH_HTML":"HTML",
+  "SETTING_SWITCH_SHOW":"Viewer"
 }

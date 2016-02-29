@@ -49,7 +49,10 @@
   "SETTING_LANGUAGE":"Langage",
   "SETTING_THEME":"Thème",
   "SETTING_SETTING":"Préférences",
-  "SETTING_STYLE":"Style",
+  "SETTING_STYLE":"Styles",
   "SETTING_TEMPLATE":"Structures",
-  "SETTING_IDENTITY":"Identité"
+  "SETTING_IDENTITY":"Identité",
+  "SETTING_DOCUMENT_TEST":"Document pour exemple",
+  "SETTING_SWITCH_HTML":"HTML",
+  "SETTING_SWITCH_VIEWER":"Aperçu"
 }
