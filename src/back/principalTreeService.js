@@ -117,11 +117,10 @@
                                 } else {
                                     self.currentMarkdown = docs[0];
                                     self.CssService.initCurrentById(self.currentMarkdown.css);
+                                    self.$rootScope.$digest();
+                                    setTimeout(self.refreshMath, 100);  //without angular $digest
                                 }
                             });
-
-                            self.$rootScope.$digest();
-                            setTimeout(self.refreshMath, 100);  //without angular $digest
                         }
                     }
                 });
@@ -513,6 +512,7 @@
                 } else {
                     try {
                         self.principalTree.buffer = JSON.parse(data);
+                        self.transformDatesInBuffer();
                         self.pasteBufferToNode(node);
                     }
                     catch (err) {
@@ -520,6 +520,12 @@
                         console.log(err);
                     }
                 }
+            });
+        };
+
+        self.transformDatesInBuffer = function() {
+            self.principalTree.buffer.documents.forEach(function (document) {
+                document.created = new Date(document.created);
             });
         };
 

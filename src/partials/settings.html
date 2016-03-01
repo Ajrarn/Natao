@@ -98,8 +98,14 @@
                             <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
                             </select>
                         </div>
-                        <textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </textarea>
+
+                        <div class="customEditor" ui-ace="{
+                             useWrapMode : false,
+                             showGutter: false,
+                             theme:'xcode',
+                             mode: 'css',
+                             onChange: SettingCtrl.saveCss}"
+                             flex ng-model="SettingCtrl.currentCss.css"></div>
                     </div>
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="space-between center">
@@ -110,8 +116,18 @@
                             <switch id="enabled" name="enabled" ng-model="SettingCtrl.viewer" on="{{ 'SETTING_SWITCH_VIEWER' | translate }}" off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
                         </div>
 
-                        <textarea ng-if="!SettingCtrl.viewer" flex rows="4" cols="50" ng-model="SettingCtrl.currentHTML" readonly="readonly">
-                        </textarea>
+                        <!--textarea ng-if="!SettingCtrl.viewer" flex rows="4" cols="50" ng-model="SettingCtrl.currentHTML" readonly="readonly">
+                        </textarea-->
+
+                        <div class="customEditor" ui-ace="{
+                             useWrapMode : false,
+                             showGutter: false,
+                             theme:'xcode',
+                             mode: 'html',
+                             onChange: SettingCtrl.saveCss,
+                             onLoad: SettingCtrl.editorReadOnly}"
+                             flex ng-model="SettingCtrl.currentHtmlAll"
+                             ng-if="!SettingCtrl.viewer"></div>
 
                         <div ng-if="SettingCtrl.viewer" class="visualiser" flex
                              layout="column" layout-align="start stretch">
@@ -120,9 +136,9 @@
                                     <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
                                     <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
                                 </div>
-                                <div class="title-zone" layout="column" layout-align="center center">
+                                <div class="title-zone" flex layout="column" layout-align="center stretch">
                                     <h1>{{SettingCtrl.currentDoc.title}}</h1>
-                                    <p>{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
+                                    <p id="dateCreated">{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
                                 </div>
                             </div>
                             <div class="notation"></div>

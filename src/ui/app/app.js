@@ -3,7 +3,7 @@
 
     var fs = require('fs');
 
-    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog','nsPopover','uiSwitch'];
+    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog','nsPopover','uiSwitch','ui.ace'];
 
     angular
         .module('Natao', modules)
@@ -25,7 +25,7 @@
         })*/
         .run(run);
 
-    function run($rootScope,$location,PreferencesService) {
+    function run($rootScope) {
         console.log('run');
 
         //Detect webkit and version
