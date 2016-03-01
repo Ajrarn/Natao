@@ -1,16 +1,34 @@
 (function () {
     "use strict";
 
-    var modules = ['ngSanitize','ng-showdown'];
+    var fs = require('fs');
+
+    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog','nsPopover','uiSwitch','ui.ace'];
 
     angular
         .module('Natao', modules)
+        /*.directive('focusOn', function() {
+            return function(scope, elem, attr) {
+                scope.$on('focusOn', function(e, name) {
+                    if(name === attr.focusOn) {
+                        elem[0].focus();
+                    }
+                });
+            };
+        })
+        .factory('focus', function ($rootScope, $timeout) {
+            return function(name) {
+                $timeout(function (){
+                    $rootScope.$broadcast('focusOn', name);
+                });
+            }
+        })*/
         .run(run);
 
     function run($rootScope) {
         console.log('run');
 
-        //Détecter si on est sur node-webkit, et quelle version.
+        //Detect webkit and version
         if (typeof process !== "undefined") {
             $rootScope.nodeWebkitVersion = process.versions['node-webkit'];
 
@@ -26,5 +44,7 @@
         }else{
             $rootScope.nodeWebkitVersion = 'browser';
         }
+
+
     }
 }());

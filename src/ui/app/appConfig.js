@@ -6,12 +6,21 @@
         .config(AppConfig);
 
 
-    function AppConfig($showdownProvider) {
+    function AppConfig($showdownProvider,$translateProvider,tmhDynamicLocaleProvider) {
         console.log('AppConfig');
 
+        $translateProvider.useStaticFilesLoader({
+            prefix: './translations/locale-',
+            suffix: '.json'
+        });
+
+        //$translateProvider.useSanitizeValueStrategy('sanitize');
+        $translateProvider.useSanitizeValueStrategy('escape');
+        $translateProvider.preferredLanguage('fr_FR');
+
+        tmhDynamicLocaleProvider.localeLocationPattern('./bower_components/angular-i18n/angular-locale_{{locale}}.js');
+
         $showdownProvider.loadExtension(mathjax);
-
-
 
         MathJax.Hub.Config({
             asciimath2jax: {
@@ -64,5 +73,6 @@
             }
         ];
     };
+
 
 }());

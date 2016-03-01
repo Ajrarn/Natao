@@ -1,37 +1,342 @@
 @import 'variables';
 @import 'layout';
+@import 'opendyslexic';
+@import 'themeMixin';
+@import '../../bower_components/nsPopover/sass/ns-popover';
+
+
+
+
 
 html, body {
   height: 100%;
-  font-family: sans-serif;
   padding: 0;
   margin: 0;
   overflow: hidden;
+  font-size: $font-size;
+  color: #000;
+  font-family: $font-family;
+
+  &.dyslexic {
+    font-family: opendyslexic !important;
+
+    textarea {
+      font-family: opendyslexic !important;
+    }
+
+    .tree-label {
+      span {
+        font-family: opendyslexic !important;
+      }
+    }
+
+    .ace_text-layer {
+      font-family: opendyslexic !important;
+    }
+  }
+}
+
+/*textarea {
+  font-family: $font-family ;;
+  font-size: 16px;
+  resize: none;
+  margin: 10px 5px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 3px 0px 14px -2px rgba(0,0,0,0.75);
+}*/
+
+
+
+input {
+  font-size: $font-size;
+}
+
+select {
+  font-size: $select-font-size;
 }
 
 
+
+
+//hack for MathJax when opendyslexic is on
+.MathJax {
+  font-family: $font-family;
+}
+
+// A tester plus tard
+/*@page {
+  size: A4;
+  //margin: 30mm 45mm 30mm 45mm; /* change the margins as you want them to be.
+}*/
+
+
+/*button {
+  background-color: #363636;
+  color: white;
+  padding: 3px 7px;
+  margin: 5px;
+  border: solid $colorPurpleMM 2px;
+  border-radius: 2px;
+  font-size: 1.5em;
+}*/
 
 .bandeau {
-  //background-color: chartreuse;
+  background-color: black;
+  color:white;
+  height: 50px;
 }
 
-.menu {
-  //background-color: greenyellow;
+button,.button {
+
+  padding: 3px 7px;
+  margin: 5px;
+  font-size: 1.5em;
+  border-radius: 5px;
+  border: none;
+  color:white;
+
+  &.small {
+    padding: 1px 3px;
+    margin: 2px;
+    font-size: 1.2em;
+  }
+
+  &.black {
+    color: black;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.toggle {
+    padding: 3px 5px;
+    border: solid 2px;
+    border-radius: 30px;
+  }
 }
 
 .principal {
-  //background-color: pink;
+  position: relative;
 }
 
+.left-panel {
+  //width: 300px;
+  opacity: 1;
+  transition: opacity 1s;
+  &.hidden {
+    opacity: 0;
+    transition: opacity 1s;
+  }
+}
+
+.buttonBar {
+  button,.button {
+    margin: 2px;
+  }
+}
+
+.menu {
+  color:white;
+  width: 300px;
+  //overflow-x: auto;
+}
+
+.files {
+  width: 300px;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+
+  transition: all 1s;
+
+  &.goright{
+    left: 300px;
+
+    transition: all 1s;
+  }
+}
+
+
+
 .editor {
+  flex-grow:1;
+  opacity: 1;
+
+  transition: flex-grow 1s, opacity 1s;
+
+  &.hidden {
+    flex-grow:0.0001;
+    opacity:0;
+    transition: flex-grow 1s, opacity 1s;
+  }
   //background-color: yellow;
 }
 
 .visualiser {
-  //background-color: plum;
+  flex-grow:1;
+  background-color: white;
   overflow: auto;
+  box-shadow: 0px 10px 32px 0px rgba(0,0,0,0.75);
+  margin: 10px;
+  padding: 10px;
+  opacity:1;
+
+  &.inprint {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  transition: flex-grow 1s;
+  &.hidden {
+    flex-grow:0.0001;
+    opacity:0;
+    margin: 0;
+    padding: 0;
+    transition: all 1s;
+  }
 }
 
-.content {
-  //background-color: dodgerblue;
+.customEditor {
+  border: 1px solid black;
+  margin: 10px;
 }
+
+/***********************Base***************************/
+input,p{
+  margin: 10px;
+}
+
+/***********************Setting************************/
+.setting {
+  margin: 10px;
+
+  h1 {
+    color: black;
+    font-size: 24px;
+  }
+
+  table {
+    tbody {
+      tr {
+        border-bottom: 1px solid #ddd;
+        &:last-child {
+          border-bottom: 0px;
+        }
+
+        td {
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
+.tab-content {
+  .tab-pane {
+    display:none;
+
+    &.active {
+      display:flex;
+    }
+  }
+}
+
+.nav-tabs {
+  width: 150px;
+  margin: 0;
+  list-style-type: none;
+  padding: 0px;
+
+  li {
+    padding: 10px 2px;
+    border-bottom: 1px solid;
+
+    span {
+      font-size: 1.5em;
+    }
+  }
+
+
+}
+
+/*.switch.wide {
+  width:200px;
+}*/
+/***********************TreeView***********************/
+
+.treeContainer {
+  background-color: white;
+  overflow-x: auto;
+}
+
+
+
+/**********************flags*************************/
+.flag-icon {
+  margin: 5px;
+  font-size: 6em;
+  border: solid black 1px;
+}
+
+/***********************ColorChooser*****************/
+.chooser-purple {
+  @include color-square($purpleTheme);
+}
+
+.chooser-blue {
+  @include color-square($blueTheme);
+}
+
+.chooser-red {
+  @include color-square($redTheme);
+}
+
+.chooser-orange {
+  @include color-square($orangeTheme);
+}
+
+.chooser-green {
+  @include color-square($greenTheme);
+}
+
+.chooser-grey{
+  @include color-square($greyTheme);
+}
+
+
+
+/**************************Themes********************/
+.purple {
+  @include color-theme($purpleTheme);
+}
+
+.blue {
+  @include color-theme($blueTheme);
+}
+
+.red {
+  @include color-theme($redTheme);
+}
+
+.orange {
+  @include color-theme($orangeTheme);
+}
+
+.green {
+  @include color-theme($greenTheme);
+}
+
+.grey{
+  @include color-theme($greyTheme);
+}
+
+
+
+

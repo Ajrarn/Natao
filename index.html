@@ -1,40 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Natao">
+<html lang="en" ng-app="Natao" ng-controller="AppController as appCtrl">
 <head>
     <meta charset="UTF-8">
     <title>Natao</title>
-    <link rel="stylesheet" href="src/styles/index.css" />
+    <link rel='stylesheet' href='bower_components/typicons.font/src/font/typicons.min.css' />
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-tree-control/css/tree-control.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-switch/angular-ui-switch.css">
+    <link rel="stylesheet" href="src/styles/index.css"/>
+    <style ng-bind="appCtrl.CssService.currentCss"></style>
 </head>
-<body ng-controller="AppController as appCtrl" layout="column">
-    <div class="bandeau" ng-show="!appCtrl.inPrint">
-        <button ng-click="appCtrl.zoomHigher()">+</button>
-        <button ng-click="appCtrl.zoomLower()">-</button>
-        <button ng-click="appCtrl.print()">print</button>
-    </div>
-    <div class="principal" flex layout="row">
-        <div class="menu" ng-show="!appCtrl.inPrint">menu</div>
-        <div flex layout="column">
-            <div class="content" flex layout=row">
-                <div class="editor" flex layout="column" ng-show="!appCtrl.inPrint">
-                    editeur
-                <textarea flex rows="4" cols="50" ng-model="appCtrl.myMarkdown" ng-change="appCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                </textarea>
-                </div>
-                <div class="visualiser" flex>
-                    <span id="rendu" markdown-to-html="appCtrl.myMarkdown"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/showdown/dist/showdown.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
-<script src="bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
-<script src="src/ui/app/app.js"></script>
-<script src="src/ui/app/appConfig.js"></script>
-<script src="src/ui/app/appController.js"></script>
+<body layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
+    <div flex layout="row" ng-view ng-class="appCtrl.PreferencesService.preferences.colorTheme"></div>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/showdown/dist/showdown.js"></script>
+    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
+    <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_en-us.js"></script>
+    <script type="text/javascript" src="bower_components/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
+    <script type="text/javascript" src="bower_components/angular-translate/angular-translate.js"></script>
+    <script type="text/javascript" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script type="text/javascript" src="bower_components/angular-tree-control/angular-tree-control.js"></script>
+    <script type="text/javascript" src="bower_components/nw-fileDialog/nw-fileDialog.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-switch/angular-ui-switch.js"></script>
+    <script type="text/javascript" src="bower_components/nsPopover/src/nsPopover.js"></script>
+    <script type="text/javascript" src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
+    <script type="text/javascript" src="bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script type="text/javascript" src="src/ui/app/app.js"></script>
+    <script type="text/javascript" src="src/utils/focus.js"></script>
+    <script type="text/javascript" src="src/utils/tabs.js"></script>
+    <script type="text/javascript" src="src/ui/app/appConfig.js"></script>
+    <script type="text/javascript" src="src/ui/app/appRoute.js"></script>
+    <script type="text/javascript" src="src/back/dataBaseService.js"></script>
+    <script type="text/javascript" src="src/back/documentsService.js"></script>
+    <script type="text/javascript" src="src/back/principalTreeService.js"></script>
+    <script type="text/javascript" src="src/back/preferencesService.js"></script>
+    <script type="text/javascript" src="src/back/cssService.js"></script>
+    <script type="text/javascript" src="src/back/templateTreeService.js"></script>
+    <script type="text/javascript" src="src/ui/app/appController.js"></script>
+    <script type="text/javascript" src="src/ui/app/firstTimeSettingController.js"></script>
+    <script type="text/javascript" src="src/ui/app/settingsController.js"></script>
+    <script type="text/javascript" src="src/ui/app/editorController.js"></script>
 </body>
 </html>

@@ -1,0 +1,100 @@
+
+@mixin color-theme($color_map) {
+
+  button,.button {
+    background-color: map-get($color_map, DD);
+
+
+    &:hover {
+      background-color: map-get($color_map, MD);
+    }
+
+    &:disabled,&.disabled {
+      background-color: map-get($color_map, MM);
+      &:hover {
+        background-color: map-get($color_map, MM);
+      }
+    }
+
+    &.transparent {
+
+      background-color: transparent;
+
+      &:hover {
+        background-color: map-get($color_map, DD);
+      }
+
+      &:disabled {
+        color: map-get($color_map, MM);
+        &:hover {
+          background-color: transparent;
+        }
+      }
+
+      &.light{
+
+        &:hover {
+          background-color: map-get($color_map, MD);
+        }
+
+        &:disabled {
+          color: map-get($color_map, MM);
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+    &.toggle {
+      background-color: transparent;
+      color:white;
+      border-color: white;
+
+      &:hover {
+        background-color: map-get($color_map, DD);
+      }
+
+      &.off {
+        color: map-get($color_map, MD);
+        border-color: transparent;
+      }
+    }
+  }
+
+  .principal {
+    background-color: map-get($color_map, ML);
+  }
+
+  .menu {
+    background-color: map-get($color_map, DD);
+  }
+
+  .files {
+    background-color: map-get($color_map, MD);
+  }
+
+  .nav-tabs {
+    background-color: map-get($color_map, MM);
+
+    li {
+      background-color: map-get($color_map, ML);
+
+      border-color: map-get($color_map, MD);
+
+      &.active {
+        background-color: white;
+      }
+    }
+  }
+}
+
+@mixin color-square($color_map) {
+  min-height: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  background-color: map-get($color_map,MM);
+  border: solid 1px map-get($color_map,DD);
+}
+

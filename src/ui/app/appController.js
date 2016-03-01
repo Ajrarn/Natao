@@ -1,70 +1,98 @@
 (function () {
     "use strict";
 
+    var fs = require('fs');
+
     angular
         .module('Natao')
-        .controller('AppController', AppController);
+        .controller('AppController', AppController)
+        .directive("fileread", [function () {
+            return {
+                scope: {
+                    fileread: "="
+                },
+                link: function (scope, element, attributes) {
+                    element.bind("change", function (changeEvent) {
+                        scope.$apply(function () {
+                            scope.fileread = changeEvent.target.files[0];
+                            // or all selected files:
+                            // scope.fileread = changeEvent.target.files;
+                        });
+                    });
+                }
+            }
+        }]);
 
 
-    function AppController($showdown,$rootScope,$timeout) {
+    function AppController($location,PreferencesService,CssService,$translate) {
         console.log('AppController');
 
         var self = this;
-        self.$showdown = $showdown;
-        self.$timeout = $timeout;
-        self.zoomLevel = 0;
-        self.$showdown.setOption('tables',true);
-        self.inPrint = false;
+        self.$location = $location;
+        self.databaseFile = '';
+        self.showDys = false;
+        self.PreferencesService = PreferencesService;
+        self.CssService = CssService;
+        self.$translate = $translate;
 
-        self.myMath = 'x+\\sqrt{1-x^2}';
-
-        self.myMarkdown = '$$sqrt(2)/2$$ \n'
-            +'$$'+self.myMath+'$$';
-
-
-
-
-        self.refresh = function() {
-            self.myHtml =  self.$showdown.makeHtml(self.myMarkdown);
-            setTimeout(self.refreshMath, 100);  //without angular $digest
+        self.changeFile = function(){
+            console.log('file',self.databaseFile);
         };
 
-        self.refreshMath = function() {
-            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        self.help = function() {
+            console.log(self.$translate.use());
+            window.open('help.html?file=' + process.cwd() + '/translations/help-' + self.$translate.use() + '.md', '_blank');
+        };
+
+
+        self.toggleDys = function() {
+            self.PreferencesService.preferences.showDys = !self.PreferencesService.preferences.showDys;
+            self.PreferencesService.savePreferences();
         };
 
         self.zoomHigher = function() {
-            self.zoomLevel++;
-            self.zoomChange();
+            self.PreferencesService.preferences.zoomLevel++;
+            self.PreferencesService.savePreferences();
+            self.PreferencesService.zoomChange();
         };
 
         self.zoomLower = function() {
-            self.zoomLevel--;
-            self.zoomChange();
+            self.PreferencesService.preferences.zoomLevel--;
+            self.PreferencesService.savePreferences();
+            self.PreferencesService.zoomChange();
         };
 
-        self.offPrint = function() {
-            self.inPrint = false;
+        self.toggleMenu = function() {
+            self.PreferencesService.preferences.showMenu = !self.PreferencesService.preferences.showMenu;
+            self.PreferencesService.savePreferences();
         };
 
-
-
-        self.print = function() {
-            self.inPrint = true;
-            setTimeout(window.print, 50);       //without angular $digest
-            self.$timeout(self.offPrint, 100);  //with angular $digest
-        };
-
-        self.zoomChange = function() {
-
-            if ($rootScope.nodeWebkitVersion !== 'browser') {
-                var gui = require('nw.gui');
-                var win = gui.Window.get();
-                win.zoomLevel = self.zoomLevel;
+        self.toggleEditor = function() {
+            if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showVisualiser) {
+                self.toggleVisualiser();
             }
+            self.PreferencesService.preferences.showEditor = !self.PreferencesService.preferences.showEditor;
+            self.PreferencesService.savePreferences();
+        };
+
+        self.toggleVisualiser = function() {
+            if (self.PreferencesService.preferences.showVisualiser && !self.PreferencesService.preferences.showEditor) {
+                self.toggleEditor();
+            }
+            self.PreferencesService.preferences.showVisualiser = !self.PreferencesService.preferences.showVisualiser;
+            self.PreferencesService.savePreferences();
+        };
 
 
-        }
+        self.goSettings = function() {
+            self.$location.path( '/settings' );
+        };
+
+        self.goApp = function() {
+            self.$location.path( '/app' );
+        };
+
+        self.PreferencesService.init();
 
     }
 
