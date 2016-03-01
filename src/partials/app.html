@@ -149,23 +149,35 @@
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor()}">
                     <label for="title" layout="row" layout-align="start center">
                         <p>{{ 'DOC_TITLE' | translate }}</p>
-                        <input id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                        <input flex id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </label>
 
-                    <label for="css" layout="row" layout-align="start center">
-                        <p>{{ 'DOC_CSS' | translate }}</p>
-                        <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
-                        </select>
-                    </label>
+                    <div layout="row" layout-align="space-between center">
+                        <label for="css" layout="row" layout-align="start center">
+                            <p>{{ 'DOC_CSS' | translate }}</p>
+                            <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
+                            </select>
+                        </label>
 
-                    <label for="created" layout="row" layout-align="start center">
-                        <p>{{ 'DOC_CREATED' | translate }}</p>
-                        <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                    </label>
+                        <label for="created" layout="row" layout-align="start center">
+                            <p>{{ 'DOC_CREATED' | translate }}</p>
+                            <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                        </label>
+                    </div>
 
+                    <!--textarea-- flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </textarea-->
 
-                    <textarea flex rows="4" cols="50" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                    </textarea>
+                    <div class="customEditor" ui-ace="{
+                             useWrapMode : false,
+                             showGutter: false,
+                             theme:'xcode',
+                             mode: 'markdown',
+                             onChange: EditorCtrl.refresh,
+                             onLoad: SettingCtrl.editorReadOnly}"
+                         flex ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md"
+                         ng-if="!SettingCtrl.viewer"></div>
+
                 </div>
                 <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"
                      layout="column" layout-align="start stretch">
@@ -174,9 +186,9 @@
                             <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
                             <p>{{EditorCtrl.PreferencesService.preferences.firstName}}</p>
                         </div>
-                        <div class="title-zone" layout="column" layout-align="center center">
+                        <div class="title-zone" flex layout="column" layout-align="center stretch">
                             <h1>{{EditorCtrl.PrincipalTreeService.currentMarkdown.title}}</h1>
-                            <p>{{EditorCtrl.PrincipalTreeService.currentMarkdown.created | date : 'longDate'}}</p>
+                            <p id="dateCreated">{{EditorCtrl.PrincipalTreeService.currentMarkdown.created | date : 'longDate'}}</p>
                         </div>
                     </div>
                     <div class="notation"></div>

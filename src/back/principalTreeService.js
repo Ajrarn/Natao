@@ -117,11 +117,10 @@
                                 } else {
                                     self.currentMarkdown = docs[0];
                                     self.CssService.initCurrentById(self.currentMarkdown.css);
+                                    self.$rootScope.$digest();
+                                    setTimeout(self.refreshMath, 100);  //without angular $digest
                                 }
                             });
-
-                            self.$rootScope.$digest();
-                            setTimeout(self.refreshMath, 100);  //without angular $digest
                         }
                     }
                 });

@@ -99,8 +99,6 @@
                             </select>
                         </div>
 
-                        <!--textarea flex rows="4" cols="50" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </textarea-->
                         <div class="customEditor" ui-ace="{
                              useWrapMode : false,
                              showGutter: false,
@@ -138,9 +136,9 @@
                                     <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
                                     <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
                                 </div>
-                                <div class="title-zone" layout="column" layout-align="center center">
+                                <div class="title-zone" flex layout="column" layout-align="center stretch">
                                     <h1>{{SettingCtrl.currentDoc.title}}</h1>
-                                    <p>{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
+                                    <p id="dateCreated">{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
                                 </div>
                             </div>
                             <div class="notation"></div>

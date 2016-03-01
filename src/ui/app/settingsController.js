@@ -98,9 +98,9 @@
                 '<p>' + self.PreferencesService.preferences.name +'</p>' +
                 '<p>' + self.PreferencesService.preferences.firstName +'</p>' +
                 '</div>' +
-                '<div class="title-zone" layout="column" layout-align="center center">' +
+                '<div class="title-zone" flex layout="column" layout-align="center center">' +
                 '<h1>' + self.currentDoc.title +'</h1>' +
-                '<p>' + self.currentDoc.created + '</p>' +
+                '<p id="dateCreated">' + self.currentDoc.created + '</p>' +
                 '</div>' +
                 '</div>' +
                 '<div class="notation"></div>' +
