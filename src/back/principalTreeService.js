@@ -512,6 +512,7 @@
                 } else {
                     try {
                         self.principalTree.buffer = JSON.parse(data);
+                        self.transformDatesInBuffer();
                         self.pasteBufferToNode(node);
                     }
                     catch (err) {
@@ -519,6 +520,12 @@
                         console.log(err);
                     }
                 }
+            });
+        };
+
+        self.transformDatesInBuffer = function() {
+            self.principalTree.buffer.documents.forEach(function (document) {
+                document.created = new Date(document.created);
             });
         };
 
