@@ -17,11 +17,17 @@
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
         self.fileDialog = fileDialog;
-        self.PrincipalTreeService.init();
+        //self.PrincipalTreeService.init();
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
         self.focus = focus;
+
+        var startEditor = self.PrincipalTreeService.getInitTreeService(self.PreferencesService.getDB());
+
+        startEditor.then(function() {
+            console.log('initTree Done')
+        });
 
 
         self.refresh = function() {
