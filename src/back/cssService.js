@@ -113,6 +113,22 @@
             self.currentCss = css;
         };
 
+        self.findCssId = function(what) {
+            var result = _.find(self.availableCss,{_id:what});
+            if (!result) {
+                result = _.find(self.availableCss, {name:what});
+
+                if (!result) {
+                    result = _.find(self.cssNamesFile, {originalName:what});
+                    if (result) {
+                        result = _.find(self.availableCss,{name:result.inDatabaseName})
+                    }
+                }
+            }
+
+            return result._id;
+        };
+
         return self;
     }
 

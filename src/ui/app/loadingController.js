@@ -26,7 +26,7 @@
 
         //when all the services are ready we go to the editor
         cssPromise.then(function(defaultCss) {
-            var templatePromise = self.TemplateTreeService.getInitTemplate(self.db,defaultCss);
+            var templatePromise = self.TemplateTreeService.getInitTemplate(self.db);
 
             templatePromise.then(function() {
                 var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);

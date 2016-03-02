@@ -2,23 +2,23 @@
   {
     "id":"0f893f8f-a73b-42b6-982a-1f8f899d94fc",
     "name":"Collège",
-    "defaultCss":"default",
+    "defaultCss":"lesson.css",
     "children":[
       {
         "id":"3da979d5-5fe6-447c-ba63-862245162935",
         "name":"Mathématiques",
-        "defaultCss":"default",
+        "defaultCss":"lesson.css",
         "children":[
           {
             "id":"65ed2c14-37b3-46f2-8512-944e9eaf3640",
             "name":"Algèbre",
-            "defaultCss":"default",
+            "defaultCss":"lesson.css",
             "children":[]
           },
           {
             "id":"1dc4691d-c9ce-48ba-ae1a-52ba94cd3cc2",
             "name":"Géomètrie",
-            "defaultCss":"default",
+            "defaultCss":"lesson.css",
             "children":[]
           }
         ]
@@ -26,12 +26,12 @@
       {
         "id":"15fd590c-4dc9-4058-9d08-eab9e077129b",
         "name":"Français",
-        "defaultCss":"default",
+        "defaultCss":"lesson.css",
         "children":[
           {
             "id":"0a3cda23-fdaa-4f70-99da-6a9811801300",
             "name":"grammaire",
-            "defaultCss":"default",
+            "defaultCss":"lesson.css",
             "children":[]
           }
         ]
@@ -41,23 +41,23 @@
   {
     "id":"0f893f8f-a73b-42b6-982a-1f8f899d94fc",
     "name":"Primaire",
-    "defaultCss":"default",
+    "defaultCss":"lesson.css",
     "children":[
       {
         "id":"3da979d5-5fe6-447c-ba63-862245162935",
         "name":"Mathématiques",
-        "defaultCss":"default",
+        "defaultCss":"lesson.css",
         "children":[
           {
             "id":"65ed2c14-37b3-46f2-8512-944e9eaf3640",
             "name":"Calcul",
-            "defaultCss":"default",
+            "defaultCss":"lesson.css",
             "children":[]
           },
           {
             "id":"1dc4691d-c9ce-48ba-ae1a-52ba94cd3cc2",
             "name":"Géomètrie",
-            "defaultCss":"default",
+            "defaultCss":"lesson.css",
             "children":[]
           }
         ]
@@ -65,12 +65,12 @@
       {
         "id":"15fd590c-4dc9-4058-9d08-eab9e077129b",
         "name":"Français",
-        "defaultCss":"default",
+        "defaultCss":"lesson.css",
         "children":[
           {
             "id":"0a3cda23-fdaa-4f70-99da-6a9811801300",
             "name":"Grammaire",
-            "defaultCss":"default",
+            "defaultCss":"lesson.css",
             "children":[]
           }
         ]
