@@ -25,24 +25,10 @@
         var self = this;
         self.availableTemplates = [];
 
-        /*self.init = function(db) {
-            self.db = db;
-            self.db.find({docName:'template'},function(err,docs) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    if (docs.length === 0) {
-                        self.defaultTemplate();
-                    } else {
-                        self.availableTemplates = docs;
-                        console.log('templates',self.availableTemplates);
-                    }
-                }
-            });
-        };*/
 
-        self.getInitTemplate = function(db) {
+        self.getInitTemplate = function(db,defaultCss) {
             self.db = db;
+            self.defaultCss = defaultCss;
 
             return self.$q(function (resolve, reject) {
                 self.db.find({docName:'template'},function(err,docs) {

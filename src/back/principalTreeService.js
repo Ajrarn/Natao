@@ -69,61 +69,47 @@
             };
         };
 
-        self.getInitTreeService = function(db) {
+        self.getInitTreeService = function(db,defaultCss) {
             self.db = db;
 
             return self.$q(function(resolve,reject) {
 
-                var initTemplate = self.TemplateTreeService.getInitTemplate(self.db);
+                self.db.find({docName:'PrincipalTree'}, function (err, docs) {
+                    if (err || docs.length === 0) {
+                        console.log('Principal Document not found');
 
-                var initCss = self.CssService.getInitCss(self.db);
+                        self.principalTree.tree.defaultCss = defaultCss._id;
 
-                var start = self.$q.all([initTemplate,initCss]);
+                        self.db.insert(self.principalTree, function (err, newDoc) {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                self.principalTree = newDoc;
+                                console.log('principalTree',self.principalTree);
+                                self.save();
+                            }
+                        });
 
-                start.then(function(result) {
 
-                    var defaultCss = result[1];
+                    } else {
+                        self.principalTree = docs[0];
+                        console.log('principalTree', self.principalTree);
 
-                    self.db.find({docName:'PrincipalTree'}, function (err, docs) {
-                        if (err || docs.length === 0) {
-                            console.log('Principal Document not found');
-
-                            self.principalTree.tree.defaultCss = defaultCss._id;
-
-                            self.db.insert(self.principalTree, function (err, newDoc) {
+                        if (self.principalTree.currentMarkdownId) {
+                            self.db.find({
+                                docName: 'markdown',
+                                _id: self.principalTree.currentMarkdownId
+                            }, function (err, docs) {
                                 if (err) {
-                                    console.error('error:', err);
+                                    reject(err);
                                 } else {
-                                    self.principalTree = newDoc;
-                                    console.log('principalTree',self.principalTree);
+                                    self.currentMarkdown = docs[0];
+                                    self.CssService.initCurrentById(self.currentMarkdown.css);
                                 }
                             });
-
-
-                        } else {
-                            self.principalTree = docs[0];
-                            console.log('principalTree', self.principalTree);
-
-                            if (self.principalTree.currentMarkdownId) {
-                                self.db.find({
-                                    docName: 'markdown',
-                                    _id: self.principalTree.currentMarkdownId
-                                }, function (err, docs) {
-                                    if (err) {
-                                        console.error(err);
-                                    } else {
-                                        self.currentMarkdown = docs[0];
-                                        self.CssService.initCurrentById(self.currentMarkdown.css);
-                                        self.$rootScope.$digest();
-                                        setTimeout(self.refreshMath, 100);  //without angular $digest
-                                    }
-                                });
-                            }
                         }
-                        resolve();
-                    });
-                }).then(null,function(err){
-                    reject(err);
+                    }
+                    resolve();
                 });
             });
         };
@@ -167,11 +153,11 @@
 
         // if we do the save on the select node, the selected node is not yet set
         //so we have to watch it
-        self.$rootScope.$watch(function(){
+        /*self.$rootScope.$watch(function(){
                 return self.principalTree.selectedNode;
         },function() {
             self.save();
-        });
+        });*/
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
             if (templateName) {

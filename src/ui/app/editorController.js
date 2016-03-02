@@ -17,7 +17,6 @@
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
         self.fileDialog = fileDialog;
-        //self.PrincipalTreeService.init();
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;

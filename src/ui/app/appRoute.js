@@ -15,11 +15,14 @@
         when('/settings', {
             templateUrl: 'src/partials/settings.html'
         }).
-        when('/app', {
-            templateUrl: 'src/partials/app.html'
+        when('/editor', {
+            templateUrl: 'src/partials/editor.html'
+        }).
+        when('/loading', {
+            templateUrl: 'src/partials/loading.html'
         }).
         otherwise({
-            redirectTo: '/app'
+            redirectTo: '/loading'
         });
 
     }
