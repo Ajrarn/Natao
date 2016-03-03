@@ -119,7 +119,7 @@
                 result = _.find(self.availableCss, {name:what});
 
                 if (!result) {
-                    result = _.find(self.cssNamesFile, {originalName:what});
+                    result = _.find(self.cssNames, {originalName:what});
                     if (result) {
                         result = _.find(self.availableCss,{name:result.inDatabaseName})
                     }

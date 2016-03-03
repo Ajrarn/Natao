@@ -17,10 +17,11 @@
 
 
     //Service itself
-    function TemplateTreeService($translate,$q) {
+    function TemplateTreeService($translate,$q,CssService) {
         console.log('TemplateTreeService');
         this.$translate = $translate;
         this.$q = $q;
+        this.CssService = CssService;
 
         var self = this;
         self.availableTemplates = [];
@@ -46,6 +47,7 @@
                                     var nbTemplatesPending = templates.length;
 
                                     templates.forEach(function(template) {
+                                        self.adaptCssTemplate(template);
                                         self.db.insert(template, function (err,doc) {
                                             if (err) {
                                                 reject(err);
@@ -53,6 +55,7 @@
                                                 self.availableTemplates.push(doc);
                                                 nbTemplatesPending--;
                                                 if (nbTemplatesPending === 0) {
+                                                    console.log('templates',self.availableTemplates);
                                                     resolve();
                                                 }
                                             }
@@ -71,6 +74,15 @@
                     }
                 });
             });
+        };
+
+        self.adaptCssTemplate = function(node) {
+            node.defaultCss = self.CssService.findCssId(node.defaultCss);
+            if (node.children && node.children.length > 0) {
+                node.children.forEach(function(item) {
+                    self.adaptCssTemplate(item);
+                });
+            }
         };
 
 
