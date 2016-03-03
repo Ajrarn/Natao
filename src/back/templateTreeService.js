@@ -17,29 +17,15 @@
 
 
     //Service itself
-    function TemplateTreeService($translate,$q) {
+    function TemplateTreeService($translate,$q,CssService) {
         console.log('TemplateTreeService');
         this.$translate = $translate;
         this.$q = $q;
+        this.CssService = CssService;
 
         var self = this;
         self.availableTemplates = [];
 
-        /*self.init = function(db) {
-            self.db = db;
-            self.db.find({docName:'template'},function(err,docs) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    if (docs.length === 0) {
-                        self.defaultTemplate();
-                    } else {
-                        self.availableTemplates = docs;
-                        console.log('templates',self.availableTemplates);
-                    }
-                }
-            });
-        };*/
 
         self.getInitTemplate = function(db) {
             self.db = db;
@@ -61,6 +47,7 @@
                                     var nbTemplatesPending = templates.length;
 
                                     templates.forEach(function(template) {
+                                        self.adaptCssTemplate(template);
                                         self.db.insert(template, function (err,doc) {
                                             if (err) {
                                                 reject(err);
@@ -68,6 +55,7 @@
                                                 self.availableTemplates.push(doc);
                                                 nbTemplatesPending--;
                                                 if (nbTemplatesPending === 0) {
+                                                    console.log('templates',self.availableTemplates);
                                                     resolve();
                                                 }
                                             }
@@ -88,27 +76,15 @@
             });
         };
 
-        /*self.defaultTemplate = function() {
-            //First we load the names of the css in the appropriate language
-            var templateFile = fs.readFileSync('./translations/templates-' + self.$translate.use() + '.json','utf8');
-
-            var templates = [];
-
-            if (templateFile) {
-                try {
-                    templates = JSON.parse(templateFile);
-
-                    templates.forEach(function(template) {
-                        self.saveTemplate(template,template.name);
-                    });
-                }
-                catch (err) {
-                    console.log('There has been an error parsing your JSON.');
-                    console.log(err);
-                }
-
+        self.adaptCssTemplate = function(node) {
+            node.defaultCss = self.CssService.findCssId(node.defaultCss);
+            if (node.children && node.children.length > 0) {
+                node.children.forEach(function(item) {
+                    self.adaptCssTemplate(item);
+                });
             }
-        };*/
+        };
+
 
         self.deleteDocReference = function(node) {
             if (node.children && node.children.length > 0) {

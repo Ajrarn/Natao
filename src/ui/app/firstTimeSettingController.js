@@ -44,7 +44,7 @@
 
         self.save = function() {
             self.PreferencesService.save();
-            $location.path( '/app' );
+            $location.path( '/loading' );
         };
 
         self.changeLanguage = function(language) {

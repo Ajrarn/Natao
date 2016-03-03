@@ -89,7 +89,7 @@
         };
 
         self.goApp = function() {
-            self.$location.path( '/app' );
+            self.$location.path( '/editor' );
         };
 
         self.PreferencesService.init();
