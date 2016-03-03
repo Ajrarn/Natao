@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location) {
+    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService) {
         console.log('EditorController');
 
         var self = this;
@@ -18,6 +18,7 @@
         self.PrincipalTreeService = PrincipalTreeService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
+        self.PendingService = PendingService;
         self.fileDialog = fileDialog;
         self.$location = $location;
         self.$showdown.setOption('tables',true);
@@ -27,7 +28,7 @@
 
 
         //Initialization before start
-        self.loader = true;
+        self.PendingService.start();
         console.log('init start !');
         self.db = self.PreferencesService.getDB();
 
@@ -42,7 +43,10 @@
                 var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);
 
                 principalTreePromise.then(function() {
-                    self.loader = false;
+                    self.$timeout(function() {
+                        self.PendingService.stop();
+                    }, 1000);
+
                     console.log('init done !');
                 })
             });
