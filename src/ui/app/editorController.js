@@ -22,13 +22,6 @@
         self.inPrint = false;
         self.focus = focus;
 
-        var startEditor = self.PrincipalTreeService.getInitTreeService(self.PreferencesService.getDB());
-
-        startEditor.then(function() {
-            console.log('initTree Done')
-        });
-
-
         self.refresh = function() {
             self.PrincipalTreeService.saveCurrent();
         };

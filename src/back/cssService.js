@@ -129,6 +129,42 @@
             return result._id;
         };
 
+        self.saveCss = function(css) {
+
+            //default
+            if (css.default) {
+                if (css._id) {
+                    var result = _.find(self.availableCss, {default:true});
+                    if (css._id != result._id) {
+                        css.default = false;
+                    }
+                } else {
+                    css.default = false;
+                }
+            }
+
+            if (css._id) {
+                var copyCurrent = {};
+                angular.copy(css,copyCurrent);
+                self.db.update({_id: css._id }, copyCurrent, {}, function (err) {
+                    if (err) {
+                        console.error(err);
+                    }
+                });
+            } else {
+                self.db.insert(css,function(err,doc) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        self.availableCss.push(doc);
+                        css = doc;
+                    }
+                });
+            }
+
+
+        };
+
         return self;
     }
 

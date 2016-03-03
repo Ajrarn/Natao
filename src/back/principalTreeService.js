@@ -228,9 +228,6 @@
                         leaf: true
                     };
 
-                    if (!node.children) {
-                        node.children = [];
-                    }
                     node.children.push(newNode);
 
                     self.currentMarkdown = newDoc;

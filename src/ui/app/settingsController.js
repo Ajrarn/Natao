@@ -75,6 +75,7 @@
         self.saveCss = function(e) {
             console.log('e',e);
             self.CssService.initCurrentByContent(self.currentCss.css);
+            self.CssService.saveCss(self.currentCss);
         };
 
         self.changeDocument = function() {
