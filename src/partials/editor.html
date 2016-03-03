@@ -1,4 +1,8 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
+    <div ng-show="EditorCtrl.loader" class="preloader-wrap" layout="column" layout-align="center center">
+        <span class="preloader"></span>
+        <span class="screen"></span>
+    </div>
     <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
         <div layout="row" layput-align="start center">
             <button ng-click="appCtrl.zoomLower()" title="{{'ZOOM_OUT' | translate}}" class="transparent"><span class="typcn typcn-zoom-out-outline"></span></button>
@@ -126,7 +130,7 @@
                         </div>
                     </script>
                     <treecontrol class="tree-classic"
-                                 tree-model="EditorCtrl.PrincipalTreeService.principalTree.tree.children"
+                                 tree-model="EditorCtrl.PrincipalTreeService.principalTree.tree"
                                  options="EditorCtrl.PrincipalTreeService.treeOptions"
                                  on-selection="EditorCtrl.PrincipalTreeService.selectNode(node)"
                                  selected-node="EditorCtrl.PrincipalTreeService.principalTree.selectedNode"

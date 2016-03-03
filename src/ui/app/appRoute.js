@@ -22,7 +22,7 @@
             templateUrl: 'src/partials/loading.html'
         }).
         otherwise({
-            redirectTo: '/loading'
+            redirectTo: '/editor'
         });
 
     }

@@ -137,7 +137,7 @@
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
                                 self.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.save();
-                                self.$rootScope.$digest();
+                                //self.$rootScope.$digest();
 
                                 setTimeout(self.refreshMath, 100);  //without angular $digest
                             }
@@ -170,12 +170,18 @@
                 angular.copy(template,newFolder);
                 newFolder.name = nodeName;
                 delete newFolder.docName;
+
+                console.log('NbFolders',self.howManyNodes(newFolder));
                 self.pasteNodefolder(nodeParent,newFolder);
             } else {
                 self.addFolderOnly(nodeName,nodeParent);
             }
             self.save();
-            //self.$rootScope.$digest();
+            //For the first node we force the refresh
+            if (nodeParent === self.principalTree.tree && self.principalTree.tree.length > 0) {
+                self.$rootScope.$digest();
+            }
+
         };
 
 
@@ -236,7 +242,7 @@
                     //and we open the node parent
                     self.principalTree.expandedNodes.push(node);
                     self.save();
-                    self.$rootScope.$digest();
+                   // self.$rootScope.$digest();
                 }
             });
         };
@@ -277,7 +283,7 @@
                     }
                     nodeParent.children.push(newNode);
                     self.save();
-                    self.$rootScope.$digest();
+                    //self.$rootScope.$digest();
                 }
             });
         };
@@ -310,7 +316,7 @@
                             self.writeToFile();
                         } else {
                             // it was just a copy
-                            self.$rootScope.$digest();
+                            //self.$rootScope.$digest();
                         }
 
                     }
@@ -341,7 +347,7 @@
                 }
             }
             self.save();
-            self.$rootScope.$digest();
+            //self.$rootScope.$digest();
         };
 
         //Inventory of all documents in a structure
@@ -448,14 +454,18 @@
                 }
 
                 nodeDestinationParent.children.push(nodeToGo);
+            }
+        };
 
-                // in case the node parent is the tree himself and the source is not the buffer
-                // then it's for a template, and we don't want this happen for all children of the tree
-                /*if (nodeDestinationParent === self.principalTree.tree && nodeSource != self.principalTree.buffer.tree) {
-                    self.save();
-                    self.$rootScope.$digest();
-                }*/
-
+        self.howManyNodes = function(node) {
+            if (node.children.length === 0) {
+                return 1;
+            } else {
+                var nbNode = 1;
+                node.children.forEach(function(item) {
+                    nbNode = nbNode + self.howManyNodes(item);
+                });
+                return nbNode;
             }
         };
 
