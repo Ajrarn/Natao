@@ -52,7 +52,17 @@
 
 
         self.refresh = function() {
-            self.PrincipalTreeService.saveCurrent();
+
+            // to avoid save (which is blocking) at each change, we use a timeout at 1s.
+            //each time this function is called, the timeout restart
+            if (self.refreshTimeout) {
+                clearTimeout(self.refreshTimeout);
+            }
+            self.refreshTimeout = setTimeout(function() {
+                self.refreshTimeout = null;
+                self.PrincipalTreeService.saveCurrent();
+            },1000);
+
         };
 
         self.offPrint = function() {
