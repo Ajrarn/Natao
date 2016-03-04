@@ -17,17 +17,29 @@
 
 
     //Service itself
-    function PendingService() {
+    function PendingService($rootScope) {
 
         var self = this;
-        self.pending = false;
+        self.$rootScope = $rootScope;
+        self.pending = 0;
 
         self.start = function() {
-            self.pending = true;
+            self.pending++;
+            console.log('pending',self.pending);
         };
 
         self.stop = function() {
-            self.pending = false;
+            self.pending--;
+
+            if (self.pending <= 0) {
+                self.pending = 0;
+                self.$rootScope.$digest()
+            }
+            console.log('pending',self.pending);
+        };
+
+        self.showLoader = function() {
+            return self.pending > 0;
         };
 
         return self;

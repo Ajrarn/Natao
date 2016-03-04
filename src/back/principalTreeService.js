@@ -17,13 +17,14 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope,$q) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope,$q,PendingService) {
         console.log('PrincipalTreeService');
 
         var self = this;
         self.PreferencesService = PreferencesService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
+        self.PendingService = PendingService;
         self.$rootScope = $rootScope;
         self.$q = $q;
         self.docsMarkdown = [];
@@ -117,7 +118,9 @@
         self.save = function() {
             var copyPrincipalTree = {};
             angular.copy(self.principalTree,copyPrincipalTree);
+            self.PendingService.start();
             self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
+                self.PendingService.stop();
                 if (err) {
                     console.error('error:', err);
                 }
@@ -137,7 +140,6 @@
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
                                 self.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.save();
-                                //self.$rootScope.$digest();
 
                                 setTimeout(self.refreshMath, 100);  //without angular $digest
                             }
@@ -223,7 +225,9 @@
                 md: ''
             };
 
+            self.PendingService.start();
             self.db.insert(newMarkDown, function (err, newDoc) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -249,7 +253,9 @@
 
         //delete of a document
         self.deleteDocument = function(node) {
+            self.PendingService.start();
             self.db.remove({ _id: node.id }, {}, function (err, numRemoved) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -267,7 +273,9 @@
 
 
             //and then add it to the database
+            self.PendingService.start();
             self.db.insert(newDocument, function (err, newDoc) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -306,6 +314,7 @@
 
                 //And delete when the job is done
                 if (self.docsPendingForBuffer === 0) {
+                    self.PendingService.stop();
                     if ( self.cutNodePending) {
                         //it's a cut, so have to delete the node
                         self.deleteNode(self.cutNodePending);
@@ -314,11 +323,7 @@
                         if (self.exportFileName) {
                             //it's an export
                             self.writeToFile();
-                        } else {
-                            // it was just a copy
-                            //self.$rootScope.$digest();
                         }
-
                     }
                 }
             });
@@ -412,6 +417,7 @@
 
                 //We need to know if the buffer is ready for the cut, paste, etc, so we use a counter of documents waiting to be in the buffer
                 self.docsPendingForBuffer = documents.length;
+                self.PendingService.start();
 
                 //and add the documents in the buffer
                 documents.forEach(function(node) {
@@ -483,8 +489,10 @@
         };
 
         self.writeToFile = function() {
+            self.PendingService.start();
             fs.writeFile(self.exportFileName, JSON.stringify(self.principalTree.buffer), 'utf8', function(err) {
                 if (err) throw err;
+                self.PendingService.stop();
                 console.log('It\'s saved!');
             });
             self.exportFileName = null;
@@ -492,7 +500,9 @@
 
         self.importFrom = function(node,filename) {
             self.initBuffer();
+            self.PendingService.start();
             fs.readFile(filename,'utf8',function(err,data) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -526,7 +536,9 @@
             self.CssService.initCurrentById(self.currentMarkdown.css);
             var copyCurrent = {};
             angular.copy(self.currentMarkdown,copyCurrent);
-             self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+            self.PendingService.start();
+            self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {

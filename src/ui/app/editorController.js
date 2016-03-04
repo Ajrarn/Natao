@@ -43,12 +43,8 @@
                 var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);
 
                 principalTreePromise.then(function() {
-                    self.$timeout(function() {
-                        self.PendingService.stop();
-                    }, 1000);
-
-                    console.log('init done !');
-                })
+                    self.PendingService.stop();
+                });
             });
         });
 
