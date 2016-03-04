@@ -44,7 +44,7 @@
 
         self.save = function() {
             self.PreferencesService.save();
-            $location.path( '/loading' );
+            $location.path( '/editor' );
         };
 
         self.changeLanguage = function(language) {

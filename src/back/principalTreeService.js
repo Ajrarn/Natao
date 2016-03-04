@@ -44,6 +44,7 @@
         self.cutNodePending = null;
         self.exportFileName = null;
         self.docsPendingForBuffer = 0;
+        self.nodesPendingPaste = 0;
 
         self.treeOptions = {
             nodeChildren: "children",
@@ -173,13 +174,17 @@
                 newFolder.name = nodeName;
                 delete newFolder.docName;
 
-                console.log('NbFolders',self.howManyNodes(newFolder));
+                //We start the pending and count the node to paste
+                self.nodesPendingPaste = self.howManyNodes(newFolder);
+                self.PendingService.start();
+
                 self.pasteNodefolder(nodeParent,newFolder);
+                //the save will be done at the end of the paste action
             } else {
                 self.addFolderOnly(nodeName,nodeParent);
+                self.save();
             }
-            //to ensure that the $digest cycle works
-            self.$timeout(self.save());
+
         };
 
 
@@ -453,6 +458,15 @@
                 }
 
                 nodeDestinationParent.children.push(nodeToGo);
+            }
+            // count down the node to paste
+            if (self.nodesPendingPaste > 0) {
+                self.nodesPendingPaste--;
+
+                if (self.nodesPendingPaste === 0) {
+                    self.PendingService.stop();
+                    self.save();
+                }
             }
         };
 

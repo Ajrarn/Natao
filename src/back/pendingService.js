@@ -25,7 +25,6 @@
 
         self.start = function() {
             self.pending++;
-            console.log('pending',self.pending);
         };
 
         self.stop = function() {
@@ -36,7 +35,6 @@
                 self.$timeout(self.pending = 0);
 
             }
-            console.log('pending',self.pending);
         };
 
         self.showLoader = function() {
