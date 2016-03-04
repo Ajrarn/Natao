@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope,$q,PendingService) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout) {
         console.log('PrincipalTreeService');
 
         var self = this;
@@ -25,7 +25,7 @@
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
-        self.$rootScope = $rootScope;
+        self.$timeout = $timeout;
         self.$q = $q;
         self.docsMarkdown = [];
         self.principalTree = {
@@ -178,12 +178,8 @@
             } else {
                 self.addFolderOnly(nodeName,nodeParent);
             }
-            self.save();
-            //For the first node we force the refresh
-            if (nodeParent === self.principalTree.tree && self.principalTree.tree.length > 0) {
-                self.$rootScope.$digest();
-            }
-
+            //to ensure that the $digest cycle works
+            self.$timeout(self.save());
         };
 
 
@@ -246,7 +242,6 @@
                     //and we open the node parent
                     self.principalTree.expandedNodes.push(node);
                     self.save();
-                   // self.$rootScope.$digest();
                 }
             });
         };
@@ -291,7 +286,6 @@
                     }
                     nodeParent.children.push(newNode);
                     self.save();
-                    //self.$rootScope.$digest();
                 }
             });
         };
@@ -352,7 +346,6 @@
                 }
             }
             self.save();
-            //self.$rootScope.$digest();
         };
 
         //Inventory of all documents in a structure

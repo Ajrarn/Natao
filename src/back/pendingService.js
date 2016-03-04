@@ -17,11 +17,11 @@
 
 
     //Service itself
-    function PendingService($rootScope) {
+    function PendingService($timeout) {
 
         var self = this;
-        self.$rootScope = $rootScope;
         self.pending = 0;
+        self.$timeout = $timeout;
 
         self.start = function() {
             self.pending++;
@@ -32,8 +32,9 @@
             self.pending--;
 
             if (self.pending <= 0) {
-                self.pending = 0;
-                self.$rootScope.$digest()
+                //ensure that this affectation will be considerated by the $digest cycle
+                self.$timeout(self.pending = 0);
+
             }
             console.log('pending',self.pending);
         };
