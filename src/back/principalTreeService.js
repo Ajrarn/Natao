@@ -242,6 +242,7 @@
                     node.children.push(newNode);
 
                     self.currentMarkdown = newDoc;
+                    self.principalTree.currentMarkdownId = newDoc._id;
                     self.CssService.initCurrentById(self.currentMarkdown.css);
                     self.principalTree.selectedNode = newNode;
                     //and we open the node parent
@@ -333,11 +334,17 @@
             if (node.leaf) {
                 // If it's a document we have to delete it first from the markdown collection
                 self.deleteDocument(node);
+                self.currentMarkdown = null;
+                self.principalTree.currentMarkdownId = null;
             } else {
                 //If it's a folder we have to find all his documents in him
                 var documents = self.documentsInStructure(node);
                 //and then delete all the documents
                 documents.forEach(function(document) {
+                    if (document.id === self.principalTree.currentMarkdownId ) {
+                        self.currentMarkdown = null;
+                        self.principalTree.currentMarkdownId = null;
+                    }
                     self.deleteDocument(document);
                 });
             }
@@ -350,6 +357,8 @@
                     parent.children.splice(indexOfNode,1);
                 }
             }
+            self.principalTree.selectedNode = null;
+
             self.save();
         };
 
@@ -370,17 +379,22 @@
                         }
                     });
                 }
-
-                return storeDocuments;
             } else {
-                return null;
+                //this case happens only if th efirst node is a document
+                storeDocuments = [];
+                storeDocuments.push(node);
             }
+            return storeDocuments;
         };
 
         //Method to find the parent of a node
         self.findParent = function(node, nodeParent) {
             if (!nodeParent) {
-                return self.findParent(node, self.principalTree.tree);
+                nodeParent = self.principalTree.tree;
+            }
+
+            if (nodeParent.leaf) {
+                return null;
             } else {
                 var item = _.find(nodeParent.children,{id:node.id});
                 if (item) {
@@ -388,11 +402,14 @@
                 } else {
                     var result = null;
                     for(var i=0; result == null && i < nodeParent.children.length; i++){
-                        result = self.findParent(node,nodeParent.children[i]);
+                        if (!nodeParent.children[i].leaf) {
+                            result = self.findParent(node,nodeParent.children[i]);
+                        }
                     }
                     return result;
                 }
             }
+
         };
 
         //Copy of a folder with documents
@@ -422,7 +439,16 @@
                     self.copyDocumentInBuffer(node);
                 });
             } else {
-                self.writeToFile();
+                // if for exports
+                if (self.exportFileName) {
+                    self.writeToFile();
+                }
+
+                //If it's a folder without documents to cut
+                if (self.cutNodePending) {
+                    self.deleteNode(node);
+                    self.cutNodePending = null;
+                }
             }
         };
 

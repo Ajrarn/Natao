@@ -54,5 +54,6 @@
   "SETTING_IDENTITY":"Identity",
   "SETTING_DOCUMENT_TEST":"Document for sample",
   "SETTING_SWITCH_HTML":"HTML",
-  "SETTING_SWITCH_SHOW":"Viewer"
+  "SETTING_SWITCH_SHOW":"Viewer",
+  "TRASH":"Trash"
 }

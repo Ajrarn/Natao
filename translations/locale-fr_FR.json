@@ -54,5 +54,6 @@
   "SETTING_IDENTITY":"Identité",
   "SETTING_DOCUMENT_TEST":"Document pour exemple",
   "SETTING_SWITCH_HTML":"HTML",
-  "SETTING_SWITCH_VIEWER":"Aperçu"
+  "SETTING_SWITCH_VIEWER":"Aperçu",
+  "TRASH":"Corbeille"
 }

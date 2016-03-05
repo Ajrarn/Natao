@@ -49,11 +49,9 @@
         });
 
 
-
-
         self.refresh = function() {
 
-            // to avoid save (which is blocking) at each change, we use a timeout at 1s.
+            // to avoid save (which is blocking for the user) at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
             if (self.refreshTimeout) {
                 clearTimeout(self.refreshTimeout);
@@ -149,7 +147,7 @@
             self.cancel = false;
         };
 
-        self.cancel = function(hide) {
+        self.cancelAction = function(hide) {
             self.cancel = true;
             hide();
         };
@@ -191,9 +189,28 @@
             hide();
         };
 
+        self.copyDocument = function() {
+            self.PrincipalTreeService.copyNodeFolder(self.PrincipalTreeService.principalTree.selectedNode);
+        };
+
         self.cutFolder = function(hide) {
             self.PrincipalTreeService.cutNodefolder(self.currentNode);
             hide();
+        };
+
+        self.cutDocument = function() {
+            self.PrincipalTreeService.cutNodefolder(self.PrincipalTreeService.principalTree.selectedNode);
+        };
+
+        self.deleteDocument = function() {
+            self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode);
+        };
+
+        self.exportDocument = function() {
+            self.fileDialog.saveAs(function(filename) {
+                self.PrincipalTreeService.exportTo(self.PrincipalTreeService.principalTree.selectedNode,filename);
+                hide();
+            },'nataoExport.json',['json']);
         };
 
         self.pasteFolder = function(hide) {
@@ -205,6 +222,7 @@
                 self.PrincipalTreeService.pasteBufferToNode(self.PrincipalTreeService.principalTree.tree);
             }
         };
+
 
         self.exportTo = function(hide) {
             self.fileDialog.saveAs(function(filename) {
