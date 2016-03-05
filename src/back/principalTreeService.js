@@ -596,22 +596,25 @@
 
         self.saveCurrent = function() {
 
-            self.CssService.initCurrentById(self.currentMarkdown.css);
-            var copyCurrent = {};
-            angular.copy(self.currentMarkdown,copyCurrent);
-            self.PendingService.start();
-            self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
-                self.PendingService.stop();
-                if (err) {
-                    console.error(err);
-                } else {
-                    self.principalTree.selectedNode.name = self.currentMarkdown.title;
+            if (self.currentMarkdown) {
+                self.CssService.initCurrentById(self.currentMarkdown.css);
 
-                    self.save();
-                    setTimeout(self.refreshMath, 100);  //without angular $digest
-                }
+                var copyCurrent = {};
+                angular.copy(self.currentMarkdown,copyCurrent);
+                self.PendingService.start();
+                self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+                    self.PendingService.stop();
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        self.principalTree.selectedNode.name = self.currentMarkdown.title;
 
-            });
+                        self.save();
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
+                    }
+
+                });
+            }
         };
 
         return self;

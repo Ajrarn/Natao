@@ -202,14 +202,14 @@
             self.PrincipalTreeService.cutNodefolder(self.PrincipalTreeService.principalTree.selectedNode);
         };
 
-        self.deleteDocument = function() {
+        self.deleteDocument = function(hide) {
             self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode);
+            hide();
         };
 
         self.exportDocument = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PrincipalTreeService.exportTo(self.PrincipalTreeService.principalTree.selectedNode,filename);
-                hide();
             },'nataoExport.json',['json']);
         };
 
