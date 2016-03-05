@@ -109,7 +109,7 @@
         };
 
         self.pasteButtonDisabled = function() {
-            return !(self.PrincipalTreeService.principalTree.buffer.tree  && self.PrincipalTreeService.docsPendingForBuffer === 0);
+            return !(self.PrincipalTreeService && self.PrincipalTreeService.principalTree && self.PrincipalTreeService.principalTree.buffer && self.PrincipalTreeService.principalTree.buffer.tree  && self.PrincipalTreeService.docsPendingForBuffer === 0);
         };
 
         self.editFolder = function() {
