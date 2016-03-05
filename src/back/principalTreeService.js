@@ -17,14 +17,15 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$rootScope,$q) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout) {
         console.log('PrincipalTreeService');
 
         var self = this;
         self.PreferencesService = PreferencesService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
-        self.$rootScope = $rootScope;
+        self.PendingService = PendingService;
+        self.$timeout = $timeout;
         self.$q = $q;
         self.docsMarkdown = [];
         self.principalTree = {
@@ -43,6 +44,7 @@
         self.cutNodePending = null;
         self.exportFileName = null;
         self.docsPendingForBuffer = 0;
+        self.nodesPendingPaste = 0;
 
         self.treeOptions = {
             nodeChildren: "children",
@@ -117,7 +119,9 @@
         self.save = function() {
             var copyPrincipalTree = {};
             angular.copy(self.principalTree,copyPrincipalTree);
+            self.PendingService.start();
             self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
+                self.PendingService.stop();
                 if (err) {
                     console.error('error:', err);
                 }
@@ -137,7 +141,6 @@
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
                                 self.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.save();
-                                self.$rootScope.$digest();
 
                                 setTimeout(self.refreshMath, 100);  //without angular $digest
                             }
@@ -170,12 +173,18 @@
                 angular.copy(template,newFolder);
                 newFolder.name = nodeName;
                 delete newFolder.docName;
+
+                //We start the pending and count the node to paste
+                self.nodesPendingPaste = self.howManyNodes(newFolder);
+                self.PendingService.start();
+
                 self.pasteNodefolder(nodeParent,newFolder);
+                //the save will be done at the end of the paste action
             } else {
                 self.addFolderOnly(nodeName,nodeParent);
+                self.save();
             }
-            self.save();
-            //self.$rootScope.$digest();
+
         };
 
 
@@ -217,7 +226,9 @@
                 md: ''
             };
 
+            self.PendingService.start();
             self.db.insert(newMarkDown, function (err, newDoc) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -236,14 +247,15 @@
                     //and we open the node parent
                     self.principalTree.expandedNodes.push(node);
                     self.save();
-                    self.$rootScope.$digest();
                 }
             });
         };
 
         //delete of a document
         self.deleteDocument = function(node) {
+            self.PendingService.start();
             self.db.remove({ _id: node.id }, {}, function (err, numRemoved) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -261,7 +273,9 @@
 
 
             //and then add it to the database
+            self.PendingService.start();
             self.db.insert(newDocument, function (err, newDoc) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -277,7 +291,6 @@
                     }
                     nodeParent.children.push(newNode);
                     self.save();
-                    self.$rootScope.$digest();
                 }
             });
         };
@@ -300,6 +313,7 @@
 
                 //And delete when the job is done
                 if (self.docsPendingForBuffer === 0) {
+                    self.PendingService.stop();
                     if ( self.cutNodePending) {
                         //it's a cut, so have to delete the node
                         self.deleteNode(self.cutNodePending);
@@ -308,11 +322,7 @@
                         if (self.exportFileName) {
                             //it's an export
                             self.writeToFile();
-                        } else {
-                            // it was just a copy
-                            self.$rootScope.$digest();
                         }
-
                     }
                 }
             });
@@ -341,7 +351,6 @@
                 }
             }
             self.save();
-            self.$rootScope.$digest();
         };
 
         //Inventory of all documents in a structure
@@ -406,6 +415,7 @@
 
                 //We need to know if the buffer is ready for the cut, paste, etc, so we use a counter of documents waiting to be in the buffer
                 self.docsPendingForBuffer = documents.length;
+                self.PendingService.start();
 
                 //and add the documents in the buffer
                 documents.forEach(function(node) {
@@ -448,14 +458,27 @@
                 }
 
                 nodeDestinationParent.children.push(nodeToGo);
+            }
+            // count down the node to paste
+            if (self.nodesPendingPaste > 0) {
+                self.nodesPendingPaste--;
 
-                // in case the node parent is the tree himself and the source is not the buffer
-                // then it's for a template, and we don't want this happen for all children of the tree
-                /*if (nodeDestinationParent === self.principalTree.tree && nodeSource != self.principalTree.buffer.tree) {
+                if (self.nodesPendingPaste === 0) {
+                    self.PendingService.stop();
                     self.save();
-                    self.$rootScope.$digest();
-                }*/
+                }
+            }
+        };
 
+        self.howManyNodes = function(node) {
+            if (node.children.length === 0) {
+                return 1;
+            } else {
+                var nbNode = 1;
+                node.children.forEach(function(item) {
+                    nbNode = nbNode + self.howManyNodes(item);
+                });
+                return nbNode;
             }
         };
 
@@ -473,8 +496,10 @@
         };
 
         self.writeToFile = function() {
+            self.PendingService.start();
             fs.writeFile(self.exportFileName, JSON.stringify(self.principalTree.buffer), 'utf8', function(err) {
                 if (err) throw err;
+                self.PendingService.stop();
                 console.log('It\'s saved!');
             });
             self.exportFileName = null;
@@ -482,7 +507,9 @@
 
         self.importFrom = function(node,filename) {
             self.initBuffer();
+            self.PendingService.start();
             fs.readFile(filename,'utf8',function(err,data) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {
@@ -516,7 +543,9 @@
             self.CssService.initCurrentById(self.currentMarkdown.css);
             var copyCurrent = {};
             angular.copy(self.currentMarkdown,copyCurrent);
-             self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+            self.PendingService.start();
+            self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+                self.PendingService.stop();
                 if (err) {
                     console.error(err);
                 } else {

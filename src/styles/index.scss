@@ -92,7 +92,7 @@ button,.button {
 
   padding: 3px 7px;
   margin: 5px;
-  font-size: 1.7em;
+  font-size: 1.5em;
   border-radius: 5px;
   border: none;
   color:white;
@@ -263,8 +263,15 @@ input,p{
       font-size: 1.5em;
     }
   }
+}
 
+.flexTable {
+  width: 100%;
+  height: 100%;
+}
 
+.chooser {
+  margin: 10px;
 }
 
 /*.switch.wide {

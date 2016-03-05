@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,focus,fileDialog) {
+    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService) {
         console.log('EditorController');
 
         var self = this;
@@ -16,14 +16,53 @@
         self.$timeout = $timeout;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.CssService = CssService;
+        self.TemplateTreeService = TemplateTreeService;
+        self.PendingService = PendingService;
         self.fileDialog = fileDialog;
+        self.$location = $location;
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
         self.focus = focus;
 
+
+        //Initialization before start
+        self.PendingService.start();
+        console.log('init start !');
+        self.db = self.PreferencesService.getDB();
+
+        var cssPromise = self.CssService.getInitCss(self.db);
+
+
+        //when all the services are ready we go to the editor
+        cssPromise.then(function(defaultCss) {
+            var templatePromise = self.TemplateTreeService.getInitTemplate(self.db);
+
+            templatePromise.then(function() {
+                var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);
+
+                principalTreePromise.then(function() {
+                    self.PendingService.stop();
+                });
+            });
+        });
+
+
+
+
         self.refresh = function() {
-            self.PrincipalTreeService.saveCurrent();
+
+            // to avoid save (which is blocking) at each change, we use a timeout at 1s.
+            //each time this function is called, the timeout restart
+            if (self.refreshTimeout) {
+                clearTimeout(self.refreshTimeout);
+            }
+            self.refreshTimeout = setTimeout(function() {
+                self.refreshTimeout = null;
+                self.PrincipalTreeService.saveCurrent();
+            },1000);
+
         };
 
         self.offPrint = function() {
