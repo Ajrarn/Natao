@@ -18,9 +18,6 @@
         when('/editor', {
             templateUrl: 'src/partials/editor.html'
         }).
-        when('/loading', {
-            templateUrl: 'src/partials/loading.html'
-        }).
         otherwise({
             redirectTo: '/editor'
         });

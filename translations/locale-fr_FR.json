@@ -42,6 +42,7 @@
   "DEFAULT_CSS":"Style par défaut",
   "TEMPLATE":"d'après un modèle",
   "CONFIRM_DELETE_FOLDER":"Es tu sûr de vouloir supprimer ce dossier ?",
+  "CONFIRM_DELETE_DOCUMENT":"Es tu sûr de vouloir supprimer ce document ?",
   "CONFIRM_SAVE_TEMPLATE":"Es tu sur de vouloir remplacer la structure existante par celle-ci ?",
   "YES":"Oui",
   "NO":"Non",
@@ -54,5 +55,6 @@
   "SETTING_IDENTITY":"Identité",
   "SETTING_DOCUMENT_TEST":"Document pour exemple",
   "SETTING_SWITCH_HTML":"HTML",
-  "SETTING_SWITCH_VIEWER":"Aperçu"
+  "SETTING_SWITCH_VIEWER":"Aperçu",
+  "TRASH":"Corbeille"
 }

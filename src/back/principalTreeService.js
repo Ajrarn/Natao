@@ -88,7 +88,17 @@
                             } else {
                                 self.principalTree = newDoc;
                                 console.log('principalTree',self.principalTree);
-                                self.save();
+
+                                //and we save the first version
+                                var copyPrincipalTree = {};
+                                angular.copy(self.principalTree,copyPrincipalTree);
+                                self.PendingService.start();
+                                self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
+                                    self.PendingService.stop();
+                                    if (err) {
+                                        console.error('error:', err);
+                                    }
+                                });
                             }
                         });
 
@@ -111,6 +121,12 @@
                             });
                         }
                     }
+
+                    //For the first time add folder unidentified bug
+                    if (self.principalTree.tree.children.length === 0) {
+                        self.firstTime = true;
+                    }
+
                     resolve();
                 });
             });
@@ -120,10 +136,24 @@
             var copyPrincipalTree = {};
             angular.copy(self.principalTree,copyPrincipalTree);
             self.PendingService.start();
-            self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
+            self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err,doc) {
                 self.PendingService.stop();
                 if (err) {
                     console.error('error:', err);
+                } else {
+                    //There is a bug with the first child of the tree, with this patch it finally see the new node
+                    if (self.firstTime) {
+                        delete self.firstTime;
+                        self.copyTree = {};
+                        angular.copy(self.principalTree.tree,self.copyTree);
+                        self.$timeout(function() {
+                            self.principalTree.tree = null;
+                        },100);
+                        self.$timeout(function() {
+                            self.principalTree.tree = self.copyTree;
+                            delete self.copyTree;
+                        },200);
+                    }
                 }
             });
         };
@@ -242,6 +272,7 @@
                     node.children.push(newNode);
 
                     self.currentMarkdown = newDoc;
+                    self.principalTree.currentMarkdownId = newDoc._id;
                     self.CssService.initCurrentById(self.currentMarkdown.css);
                     self.principalTree.selectedNode = newNode;
                     //and we open the node parent
@@ -333,11 +364,17 @@
             if (node.leaf) {
                 // If it's a document we have to delete it first from the markdown collection
                 self.deleteDocument(node);
+                self.currentMarkdown = null;
+                self.principalTree.currentMarkdownId = null;
             } else {
                 //If it's a folder we have to find all his documents in him
                 var documents = self.documentsInStructure(node);
                 //and then delete all the documents
                 documents.forEach(function(document) {
+                    if (document.id === self.principalTree.currentMarkdownId ) {
+                        self.currentMarkdown = null;
+                        self.principalTree.currentMarkdownId = null;
+                    }
                     self.deleteDocument(document);
                 });
             }
@@ -350,6 +387,8 @@
                     parent.children.splice(indexOfNode,1);
                 }
             }
+            self.principalTree.selectedNode = null;
+
             self.save();
         };
 
@@ -370,17 +409,22 @@
                         }
                     });
                 }
-
-                return storeDocuments;
             } else {
-                return null;
+                //this case happens only if th efirst node is a document
+                storeDocuments = [];
+                storeDocuments.push(node);
             }
+            return storeDocuments;
         };
 
         //Method to find the parent of a node
         self.findParent = function(node, nodeParent) {
             if (!nodeParent) {
-                return self.findParent(node, self.principalTree.tree);
+                nodeParent = self.principalTree.tree;
+            }
+
+            if (nodeParent.leaf) {
+                return null;
             } else {
                 var item = _.find(nodeParent.children,{id:node.id});
                 if (item) {
@@ -388,11 +432,14 @@
                 } else {
                     var result = null;
                     for(var i=0; result == null && i < nodeParent.children.length; i++){
-                        result = self.findParent(node,nodeParent.children[i]);
+                        if (!nodeParent.children[i].leaf) {
+                            result = self.findParent(node,nodeParent.children[i]);
+                        }
                     }
                     return result;
                 }
             }
+
         };
 
         //Copy of a folder with documents
@@ -422,7 +469,16 @@
                     self.copyDocumentInBuffer(node);
                 });
             } else {
-                self.writeToFile();
+                // if for exports
+                if (self.exportFileName) {
+                    self.writeToFile();
+                }
+
+                //If it's a folder without documents to cut
+                if (self.cutNodePending) {
+                    self.deleteNode(node);
+                    self.cutNodePending = null;
+                }
             }
         };
 
@@ -540,22 +596,25 @@
 
         self.saveCurrent = function() {
 
-            self.CssService.initCurrentById(self.currentMarkdown.css);
-            var copyCurrent = {};
-            angular.copy(self.currentMarkdown,copyCurrent);
-            self.PendingService.start();
-            self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
-                self.PendingService.stop();
-                if (err) {
-                    console.error(err);
-                } else {
-                    self.principalTree.selectedNode.name = self.currentMarkdown.title;
+            if (self.currentMarkdown) {
+                self.CssService.initCurrentById(self.currentMarkdown.css);
 
-                    self.save();
-                    setTimeout(self.refreshMath, 100);  //without angular $digest
-                }
+                var copyCurrent = {};
+                angular.copy(self.currentMarkdown,copyCurrent);
+                self.PendingService.start();
+                self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
+                    self.PendingService.stop();
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        self.principalTree.selectedNode.name = self.currentMarkdown.title;
 
-            });
+                        self.save();
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
+                    }
+
+                });
+            }
         };
 
         return self;

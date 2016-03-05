@@ -42,6 +42,7 @@
   "DEFAULT_CSS":"Default Style",
   "TEMPLATE":"Apply a template",
   "CONFIRM_DELETE_FOLDER":"Are you sure you want to delete this folder ?",
+  "CONFIRM_DELETE_DOCUMENT":"Are you sure you want to delete this document ?",
   "CONFIRM_SAVE_TEMPLATE":"Are you sure you want to change this template structure ?",
   "YES":"Yes",
   "NO":"No",
@@ -54,5 +55,6 @@
   "SETTING_IDENTITY":"Identity",
   "SETTING_DOCUMENT_TEST":"Document for sample",
   "SETTING_SWITCH_HTML":"HTML",
-  "SETTING_SWITCH_SHOW":"Viewer"
+  "SETTING_SWITCH_SHOW":"Viewer",
+  "TRASH":"Trash"
 }
