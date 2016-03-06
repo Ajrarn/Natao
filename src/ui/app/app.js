@@ -9,35 +9,33 @@
 // Get the current window
     var win = gui.Window.get();
 
-    var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog','nsPopover','uiSwitch','ui.ace'];
+    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch', 'ui.ace'];
 
     angular
         .module('Natao', modules)
         .run(run);
 
-    function run($rootScope,$timeout,PendingService) {
+    function run($rootScope, $timeout, PendingService) {
         console.log('run');
 
-        //win.showDevTools();
-
-        //prevent close
-        win.on('close', function() {
+        //prevent properly close
+        win.on('close', function () {
 
             if (PendingService.pending > 0) {
 
                 var _this = this;
-                $rootScope.$watch(function(){
+                $rootScope.$watch(function () {
                     return PendingService.pending;
-                },function() {
+                }, function () {
                     if (PendingService.pending === 0) {
-                        _this.hide(); // Pretend to be closed already
-                        _this.close(true);
+                        win.hide(); // Pretend to be closed already
+                        win.close(true);
                     }
                 })
 
             } else {
-                this.hide(); // Pretend to be closed already
-                this.close(true);
+                win.hide(); // Pretend to be closed already
+                win.close(true);
             }
         });
 
@@ -45,9 +43,11 @@
         if (typeof process !== "undefined") {
             $rootScope.nodeWebkitVersion = process.versions['node-webkit'];
 
-            console.log($rootScope.nodeWebkitVersion);
+            if ($rootScope.nodeWebkitVersion.split('.')[1] === "13") {
+                //tool for nwj 0.13
+                win.showDevTools();
+            }
 
-            var gui = require('nw.gui');
             if (process.platform === "darwin") {
                 var mb = new gui.Menu({type: 'menubar'});
                 mb.createMacBuiltin('Natao', {
@@ -56,7 +56,9 @@
                 gui.Window.get().menu = mb;
             }
 
-        }else{
+
+
+        } else {
             $rootScope.nodeWebkitVersion = 'browser';
         }
 

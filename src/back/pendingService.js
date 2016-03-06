@@ -31,6 +31,7 @@
             self.pending--;
 
             if (self.pending <= 0) {
+                console.log('stop pending');
                 //ensure that this affectation will be considerated by the $digest cycle
                 self.$timeout(self.pending = 0);
 

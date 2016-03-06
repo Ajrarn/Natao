@@ -7,6 +7,9 @@
 
     var urlFirstSetting = '/firstTimeSettings';
 
+    var gui = require('nw.gui');
+
+
     angular
         .module('Natao')
         .service('PreferencesService', PreferencesService)
@@ -122,7 +125,6 @@
         self.zoomChange = function() {
 
             if ($rootScope.nodeWebkitVersion !== 'browser') {
-                var gui = require('nw.gui');
                 var win = gui.Window.get();
                 win.zoomLevel = self.preferences.zoomLevel;
             }
