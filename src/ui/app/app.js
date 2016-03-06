@@ -3,34 +3,49 @@
 
     var fs = require('fs');
 
+    // Load native UI library
+    var gui = require('nw.gui'); //or global.window.nwDispatcher.requireNwGui() (see https://github.com/rogerwang/node-webkit/issues/707)
+
+// Get the current window
+    var win = gui.Window.get();
+
     var modules = ['ngSanitize','ng-showdown','ngRoute','pascalprecht.translate','tmh.dynamicLocale','treeControl','DWand.nw-fileDialog','nsPopover','uiSwitch','ui.ace'];
 
     angular
         .module('Natao', modules)
-        /*.directive('focusOn', function() {
-            return function(scope, elem, attr) {
-                scope.$on('focusOn', function(e, name) {
-                    if(name === attr.focusOn) {
-                        elem[0].focus();
-                    }
-                });
-            };
-        })
-        .factory('focus', function ($rootScope, $timeout) {
-            return function(name) {
-                $timeout(function (){
-                    $rootScope.$broadcast('focusOn', name);
-                });
-            }
-        })*/
         .run(run);
 
-    function run($rootScope) {
+    function run($rootScope,$timeout,PendingService) {
         console.log('run');
+
+        //win.showDevTools();
+
+        //prevent close
+        win.on('close', function() {
+
+            if (PendingService.pending > 0) {
+
+                var _this = this;
+                $rootScope.$watch(function(){
+                    return PendingService.pending;
+                },function() {
+                    if (PendingService.pending === 0) {
+                        _this.hide(); // Pretend to be closed already
+                        _this.close(true);
+                    }
+                })
+
+            } else {
+                this.hide(); // Pretend to be closed already
+                this.close(true);
+            }
+        });
 
         //Detect webkit and version
         if (typeof process !== "undefined") {
             $rootScope.nodeWebkitVersion = process.versions['node-webkit'];
+
+            console.log($rootScope.nodeWebkitVersion);
 
             var gui = require('nw.gui');
             if (process.platform === "darwin") {
