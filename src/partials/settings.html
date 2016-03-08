@@ -94,11 +94,35 @@
             </pane>
             <pane title="{{ 'SETTING_STYLE' | translate }}" icon="typcn-brush" class="setting">
                 <div flex layout="row" layout-align="start stretch">
+
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <p>{{ 'DOC_CSS' | translate }}</p>
                             <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
                             </select>
+
+                            <script type="text/ng-template" id="popoverDeleteCss">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                    <p>{{ 'CONFIRM_DELETE_CSS' | translate }}</p>
+                                    <div layout="row" layout-align="center center">
+                                        <button>{{ 'YES' | translate }}</button>
+                                        <button>{{ 'NO' | translate }}</button>
+                                    </div>
+                                </div>
+                            </script>
+
+                            <div class="buttonBar" layout="row" layout-align="end center">
+                                <button title="{{ 'BTN_ADD' | translate }}"><span class="typcn typcn-plus-outline"></span></button>
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverDeleteCss"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="bottom"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
+                            </div>
                         </div>
                         <label for="cssName" layout="row" layout-align="start center">
                             <p>{{ 'CSS_NAME' | translate }}</p>
@@ -111,8 +135,10 @@
                              theme:'xcode',
                              mode: 'css',
                              onChange: SettingCtrl.saveCss}"
-                             flex ng-model="SettingCtrl.currentCss.css"></div>
+                             flex ng-model="SettingCtrl.currentCss.css">
+                        </div>
                     </div>
+
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="space-between center">
                             <div layout="row" layout-align="start center">
