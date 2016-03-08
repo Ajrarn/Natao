@@ -21,6 +21,7 @@
 
         var self = this;
         self.pending = 0;
+        self.loading = 0;
         self.$timeout = $timeout;
 
         self.start = function() {
@@ -38,8 +39,23 @@
             }
         };
 
+        self.startLoading = function() {
+            self.loading++;
+        };
+
+        self.stopLoading = function() {
+            self.loading--;
+
+            if (self.loading <= 0) {
+                console.log('stop pending');
+                //ensure that this affectation will be considerated by the $digest cycle
+                self.$timeout(self.loading = 0);
+
+            }
+        };
+
         self.showLoader = function() {
-            return self.pending > 0;
+            return self.loading > 0;
         };
 
         return self;

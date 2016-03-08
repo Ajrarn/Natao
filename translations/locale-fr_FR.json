@@ -39,6 +39,7 @@
   "DOC_TITLE":"Titre",
   "DOC_CREATED":"Créé le",
   "DOC_CSS":"Style",
+  "CSS_NAME":"Nom",
   "DEFAULT_CSS":"Style par défaut",
   "TEMPLATE":"d'après un modèle",
   "CONFIRM_DELETE_FOLDER":"Es tu sûr de vouloir supprimer ce dossier ?",

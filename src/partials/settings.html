@@ -100,6 +100,10 @@
                             <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
                             </select>
                         </div>
+                        <label for="cssName" layout="row" layout-align="start center">
+                            <p>{{ 'CSS_NAME' | translate }}</p>
+                            <input flex id="cssName" type="text" ng-model="SettingCtrl.currentCss.name" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                        </label>
 
                         <div class="customEditor" ui-ace="{
                              useWrapMode : false,

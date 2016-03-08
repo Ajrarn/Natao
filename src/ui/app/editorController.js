@@ -28,7 +28,7 @@
 
 
         //Initialization before start
-        self.PendingService.start();
+        self.PendingService.startLoading();
         console.log('init start !');
         self.db = self.PreferencesService.getDB();
 
@@ -43,9 +43,18 @@
                 var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);
 
                 principalTreePromise.then(function() {
-                    self.PendingService.stop();
+                    self.PendingService.stopLoading();
+                }).then(null,function(err) {
+                    console.error(err);
+                    self.PendingService.stopLoading();
                 });
+            }).then(null,function(err) {
+                console.error(err);
+                self.PendingService.stopLoading();
             });
+        }).then(null,function(err) {
+            console.error(err);
+            self.PendingService.stopLoading();
         });
 
 

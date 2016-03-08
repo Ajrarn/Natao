@@ -31,6 +31,7 @@
             self.db = db;
 
             return self.$q(function (resolve, reject) {
+
                 self.db.find({docName:'template'},function(err,docs) {
                     if (err) {
                         reject(err);
@@ -47,6 +48,7 @@
                                     var nbTemplatesPending = templates.length;
 
                                     templates.forEach(function(template) {
+                                        template.docName = 'template';
                                         self.adaptCssTemplate(template);
                                         self.db.insert(template, function (err,doc) {
                                             if (err) {

@@ -27,7 +27,7 @@
             return self.$q(function(resolve,reject) {
                 var db = self.PreferencesService.getDB();
 
-                db.find({docName:'markdown'}, function (err, docs) {
+                db.find({docName:'markdown'}).limit(10).exec(function (err, docs) {
                     if (err) {
                         reject(err);
                     } else {
