@@ -22,6 +22,7 @@
         self.CssService = CssService;
         self.DocumentsService = DocumentsService;
         self.$showdown = $showdown;
+        self.viewer = true;
 
 
         self.documentsPromise = self.DocumentsService.getDocuments();

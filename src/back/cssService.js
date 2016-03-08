@@ -135,7 +135,7 @@
             if (css.default) {
                 if (css._id) {
                     var result = _.find(self.availableCss, {default:true});
-                    if (css._id != result._id) {
+                    if (result && css._id != result._id) {
                         css.default = false;
                     }
                 } else {
