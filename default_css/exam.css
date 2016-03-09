@@ -21,3 +21,34 @@ h1 {
 #rendu  h1 {
     color: blue;
 }
+
+/* Table */
+#rendu table {
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
+}
+#rendu table thead th {
+    background-color: rgb(128, 102, 160);
+    color: #fff;
+    border-bottom-width: 0;
+}
+
+/* Column Style */
+#rendu table tbody td {
+    color: #000;
+}
+/* Heading and Column Style */
+#rendu table tbody tr, #rendu table thead th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(128, 102, 160);
+}
+
+/* Padding and font style */
+#rendu table tbody td, #rendu table thead th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+}

@@ -225,21 +225,6 @@ input,p{
     color: black;
     font-size: 24px;
   }
-
-  table {
-    tbody {
-      tr {
-        border-bottom: 1px solid #ddd;
-        &:last-child {
-          border-bottom: 0px;
-        }
-
-        td {
-          padding: 10px;
-        }
-      }
-    }
-  }
 }
 .tab-content {
   .tab-pane {
@@ -270,6 +255,18 @@ input,p{
 .flexTable {
   width: 100%;
   height: 100%;
+  tbody {
+    tr {
+      border-bottom: 1px solid #ddd;
+      &:last-child {
+        border-bottom: 0px;
+      }
+
+      td {
+        padding: 10px;
+      }
+    }
+  }
 }
 
 .chooser {

@@ -119,8 +119,8 @@
                                 <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
                                     <p>{{ 'CONFIRM_DELETE_CSS' | translate }}</p>
                                     <div layout="row" layout-align="center center">
-                                        <button>{{ 'YES' | translate }}</button>
-                                        <button>{{ 'NO' | translate }}</button>
+                                        <button ng-click="SettingCtrl.deleteCss(hidePopover)">{{ 'YES' | translate }}</button>
+                                        <button ng-click="hidePopover()">{{ 'NO' | translate }}</button>
                                     </div>
                                 </div>
                             </script>

@@ -14,3 +14,54 @@
 #rendu  h1 {
     color: red;
 }
+
+.notation {
+    display: none;
+}
+
+.identity {
+    display: none;
+    width: 0px;
+}
+
+.marge {
+    display: none;
+}
+
+#rendu  h1 {
+    color: red;
+}
+
+/* Table */
+#rendu table {
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#rendu table thead, #rendu table tr {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(211, 202, 221);
+}
+#rendu table {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(211, 202, 221);
+}
+
+/* Padding and font style */
+#rendu table td, #rendu table th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    color: rgb(95, 74, 121);
+}
+
+/* Alternating background colors */
+#rendu table tr:nth-child(even) {
+    background: rgb(223, 216, 232)
+}
+#rendu table tr:nth-child(odd) {
+    background: #FFF
+}

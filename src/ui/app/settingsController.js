@@ -75,8 +75,10 @@
         };
 
         self.saveCss = function(e) {
-            self.CssService.initCurrentByContent(self.currentCss.css);
-            self.CssService.saveCss(self.currentCss);
+            if (self.currentCss) {
+                self.CssService.initCurrentByContent(self.currentCss.css);
+                self.CssService.saveCss(self.currentCss);
+            }
         };
 
         self.changeDocument = function() {
@@ -104,6 +106,13 @@
                     console.error(err);
                 });
             self.focus('cssEditor');
+            hide();
+        };
+
+        self.deleteCss = function(hide) {
+            self.CssService.deleteCss(self.currentCss);
+            self.currentCss = null;
+            self.CssService.initCurrentByContent('');
             hide();
         };
 
