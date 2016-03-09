@@ -101,6 +101,19 @@
                             <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
                             </select>
 
+                            <script type="text/ng-template" id="popoverAddCss">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                    <form name="AddDocument" novalidate ng-submit="SettingCtrl.addCss(hidePopover)" layout="column" layout-align="start center">
+                                        <label for="addCssName" layout="column" layout-align="center center">
+                                            <p>{{ 'DOC_TITLE' | translate }}</p>
+                                            <input id="addCssName" ng-model="SettingCtrl.newCssName" focus-on="addCssName">
+                                        </label>
+                                    </form>
+                                </div>
+                            </script>
+
+
                             <script type="text/ng-template" id="popoverDeleteCss">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
@@ -113,7 +126,14 @@
                             </script>
 
                             <div class="buttonBar" layout="row" layout-align="end center">
-                                <button title="{{ 'BTN_ADD' | translate }}"><span class="typcn typcn-plus-outline"></span></button>
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverAddCss"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="bottom"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        title="{{ 'BTN_ADD' | translate }}" ng-click="SettingCtrl.initAddCss()"><span class="typcn typcn-plus-outline"></span></button>
                                 <button ns-popover ns-popover-timeout="-1"
                                         ns-popover-template="popoverDeleteCss"
                                         ns-popover-trigger="click"
@@ -135,7 +155,7 @@
                              theme:'xcode',
                              mode: 'css',
                              onChange: SettingCtrl.saveCss}"
-                             flex ng-model="SettingCtrl.currentCss.css">
+                             flex ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor">
                         </div>
                     </div>
 

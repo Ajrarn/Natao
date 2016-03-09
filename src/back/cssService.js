@@ -100,8 +100,28 @@
                 if (err) {
                     console.error(err);
                 }
-                 self.initCss();
              });
+        };
+
+        self.addCssNamed = function(nameCss) {
+            var docCss = {
+                docName:'css',
+                name: nameCss,
+                default: false,
+                css: null
+            };
+
+            return self.$q(function(resolve,reject) {
+                self.db.insert(docCss, function(err,doc) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        self.availableCss.push(doc);
+                        resolve(doc);
+                    }
+                });
+            });
+
         };
 
         self.initCurrentById = function(idCss) {
