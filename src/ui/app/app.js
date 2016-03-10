@@ -43,11 +43,6 @@
         if (typeof process !== "undefined") {
             $rootScope.nodeWebkitVersion = process.versions['node-webkit'];
 
-            if ($rootScope.nodeWebkitVersion.split('.')[1] === "13") {
-                //tool for nwj 0.13
-                win.showDevTools();
-            }
-
             if (process.platform === "darwin") {
                 var mb = new gui.Menu({type: 'menubar'});
                 mb.createMacBuiltin('Natao', {
@@ -55,8 +50,6 @@
                 });
                 gui.Window.get().menu = mb;
             }
-
-
 
         } else {
             $rootScope.nodeWebkitVersion = 'browser';

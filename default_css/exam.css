@@ -22,7 +22,7 @@ h1 {
     color: blue;
 }
 
-/* Table */
+/* Table Head */
 #rendu table {
     border-collapse: collapse;
     margin-left:auto;
@@ -51,4 +51,13 @@ h1 {
     font-size: 12px;
     font-family: Verdana;
     font-weight: bold;
+}
+
+blockquote {
+    font: 14px/22px normal helvetica, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    padding-left: 15px;
+    border-left: 3px solid #ccc;
 }
