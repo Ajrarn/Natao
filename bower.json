@@ -34,7 +34,8 @@
     "nsPopover": "~0.6.8",
     "angular-ui-switch": "~0.1.1",
     "ace-builds": "~1.2.3",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "angular-route": "latest"
   },
   "resolutions": {
     "angular": "~1.4.8"
