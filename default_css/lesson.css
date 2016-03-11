@@ -67,3 +67,32 @@ blockquote:before {
 blockquote p {
     display: inline;
 }
+
+#rendu {counter-reset: h1 h2 h3;}
+#rendu  h1:before {
+    content: counter(h1) "  ";
+    counter-increment: h1;
+}
+#rendu h2:before {
+    content: counter(h1) "." counter(h2) "  ";
+    counter-increment: h2;
+}
+#rendu  h3:before {
+    content: counter(h1) "." counter(h2) "." counter(h3) "  ";
+    counter-increment: h3;
+}
+#rendu  h1 {
+    counter-reset: h2;
+}
+#rendu  h2 {
+    counter-reset: h3;
+}
+#rendu  h1.unnumbered, h2.unnumbered {
+    counter-reset: none;
+}
+#rendu  h1.unnumbered:before,
+#rendu  h2.unnumbered:before,
+#rendu  h3.unnumbered:before{
+    content: none;
+    counter-increment: none;
+}
