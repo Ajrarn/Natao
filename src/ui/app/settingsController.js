@@ -8,7 +8,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,$showdown) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,$showdown,focus) {
         console.log('SettingsController');
 
         var self = this;
@@ -22,6 +22,8 @@
         self.CssService = CssService;
         self.DocumentsService = DocumentsService;
         self.$showdown = $showdown;
+        self.focus = focus;
+        self.viewer = true;
 
 
         self.documentsPromise = self.DocumentsService.getDocuments();
@@ -73,8 +75,10 @@
         };
 
         self.saveCss = function(e) {
-            self.CssService.initCurrentByContent(self.currentCss.css);
-            self.CssService.saveCss(self.currentCss);
+            if (self.currentCss) {
+                self.CssService.initCurrentByContent(self.currentCss.css);
+                self.CssService.saveCss(self.currentCss);
+            }
         };
 
         self.changeDocument = function() {
@@ -84,6 +88,32 @@
 
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
+            self.focus('cssEditor');
+        };
+
+        self.initAddCss= function() {
+            self.newCssName = null;
+            self.focus('addCssName');
+        };
+
+        self.addCss = function(hide) {
+            self.CssService.addCssNamed(self.newCssName)
+                .then(function(res) {
+                    self.currentCss = res;
+                    self.changeCss();
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+            self.focus('cssEditor');
+            hide();
+        };
+
+        self.deleteCss = function(hide) {
+            self.CssService.deleteCss(self.currentCss);
+            self.currentCss = null;
+            self.CssService.initCurrentByContent('');
+            hide();
         };
 
         self.editorReadOnly = function(_editor) {

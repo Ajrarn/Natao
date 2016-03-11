@@ -17,13 +17,16 @@
 
 
     //Service itself
-    function CssService($translate,$q) {
+    function CssService($translate,$q,PendingService) {
         console.log('CssService');
 
-        this.$translate = $translate;
-        this.$q = $q;
-
         var self = this;
+
+        self.$translate = $translate;
+        self.$q = $q;
+        self.PendingService = PendingService;
+
+
 
         self.getInitCss = function(db) {
             self.db = db;
@@ -100,8 +103,28 @@
                 if (err) {
                     console.error(err);
                 }
-                 self.initCss();
              });
+        };
+
+        self.addCssNamed = function(nameCss) {
+            var docCss = {
+                docName:'css',
+                name: nameCss,
+                default: false,
+                css: null
+            };
+
+            return self.$q(function(resolve,reject) {
+                self.db.insert(docCss, function(err,doc) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        self.availableCss.push(doc);
+                        resolve(doc);
+                    }
+                });
+            });
+
         };
 
         self.initCurrentById = function(idCss) {
@@ -135,14 +158,13 @@
             if (css.default) {
                 if (css._id) {
                     var result = _.find(self.availableCss, {default:true});
-                    if (css._id != result._id) {
+                    if (result && css._id != result._id) {
                         css.default = false;
                     }
                 } else {
                     css.default = false;
                 }
             }
-
             if (css._id) {
                 var copyCurrent = {};
                 angular.copy(css,copyCurrent);
@@ -161,8 +183,26 @@
                     }
                 });
             }
+        };
 
+        self.deleteCss = function(css) {
+            if (css._id) {
+                self.PendingService.start();
+                var indexCss = _.findIndex(self.availableCss,{_id:css._id});
 
+                if (indexCss && indexCss >= 0) {
+                    self.availableCss.splice(indexCss,1);
+                }
+
+                self.db.remove({ _id: css._id }, {}, function (err, numRemoved) {
+                    self.PendingService.stop();
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        console.log('removed',numRemoved);
+                    }
+                });
+            }
         };
 
         return self;

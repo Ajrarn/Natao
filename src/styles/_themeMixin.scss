@@ -87,6 +87,11 @@
       }
     }
   }
+
+  .switch.checked {
+    background: map-get($color_map, MD);
+    border-color: map-get($color_map, MD);
+  }
 }
 
 @mixin color-square($color_map) {

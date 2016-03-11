@@ -14,3 +14,85 @@
 #rendu  h1 {
     color: red;
 }
+
+/* Table */
+#rendu table {
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#rendu table thead, #rendu table tr {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(211, 202, 221);
+}
+#rendu table {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(211, 202, 221);
+}
+
+/* Padding and font style */
+#rendu table td, #rendu table th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    color: rgb(95, 74, 121);
+}
+
+/* Alternating background colors */
+#rendu table tr:nth-child(even) {
+    background: rgb(223, 216, 232)
+}
+#rendu table tr:nth-child(odd) {
+    background: #FFF
+}
+
+blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+blockquote p {
+    display: inline;
+}
+
+#rendu {counter-reset: h1 h2 h3;}
+#rendu  h1:before {
+    content: counter(h1) "  ";
+    counter-increment: h1;
+}
+#rendu h2:before {
+    content: counter(h1) "." counter(h2) "  ";
+    counter-increment: h2;
+}
+#rendu  h3:before {
+    content: counter(h1) "." counter(h2) "." counter(h3) "  ";
+    counter-increment: h3;
+}
+#rendu  h1 {
+    counter-reset: h2;
+}
+#rendu  h2 {
+    counter-reset: h3;
+}
+#rendu  h1.unnumbered, h2.unnumbered {
+    counter-reset: none;
+}
+#rendu  h1.unnumbered:before,
+#rendu  h2.unnumbered:before,
+#rendu  h3.unnumbered:before{
+    content: none;
+    counter-increment: none;
+}
