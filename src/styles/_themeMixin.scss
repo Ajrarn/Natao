@@ -47,17 +47,19 @@
     }
 
     &.toggle {
-      background-color: transparent;
+      background-color: map-get($color_map, DD);
       color:white;
-      border-color: white;
+      border-color: map-get($color_map, LL);
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px map-get($color_map, ML), 0 0 70px map-get($color_map, ML), 0 0 80px map-get($color_map, ML), 0 0 100px map-get($color_map, ML), 0 0 150px map-get($color_map, ML);
 
-      &:hover {
+      /*&:hover {
         background-color: map-get($color_map, DD);
-      }
+      }*/
 
       &.off {
-        color: map-get($color_map, MD);
-        border-color: transparent;
+        color: black;
+        text-shadow: none;
+        border-color: black;
       }
     }
   }

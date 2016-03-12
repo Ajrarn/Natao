@@ -72,25 +72,10 @@ select {
 }*/
 
 
-/*button {
-  background-color: #363636;
-  color: white;
-  padding: 3px 7px;
-  margin: 5px;
-  border: solid $colorPurpleMM 2px;
-  border-radius: 2px;
-  font-size: 1.5em;
-}*/
-
-.bandeau {
-  background-color: black;
-  color:white;
-  height: 50px;
-}
 
 button,.button {
 
-  padding: 3px 7px;
+  padding: 1px 7px 5px 7px;
   margin: 5px;
   font-size: 1.5em;
   border-radius: 5px;
@@ -119,6 +104,19 @@ button,.button {
     border-radius: 30px;
   }
 }
+
+.bandeau {
+  background-color: black;
+  color:white;
+  height: 50px;
+
+  button {
+    font-size: 1.7em;
+  }
+}
+
+
+
 
 .principal {
   position: relative;

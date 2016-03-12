@@ -34,9 +34,9 @@ Tu peux aussi souligner le titre.
     Le second plus important
     ------------------------
 
-Mais du coup tu ne disposeras que de 2 niveaux de titre.
-Si je peux te donner un bon conseil, ne dépasses pas 3 niveaux de titre pour conserver une excellente lisibilité.
-si tu arrives à n'en utiliser que 2, alors la technique des soulignement rendra également ton markdown plus lisible.
+Tu ne disposera alors que de deux niveaux pour tes titres, mais ton Markdown sera plus lisible.
+
+Si je peux te donner un bon conseil, ne dépasses pas trois niveaux de titre dans tes documents. Cela améliorera grandement sa lisibilité.
 
 ## Citation
 
@@ -52,7 +52,7 @@ Si tu souhaites que l'auteur apparaisse dans le bloc de citation, il te suffit s
     > *Abraham Lincoln*
 
 
-## Donner du style au texte
+## Mettre en valeur du texte
 
 Tu peux valoriser du texte, c'est à dire faire ressortir certains mots ou phrases, pour qu'on les remarque.
 Tu as deux niveaux de valorisation qui s'obtiennent en entourant le mot ou le groupe de mots du caractère \*.
