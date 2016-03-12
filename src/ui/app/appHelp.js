@@ -6,7 +6,7 @@
     var modules = ['ngSanitize','ng-showdown'];
 
     angular
-        .module('Help', modules)
+        .module('Natao', modules)
         .run(run);
 
     function run() {
