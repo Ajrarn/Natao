@@ -9,37 +9,37 @@
 .marge {
   display: none; }
 
-#rendu {
+.rendu {
   padding: 20px; }
 
 /* Table */
-#rendu table {
+.rendu table {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto; }
 
-#rendu table thead, #rendu table tr {
+.rendu table thead, .rendu table tr {
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: #d3cadd; }
 
-#rendu table {
+.rendu table {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #d3cadd; }
 
 /* Padding and font style */
-#rendu table td, #rendu table th {
+.rendu table td, .rendu table th {
   padding: 5px 10px;
   font-size: 12px;
   font-family: Verdana;
   color: #5f4a79; }
 
 /* Alternating background colors */
-#rendu table tr:nth-child(even) {
+.rendu table tr:nth-child(even) {
   background: #dfd8e8; }
 
-#rendu table tr:nth-child(odd) {
+.rendu table tr:nth-child(odd) {
   background: #FFF; }
 
 blockquote {
@@ -61,42 +61,42 @@ blockquote p {
   display: block;
   margin-left: 50px; }
 
-#rendu {
+.rendu {
   counter-reset: h1 h2 h3; }
 
-#rendu h1 {
+.rendu h1 {
   font-family: "Courier New", Courier, monospace;
   margin-bottom: 40px; }
 
-#rendu h1:before {
+.rendu h1:before {
   content: counter(h1,upper-roman) " - ";
   counter-increment: h1; }
 
-#rendu h1:after {
+.rendu h1:after {
   content: ' ';
   display: block;
   border: 1px solid lightgrey; }
 
-#rendu h2:before {
+.rendu h2:before {
   content: counter(h1) "." counter(h2) "  ";
   counter-increment: h2; }
 
-#rendu h3:before {
+.rendu h3:before {
   content: counter(h1) "." counter(h2) "." counter(h3) "  ";
   counter-increment: h3; }
 
-#rendu h1 {
+.rendu h1 {
   counter-reset: h2; }
 
-#rendu h2 {
+.rendu h2 {
   counter-reset: h3; }
 
-#rendu h1.unnumbered, h2.unnumbered {
+.rendu h1.unnumbered, h2.unnumbered {
   counter-reset: none; }
 
-#rendu h1.unnumbered:before,
-#rendu h2.unnumbered:before,
-#rendu h3.unnumbered:before {
+.rendu h1.unnumbered:before,
+.rendu h2.unnumbered:before,
+.rendu h3.unnumbered:before {
   content: none;
   counter-increment: none; }
 

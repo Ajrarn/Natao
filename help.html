@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Help" ng-controller="HelpController as helpCtrl">
-<head>
-    <meta charset="UTF-8">
-    <title>Help</title>
-    <link rel='stylesheet' href='bower_components/typicons/src/font/typicons.min.css'/>
-    <link rel="stylesheet" href="src/styles/index.css"/>
-    <link rel="stylesheet" href="src/styles/help.scss"/>
-</head>
-<body layout="column" ng-class="helpCtrl.theme">
-    <div flex layout="row"  layout-align="start stretch">
-        <tabs>
-            <pane title="Interface" icon="typcn-cog-outline" class="setting">
-                <div flex layout="column" layout-align="start stretch" class="visualiser">
-                    <div class="rendu" markdown-to-html="helpCtrl.currentHelpMarkdown" flex></div>
-                </div>
-            </pane>
-            <pane title="Markdown" icon="typcn-cog-outline" class="setting">
-                <div flex layout="column" layout-align="start stretch" class="visualiser">
-                    <div class="rendu" markdown-to-html="helpCtrl.currentHelpMarkdown" flex></div>
-                </div>
-            </pane>
-            <pane title="AsciiMath" icon="typcn-cog-outline" class="setting">
-                <div flex layout="column" layout-align="start stretch" class="visualiser">
-                    <div class="rendu" markdown-to-html="helpCtrl.currentHelpMarkdown" flex></div>
-                </div>
-            </pane>
-        </tabs>
-    </div>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/showdown/dist/showdown.js"></script>
-    <script src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="src/ui/app/appHelp.js"></script>
-    <script src="src/ui/app/helpController.js"></script>
-    <script type="text/javascript" src="src/utils/tabs.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Help</title>
+        <link rel='stylesheet' href='bower_components/typicons/src/font/typicons.min.css'/>
+        <link rel="stylesheet" href="src/styles/index.css"/>
+        <link rel="stylesheet" href="src/styles/help.css"/>
+    </head>
+    <body layout="column" ng-class="helpCtrl.theme">
+        <div flex layout="row"  layout-align="start stretch">
+            <tabs>
+                <pane title="Interface" icon="typcn-cog-outline" class="setting">
+                    <div flex layout="column" layout-align="start stretch" class="visualiser">
+                        <div class="rendu" markdown-to-html="helpCtrl.currentHelpEditor" flex></div>
+                    </div>
+                </pane>
+                <pane title="Markdown" icon="typcn-cog-outline" class="setting">
+                    <div flex layout="column" layout-align="start stretch" class="visualiser">
+                        <div class="rendu" markdown-to-html="helpCtrl.currentHelpMarkdown" flex></div>
+                    </div>
+                </pane>
+                <pane title="AsciiMath" icon="typcn-cog-outline" class="setting">
+                    <div flex layout="column" layout-align="start stretch" class="visualiser">
+                        <div class="rendu" markdown-to-html="helpCtrl.currentHelpAsciiMath" flex></div>
+                    </div>
+                </pane>
+            </tabs>
+        </div>
+        <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="bower_components/showdown/dist/showdown.js"></script>
+        <script type="text/javascript" src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
+        <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script type="text/javascript" src="src/ui/app/appHelp.js"></script>
+        <script type="text/javascript" src="src/ui/app/helpController.js"></script>
+        <script type="text/javascript" src="src/utils/tabs.js"></script>
+    </body>
 </html>

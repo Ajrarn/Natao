@@ -1,4 +1,8 @@
-# Syntaxe Markdown
+# Les bases
+
+Pour rédiger un texte avec Natao, tu vas devoir apprendre un nouveau langage.
+Un langage qui lui permettra de comprendre comment tu souhaites organiser ton document.
+Ce langage s'appelle le Markdown. Nous allons commencer par les bases de la mise en page, et tu vas voir, c'est un langage très facile.
 
 
 ## Paragraphes
@@ -9,9 +13,13 @@ Les paragraphes en Markdown sont simplement composées d'une ou plusieurs lignes
 
     On July 3, the Black Knights, a squadron of Marine Corps F/A-18 Hornets, participated in an assault on a destroyer near the city of Los Angeles.
 
+Autrement dit, tant que tu ne sautes pas de ligne, Natao considère que c'est le même paragraphe.
+
 ## Titres
 
-Tu peux créer un titre en ajoutant un ou plusieurs # au début du texte de votre titre. Le nombre de # que tu utilises détermine l'importance du titre. Plus il y en a et moins il est important.
+Tu vas aussi avoir besoin d'organiser ton document. Et tu peux le faire grace aux différents titres.
+
+Tu peux créer un titre en ajoutant un ou plusieurs # au début du texte de ton titre. Le nombre de # que tu utilises détermine l'importance du titre. Plus il y en a et moins il est important.
 
     # Le niveau le plus important (une balise <H1>)
     ## Le second plus important (une balise <H2>)
@@ -26,25 +34,43 @@ Tu peux aussi souligner le titre.
     Le second plus important
     ------------------------
 
+Mais du coup tu ne disposeras que de 2 niveaux de titre.
+Si je peux te donner un bon conseil, ne dépasses pas 3 niveaux de titre pour conserver une excellente lisibilité.
+si tu arrives à n'en utiliser que 2, alors la technique des soulignement rendra également ton markdown plus lisible.
+
 ## Citation
 
-Tu peux indiquer une citation avec un >.
+Tu peux indiquer une citation avec un >. Tant que tes lignes commencent par des >, on reste dans le bloc de citation.
 
     Abraham Lincoln a dit:
 
     > Pardon my french
 
+Si tu souhaites que l'auteur apparaisse dans le bloc de citation, il te suffit simplement de l'écrire comme ceci:
+
+    > Pardon my french
+    > *Abraham Lincoln*
+
 
 ## Donner du style au texte
 
-Tu peux mettre du texte en **gras** ou en  *italique*.
+Tu peux valoriser du texte, c'est à dire faire ressortir certains mots ou phrases, pour qu'on les remarque.
+Tu as deux niveaux de valorisation qui s'obtiennent en entourant le mot ou le groupe de mots du caractère \*.
+Un seul \* le met en valeur, deux \* signifie qu'il est très important. Par défaut, la première mise en valeur, met le texte en italique, la deuxième, le met en gras.
+Mais tu peux changer les règles, en souligner un en rouge par exemple.
 
-    *Ce texte sera en italique*
-    **Ce texte sera en gras**
+    *Ce texte sera valorisé*
+    **Ce texte sera très remarqué**
 
-Tu peux également utiliser le caractère '_' au lieu de '*', pour le gras et l'italique. Cela te permet de combiner les 2 dans un même texte.
+Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisations. Cela te permet de combiner les 2 dans un même texte.
 
-    **Tout le monde _doit_ arriver à l'heure aujour'hui.**
+    **Tout le monde _doit_ arriver à l'heure aujourd'hui.**
+
+
+# Syntaxe avancée
+
+La syntaxe de base te permet déjà de rédiger de nombreux documents. Les éléments qui suivent te permettront de faire encore mieux.
+Et c'est toujours aussi simple.
 
 
 ## Listes
@@ -82,6 +108,38 @@ Tu peux créer des listes imbriquées en ajoutant 2 espaces avant les articles d
       * Une autre règle.
       * Et une dernière.
     3. Article 3
+
+
+## Tableaux
+
+Les tableaux tels que tu vas les voir ne font pas partie de Markdown. Par contre, ils font partie de GFM qui est la syntaxe Markdown utilisée par Github.
+Et Showdown qui est utilisé par Natao pour l'affichage comprend le GFM. Donc, autant profiter.
+Ecrire un tableau consiste pratiquement à le dessiner à l'aide caractères.
+
+  Tables aren't part of the core Markdown spec, but they are part of GFM and Showdown supports them by turning on the flag `tables`.
+
+    ```
+    | Tables        | Are           | Cool  |
+    | ------------- |:-------------:| -----:|
+    | **col 3 is**  | right-aligned | $1600 |
+    | col 2 is      | *centered*    |   $12 |
+    | zebra stripes | ~~are neat~~  |    $1 |
+    ```
+
+this will produce this:
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| **col 3 is**  | right-aligned | $1600 |
+| col 2 is      | *centered*    |   $12 |
+| zebra stripes | ~~are neat~~  |    $1 |
+
+
+    Colons can be used to align columns.
+
+    The outer pipes (|) are **NOT** optional. But you don't need to make the raw Markdown line up prettily.
+
+    You can also use other markdown syntax inside them.
 
 
 ## Code formatting
@@ -137,29 +195,4 @@ Then, anywhere in the document (usually at the end), you define your link label 
     [id]: http://example.com/  "Optional Title Here"
 
 
-## Tables
 
-Tables aren't part of the core Markdown spec, but they are part of GFM and Showdown supports them by turning on the flag `tables`.
-
-```
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-```
-
-this will produce this:
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-
-
-Colons can be used to align columns.
-
-The outer pipes (|) are **NOT** optional. But you don't need to make the raw Markdown line up prettily.
-
-You can also use other markdown syntax inside them.
