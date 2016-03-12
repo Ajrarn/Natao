@@ -41,7 +41,7 @@
 
         self.help = function() {
             console.log(self.$translate.use());
-            window.open('help.html?file=' + process.cwd() + '/translations/help-' + self.$translate.use() + '.md', '_blank');
+            window.open('help.html?language=' + self.$translate.use() +',color=' + self.PreferencesService.preferences.colorTheme, '_blank');
         };
 
 

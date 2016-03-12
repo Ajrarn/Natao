@@ -52,7 +52,7 @@
         var escapeCharacters_callback = function(wholeMatch,m1) {
             var charCodeToEscape = m1.charCodeAt(0);
             return "~E"+charCodeToEscape+"E";
-        }
+        };
 
         return [
             {
