@@ -32,14 +32,14 @@
 
         <div flex layout="row" layout-align="start center" ng-show="SettingCtrl.showId()">
             <p>{{ 'SETTING_MESSAGE_NAME' | translate }}</p>
-            <label for="name" layout="column" layout-align="center center">
-                <p>{{ 'PROFILE_NAME' | translate }}</p>
-                <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-            </label>
-
             <label for="firstName" layout="column" layout-align="center center">
                 <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
                 <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+            </label>
+
+            <label for="name" layout="column" layout-align="center center">
+                <p>{{ 'PROFILE_NAME' | translate }}</p>
+                <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
             </label>
         </div>
 
@@ -69,6 +69,11 @@
             <label for="red" layout="column" layout-align="center center">
                 <span class="chooser chooser-red"></span>
                 <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+            </label>
+
+            <label for="pink" layout="column" layout-align="center center">
+                <span class="chooser chooser-pink"></span>
+                <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
             </label>
 
             <label for="grey" layout="column" layout-align="center center">

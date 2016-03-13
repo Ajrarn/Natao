@@ -2366,22 +2366,8 @@ select {
   size: A4;
   //margin: 30mm 45mm 30mm 45mm; /* change the margins as you want them to be.
 }*/
-/*button {
-  background-color: #363636;
-  color: white;
-  padding: 3px 7px;
-  margin: 5px;
-  border: solid $colorPurpleMM 2px;
-  border-radius: 2px;
-  font-size: 1.5em;
-}*/
-.bandeau {
-  background-color: black;
-  color: white;
-  height: 50px; }
-
 button, .button {
-  padding: 3px 7px;
+  padding: 1px 7px 5px 7px;
   margin: 5px;
   font-size: 1.5em;
   border-radius: 5px;
@@ -2397,9 +2383,16 @@ button, .button {
   button:focus, .button:focus {
     outline: none; }
   button.toggle, .button.toggle {
-    padding: 3px 5px;
+    padding: 1px 5px 5px 5px;
     border: solid 2px;
     border-radius: 30px; }
+
+.bandeau {
+  background-color: black;
+  color: white;
+  height: 50px; }
+  .bandeau button {
+    font-size: 1.7em; }
 
 .principal {
   position: relative; }
@@ -2565,6 +2558,14 @@ input, p {
   background-color: #969696;
   border: solid 1px #252525; }
 
+.chooser-pink {
+  min-height: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  background-color: #df65b0;
+  border: solid 1px #980043; }
+
 /**************************Themes********************/
 .purple button, .purple .button {
   background-color: #54278f; }
@@ -2589,14 +2590,17 @@ input, p {
       .purple button.transparent.light:disabled:hover, .purple .button.transparent.light:disabled:hover {
         background-color: transparent; }
   .purple button.toggle, .purple .button.toggle {
-    background-color: transparent;
+    background-color: #54278f;
     color: white;
-    border-color: white; }
-    .purple button.toggle:hover, .purple .button.toggle:hover {
-      background-color: #54278f; }
+    border-color: #f2f0f7;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #cbc9e2, 0 0 70px #cbc9e2, 0 0 80px #cbc9e2, 0 0 100px #cbc9e2, 0 0 150px #cbc9e2;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
     .purple button.toggle.off, .purple .button.toggle.off {
-      color: #756bb1;
-      border-color: transparent; }
+      color: black;
+      text-shadow: none;
+      border-color: black; }
 .purple .principal {
   background-color: #cbc9e2; }
 .purple .menu {
@@ -2637,14 +2641,17 @@ input, p {
       .blue button.transparent.light:disabled:hover, .blue .button.transparent.light:disabled:hover {
         background-color: transparent; }
   .blue button.toggle, .blue .button.toggle {
-    background-color: transparent;
+    background-color: #08519c;
     color: white;
-    border-color: white; }
-    .blue button.toggle:hover, .blue .button.toggle:hover {
-      background-color: #08519c; }
+    border-color: #eff3ff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #bdd7e7, 0 0 70px #bdd7e7, 0 0 80px #bdd7e7, 0 0 100px #bdd7e7, 0 0 150px #bdd7e7;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
     .blue button.toggle.off, .blue .button.toggle.off {
-      color: #3182bd;
-      border-color: transparent; }
+      color: black;
+      text-shadow: none;
+      border-color: black; }
 .blue .principal {
   background-color: #bdd7e7; }
 .blue .menu {
@@ -2685,14 +2692,17 @@ input, p {
       .red button.transparent.light:disabled:hover, .red .button.transparent.light:disabled:hover {
         background-color: transparent; }
   .red button.toggle, .red .button.toggle {
-    background-color: transparent;
+    background-color: #a50f15;
     color: white;
-    border-color: white; }
-    .red button.toggle:hover, .red .button.toggle:hover {
-      background-color: #a50f15; }
+    border-color: #fee5d9;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fcae91, 0 0 70px #fcae91, 0 0 80px #fcae91, 0 0 100px #fcae91, 0 0 150px #fcae91;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
     .red button.toggle.off, .red .button.toggle.off {
-      color: #de2d26;
-      border-color: transparent; }
+      color: black;
+      text-shadow: none;
+      border-color: black; }
 .red .principal {
   background-color: #fcae91; }
 .red .menu {
@@ -2709,6 +2719,57 @@ input, p {
 .red .switch.checked {
   background: #de2d26;
   border-color: #de2d26; }
+
+.pink button, .pink .button {
+  background-color: #980043; }
+  .pink button:hover, .pink .button:hover {
+    background-color: #dd1c77; }
+  .pink button:disabled, .pink button.disabled, .pink .button:disabled, .pink .button.disabled {
+    background-color: #df65b0; }
+    .pink button:disabled:hover, .pink button.disabled:hover, .pink .button:disabled:hover, .pink .button.disabled:hover {
+      background-color: #df65b0; }
+  .pink button.transparent, .pink .button.transparent {
+    background-color: transparent; }
+    .pink button.transparent:hover, .pink .button.transparent:hover {
+      background-color: #980043; }
+    .pink button.transparent:disabled, .pink .button.transparent:disabled {
+      color: #df65b0; }
+      .pink button.transparent:disabled:hover, .pink .button.transparent:disabled:hover {
+        background-color: transparent; }
+    .pink button.transparent.light:hover, .pink .button.transparent.light:hover {
+      background-color: #dd1c77; }
+    .pink button.transparent.light:disabled, .pink .button.transparent.light:disabled {
+      color: #df65b0; }
+      .pink button.transparent.light:disabled:hover, .pink .button.transparent.light:disabled:hover {
+        background-color: transparent; }
+  .pink button.toggle, .pink .button.toggle {
+    background-color: #980043;
+    color: white;
+    border-color: #f1eef6;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #d7b5d8, 0 0 70px #d7b5d8, 0 0 80px #d7b5d8, 0 0 100px #d7b5d8, 0 0 150px #d7b5d8;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
+    .pink button.toggle.off, .pink .button.toggle.off {
+      color: black;
+      text-shadow: none;
+      border-color: black; }
+.pink .principal {
+  background-color: #d7b5d8; }
+.pink .menu {
+  background-color: #980043; }
+.pink .files {
+  background-color: #dd1c77; }
+.pink .nav-tabs {
+  background-color: #df65b0; }
+  .pink .nav-tabs li {
+    background-color: #d7b5d8;
+    border-color: #dd1c77; }
+    .pink .nav-tabs li.active {
+      background-color: white; }
+.pink .switch.checked {
+  background: #dd1c77;
+  border-color: #dd1c77; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -2733,14 +2794,17 @@ input, p {
       .orange button.transparent.light:disabled:hover, .orange .button.transparent.light:disabled:hover {
         background-color: transparent; }
   .orange button.toggle, .orange .button.toggle {
-    background-color: transparent;
+    background-color: #a63603;
     color: white;
-    border-color: white; }
-    .orange button.toggle:hover, .orange .button.toggle:hover {
-      background-color: #a63603; }
+    border-color: #feedde;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fdbe85, 0 0 70px #fdbe85, 0 0 80px #fdbe85, 0 0 100px #fdbe85, 0 0 150px #fdbe85;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
     .orange button.toggle.off, .orange .button.toggle.off {
-      color: #e6550d;
-      border-color: transparent; }
+      color: black;
+      text-shadow: none;
+      border-color: black; }
 .orange .principal {
   background-color: #fdbe85; }
 .orange .menu {
@@ -2781,14 +2845,17 @@ input, p {
       .green button.transparent.light:disabled:hover, .green .button.transparent.light:disabled:hover {
         background-color: transparent; }
   .green button.toggle, .green .button.toggle {
-    background-color: transparent;
+    background-color: #006d2c;
     color: white;
-    border-color: white; }
-    .green button.toggle:hover, .green .button.toggle:hover {
-      background-color: #006d2c; }
+    border-color: #edf8fb;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #b2e2e2, 0 0 70px #b2e2e2, 0 0 80px #b2e2e2, 0 0 100px #b2e2e2, 0 0 150px #b2e2e2;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
     .green button.toggle.off, .green .button.toggle.off {
-      color: #2ca25f;
-      border-color: transparent; }
+      color: black;
+      text-shadow: none;
+      border-color: black; }
 .green .principal {
   background-color: #b2e2e2; }
 .green .menu {
@@ -2829,14 +2896,17 @@ input, p {
       .grey button.transparent.light:disabled:hover, .grey .button.transparent.light:disabled:hover {
         background-color: transparent; }
   .grey button.toggle, .grey .button.toggle {
-    background-color: transparent;
+    background-color: #252525;
     color: white;
-    border-color: white; }
-    .grey button.toggle:hover, .grey .button.toggle:hover {
-      background-color: #252525; }
+    border-color: #f7f7f7;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #cccccc, 0 0 70px #cccccc, 0 0 80px #cccccc, 0 0 100px #cccccc, 0 0 150px #cccccc;
+    /*&:hover {
+      background-color: map-get($color_map, DD);
+    }*/ }
     .grey button.toggle.off, .grey .button.toggle.off {
-      color: #636363;
-      border-color: transparent; }
+      color: black;
+      text-shadow: none;
+      border-color: black; }
 .grey .principal {
   background-color: #cccccc; }
 .grey .menu {
