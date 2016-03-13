@@ -26,6 +26,8 @@
         self.inPrint = false;
         self.focus = focus;
 
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+
 
         //Initialization before start
         self.PendingService.startLoading();

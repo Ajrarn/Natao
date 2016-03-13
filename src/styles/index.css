@@ -2481,7 +2481,8 @@ input, p {
   padding: 0px; }
   .nav-tabs li {
     padding: 10px 2px;
-    border-bottom: 1px solid; }
+    border-bottom: 1px solid;
+    cursor: pointer; }
     .nav-tabs li span {
       font-size: 1.5em; }
 
