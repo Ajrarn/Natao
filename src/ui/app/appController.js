@@ -2,6 +2,7 @@
     "use strict";
 
     var fs = require('fs');
+    var nw = require('nw.gui');
 
     angular
         .module('Natao')
@@ -41,7 +42,12 @@
 
         self.help = function() {
             console.log(self.$translate.use());
-            window.open('help.html?language=' + self.$translate.use() +',color=' + self.PreferencesService.preferences.colorTheme, '_blank');
+            nw.Window.open('help.html?language=' + self.$translate.use() +',color=' + self.PreferencesService.preferences.colorTheme, {
+                position: 'center',
+                width: 1366,
+                height: 768
+            });
+            //window.open('help.html?language=' + self.$translate.use() +',color=' + self.PreferencesService.preferences.colorTheme, '_blank');
         };
 
 

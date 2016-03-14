@@ -9,6 +9,9 @@
 .marge {
   display: none; }
 
+p {
+  text-align: justify; }
+
 .rendu {
   padding: 20px; }
 
@@ -45,7 +48,7 @@
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
-  margin: 1.5em 1em 1.5em 0.5empx;
+  margin: 1.5em 1em 1.5em 0.5em;
   padding: 0.5em 10px;
   quotes: "“" "”" "‘" "’"; }
 

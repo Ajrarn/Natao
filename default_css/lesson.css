@@ -15,6 +15,10 @@
     padding:20px;
 }
 
+p {
+    text-align: justify;
+}
+
 
 /* Table */
 .rendutable {

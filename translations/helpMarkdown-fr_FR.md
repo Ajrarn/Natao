@@ -4,6 +4,8 @@ Pour rédiger un texte avec Natao, tu vas devoir apprendre un nouveau langage.
 Un langage qui lui permettra de comprendre comment tu souhaites organiser ton document.
 Ce langage s'appelle le Markdown. Nous allons commencer par les bases de la mise en page, et tu vas voir, c'est un langage très facile.
 
+D'ailleurs, la documentation que tu es en train de lire a été écrite en Markdown, et avec Natao.
+
 
 ## Paragraphes
 
