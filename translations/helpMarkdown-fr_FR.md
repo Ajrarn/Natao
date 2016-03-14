@@ -1,8 +1,11 @@
 # Les bases
 
 Pour rédiger un texte avec Natao, tu vas devoir apprendre un nouveau langage.
-Un langage qui lui permettra de comprendre comment tu souhaites organiser ton document.
-Ce langage s'appelle le Markdown. Nous allons commencer par les bases de la mise en page, et tu vas voir, c'est un langage très facile.
+Rassures toi, ce n'est pas comme apprendre une langue étrangère.
+Cela consiste à ajouter certains signes (ou caractères) à ton texte.
+Ce langage permettra à Natao de comprendre comment tu souhaites organiser ton document.
+Tu décris ce que tu souhaites et Natao met en page pour toi.
+Ce langage s'appelle le **Markdown**. Nous allons commencer par les bases de la mise en page, et tu vas voir, c'est un langage très facile.
 
 D'ailleurs, la documentation que tu es en train de lire a été écrite en Markdown, et avec Natao.
 
@@ -10,23 +13,32 @@ D'ailleurs, la documentation que tu es en train de lire a été écrite en Markd
 ## Paragraphes
 
 Les paragraphes en Markdown sont simplement composées d'une ou plusieurs lignes consécutives suivies par une ou deux lignes vides.
+Dans le bloc gris que tu vois en dessous, tu peux voir deux paragraphes séparés par une ligne vide, juste en dessous, tu peux voir comment Natao le met en forme :
 
-    On July 2, an alien mothership entered Earth's orbit and deployed several dozen saucer-shaped "destroyer" spacecraft, each 15 miles (24 km) wide.
+    Lorsque Zarathoustra eut atteint sa trentième année, il quitta sa patrie et le lac de sa patrie et s'en alla dans la montagne.
+    Là il jouit de son esprit et de sa solitude et ne s'en lassa point durant dix années.
+    Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s'avança devant le soleil et lui parla ainsi :
 
-    On July 3, the Black Knights, a squadron of Marine Corps F/A-18 Hornets, participated in an assault on a destroyer near the city of Los Angeles.
+    "O grand astre ! Quel serait ton bonheur, si tu n'avais pas ceux que tu éclaires ?
 
-Autrement dit, tant que tu ne sautes pas de ligne, Natao considère que c'est le même paragraphe.
+Lorsque Zarathoustra eut atteint sa trentième année, il quitta sa patrie et le lac de sa patrie et s'en alla dans la montagne.
+Là il jouit de son esprit et de sa solitude et ne s'en lassa point durant dix années.
+Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s'avança devant le soleil et lui parla ainsi :
+
+"O grand astre ! Quel serait ton bonheur, si tu n'avais pas ceux que tu éclaires ?
 
 ## Titres
 
 Tu vas aussi avoir besoin d'organiser ton document. Et tu peux le faire grace aux différents titres.
 
 Tu peux créer un titre en ajoutant un ou plusieurs # au début du texte de ton titre. Le nombre de # que tu utilises détermine l'importance du titre. Plus il y en a et moins il est important.
+L'exmple ci-dessous ne sera pas illustré, car il perturberait la présentation de cette aide. Mais les premiers titres que tu vas voir sont ceux de ce document :
 
-    # Le niveau le plus important (une balise <H1>)
-    ## Le second plus important (une balise <H2>)
+    # Les bases
+    ## Paragraphes
+    ## Titres
     …
-    ###### Le 6ème plus important (une balise <H6>)
+    ###### et tu peux aller jusqu'à 6 niveaux
 
 Tu peux aussi souligner le titre.
 
@@ -40,6 +52,37 @@ Tu ne disposera alors que de deux niveaux pour tes titres, mais ton Markdown ser
 
 Si je peux te donner un bon conseil, ne dépasses pas trois niveaux de titre dans tes documents. Cela améliorera grandement sa lisibilité.
 
+## Mettre en valeur du texte
+
+Tu peux valoriser du texte, c'est à dire faire ressortir certains mots ou phrases, pour qu'on les remarque.
+Tu as deux niveaux de valorisation qui s'obtiennent en entourant le mot ou le groupe de mots du caractère \*.
+Un seul \* le met en valeur, deux \* signifie qu'il est très important. Par défaut, la première mise en valeur, met le texte en italique, la deuxième, le met en gras.
+Mais tu peux changer les règles (avec les feuilles de style qui sont expliquées dans une autre partie), en souligner un en rouge par exemple.
+
+    *Ce texte sera valorisé*
+    **Ce texte sera très remarqué**
+
+*Ce texte sera valorisé*
+**Ce texte sera très remarqué**
+
+Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisations. Cela te permet de combiner les 2 dans un même texte.
+
+    **Tout le monde _doit_ arriver à l'heure aujourd'hui.**
+
+**Tout le monde _doit_ arriver à l'heure aujourd'hui.**
+
+Enfin, il existe une dernière valorisation de texte qui consiste à signifier qu'il est faut, en le rayant par exemple
+
+    ~~une bêtise~~
+
+~~une bêtise~~
+
+
+# Syntaxe avancée
+
+La syntaxe de base te permet déjà de rédiger de nombreux documents. Les éléments qui suivent te permettront de faire encore mieux.
+Et c'est toujours aussi simple.
+
 ## Citation
 
 Tu peux indiquer une citation avec un >. Tant que tes lignes commencent par des >, on reste dans le bloc de citation.
@@ -48,31 +91,63 @@ Tu peux indiquer une citation avec un >. Tant que tes lignes commencent par des 
 
     > Pardon my french
 
+Abraham Lincoln a dit:
+
+> Pardon my french
+
 Si tu souhaites que l'auteur apparaisse dans le bloc de citation, il te suffit simplement de l'écrire comme ceci:
 
     > Pardon my french
+
     > *Abraham Lincoln*
 
+> Pardon my french
 
-## Mettre en valeur du texte
+> *Abraham Lincoln*
 
-Tu peux valoriser du texte, c'est à dire faire ressortir certains mots ou phrases, pour qu'on les remarque.
-Tu as deux niveaux de valorisation qui s'obtiennent en entourant le mot ou le groupe de mots du caractère \*.
-Un seul \* le met en valeur, deux \* signifie qu'il est très important. Par défaut, la première mise en valeur, met le texte en italique, la deuxième, le met en gras.
-Mais tu peux changer les règles, en souligner un en rouge par exemple.
+## Blocs non mis en page
 
-    *Ce texte sera valorisé*
-    **Ce texte sera très remarqué**
+### Au sein d'une ligne
 
-Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisations. Cela te permet de combiner les 2 dans un même texte.
+Utilise des guillemets obliques \` pour afficher le texte tel quel, sans mise en page, avec une police un peu différente tout de même.
+Dans l'exemple ci-dessous, les \* ne transformeront pas le texte super important, ils seront visibles :
 
-    **Tout le monde _doit_ arriver à l'heure aujourd'hui.**
+    Et voila un texte `important` mais là, il devient  `**Super**Important`.
+
+Et voila un texte `important` mais là, il devient  `**Super**Important`.
+
+### Sur plusieurs lignes
+
+Les blocs gris que tu as vu jusqu'à présent pour te montrer des exemples ont été faits avec cette technique. Tu pourras maintenant facilement la reproduire.
+Pour créer ce genre de blocs, il faut que toutes les lignes le composant commence par 4 espaces ou une tabulation. Ca va te paraître bizarre, mais le premier bloc gris est le code permettant de faire le deuxième bloc :
+
+    Voici un exemple de code
+
+        Le code en exemple..
+
+Voici un exemple de code
+
+    Le code en exemple..
+
+Tu peux aussi utiliser 3 guillemets obliques \` pour indiquer le début et la fin du bloc :
 
 
-# Syntaxe avancée
+    Voici mon code:
 
-La syntaxe de base te permet déjà de rédiger de nombreux documents. Les éléments qui suivent te permettront de faire encore mieux.
-Et c'est toujours aussi simple.
+    ```
+    x = 0
+    x = 2 + 2
+    what is x
+    ```
+
+Voici mon code:
+
+```
+x = 0
+x = 2 + 2
+what is x
+```
+
 
 
 ## Listes
@@ -116,62 +191,31 @@ Tu peux créer des listes imbriquées en ajoutant 2 espaces avant les articles d
 
 Les tableaux tels que tu vas les voir ne font pas partie de Markdown. Par contre, ils font partie de GFM qui est la syntaxe Markdown utilisée par Github.
 Et Showdown qui est utilisé par Natao pour l'affichage comprend le GFM. Donc, autant profiter.
-Ecrire un tableau consiste pratiquement à le dessiner à l'aide caractères.
+Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères (ou symboles).
 
-  Tables aren't part of the core Markdown spec, but they are part of GFM and Showdown supports them by turning on the flag `tables`.
-
-    ```
-    | Tables        | Are           | Cool  |
-    | ------------- |:-------------:| -----:|
-    | **col 3 is**  | right-aligned | $1600 |
-    | col 2 is      | *centered*    |   $12 |
-    | zebra stripes | ~~are neat~~  |    $1 |
-    ```
-
-this will produce this:
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
+    | Les Tables     | Sont             | Cool  |
+    | -------------- |:----------------:| -----:|
+    | **col 3 est**  | alignée à droite | $1600 |
+    | col 2 est      | *centrée*        |   $12 |
+    | zebra stripes  | ~~une bêtise~~   |    $1 |
 
 
-    Colons can be used to align columns.
-
-    The outer pipes (|) are **NOT** optional. But you don't need to make the raw Markdown line up prettily.
-
-    You can also use other markdown syntax inside them.
-
-
-## Code formatting
-
-### Inline formats
-
-Use single backticks (\`) to format text in a special monospace format. Everything within the backticks appear as-is, with no other special formatting.
-
-    Here's an idea: why don't we take `SuperiorProject` and turn it into `**Reasonable**Project`.
-
-### Multiple lines
-
-Showdown wraps a code block in both `<pre>` and `<code>` tags.
-
-To produce a code block in Markdown, simply indent every line of the block by at least 4 spaces or 1 tab.
-
-    This is a normal paragraph:
-
-        This is a code block.
-
-You can also use triple backticks to format text as its own distinct block.
+| Les Tables     | Sont             | Cool  |
+| -------------- |:----------------:| -----:|
+| **col 3 est**  | alignée à droite | $1600 |
+| col 2 est      | *centrée*        |   $12 |
+| zebra stripes  | ~~une bêtise~~   |    $1 |
 
 
-    Check out this neat program I wrote:
+On dessine les colonnes avec des pipes | , et on sépare l'entête des autre lignes avec le -.
+Les : sur la séparation permettent de choisir comment le texte des colonnes est aligné:
 
-    ```
-    x = 0
-    x = 2 + 2
-    what is x
-    ```
+* : à droite, le texte s'aligne à droite
+* des 2 côtés et le texte est centré.
+* si l'on ne précise rien, le texte est aligné à gauche.
+
+Les pipes sont obligatoires pour délimiter les colonnes, mais il n'est pas indispensable qu'elles soient alignées.
+Cela dit, quand elles sont alignées, le Markdown est plus lisible.
 
 
 ## Links
