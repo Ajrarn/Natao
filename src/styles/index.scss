@@ -170,12 +170,13 @@ button,.button {
   flex-grow:1;
   opacity: 1;
 
-  transition: flex-grow 1s, opacity 1s;
+  transition: all 1s;
 
   &.hidden {
     flex-grow:0.0001;
+    width: 0;
     opacity:0;
-    transition: flex-grow 1s, opacity 1s;
+    transition: all 1s;
   }
   //background-color: yellow;
 }
@@ -195,8 +196,10 @@ button,.button {
     padding: 0;
   }
 
-  transition: flex-grow 1s;
+  transition: all 1s;
+
   &.hidden {
+    width: 0;
     flex-grow:0.0001;
     opacity:0;
     margin: 0;

@@ -207,7 +207,7 @@ Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères 
 | zebra stripes  | ~~une bêtise~~   |    $1 |
 
 
-On dessine les colonnes avec des pipes | , et on sépare l'entête des autre lignes avec le -.
+On dessine les colonnes avec des pipes ( `| ), et on sépare l'entête des autre lignes avec le -.
 Les : sur la séparation permettent de choisir comment le texte des colonnes est aligné:
 
 * : à droite, le texte s'aligne à droite
@@ -218,27 +218,42 @@ Les pipes sont obligatoires pour délimiter les colonnes, mais il n'est pas indi
 Cela dit, quand elles sont alignées, le Markdown est plus lisible.
 
 
-## Links
+## Liens
 
-Showdown supports two style of links: *inline* and *reference*.
+Showdown et donc Natao permet de faire 2 types de liens:
+ * *en ligne*
+ * *référence*.
 
-### Inline
+### En ligne
 
-You can create an inline link by wrapping link text in brackets ( `[ ]` ), and then wrapping the link in parentheses ( `( )` ).
+Tu peux créer un lien en ligne en mettant le texte sur lequel figure le lien entre crochets ( `[ ]` ) et tout de suite après, entre parenthèse ( `( )` ), là où conduit ce lien :
 
-For example, to create a hyperlink to `showdown.github.io`, with a link text that says, Showdown is great!, you'd write this in Markdown:
 
-    [Showdown is great!](http://showdown.github.io/)
+    [Natao est sur Github!](https://github.com/Ajrarn/Natao)
 
-### Reference
+[Natao est sur Github!](https://github.com/Ajrarn/Natao)
 
-Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:
+### Référence
 
-    This is [an example][id] reference-style link.
+Le lien de type référence utilise une deuxième paire de crochets, dans lequel tu lui donnes un nom unique qui est son identifiant:
 
-Then, anywhere in the document (usually at the end), you define your link label like this, on a line by itself:
+    Natao est sur [Github][github.natao] normalement.
 
-    [id]: http://example.com/  "Optional Title Here"
+Natao est sur [Github][github.natao] normalement.
+
+Notes bien que tu n'as pas encore écrit où allait ce lien. Pour ce faire, mais généralement, on les mets à la fin, tu vas pouvoir définir où va ce lien et lui donner un titre (qaund tu survoles le lien).
+
+Donc tu remets l'identifiant entre crochets, suivi de :, de la destination et enfin d'un titre entre guillemets.
+
+    [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
+
+Tu noteras également que cette description ne s'affiche pas. Mais quand tu survoles le lien de ton texte, tu vois apparaître le titre. Mais à quoi cela peut-il servir ?
+A organiser toutes tes références, mais surtout à réutiliser les mêmes à plusieurs endroits. Il te suffit d'utiliser le même identifiant.
+
+
+[github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
+
+
 
 
 

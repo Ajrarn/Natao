@@ -2428,11 +2428,12 @@ button, .button {
 .editor {
   flex-grow: 1;
   opacity: 1;
-  transition: flex-grow 1s, opacity 1s; }
+  transition: all 1s; }
   .editor.hidden {
     flex-grow: 0.0001;
+    width: 0;
     opacity: 0;
-    transition: flex-grow 1s, opacity 1s; }
+    transition: all 1s; }
 
 .visualiser {
   flex-grow: 1;
@@ -2442,12 +2443,13 @@ button, .button {
   margin: 10px;
   padding: 10px;
   opacity: 1;
-  transition: flex-grow 1s; }
+  transition: all 1s; }
   .visualiser.inprint {
     box-shadow: none;
     margin: 0;
     padding: 0; }
   .visualiser.hidden {
+    width: 0;
     flex-grow: 0.0001;
     opacity: 0;
     margin: 0;
