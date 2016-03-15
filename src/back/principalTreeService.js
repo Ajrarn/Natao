@@ -34,7 +34,6 @@
                 children:[]
             },
             expandedNodes: [],
-            selectedNode: null,
             buffer: {
                 tree: null,
                 documents: []
@@ -387,7 +386,7 @@
                     parent.children.splice(indexOfNode,1);
                 }
             }
-            self.principalTree.selectedNode = null;
+            delete self.principalTree.selectedNode;
 
             self.save();
         };
