@@ -284,13 +284,13 @@ input,p{
   overflow-y: auto;
 
   // hack to have a correct horizontal overflow
-  ul {
+  /*ul {
     width: 1000px;
-  }
+  }*/
 }
 
 treecontrol {
-  position: relative;
+  position: absolute;
 }
 
 

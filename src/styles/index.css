@@ -2506,12 +2506,13 @@ input, p {
   position: relative;
   background-color: white;
   overflow-x: auto;
-  overflow-y: auto; }
-  .treeContainer ul {
-    width: 1000px; }
+  overflow-y: auto;
+  /*ul {
+    width: 1000px;
+  }*/ }
 
 treecontrol {
-  position: relative; }
+  position: absolute; }
 
 /**********************flags*************************/
 .flag-icon {
