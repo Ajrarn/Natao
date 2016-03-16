@@ -278,8 +278,19 @@ input,p{
 /***********************TreeView***********************/
 
 .treeContainer {
+  position: relative;
   background-color: white;
   overflow-x: auto;
+  overflow-y: auto;
+
+  // hack to have a correct horizontal overflow
+  ul {
+    width: 1000px;
+  }
+}
+
+treecontrol {
+  position: relative;
 }
 
 
