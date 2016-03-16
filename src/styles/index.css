@@ -2506,10 +2506,7 @@ input, p {
   position: relative;
   background-color: white;
   overflow-x: auto;
-  overflow-y: auto;
-  /*ul {
-    width: 1000px;
-  }*/ }
+  overflow-y: auto; }
 
 treecontrol {
   position: absolute; }

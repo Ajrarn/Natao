@@ -207,7 +207,25 @@
                 </div>
             </pane>
             <pane title="{{ 'SETTING_TEMPLATE' | translate }}" icon="typcn-flow-children" class="setting">
-                <h1>Templates</h1>
+                <div flex layout="row" layout-align="start stretch">
+
+                    <div flex layout="column" layout-align="start stretch">
+                        <div layout="row" layout-align="start center">
+                            <p>{{ 'DOC_CSS' | translate }}</p>
+                            <select id="template" ng-model="SettingCtrl.currentTemplate" ng-options="template as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates" ng-change="SettingCtrl.changeCss()">
+                            </select>
+                        </div>
+                        <treecontrol class="tree-classic"
+                                     tree-model="SettingCtrl.currentTemplate"
+                                     options="SettingCtrl.treeOptions"
+                                     selected-node="SettingCtrl.selectedNode"
+                                     expanded-nodes="SettingCtrl.expandedNodes">
+                            <span>{{node.name}}</span>
+                        </treecontrol>
+
+                    </div>
+                </div>
+
             </pane>
         </tabs>
     </div>

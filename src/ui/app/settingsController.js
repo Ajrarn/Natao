@@ -8,7 +8,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,$showdown,focus) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus) {
         console.log('SettingsController');
 
         var self = this;
@@ -21,6 +21,7 @@
         self.fileDialog = fileDialog;
         self.CssService = CssService;
         self.DocumentsService = DocumentsService;
+        self.TemplateTreeService = TemplateTreeService;
         self.$showdown = $showdown;
         self.focus = focus;
         self.viewer = true;
@@ -143,6 +144,24 @@
             console.log(completeHtml);
 
             self.currentHtmlAll = beautify_html(completeHtml);
+        };
+
+        self.treeOptions = {
+            nodeChildren: "children",
+            dirSelectable: true,
+            injectClasses: {
+                ul: "a1",
+                li: "a2",
+                liSelected: "a7",
+                iExpanded: "a3",
+                iCollapsed: "a4",
+                iLeaf: "a5",
+                label: "a6",
+                labelSelected: "a8"
+            },
+            isLeaf: function(node) {
+                return node.leaf;
+            }
         };
 
 
