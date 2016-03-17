@@ -12,7 +12,7 @@
         console.log('EditorController');
 
         var self = this;
-        self.$showdown = $showdown;
+        //self.$showdown = $showdown;
         self.$timeout = $timeout;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
@@ -21,8 +21,6 @@
         self.PendingService = PendingService;
         self.fileDialog = fileDialog;
         self.$location = $location;
-        self.$showdown.setOption('tables',true);
-        self.$showdown.setOption('strikethrough',true);
         self.inPrint = false;
         self.focus = focus;
 

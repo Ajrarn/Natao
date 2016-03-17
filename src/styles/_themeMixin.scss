@@ -94,6 +94,10 @@
     background: map-get($color_map, MD);
     border-color: map-get($color_map, MD);
   }
+
+  .border {
+    border: solid 1px map-get($color_map,MD);
+  }
 }
 
 @mixin color-square($color_map) {

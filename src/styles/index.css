@@ -2625,6 +2625,8 @@ treecontrol {
 .purple .switch.checked {
   background: #756bb1;
   border-color: #756bb1; }
+.purple .border {
+  border: solid 1px; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2676,6 +2678,8 @@ treecontrol {
 .blue .switch.checked {
   background: #3182bd;
   border-color: #3182bd; }
+.blue .border {
+  border: solid 1px; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -2727,6 +2731,8 @@ treecontrol {
 .red .switch.checked {
   background: #de2d26;
   border-color: #de2d26; }
+.red .border {
+  border: solid 1px; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -2778,6 +2784,8 @@ treecontrol {
 .pink .switch.checked {
   background: #dd1c77;
   border-color: #dd1c77; }
+.pink .border {
+  border: solid 1px; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -2829,6 +2837,8 @@ treecontrol {
 .orange .switch.checked {
   background: #e6550d;
   border-color: #e6550d; }
+.orange .border {
+  border: solid 1px; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -2880,6 +2890,8 @@ treecontrol {
 .green .switch.checked {
   background: #2ca25f;
   border-color: #2ca25f; }
+.green .border {
+  border: solid 1px; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -2931,5 +2943,7 @@ treecontrol {
 .grey .switch.checked {
   background: #636363;
   border-color: #636363; }
+.grey .border {
+  border: solid 1px; }
 
 /*# sourceMappingURL=index.css.map */

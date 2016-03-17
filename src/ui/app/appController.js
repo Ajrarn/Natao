@@ -25,7 +25,7 @@
         }]);
 
 
-    function AppController($location,PreferencesService,CssService,$translate) {
+    function AppController($location,PreferencesService,CssService,$translate,$showdown) {
         console.log('AppController');
 
         var self = this;
@@ -35,6 +35,10 @@
         self.PreferencesService = PreferencesService;
         self.CssService = CssService;
         self.$translate = $translate;
+        self.$showdown = $showdown;
+        self.$showdown.setOption('tables',true);
+        self.$showdown.setOption('strikethrough',true);
+        self.$showdown.setOption('tasklists',true);
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);

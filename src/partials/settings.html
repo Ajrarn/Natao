@@ -156,7 +156,7 @@
 
                         <div class="customEditor" ui-ace="{
                              useWrapMode : false,
-                             showGutter: false,
+                             showGutter: true,
                              theme:'xcode',
                              mode: 'css',
                              onChange: SettingCtrl.saveCss}"
@@ -215,7 +215,7 @@
                             <select id="template" ng-model="SettingCtrl.currentTemplate" ng-options="template as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates" ng-change="SettingCtrl.changeCss()">
                             </select>
                         </div>
-                        <treecontrol class="tree-classic"
+                        <treecontrol class="tree-classic border"
                                      tree-model="SettingCtrl.currentTemplate"
                                      options="SettingCtrl.treeOptions"
                                      selected-node="SettingCtrl.selectedNode"

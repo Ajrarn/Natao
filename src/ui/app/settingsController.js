@@ -9,7 +9,6 @@
 
 
     function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus) {
-        console.log('SettingsController');
 
         var self = this;
 
@@ -25,12 +24,19 @@
         self.$showdown = $showdown;
         self.focus = focus;
         self.viewer = true;
+        if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
+            self.currentCss = self.CssService.availableCss[0];
+        }
+
 
 
         self.documentsPromise = self.DocumentsService.getDocuments();
         self.documentsPromise.then(function(docs) {
             self.documents = docs;
-            console.log('documents',self.documents);
+            if (self.documents && self.documents.length > 0){
+                self.currentDoc = self.documents[0];
+                self.changeDocument();
+            }
         });
 
 
@@ -60,7 +66,6 @@
         self.newDatabase = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;
-                console.log('fileDatabase',self.PreferencesService.settings.fileDatabase);
                 self.step = 3;
                 self.$scope.$apply();
             },'Natao.db',['db']);
@@ -139,9 +144,6 @@
                 '<div class="marge"></div>' +
                 '<div id="rendu" flex>'+ self.currentHTML +'</div>' +
                 '</div>';
-
-            console.log(self.currentHTML);
-            console.log(completeHtml);
 
             self.currentHtmlAll = beautify_html(completeHtml);
         };
