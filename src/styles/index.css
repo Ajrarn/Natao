@@ -2456,15 +2456,22 @@ button, .button {
     padding: 0;
     transition: all 1s; }
 
+/* ***************** Editor ***********************/
 .customEditor {
   border: 1px solid black;
   margin: 10px; }
+  .customEditor.space .ace_line {
+    padding: 0.2em 0px; }
+  .customEditor.striped .ace_text-layer .ace_line:nth-child(even) {
+    background: whitesmoke; }
+  .customEditor.striped .ace_text-layer .ace_line:nth-child(odd) {
+    background: white; }
 
-/***********************Base***************************/
+/*********************** Base ***************************/
 input, p {
   margin: 10px; }
 
-/***********************Setting************************/
+/*********************** Setting ************************/
 .setting {
   margin: 10px; }
   .setting h1 {
@@ -2626,7 +2633,7 @@ treecontrol {
   background: #756bb1;
   border-color: #756bb1; }
 .purple .border {
-  border: solid 1px; }
+  border: solid 1px #756bb1; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2679,7 +2686,7 @@ treecontrol {
   background: #3182bd;
   border-color: #3182bd; }
 .blue .border {
-  border: solid 1px; }
+  border: solid 1px #3182bd; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -2732,7 +2739,7 @@ treecontrol {
   background: #de2d26;
   border-color: #de2d26; }
 .red .border {
-  border: solid 1px; }
+  border: solid 1px #de2d26; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -2785,7 +2792,7 @@ treecontrol {
   background: #dd1c77;
   border-color: #dd1c77; }
 .pink .border {
-  border: solid 1px; }
+  border: solid 1px #dd1c77; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -2838,7 +2845,7 @@ treecontrol {
   background: #e6550d;
   border-color: #e6550d; }
 .orange .border {
-  border: solid 1px; }
+  border: solid 1px #e6550d; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -2891,7 +2898,7 @@ treecontrol {
   background: #2ca25f;
   border-color: #2ca25f; }
 .green .border {
-  border: solid 1px; }
+  border: solid 1px #2ca25f; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -2944,6 +2951,6 @@ treecontrol {
   background: #636363;
   border-color: #636363; }
 .grey .border {
-  border: solid 1px; }
+  border: solid 1px #636363; }
 
 /*# sourceMappingURL=index.css.map */

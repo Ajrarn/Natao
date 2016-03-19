@@ -190,6 +190,30 @@
                             <p>{{ 'DOC_CREATED' | translate }}</p>
                             <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                         </label>
+
+                        <script type="text/ng-template" id="popoverEditorSetting">
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
+                                <label for="striped" layout="row">
+                                    <p>Rayures</p>
+                                    <input type="checkbox" id="striped" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.striped" ng-change="EditorCtrl.PreferencesService.savePreferences()">
+                                </label>
+
+                                <label for="striped" layout="row">
+                                    <p>Espace entre les lignes</p>
+                                    <input type="checkbox" id="space" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.space" ng-change="EditorCtrl.PreferencesService.savePreferences()">
+                                </label>
+                            </div>
+                        </script>
+
+                        <button ns-popover
+                                ns-popover-template="popoverEditorSetting"
+                                ns-popover-trigger="click"
+                                ns-popover-hide-on-click="false"
+                                ns-popover-hide-on-inside-click="false"
+                                ns-popover-placement="bottom"
+                                ns-popover-theme="ns-popover-tooltip-theme"
+                                title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
                     </div>
 
                     <div class="customEditor" ui-ace="{
@@ -200,6 +224,7 @@
                              onChange: EditorCtrl.refresh,
                              onLoad: SettingCtrl.editorReadOnly}"
                          flex ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md"
+                         ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"
                          ng-if="!SettingCtrl.viewer"></div>
 
                 </div>

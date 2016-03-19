@@ -208,17 +208,42 @@ button,.button {
   }
 }
 
+
+/* ***************** Editor ***********************/
+
 .customEditor {
   border: 1px solid black;
   margin: 10px;
+
+  &.space {
+    .ace_line {
+      padding: 0.2em 0px;
+    }
+  }
+
+
+  &.striped {
+    .ace_text-layer .ace_line:nth-child(even) {
+      background: whitesmoke;
+    }
+    .ace_text-layer .ace_line:nth-child(odd) {
+      background: white;
+    }
+  }
+
+
 }
 
-/***********************Base***************************/
+
+
+
+
+/*********************** Base ***************************/
 input,p{
   margin: 10px;
 }
 
-/***********************Setting************************/
+/*********************** Setting ************************/
 .setting {
   margin: 10px;
 
