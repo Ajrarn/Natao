@@ -209,6 +209,7 @@ button,.button {
 }
 
 
+
 /* ***************** Editor ***********************/
 
 .customEditor {
@@ -233,9 +234,6 @@ button,.button {
 
 
 }
-
-
-
 
 
 /*********************** Base ***************************/
@@ -298,6 +296,25 @@ input,p{
 
 .chooser {
   margin: 10px;
+}
+
+.horizontal-flow {
+  overflow-x: auto;
+  position: relative;
+
+  div {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+  }
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
 /***********************TreeView***********************/

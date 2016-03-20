@@ -1,100 +1,108 @@
 <div layout="column" flex ng-controller="SettingsController as SettingCtrl">
     <div class="bandeau" layout="row" layout-align="space-between center">
-        <button ng-click="SettingCtrl.save()" ng-show="SettingCtrl.valid" title="{{'SAVE' | translate}}"><span class="typcn typcn-input-checked-outline"></span></button>
+        <button ng-click="SettingCtrl.save()" ng-show="SettingCtrl.valid" title="{{'SAVE' | translate}}"><span
+                class="typcn typcn-input-checked-outline"></span></button>
     </div>
-    <div flex layout="column"  layout-align="start stretch">
+    <div flex layout="column" layout-align="start stretch">
         <tabs>
             <pane title="{{ 'SETTING_SETTING' | translate }}" icon="typcn-cog-outline" class="setting">
                 <div flex layout="column" layout-align="start stretch">
-                    <table flex class="flexTable">
-                        <tbody>
-                        <tr>
-                            <td><h1>{{ 'SETTING_LANGUAGE' | translate }}</h1></td>
-                            <td>
-                                <div flex layout="row" layout-align="start center">
-                                    <label for="fr_FR" layout="column" layout-align="center center">
-                                        <span class="flag-icon flag-icon-fr"></span>
-                                        <P>Français</P>
-                                        <input type="radio" name="language" value="fr_FR" id="fr_FR" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage('fr_FR')">
-                                    </label>
+                    <div flex layout="row" layout-align="space-around stretch">
+                        <h1>{{ 'SETTING_LANGUAGE' | translate }}</h1>
+                        <div class="horizontal-flow" flex layout="column">
+                            <div flex layout="row" layout-align="start center">
+                                <label for="fr_FR" layout="column" layout-align="center center">
+                                    <span class="flag-icon flag-icon-fr"></span>
+                                    <P>Français</P>
+                                    <input type="radio" name="language" value="fr_FR" id="fr_FR"
+                                           ng-model="SettingCtrl.PreferencesService.preferences.language"
+                                           ng-click="SettingCtrl.changeLanguage('fr_FR')">
+                                </label>
 
-                                    <label for="en_US" layout="column" layout-align="center center">
-                                        <span class="flag-icon flag-icon-gb"></span>
-                                        <p>English</p>
-                                        <input type="radio" name="language" value="en_US" id="en_US" ng-model="SettingCtrl.PreferencesService.preferences.language" ng-click="SettingCtrl.changeLanguage('en_US')">
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><h1>{{ 'SETTING_DATABASE' | translate }}</h1></td>
-                            <td>
-                                <div layout="row" layout-align="start center">
-                                    <p>{{SettingCtrl.PreferencesService.settings.fileDatabase}}</p>
-                                    <button ng-click="SettingCtrl.chooseDatabase()" title="{{ 'FILE_LOAD' | translate }}"><span class="typcn typcn-folder-open"></span></button>
-                                    <button ng-click="SettingCtrl.newDatabase()" title="{{ 'FILE_NEW' | translate }}"><span class="typcn typcn-database"></span></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><h1>{{ 'SETTING_IDENTITY' | translate }}</h1></td>
-                            <td>
-                                <div layout="row" layout-align="start center">
-                                    <label for="firstName" layout="column" layout-align="center center">
-                                        <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
-                                        <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                                    </label>
-                                    <label for="name" layout="column" layout-align="center center">
-                                        <p>{{ 'PROFILE_NAME' | translate }}</p>
-                                        <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><h1>{{ 'SETTING_THEME' | translate }}</h1></td>
-                            <td>
-                                <div flex layout="row" layout-align="start center">
+                                <label for="en_US" layout="column" layout-align="center center">
+                                    <span class="flag-icon flag-icon-gb"></span>
+                                    <p>English</p>
+                                    <input type="radio" name="language" value="en_US" id="en_US"
+                                           ng-model="SettingCtrl.PreferencesService.preferences.language"
+                                           ng-click="SettingCtrl.changeLanguage('en_US')">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div flex layout="row" layout-align="space-around center">
+                        <h1>{{ 'SETTING_DATABASE' | translate }}</h1>
+                        <div layout="row" layout-align="start center">
+                            <p>{{SettingCtrl.PreferencesService.settings.fileDatabase}}</p>
+                            <button ng-click="SettingCtrl.chooseDatabase()" title="{{ 'FILE_LOAD' | translate }}"><span
+                                    class="typcn typcn-folder-open"></span></button>
+                            <button ng-click="SettingCtrl.newDatabase()" title="{{ 'FILE_NEW' | translate }}"><span
+                                    class="typcn typcn-database"></span></button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div flex layout="row" layout-align="space-around center">
+                        <h1>{{ 'SETTING_IDENTITY' | translate }}</h1>
+                        <div layout="row" layout-align="start center">
+                            <label for="firstName" layout="column" layout-align="center center">
+                                <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
+                                <input type="text" id="firstName"
+                                       ng-model="SettingCtrl.PreferencesService.preferences.firstName"
+                                       ng-change="SettingCtrl.changeName()"
+                                       ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+                            <label for="name" layout="column" layout-align="center center">
+                                <p>{{ 'PROFILE_NAME' | translate }}</p>
+                                <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"
+                                       ng-change="SettingCtrl.changeName()"
+                                       ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div flex layout="row" layout-align="space-around stretch">
+                        <h1>{{ 'SETTING_THEME' | translate }}</h1>
+                        <div class="horizontal-flow" flex layout="column">
+                            <div flex layout="row" layout-align="start center">
+                                <label for="purple" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-purple"></span>
+                                    <input type="radio" name="colorTheme" value="purple" id="purple" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
 
-                                    <label for="purple" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-purple"></span>
-                                        <input type="radio" name="colorTheme" value="purple" id="purple" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
+                                <label for="blue" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-blue"></span>
+                                    <input type="radio" name="colorTheme" value="blue" id="blue" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
 
-                                    <label for="blue" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-blue"></span>
-                                        <input type="radio" name="colorTheme" value="blue" id="blue" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
+                                <label for="green" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-green"></span>
+                                    <input type="radio" name="colorTheme" value="green" id="green" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
 
-                                    <label for="green" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-green"></span>
-                                        <input type="radio" name="colorTheme" value="green" id="green" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
+                                <label for="orange" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-orange"></span>
+                                    <input type="radio" name="colorTheme" value="orange" id="orange" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
 
-                                    <label for="orange" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-orange"></span>
-                                        <input type="radio" name="colorTheme" value="orange" id="orange" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
+                                <label for="red" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-red"></span>
+                                    <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
 
-                                    <label for="red" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-red"></span>
-                                        <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
+                                <label for="pink" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-pink"></span>
+                                    <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
 
-                                    <label for="pink" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-pink"></span>
-                                        <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
+                                <label for="grey" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-grey"></span>
+                                    <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
-                                    <label for="grey" layout="column" layout-align="center center">
-                                        <span class="chooser chooser-grey"></span>
-                                        <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+
                 </div>
             </pane>
             <pane title="{{ 'SETTING_STYLE' | translate }}" icon="typcn-brush" class="setting">
@@ -103,16 +111,21 @@
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <p>{{ 'DOC_CSS' | translate }}</p>
-                            <select id="css" ng-model="SettingCtrl.currentCss" ng-options="css as css.name for css in SettingCtrl.CssService.availableCss" ng-change="SettingCtrl.changeCss()">
+                            <select id="css" ng-model="SettingCtrl.currentCss"
+                                    ng-options="css as css.name for css in SettingCtrl.CssService.availableCss"
+                                    ng-change="SettingCtrl.changeCss()">
                             </select>
 
                             <script type="text/ng-template" id="popoverAddCss">
                                 <div class="triangle"></div>
-                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
-                                    <form name="AddDocument" novalidate ng-submit="SettingCtrl.addCss(hidePopover)" layout="column" layout-align="start center">
+                                <div class="ns-popover-tooltip"
+                                     ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                    <form name="AddDocument" novalidate ng-submit="SettingCtrl.addCss(hidePopover)"
+                                          layout="column" layout-align="start center">
                                         <label for="addCssName" layout="column" layout-align="center center">
                                             <p>{{ 'DOC_TITLE' | translate }}</p>
-                                            <input id="addCssName" ng-model="SettingCtrl.newCssName" focus-on="addCssName">
+                                            <input id="addCssName" ng-model="SettingCtrl.newCssName"
+                                                   focus-on="addCssName">
                                         </label>
                                     </form>
                                 </div>
@@ -121,10 +134,12 @@
 
                             <script type="text/ng-template" id="popoverDeleteCss">
                                 <div class="triangle"></div>
-                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                <div class="ns-popover-tooltip"
+                                     ng-class="appCtrl.PreferencesService.preferences.colorTheme">
                                     <p>{{ 'CONFIRM_DELETE_CSS' | translate }}</p>
                                     <div layout="row" layout-align="center center">
-                                        <button ng-click="SettingCtrl.deleteCss(hidePopover)">{{ 'YES' | translate }}</button>
+                                        <button ng-click="SettingCtrl.deleteCss(hidePopover)">{{ 'YES' | translate }}
+                                        </button>
                                         <button ng-click="hidePopover()">{{ 'NO' | translate }}</button>
                                     </div>
                                 </div>
@@ -138,7 +153,8 @@
                                         ns-popover-hide-on-inside-click="false"
                                         ns-popover-placement="bottom"
                                         ns-popover-theme="ns-popover-tooltip-theme"
-                                        title="{{ 'BTN_ADD' | translate }}" ng-click="SettingCtrl.initAddCss()"><span class="typcn typcn-plus-outline"></span></button>
+                                        title="{{ 'BTN_ADD' | translate }}" ng-click="SettingCtrl.initAddCss()"><span
+                                        class="typcn typcn-plus-outline"></span></button>
                                 <button ns-popover ns-popover-timeout="-1"
                                         ns-popover-template="popoverDeleteCss"
                                         ns-popover-trigger="click"
@@ -146,12 +162,15 @@
                                         ns-popover-hide-on-inside-click="false"
                                         ns-popover-placement="bottom"
                                         ns-popover-theme="ns-popover-tooltip-theme"
-                                        title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
+                                        title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span>
+                                </button>
                             </div>
                         </div>
                         <label for="cssName" layout="row" layout-align="start center">
                             <p>{{ 'CSS_NAME' | translate }}</p>
-                            <input flex id="cssName" type="text" ng-model="SettingCtrl.currentCss.name" ng-change="SettingCtrl.saveCss()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            <input flex id="cssName" type="text" ng-model="SettingCtrl.currentCss.name"
+                                   ng-change="SettingCtrl.saveCss()"
+                                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                         </label>
 
                         <div class="customEditor" ui-ace="{
@@ -168,9 +187,13 @@
                         <div layout="row" layout-align="space-between center">
                             <div layout="row" layout-align="start center">
                                 <p>{{ 'SETTING_DOCUMENT_TEST' | translate }}</p>
-                                <select id="document" ng-model="SettingCtrl.currentDoc" ng-options="document as document.title for document in SettingCtrl.documents" ng-change="SettingCtrl.changeDocument()"></select>
+                                <select id="document" ng-model="SettingCtrl.currentDoc"
+                                        ng-options="document as document.title for document in SettingCtrl.documents"
+                                        ng-change="SettingCtrl.changeDocument()"></select>
                             </div>
-                            <switch id="enabled" name="enabled" ng-model="SettingCtrl.viewer" on="{{ 'SETTING_SWITCH_VIEWER' | translate }}" off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
+                            <switch id="enabled" name="enabled" ng-model="SettingCtrl.viewer"
+                                    on="{{ 'SETTING_SWITCH_VIEWER' | translate }}"
+                                    off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
                         </div>
 
                         <div class="customEditor" ui-ace="{
@@ -212,7 +235,9 @@
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <p>{{ 'DOC_CSS' | translate }}</p>
-                            <select id="template" ng-model="SettingCtrl.currentTemplate" ng-options="template as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates" ng-change="SettingCtrl.changeCss()">
+                            <select id="template" ng-model="SettingCtrl.currentTemplate"
+                                    ng-options="template as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates"
+                                    ng-change="SettingCtrl.changeCss()">
                             </select>
                         </div>
                         <treecontrol class="tree-classic border"
