@@ -140,7 +140,9 @@
                 self.preferences.language = language;
             }
             self.$translate.use(self.preferences.language);
+
             self.tmhDynamicLocale.set(self.preferences.language.toLowerCase().replace('_','-'));
+
         };
 
 
