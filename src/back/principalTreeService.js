@@ -223,6 +223,7 @@
             var newNode = {
                 id: uuid.v4(),
                 name: nodeName,
+                color: '#000000',
                 children:[]
             };
 
