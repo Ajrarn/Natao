@@ -88,9 +88,10 @@
                                 </label>
                                 <label for="defaultCss" layout="column" layout-align="center center">
                                     <p>{{ 'DEFAULT_CSS' | translate }}</p>
-                                    <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss">
+                                    <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.submitFolderPopover(hidePopover)">
                                     </select>
                                 </label>
+                                <ngjs-color-picker ng-model="EditorCtrl.newColor" selected="EditorCtrl.newColor" options="EditorCtrl.optionsColumn" custom-colors="EditorCtrl.customColors" ng-click="EditorCtrl.submitFolderPopover(hidePopover)"></ngjs-color-picker>
                             </form>
                             <form name="AddFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addFolder'">
                                 <label for="addFolderName" layout="column" layout-align="center center">
@@ -138,7 +139,7 @@
                               ns-popover-hide-on-click="false"
                               ns-popover-hide-on-inside-click="false"
                               ns-popover-placement="right"
-                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf">{{node.name}}</span>
+                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf" ng-style="{color:node.color}">{{node.name}}</span>
                         <span ng-if="node.leaf">{{node.name}}</span>
                     </treecontrol>
                 </div>
@@ -148,6 +149,7 @@
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor()}">
+
 
                     <script type="text/ng-template" id="popoverDeleteDocument">
                         <div class="triangle"></div>

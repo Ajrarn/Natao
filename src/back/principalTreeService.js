@@ -131,6 +131,7 @@
             });
         };
 
+
         self.save = function() {
             var copyPrincipalTree = {};
             angular.copy(self.principalTree,copyPrincipalTree);

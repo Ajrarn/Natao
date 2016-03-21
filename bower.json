@@ -29,13 +29,14 @@
     "open-dyslexic": "*",
     "flag-icon-css": "~0.8.5",
     "nw-fileDialog": "git://github.com/DWand/nw-fileDialog#b50f8c1b7aa1bb19be8f90b24ab1e3ed049dc1eb",
-    "angular-i18n":"~1.5.2",
+    "angular-i18n": "~1.5.2",
     "angular-dynamic-locale": "~0.1.29",
     "nsPopover": "~0.6.8",
     "angular-ui-switch": "~0.1.1",
     "ace-builds": "~1.2.3",
     "angular-ui-ace": "bower",
-    "angular-route": "latest"
+    "angular-route": "latest",
+    "ngjs-color-picker": "^1.0.4"
   },
   "resolutions": {
     "angular": "~1.4.8"

@@ -26,6 +26,14 @@
 
         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
+        // options for the color Picker
+        self.optionsColumn = {
+            columns: 4,
+            roundCorners: true
+        };
+
+        self.customColors = ['#7bd148', '#5484ed', '#a4bdfc', '#46d6db', '#7ae7bf', '#51b749', '#fbd75b', '#ffb878', '#ff887c', '#dc2127', '#dbadff', '#000000' ];
+
 
         //Initialization before start
         self.PendingService.startLoading();
@@ -114,6 +122,7 @@
             self.newNameFolder = node.name;
             self.newDefaultCss = node.defaultCss;
             self.folderPopover = 'buttonBar';
+            self.newColor = node.color;
             console.log('disabled',self.pasteButtonDisabled());
         };
 
@@ -278,6 +287,7 @@
         self.saveFolder = function(hide) {
             if (self.newNameFolder && self.newNameFolder.length > 0) {
                 self.currentNode.name = self.newNameFolder;
+                self.currentNode.color = self.newColor;
                 self.currentNode.defaultCss = self.newDefaultCss;
                 self.PrincipalTreeService.save();
             }
