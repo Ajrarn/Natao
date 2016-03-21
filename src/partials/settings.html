@@ -166,12 +166,39 @@
                                 </button>
                             </div>
                         </div>
-                        <label for="cssName" layout="row" layout-align="start center">
-                            <p>{{ 'CSS_NAME' | translate }}</p>
-                            <input flex id="cssName" type="text" ng-model="SettingCtrl.currentCss.name"
-                                   ng-change="SettingCtrl.saveCss()"
-                                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </label>
+                        <div layout="row" layout-align="space-between center">
+                            <label for="cssName" layout="row" layout-align="start center">
+                                <p>{{ 'CSS_NAME' | translate }}</p>
+                                <input flex id="cssName" type="text" ng-model="SettingCtrl.currentCss.name"
+                                       ng-change="SettingCtrl.saveCss()"
+                                       ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+                            <script type="text/ng-template" id="popoverEditorSetting">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
+                                    <label for="striped" layout="row">
+                                        <p>Rayures</p>
+                                        <input type="checkbox" id="striped" name="striped" value="true" ng-model="SettingCtrl.PreferencesService.preferences.striped" ng-change="SettingCtrl.PreferencesService.savePreferences()">
+                                    </label>
+
+                                    <label for="striped" layout="row">
+                                        <p>Espace entre les lignes</p>
+                                        <input type="checkbox" id="space" name="striped" value="true" ng-model="SettingCtrl.PreferencesService.preferences.space" ng-change="SettingCtrl.PreferencesService.savePreferences()">
+                                    </label>
+                                </div>
+                            </script>
+
+                            <button ns-popover
+                                    ns-popover-template="popoverEditorSetting"
+                                    ns-popover-trigger="click"
+                                    ns-popover-hide-on-click="false"
+                                    ns-popover-hide-on-inside-click="false"
+                                    ns-popover-placement="bottom"
+                                    ns-popover-theme="ns-popover-tooltip-theme"
+                                    title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span>
+                            </button>
+                        </div>
+
 
                         <div class="customEditor" ui-ace="{
                              useWrapMode : false,
@@ -179,7 +206,8 @@
                              theme:'xcode',
                              mode: 'css',
                              onChange: SettingCtrl.saveCss}"
-                             flex ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor">
+                             flex ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor"
+                             ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}">
                         </div>
                     </div>
 
@@ -204,7 +232,7 @@
                              onChange: SettingCtrl.saveCss,
                              onLoad: SettingCtrl.editorReadOnly}"
                              flex ng-model="SettingCtrl.currentHtmlAll"
-                             ng-if="!SettingCtrl.viewer"></div>
+                             ng-if="!SettingCtrl.viewer" ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div>
 
                         <div ng-if="SettingCtrl.viewer" class="visualiser" flex
                              layout="column" layout-align="start stretch">

@@ -2508,6 +2508,21 @@ input, p {
 .chooser {
   margin: 10px; }
 
+.horizontal-flow {
+  overflow-x: auto;
+  position: relative; }
+  .horizontal-flow div {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0; }
+
+hr {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.75), transparent); }
+
 /***********************TreeView***********************/
 .treeContainer {
   position: relative;
