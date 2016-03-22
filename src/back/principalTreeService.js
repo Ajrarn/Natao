@@ -120,12 +120,6 @@
                             });
                         }
                     }
-
-                    //For the first time add folder unidentified bug
-                    if (self.principalTree.tree.children.length === 0) {
-                        self.firstTime = true;
-                    }
-
                     resolve();
                 });
             });
@@ -140,20 +134,6 @@
                 self.PendingService.stop();
                 if (err) {
                     console.error('error:', err);
-                } else {
-                    //There is a bug with the first child of the tree, with this patch it finally see the new node
-                    if (self.firstTime) {
-                        delete self.firstTime;
-                        self.copyTree = {};
-                        angular.copy(self.principalTree.tree,self.copyTree);
-                        self.$timeout(function() {
-                            self.principalTree.tree = null;
-                        },100);
-                        self.$timeout(function() {
-                            self.principalTree.tree = self.copyTree;
-                            delete self.copyTree;
-                        },200);
-                    }
                 }
             });
         };

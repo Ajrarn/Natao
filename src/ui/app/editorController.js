@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($showdown,$timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService) {
         console.log('EditorController');
 
         var self = this;
@@ -36,7 +36,7 @@
 
 
         //Initialization before start
-        self.PendingService.startLoading();
+        /*self.PendingService.startLoading();
         console.log('init start !');
         self.db = self.PreferencesService.getDB();
 
@@ -63,7 +63,7 @@
         }).then(null,function(err) {
             console.error(err);
             self.PendingService.stopLoading();
-        });
+        });*/
 
 
         self.refresh = function() {

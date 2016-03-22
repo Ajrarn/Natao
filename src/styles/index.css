@@ -2390,7 +2390,8 @@ button, .button {
 .bandeau {
   background-color: black;
   color: white;
-  height: 50px; }
+  height: 50px;
+  min-height: 50px; }
   .bandeau button {
     font-size: 1.7em; }
 
@@ -2431,7 +2432,6 @@ button, .button {
   transition: all 1s; }
   .editor.hidden {
     flex-grow: 0.0001;
-    width: 0;
     opacity: 0;
     transition: all 1s; }
 

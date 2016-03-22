@@ -188,7 +188,7 @@
                             self.changeLanguage();
 
                             // and then go to the editor
-                            self.$location.path('/editor');
+                            self.$location.path('/loading');
                             self.zoomChange();
                             self.$rootScope.$digest();
                         } else {
