@@ -149,105 +149,105 @@
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
             <div flex layout=row">
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor()}">
-
-
-                    <script type="text/ng-template" id="popoverDeleteDocument">
-                        <div class="triangle"></div>
-                        <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
-                            <p>{{ 'CONFIRM_DELETE_DOCUMENT' | translate }}</p>
-                            <div layout="row" layout-align="center center">
-                                <button ng-click="EditorCtrl.deleteDocument(hidePopover)">{{ 'YES' | translate }}</button>
-                                <button ng-click="EditorCtrl.cancelAction(hidePopover)">{{ 'NO' | translate }}</button>
-                            </div>
-                        </div>
-                    </script>
-
-                    <div class="buttonBar" layout="row" layout-align="end center">
-                        <button ng-click="EditorCtrl.copyDocument()" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></button>
-                        <button ng-click="EditorCtrl.cutDocument()" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></button>
-                        <button ng-click="EditorCtrl.exportDocument()" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></button>
-                        <button ns-popover ns-popover-timeout="-1"
-                                ns-popover-template="popoverDeleteDocument"
-                                ns-popover-trigger="click"
-                                ns-popover-hide-on-click="false"
-                                ns-popover-hide-on-inside-click="false"
-                                ns-popover-placement="bottom"
-                                ns-popover-theme="ns-popover-tooltip-theme"
-                                title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
-                    </div>
-
-                    <label for="title" layout="row" layout-align="start center">
-                        <p>{{ 'DOC_TITLE' | translate }}</p>
-                        <input flex id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                    </label>
-
-                    <div layout="row" layout-align="space-between center">
-                        <label for="css" layout="row" layout-align="start center">
-                            <p>{{ 'DOC_CSS' | translate }}</p>
-                            <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
-                            </select>
-                        </label>
-
-                        <label for="created" layout="row" layout-align="start center">
-                            <p>{{ 'DOC_CREATED' | translate }}</p>
-                            <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </label>
-
-                        <script type="text/ng-template" id="popoverEditorSetting">
+                    <div flex layout="column" ng-if="EditorCtrl.showEditor()">
+                        <script type="text/ng-template" id="popoverDeleteDocument">
                             <div class="triangle"></div>
-                            <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
-                                <label for="striped" layout="row">
-                                    <p>Rayures</p>
-                                    <input type="checkbox" id="striped" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.striped" ng-change="EditorCtrl.PreferencesService.savePreferences()">
-                                </label>
-
-                                <label for="striped" layout="row">
-                                    <p>Espace entre les lignes</p>
-                                    <input type="checkbox" id="space" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.space" ng-change="EditorCtrl.PreferencesService.savePreferences()">
-                                </label>
+                            <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                <p>{{ 'CONFIRM_DELETE_DOCUMENT' | translate }}</p>
+                                <div layout="row" layout-align="center center">
+                                    <button ng-click="EditorCtrl.deleteDocument(hidePopover)">{{ 'YES' | translate }}</button>
+                                    <button ng-click="EditorCtrl.cancelAction(hidePopover)">{{ 'NO' | translate }}</button>
+                                </div>
                             </div>
                         </script>
 
-                        <button ns-popover
-                                ns-popover-template="popoverEditorSetting"
-                                ns-popover-trigger="click"
-                                ns-popover-hide-on-click="false"
-                                ns-popover-hide-on-inside-click="false"
-                                ns-popover-placement="bottom"
-                                ns-popover-theme="ns-popover-tooltip-theme"
-                                title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
-                    </div>
+                        <div class="buttonBar" layout="row" layout-align="end center">
+                            <button ng-click="EditorCtrl.copyDocument()" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></button>
+                            <button ng-click="EditorCtrl.cutDocument()" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></button>
+                            <button ng-click="EditorCtrl.exportDocument()" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></button>
+                            <button ns-popover ns-popover-timeout="-1"
+                                    ns-popover-template="popoverDeleteDocument"
+                                    ns-popover-trigger="click"
+                                    ns-popover-hide-on-click="false"
+                                    ns-popover-hide-on-inside-click="false"
+                                    ns-popover-placement="bottom"
+                                    ns-popover-theme="ns-popover-tooltip-theme"
+                                    title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
+                        </div>
 
-                    <div class="customEditor" ui-ace="{
+                        <label for="title" layout="row" layout-align="start center">
+                            <p>{{ 'DOC_TITLE' | translate }}</p>
+                            <input flex id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                        </label>
+
+                        <div layout="row" layout-align="space-between center">
+                            <label for="css" layout="row" layout-align="start center">
+                                <p>{{ 'DOC_CSS' | translate }}</p>
+                                <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
+                                </select>
+                            </label>
+
+                            <label for="created" layout="row" layout-align="start center">
+                                <p>{{ 'DOC_CREATED' | translate }}</p>
+                                <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+
+                            <script type="text/ng-template" id="popoverEditorSetting">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
+                                    <label for="striped" layout="row">
+                                        <p>Rayures</p>
+                                        <input type="checkbox" id="striped" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.striped" ng-change="EditorCtrl.PreferencesService.savePreferences()">
+                                    </label>
+
+                                    <label for="striped" layout="row">
+                                        <p>Espace entre les lignes</p>
+                                        <input type="checkbox" id="space" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.space" ng-change="EditorCtrl.PreferencesService.savePreferences()">
+                                    </label>
+                                </div>
+                            </script>
+
+                            <button ns-popover
+                                    ns-popover-template="popoverEditorSetting"
+                                    ns-popover-trigger="click"
+                                    ns-popover-hide-on-click="false"
+                                    ns-popover-hide-on-inside-click="false"
+                                    ns-popover-placement="bottom"
+                                    ns-popover-theme="ns-popover-tooltip-theme"
+                                    title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
+                        </div>
+
+                        <div class="customEditor" ui-ace="{
                              useWrapMode : false,
                              showGutter: true,
                              theme:'xcode',
                              mode: 'markdown',
                              onChange: EditorCtrl.refresh,
                              onLoad: SettingCtrl.editorReadOnly}"
-                         flex ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md"
-                         ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"
-                         ng-if="!SettingCtrl.viewer"></div>
-
+                             flex ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md"
+                             ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}">
+                        </div>
+                    </div>
                 </div>
                 <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"
-                     layout="column" layout-align="start stretch">
-                    <div class="haut" layout="row" layout-align="start stretch">
-                        <div class="identity" layout="column" layout-align="center center">
-                            <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
-                            <p>{{EditorCtrl.PreferencesService.preferences.firstName}}</p>
+                     layout="column">
+                    <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showVisualizer()">
+                        <div class="haut" layout="row" layout-align="start stretch">
+                            <div class="identity" layout="column" layout-align="center center">
+                                <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
+                                <p>{{EditorCtrl.PreferencesService.preferences.firstName}}</p>
+                            </div>
+                            <div class="title-zone" flex layout="column" layout-align="center stretch">
+                                <h1>{{EditorCtrl.PrincipalTreeService.currentMarkdown.title}}</h1>
+                                <p id="dateCreated">{{EditorCtrl.PrincipalTreeService.currentMarkdown.created | date : 'longDate'}}</p>
+                            </div>
                         </div>
-                        <div class="title-zone" flex layout="column" layout-align="center stretch">
-                            <h1>{{EditorCtrl.PrincipalTreeService.currentMarkdown.title}}</h1>
-                            <p id="dateCreated">{{EditorCtrl.PrincipalTreeService.currentMarkdown.created | date : 'longDate'}}</p>
+                        <div class="notation"></div>
+                        <div class="devoir" flex layout="row" layout-align="start stretch">
+                            <div class="marge"></div>
+                            <div class="rendu" markdown-to-html="EditorCtrl.PrincipalTreeService.currentMarkdown.md" flex></div>
                         </div>
                     </div>
-                    <div class="notation"></div>
-                    <div class="devoir" flex layout="row" layout-align="start stretch">
-                        <div class="marge"></div>
-                        <div class="rendu" markdown-to-html="EditorCtrl.PrincipalTreeService.currentMarkdown.md" flex></div>
-                    </div>
-
                 </div>
             </div>
         </div>

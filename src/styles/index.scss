@@ -175,7 +175,6 @@ button,.button {
 
   &.hidden {
     flex-grow:0.0001;
-    width: 0;
     opacity:0;
     transition: all 1s;
   }
