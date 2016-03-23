@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-run": "^1.6.12"
+    "gulp-run": "^1.6.12",
+    "gulp-util": "^3.0.7",
+    "nw-builder": "^2.2.0"
   }
 }

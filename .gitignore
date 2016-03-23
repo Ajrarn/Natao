@@ -1,6 +1,8 @@
 bower_components/
 node_modules/
 .idea/
+build/
+cache/
 **/*.map
 **/.DS_Store
 NataoSetting.json
