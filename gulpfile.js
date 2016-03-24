@@ -13,7 +13,7 @@ gulp.task('build',function() {
     var nw = new NwBuilder({
         version: '0.12.3',
         files: [ './**'],
-        platforms: ['osx','win64','linux64']
+        platforms: ['win64']
     });
 
     // Log stuff you want
