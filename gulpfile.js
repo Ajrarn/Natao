@@ -3,6 +3,9 @@ var run = require('gulp-run');
 var NwBuilder = require('nw-builder');
 var gutil = require('gulp-util');
 
+require('./gulp/download');
+require('./gulp/unzip');
+
 gulp.task('default', function() {
     var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao');  // create a command object for `cat`.
     cmd.exec();
@@ -11,7 +14,7 @@ gulp.task('default', function() {
 
 gulp.task('build',function() {
     var nw = new NwBuilder({
-        version: '0.12.3',
+        version: '0.13.0',
         files: [ './**'],
         platforms: ['win64']
     });

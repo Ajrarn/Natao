@@ -3,6 +3,7 @@ node_modules/
 .idea/
 build/
 cache/
+downloads/
 **/*.map
 **/.DS_Store
 NataoSetting.json
