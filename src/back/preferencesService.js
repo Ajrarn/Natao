@@ -30,9 +30,7 @@
         self.$rootScope=$rootScope;
         self.$translate = $translate;
         self.tmhDynamicLocale = tmhDynamicLocale;
-
-
-
+        
 
         self.fileSettingsExist = function() {
             return fs.existsSync(fileName);

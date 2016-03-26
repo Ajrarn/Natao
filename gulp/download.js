@@ -4,8 +4,8 @@ var request = require('request');
 var source = require('vinyl-source-stream')
 var fs = require('fs');
 
-var urlBaseDownload = 'http://dl.nwjs.io/v0.13.0/nwjs-v0.13.0-';
-var fileBasePath = './downloads/nwjs-v0.13.0-';
+var urlBaseDownload = 'http://dl.nwjs.io/v0.13.1/nwjs-v0.13.1-';
+var fileBasePath = './downloads/nwjs-v0.13.1-';
 
 
 gulp.task('downloadWindows', function(cb) {

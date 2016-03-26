@@ -10,7 +10,7 @@
         console.log('AppConfig');
 
         $translateProvider.useStaticFilesLoader({
-            prefix: './translations/locale-',
+            prefix: './languages/locale-',
             suffix: '.json'
         });
 

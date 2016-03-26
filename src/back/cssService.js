@@ -35,7 +35,7 @@
 
 
                 //First we load the names of the css in the appropriate language
-                self.cssNamesFile = fs.readFileSync('./translations/cssNames-' + self.$translate.use() + '.json','utf8');
+                self.cssNamesFile = fs.readFileSync('./languages/cssNames-' + self.$translate.use() + '.json','utf8');
                 self.cssNames = {};
 
                 var defaultCss = null;

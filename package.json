@@ -21,6 +21,7 @@
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-gunzip": "0.0.3",
     "gulp-run": "^1.6.12",

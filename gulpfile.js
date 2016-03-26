@@ -1,22 +1,38 @@
 var gulp = require('gulp');
+var gulpSequence = require('gulp-sequence');
 var run = require('gulp-run');
 var NwBuilder = require('nw-builder');
 var gutil = require('gulp-util');
+var del = require('del');
 
 require('./gulp/download');
 require('./gulp/unzip');
+require('./gulp/internalBuild');
 
 gulp.task('default', function() {
     var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao');  // create a command object for `cat`.
     cmd.exec();
 });
 
+gulp.task('testTemp', function() {
+    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/temp');  // create a command object for `cat`.
+    cmd.exec();
+});
+
+gulp.task('cleanBuild',function() {
+    return del(['build/**/*']);
+});
+
+gulp.task('clean',gulpSequence(['cleanTemp','cleanBuild']));
 
 gulp.task('build',function() {
     var nw = new NwBuilder({
-        version: '0.13.0',
-        files: [ './**'],
-        platforms: ['win64']
+        version: '0.13.1',
+        files: [ './temp/**/**.*'],
+        platforms: ['osx64'],
+        appName:'Natao',
+        appVersion:'0.1.0',
+        macIcns:'./app.icns'
     });
 
     // Log stuff you want
@@ -29,3 +45,4 @@ gulp.task('build',function() {
         gutil.log('node-webkit-builder', err);
     });
 });
+
