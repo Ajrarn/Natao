@@ -19,7 +19,7 @@
         self.fileDialog = fileDialog;
 
         // for the first time, we have to go step by step
-        if (!self.PreferencesService.fileSettingsExist()) {
+        if (!self.PreferencesService.settings.fileDatabase) {
             self.step = 1;
         } else {
             self.step = 5;

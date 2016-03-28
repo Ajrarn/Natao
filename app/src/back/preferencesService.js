@@ -30,12 +30,6 @@
         self.$rootScope=$rootScope;
         self.$translate = $translate;
         self.tmhDynamicLocale = tmhDynamicLocale;
-        
-
-        self.fileSettingsExist = function() {
-            return fs.existsSync(fileName);
-        };
-
 
 
         self.fileDatabaseExist = function() {
@@ -46,7 +40,7 @@
             }
         };
 
-        /* only one preferences will be in NataoSettings, the path to find the database
+        /* only one preferences will be in the localStorage, the path to find the database
         * the other preferences will be in the database
         * in the document {docName:'preferences'}
         */
@@ -63,12 +57,9 @@
             showVisualiser: true
         };
 
-
-
-
-        self.saveFile = function() {
-            fs.writeFile('NataoSetting.json',JSON.stringify(self.settings));
-        };
+       self.saveSettings = function() {
+           localStorage.setItem('nataoFileDatabase',self.settings.fileDatabase);
+       };
 
         self.savePreferences = function() {
             if (self.preferences._id) {
@@ -109,13 +100,11 @@
 
         self.save = function() {
 
-            if(!self.fileSettingsExist()) {
+            if(!self.db) {
                 //the database is not yet connected
                 self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
             }
-
-            self.saveFile();
-
+            self.saveSettings();
             self.savePreferences();
 
         };
@@ -143,60 +132,40 @@
 
         };
 
-
-
-
         self.init = function() {
 
             //First we have to parse the json file and check if it exist
-            if (self.fileSettingsExist()) {
-                var data = fs.readFileSync(fileName,self.settings);
-                try {
-                    self.settings = JSON.parse(data);
-                }
-                catch (err) {
-                    console.log('There has been an error parsing your JSON.');
-                    console.log(err);
-                    self.settings = {fileDatabase:null};
-                    self.$location.path(urlFirstSetting);
-                }
-            } else {
-                //When the user choose an existing database on setting page, his setting file isn't yet save but he has settings
-                if (self.fileDatabaseExist()) {
-                    self.saveFile();
-                } else {
-                    // here he doesn't have any settings
-                    console.log('No setting file yet.');
-                    self.settings = {fileDatabase:null};
-                    self.$location.path(urlFirstSetting);
-                }
-            }
+            self.settings = {};
+            self.settings.fileDatabase = localStorage.getItem('nataoFileDatabase');
 
-            //here the JSON is parsed successfully, we have to open the database to find the embeddable preferences
-            if (self.fileDatabaseExist()) {
-                self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
-                self.db.find({docName:'Preferences'}, function (err, docs) {
-                    if (err) {
-                        console.log('Document not found');
-                        self.$location.path('/settings');
-                    } else {
-                        self.preferences = docs[0];
-                        if (self.isValid()) {
-                            // language settings
-                            self.changeLanguage();
-
-                            // and then go to the editor
-                            self.$location.path('/loading');
-                            self.zoomChange();
-                            self.$rootScope.$digest();
-                        } else {
-                            self.$location.path(urlFirstSetting);
-                        }
-                    }
-                });
-            } else {
-                self.settings.fileDatabase = null;
+            if (!self.settings.fileDatabase) {
                 self.$location.path(urlFirstSetting);
+            } else {
+                if (self.fileDatabaseExist()) {
+                    self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
+                    self.db.find({docName:'Preferences'}, function (err, docs) {
+                        if (err) {
+                            console.log('Document not found');
+                            self.$location.path('/settings');
+                        } else {
+                            self.preferences = docs[0];
+                            if (self.isValid()) {
+                                // language settings
+                                self.changeLanguage();
+
+                                // and then go to the editor
+                                self.$location.path('/loading');
+                                self.zoomChange();
+                                self.$rootScope.$digest();
+                            } else {
+                                self.$location.path(urlFirstSetting);
+                            }
+                        }
+                    });
+                } else {
+                    self.settings.fileDatabase = null;
+                    self.$location.path(urlFirstSetting);
+                }
             }
         };
 
