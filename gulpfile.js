@@ -10,7 +10,7 @@ require('./gulp/unzip');
 require('./gulp/internalBuild');
 
 gulp.task('default', function() {
-    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao');  // create a command object for `cat`.
+    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/app');  // create a command object for `cat`.
     cmd.exec();
 });
 
@@ -28,11 +28,12 @@ gulp.task('clean',gulpSequence(['cleanTemp','cleanBuild']));
 gulp.task('build',function() {
     var nw = new NwBuilder({
         version: '0.13.1',
-        files: [ './temp/**/**.*'],
-        platforms: ['osx64'],
+        files: [ './app/**/**.*'],
+        //platforms: ['osx64','win64'],
+        platforms: ['win64'],
         appName:'Natao',
         appVersion:'0.1.0',
-        macIcns:'./app.icns'
+        macIcns:'./app/Natao.icns'
     });
 
     // Log stuff you want

@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var gulpSequence = require('gulp-sequence');
 var request = require('request');
-var source = require('vinyl-source-stream')
 var fs = require('fs');
 
 var urlBaseDownload = 'http://dl.nwjs.io/v0.13.1/nwjs-v0.13.1-';
