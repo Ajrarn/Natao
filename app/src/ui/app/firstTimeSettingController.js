@@ -33,6 +33,9 @@
 
         self.settingsValide = function() {
             self.valid = self.PreferencesService.isValid();
+            if (self.valid) {
+                self.save();
+            }
         };
 
         self.changeName = function() {

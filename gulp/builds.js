@@ -1,0 +1,24 @@
+var gulp = require('gulp');
+var gulpSequence = require('gulp-sequence');
+
+gulp.task('buildOSX',function() {
+    var nw = new NwBuilder({
+        version: '0.13.1',
+        files: [ './app/**/**.*'],
+        //platforms: ['osx64','win64'],
+        platforms: ['osx64'],
+        appName:'Natao',
+        appVersion:'0.1.0',
+        macIcns:'./app/Natao.icns'
+    });
+
+    // Log stuff you want
+    nw.on('log', function (msg) {
+        gutil.log('node-webkit-builder', msg);
+    });
+
+    // Build returns a promise, return it so the task isn't called in parallel
+    return nw.build().catch(function (err) {
+        gutil.log('node-webkit-builder', err);
+    });
+});
