@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var gulpSequence = require('gulp-sequence');
+var NwBuilder = require('nw-builder');
+var gutil = require('gulp-util');
 
 gulp.task('buildOSX',function() {
     var nw = new NwBuilder({
