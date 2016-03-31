@@ -16,13 +16,15 @@ gulp.task('copyLinux',function() {
 
 gulp.task('copyAppWindows',function() {
     gulp.src([
-        './app/**/*.*'
+        './app/**/*.*',
+        '!./app/**/*.scss'
     ]).pipe(gulp.dest('./build/Natao/win64'));
 });
 
 gulp.task('copyAppLinux',function() {
     gulp.src([
-        './app/**/*.*'
+        './app/**/*.*',
+        '!./app/**/*.scss'
     ]).pipe(gulp.dest('./build/Natao/linux64'));
 });
 

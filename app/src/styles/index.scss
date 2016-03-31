@@ -34,6 +34,10 @@ html, body {
     .ace_text-layer {
       font-family: opendyslexic !important;
     }
+
+    .CodeMirror {
+      font-family: opendyslexic !important;
+    }
   }
 }
 
@@ -232,6 +236,52 @@ button,.button {
     }
   }
 
+}
+
+/* ****************** codeMirror **********************/
+ui-codemirror {
+  position: relative;
+}
+
+.CodeMirror {
+  border: 1px solid silver;
+  border-width: 1px 2px;
+  margin: 10px;
+  height: auto;
+  Line-Height: 2;
+
+  &.CodeMirror-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+
+  .cm-header {
+    font-family: arial;
+  }
+  .cm-header-1 {
+    font-size: 150%;
+  }
+  .cm-header-2 {
+    font-size: 130%;
+  }
+  .cm-header-3 {
+    font-size: 120%; }
+  .cm-header-4 {
+    font-size: 110%;
+  }
+  .cm-header-5 {
+    font-size: 100%;
+  }
+  .cm-header-6 {
+    font-size: 90%;
+  }
+  .cm-strong {
+    font-size: 140%;
+  }
 
 }
 

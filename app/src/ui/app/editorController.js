@@ -23,6 +23,11 @@
         self.$location = $location;
         self.inPrint = false;
         self.focus = focus;
+        self.editorOptions = {
+            lineWrapping : true,
+            lineNumbers: true,
+            mode: 'gfm'
+        };
 
         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
@@ -33,38 +38,7 @@
         };
 
         self.customColors = ['#7bd148', '#5484ed', '#a4bdfc', '#46d6db', '#7ae7bf', '#51b749', '#fbd75b', '#ffb878', '#ff887c', '#dc2127', '#dbadff', '#000000' ];
-
-
-        //Initialization before start
-        /*self.PendingService.startLoading();
-        console.log('init start !');
-        self.db = self.PreferencesService.getDB();
-
-        var cssPromise = self.CssService.getInitCss(self.db);
-
-
-        //when all the services are ready we go to the editor
-        cssPromise.then(function(defaultCss) {
-            var templatePromise = self.TemplateTreeService.getInitTemplate(self.db);
-
-            templatePromise.then(function() {
-                var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);
-
-                principalTreePromise.then(function() {
-                    self.PendingService.stopLoading();
-                }).then(null,function(err) {
-                    console.error(err);
-                    self.PendingService.stopLoading();
-                });
-            }).then(null,function(err) {
-                console.error(err);
-                self.PendingService.stopLoading();
-            });
-        }).then(null,function(err) {
-            console.error(err);
-            self.PendingService.stopLoading();
-        });*/
-
+        
 
         self.refresh = function() {
 

@@ -9,7 +9,7 @@
 // Get the current window
     var win = gui.Window.get();
 
-    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch', 'ui.ace','ngjsColorPicker'];
+    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch', 'ui.ace','ngjsColorPicker','ui.codemirror'];
 
     angular
         .module('Natao', modules)

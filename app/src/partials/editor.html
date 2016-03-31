@@ -170,7 +170,7 @@
                                     ns-popover-trigger="click"
                                     ns-popover-hide-on-click="false"
                                     ns-popover-hide-on-inside-click="false"
-                                    ns-popover-placement="bottom"
+                                    ns-popover-placement="left"
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
                         </div>
@@ -212,21 +212,11 @@
                                     ns-popover-trigger="click"
                                     ns-popover-hide-on-click="false"
                                     ns-popover-hide-on-inside-click="false"
-                                    ns-popover-placement="bottom"
+                                    ns-popover-placement="left"
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
                         </div>
-
-                        <div class="customEditor" ui-ace="{
-                             useWrapMode : false,
-                             showGutter: true,
-                             theme:'xcode',
-                             mode: 'markdown',
-                             onChange: EditorCtrl.refresh,
-                             onLoad: SettingCtrl.editorReadOnly}"
-                             flex ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md"
-                             ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}">
-                        </div>
+                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()"></ui-codemirror>
                     </div>
                 </div>
                 <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"
