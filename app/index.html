@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" href="bower_components/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-switch/angular-ui-switch.css">
     <link rel="stylesheet" type="text/css" href="bower_components/ngjs-color-picker/css/ngjs-color-picker.css">
-    <link rel="stylesheet" href="src/styles/index.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/theme/neo.css">
+    <link rel="stylesheet" type="text/css" href="src/styles/index.css"/>
     <style ng-bind="appCtrl.CssService.currentCss"></style>
 </head>
 <body layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
@@ -31,6 +33,11 @@
     <script type="text/javascript" src="./bower_components/ace-builds/src-min-noconflict/ace.js"></script>
     <script type="text/javascript" src="./bower_components/angular-ui-ace/ui-ace.js"></script>
     <script type="text/javascript" src="./bower_components/ngjs-color-picker/js/ngjs-color-picker.js"></script>
+    <script type="text/javascript" src="./bower_components/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="./bower_components/codemirror/mode/markdown/markdown.js"></script>
+    <script type="text/javascript" src="./bower_components/codemirror/addon/mode/overlay.js"></script>
+    <script type="text/javascript" src="./bower_components/codemirror/mode/gfm/gfm.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-ui-codemirror/ui-codemirror.min.js"></script>
     <script type="text/javascript" src="src/ui/app/app.js"></script>
     <script type="text/javascript" src="src/utils/focus.js"></script>
     <script type="text/javascript" src="src/utils/tabs.js"></script>
