@@ -51,4 +51,4 @@ gulp.task('correctLinux',function() {
     }
 });
 
-gulp.task('unzipAll',gulpSequence(['unzipWindows', 'unzipWindowsSDK','unzipLinux']));
+gulp.task('unzipAll',gulpSequence(['unzipWindows', 'unzipWindowsSDK','unzipLinux','correctWindows','correctLinux']));

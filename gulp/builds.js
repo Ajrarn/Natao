@@ -24,3 +24,5 @@ gulp.task('buildOSX',function() {
         gutil.log('node-webkit-builder', err);
     });
 });
+
+gulp.task('buildAll',gulpSequence(['copyFile','buildOSX']));
