@@ -216,7 +216,8 @@
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
                         </div>
-                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()"></ui-codemirror>
+                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
+                                       ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
                     </div>
                 </div>
                 <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"

@@ -241,6 +241,25 @@ button,.button {
 /* ****************** codeMirror **********************/
 ui-codemirror {
   position: relative;
+
+  &.space {
+    .CodeMirror {
+      Line-Height: 2;
+    }
+  }
+
+
+  &.striped {
+    .CodeMirror-code div:nth-child(even) {
+      background: whitesmoke;
+    }
+    .CodeMirror-code div:nth-child(odd) {
+      background: white;
+    }
+  }
+
+
+
 }
 
 .CodeMirror {
@@ -248,7 +267,6 @@ ui-codemirror {
   border-width: 1px 2px;
   margin: 10px;
   height: auto;
-  Line-Height: 2;
 
   &.CodeMirror-wrap {
     position: absolute;
