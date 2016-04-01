@@ -29,7 +29,9 @@
         self.cssEditorOptions = {
             lineWrapping : true,
             lineNumbers: true,
-            mode: 'text/css',
+            mode: 'css',
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             extraKeys: {"Ctrl-Space": "autocomplete"}
         };
 
@@ -46,6 +48,8 @@
         self.htmlEditorOptions = {
             lineWrapping : true,
             lineNumbers: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             readOnly: 'nocursor'
         };
 

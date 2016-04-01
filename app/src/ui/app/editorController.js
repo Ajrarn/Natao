@@ -26,6 +26,8 @@
         self.editorOptions = {
             lineWrapping : true,
             lineNumbers: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             mode: 'gfm'
         };
 
