@@ -24,6 +24,32 @@
         self.$showdown = $showdown;
         self.focus = focus;
         self.viewer = true;
+
+        //for codeMirror
+        self.cssEditorOptions = {
+            lineWrapping : true,
+            lineNumbers: true,
+            mode: 'text/css',
+            extraKeys: {"Ctrl-Space": "autocomplete"}
+        };
+
+        // Define an extended mixed-mode that understands vbscript and
+        // leaves mustache/handlebars embedded templates in html mode
+        /*var mixedMode = {
+            name: "htmlmixed",
+            scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+                mode: null},
+                {matches: /(text|application)\/(x-)?vb(a|script)/i,
+                    mode: "vbscript"}]
+        };*/
+
+        self.htmlEditorOptions = {
+            lineWrapping : true,
+            lineNumbers: true,
+            readOnly: 'nocursor'
+        };
+
+
         if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
             self.currentCss = self.CssService.availableCss[0];
         }

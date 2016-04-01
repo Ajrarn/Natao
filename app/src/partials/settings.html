@@ -193,22 +193,23 @@
                                     ns-popover-trigger="click"
                                     ns-popover-hide-on-click="false"
                                     ns-popover-hide-on-inside-click="false"
-                                    ns-popover-placement="bottom"
+                                    ns-popover-placement="left"
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span>
                             </button>
                         </div>
 
 
-                        <div class="customEditor" ui-ace="{
+                        <!--div class="customEditor" ui-ace="{
                              useWrapMode : false,
                              showGutter: true,
                              theme:'xcode',
                              mode: 'css',
                              onChange: SettingCtrl.saveCss}"
                              flex ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor"
-                             ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}">
-                        </div>
+                             ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div-->
+                        <ui-codemirror flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor" ng-change="SettingCtrl.saveCss"
+                                       ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
                     </div>
 
                     <div flex layout="column" layout-align="start stretch">
@@ -224,7 +225,7 @@
                                     off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
                         </div>
 
-                        <div class="customEditor" ui-ace="{
+                        <!--div class="customEditor" ui-ace="{
                              useWrapMode : false,
                              showGutter: false,
                              theme:'xcode',
@@ -232,7 +233,9 @@
                              onChange: SettingCtrl.saveCss,
                              onLoad: SettingCtrl.editorReadOnly}"
                              flex ng-model="SettingCtrl.currentHtmlAll"
-                             ng-if="!SettingCtrl.viewer" ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div>
+                             ng-if="!SettingCtrl.viewer" ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div-->
+                        <ui-codemirror flex ui-codemirror-opts="SettingCtrl.htmlEditorOptions" ng-model="SettingCtrl.currentHtmlAll" ng-if="!SettingCtrl.viewer"
+                                       ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
 
                         <div ng-if="SettingCtrl.viewer" class="visualiser" flex
                              layout="column" layout-align="start stretch">

@@ -256,6 +256,7 @@ ui-codemirror {
     .CodeMirror-code div:nth-child(odd) {
       background: white;
     }
+
   }
 
 
@@ -268,7 +269,7 @@ ui-codemirror {
   margin: 10px;
   height: auto;
 
-  &.CodeMirror-wrap {
+  &.CodeMirror-wrap,&.cm-s-default {
     position: absolute;
     top: 0;
     bottom: 0;
