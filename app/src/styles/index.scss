@@ -239,7 +239,7 @@ button,.button {
 }
 
 /* ****************** codeMirror **********************/
-ui-codemirror,div[ui-codemirror] {
+ui-codemirror {
   position: relative;
 
   &.space {
@@ -248,12 +248,11 @@ ui-codemirror,div[ui-codemirror] {
     }
   }
 
-
   &.striped {
-    .CodeMirror-code div:nth-child(even) {
+    .CodeMirror-code > div:nth-child(even) {
       background: whitesmoke;
     }
-    .CodeMirror-code div:nth-child(odd) {
+    .CodeMirror-code > div:nth-child(odd) {
       background: white;
     }
 
