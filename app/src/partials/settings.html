@@ -208,7 +208,7 @@
                              onChange: SettingCtrl.saveCss}"
                              flex ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor"
                              ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div-->
-                        <ui-codemirror flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor" ng-change="SettingCtrl.saveCss"
+                        <ui-codemirror flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss"
                                        ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
                     </div>
 

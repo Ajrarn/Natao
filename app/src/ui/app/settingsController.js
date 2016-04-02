@@ -8,7 +8,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout) {
 
         var self = this;
 
@@ -16,6 +16,7 @@
         self.$sce = $sce;
         self.DatabaseService = DatabaseService;
         self.$scope = $scope;
+        self.$rootScope = $rootScope;
 
         self.fileDialog = fileDialog;
         self.CssService = CssService;
@@ -23,7 +24,12 @@
         self.TemplateTreeService = TemplateTreeService;
         self.$showdown = $showdown;
         self.focus = focus;
-        self.viewer = true;
+        self.$timeout = $timeout;
+        self.viewer = false;
+
+        /*if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
+                self.currentCss = self.CssService.availableCss[0];
+        }*/
 
         //for codeMirror
         self.cssEditorOptions = {
@@ -35,15 +41,6 @@
             extraKeys: {"Ctrl-Space": "autocomplete"}
         };
 
-        // Define an extended mixed-mode that understands vbscript and
-        // leaves mustache/handlebars embedded templates in html mode
-        /*var mixedMode = {
-            name: "htmlmixed",
-            scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
-                mode: null},
-                {matches: /(text|application)\/(x-)?vb(a|script)/i,
-                    mode: "vbscript"}]
-        };*/
 
         self.htmlEditorOptions = {
             lineWrapping : true,
@@ -54,19 +51,14 @@
         };
 
 
-        if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
-            self.currentCss = self.CssService.availableCss[0];
-        }
-
-
 
         self.documentsPromise = self.DocumentsService.getDocuments();
         self.documentsPromise.then(function(docs) {
             self.documents = docs;
-            if (self.documents && self.documents.length > 0){
+            /*if (self.documents && self.documents.length > 0){
                 self.currentDoc = self.documents[0];
                 self.changeDocument();
-            }
+            }*/
         });
 
 
@@ -125,6 +117,7 @@
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
             self.focus('cssEditor');
+            console.log('selectedPane',self.selectedPane);
         };
 
         self.initAddCss= function() {
