@@ -161,24 +161,27 @@
                             </div>
                         </script>
 
-                        <div class="buttonBar" layout="row" layout-align="end center">
-                            <button ng-click="EditorCtrl.copyDocument()" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></button>
-                            <button ng-click="EditorCtrl.cutDocument()" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></button>
-                            <button ng-click="EditorCtrl.exportDocument()" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></button>
-                            <button ns-popover ns-popover-timeout="-1"
-                                    ns-popover-template="popoverDeleteDocument"
-                                    ns-popover-trigger="click"
-                                    ns-popover-hide-on-click="false"
-                                    ns-popover-hide-on-inside-click="false"
-                                    ns-popover-placement="left"
-                                    ns-popover-theme="ns-popover-tooltip-theme"
-                                    title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
-                        </div>
 
-                        <label for="title" layout="row" layout-align="start center">
-                            <p>{{ 'DOC_TITLE' | translate }}</p>
-                            <input flex id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </label>
+
+                        <div layout="row" layout-align="space-between center">
+                            <label for="title" layout="row" layout-align="start center">
+                                <p>{{ 'DOC_TITLE' | translate }}</p>
+                                <input flex id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+                            <div class="buttonBar" layout="row" layout-align="end center">
+                                <button ng-click="EditorCtrl.copyDocument()" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></button>
+                                <button ng-click="EditorCtrl.cutDocument()" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></button>
+                                <button ng-click="EditorCtrl.exportDocument()" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></button>
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverDeleteDocument"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="left"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></button>
+                            </div>
+                        </div>
 
                         <div layout="row" layout-align="space-between center">
                             <label for="css" layout="row" layout-align="start center">
@@ -206,15 +209,17 @@
                                     </label>
                                 </div>
                             </script>
+                            <div class="buttonBar" layout="row" layout-align="end center">
+                                <button ns-popover
+                                        ns-popover-template="popoverEditorSetting"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="left"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
+                            </div>
 
-                            <button ns-popover
-                                    ns-popover-template="popoverEditorSetting"
-                                    ns-popover-trigger="click"
-                                    ns-popover-hide-on-click="false"
-                                    ns-popover-hide-on-inside-click="false"
-                                    ns-popover-placement="left"
-                                    ns-popover-theme="ns-popover-tooltip-theme"
-                                    title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-cog"></span></button>
                         </div>
                         <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></ui-codemirror>

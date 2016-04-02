@@ -25,7 +25,7 @@
         self.$showdown = $showdown;
         self.focus = focus;
         self.$timeout = $timeout;
-        self.viewer = false;
+        self.viewer = true;
 
         /*if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
                 self.currentCss = self.CssService.availableCss[0];

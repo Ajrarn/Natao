@@ -2431,6 +2431,7 @@ button, .button {
 .editor {
   flex-grow: 1;
   opacity: 1;
+  margin: 10px;
   transition: all 1s; }
   .editor.hidden {
     flex-grow: 0.0001;
@@ -2458,17 +2459,6 @@ button, .button {
     padding: 0;
     transition: all 1s; }
 
-/* ***************** Editor ***********************/
-.customEditor {
-  border: 1px solid black;
-  margin: 10px; }
-  .customEditor.space .ace_line {
-    padding: 0.2em 0px; }
-  .customEditor.striped .ace_text-layer .ace_line:nth-child(even) {
-    background: whitesmoke; }
-  .customEditor.striped .ace_text-layer .ace_line:nth-child(odd) {
-    background: white; }
-
 /* ****************** codeMirror **********************/
 ui-codemirror {
   position: relative; }
@@ -2481,8 +2471,6 @@ ui-codemirror {
 
 .CodeMirror {
   border: 1px solid silver;
-  border-width: 1px 2px;
-  margin: 10px;
   height: auto; }
   .CodeMirror.CodeMirror-wrap, .CodeMirror.cm-s-default {
     position: absolute;
