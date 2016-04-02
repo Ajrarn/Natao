@@ -2460,13 +2460,13 @@ button, .button {
     transition: all 1s; }
 
 /* ****************** codeMirror **********************/
-ui-codemirror {
+ui-codemirror, div[ui-codemirror] {
   position: relative; }
-  ui-codemirror.space .CodeMirror {
+  ui-codemirror.space .CodeMirror, div[ui-codemirror].space .CodeMirror {
     Line-Height: 2; }
-  ui-codemirror.striped .CodeMirror-code > div:nth-child(even) {
+  ui-codemirror.striped .CodeMirror-code > div:nth-child(even), div[ui-codemirror].striped .CodeMirror-code > div:nth-child(even) {
     background: whitesmoke; }
-  ui-codemirror.striped .CodeMirror-code > div:nth-child(odd) {
+  ui-codemirror.striped .CodeMirror-code > div:nth-child(odd), div[ui-codemirror].striped .CodeMirror-code > div:nth-child(odd) {
     background: white; }
 
 .CodeMirror {

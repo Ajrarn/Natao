@@ -214,7 +214,7 @@ button,.button {
 }
 
 /* ****************** codeMirror **********************/
-ui-codemirror {
+ui-codemirror, div[ui-codemirror] {
   position: relative;
 
   &.space {
