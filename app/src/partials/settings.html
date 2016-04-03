@@ -199,17 +199,8 @@
                             </button>
                         </div>
 
-
-                        <!--div class="customEditor" ui-ace="{
-                             useWrapMode : false,
-                             showGutter: true,
-                             theme:'xcode',
-                             mode: 'css',
-                             onChange: SettingCtrl.saveCss}"
-                             flex ng-model="SettingCtrl.currentCss.css" focus-on="cssEditor"
-                             ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div-->
-                        <ui-codemirror flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss"
-                                       ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
+                        <div ui-codemirror="{ onLoad : SettingCtrl.setCssEditor }" flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss"
+                                       ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
 
                     <div flex layout="column" layout-align="start stretch">
@@ -225,15 +216,6 @@
                                     off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
                         </div>
 
-                        <!--div class="customEditor" ui-ace="{
-                             useWrapMode : false,
-                             showGutter: false,
-                             theme:'xcode',
-                             mode: 'html',
-                             onChange: SettingCtrl.saveCss,
-                             onLoad: SettingCtrl.editorReadOnly}"
-                             flex ng-model="SettingCtrl.currentHtmlAll"
-                             ng-if="!SettingCtrl.viewer" ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div-->
                         <ui-codemirror flex ui-codemirror-opts="SettingCtrl.htmlEditorOptions" ng-model="SettingCtrl.currentHtmlAll" ng-if="!SettingCtrl.viewer"
                                        ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
 

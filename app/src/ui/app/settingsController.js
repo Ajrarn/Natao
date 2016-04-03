@@ -60,6 +60,11 @@
                 self.changeDocument();
             }*/
         });
+        
+        self.setCssEditor = function(editor) {
+            self.cssEditor = editor;
+            Inlet(editor);
+        };
 
 
         self.settingsValide = function() {

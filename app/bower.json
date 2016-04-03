@@ -36,7 +36,8 @@
     "angular-route": "latest",
     "ngjs-color-picker": "^1.0.4",
     "codemirror": "^5.13.2",
-    "angular-ui-codemirror": "^0.3.0"
+    "angular-ui-codemirror": "^0.3.0",
+    "Inlet": "git://github.com/enjalot/Inlet#^0.1.8"
   },
   "resolutions": {
     "angular": "~1.4.8"
