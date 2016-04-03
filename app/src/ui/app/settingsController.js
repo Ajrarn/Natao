@@ -101,10 +101,9 @@
         self.chooseDatabase = function() {
             self.fileDialog.openFile(function(filename){
                 self.PreferencesService.settings.fileDatabase = filename;
+                self.PreferencesService.saveSettings();
                 self.PreferencesService.init();
-                self.$scope.$apply();
             }, false, ['db']);
-
         };
 
         self.saveCss = function(e) {

@@ -8,5 +8,10 @@
     "originalName":"lesson.css",
     "inDatabaseName":"Leçon",
     "default": true
+  },
+  {
+    "originalName":"poems.css",
+    "inDatabaseName":"Poésie",
+    "default": false
   }
 ]
