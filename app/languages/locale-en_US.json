@@ -59,5 +59,6 @@
   "SETTING_DOCUMENT_TEST":"Document for sample",
   "SETTING_SWITCH_HTML":"HTML",
   "SETTING_SWITCH_SHOW":"Viewer",
+  "SETTING_EDITOR":"Editor's settings",
   "TRASH":"Trash"
 }
