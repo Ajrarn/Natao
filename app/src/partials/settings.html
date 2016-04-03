@@ -199,7 +199,7 @@
                             </button>
                         </div>
 
-                        <div ui-codemirror="{ onLoad : SettingCtrl.setCssEditor }" flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss"
+                        <div ui-codemirror="{ onLoad : SettingCtrl.setCssEditor }" flex ui-codemirror-opts="SettingCtrl.cssEditorOptions" ng-model="SettingCtrl.currentCss.css" ng-change="SettingCtrl.saveCss()"
                                        ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
 
