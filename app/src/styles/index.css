@@ -2438,7 +2438,7 @@ button, .button {
     opacity: 0;
     transition: all 1s; }
 
-.visualiser {
+.viewer {
   flex-grow: 1;
   background-color: white;
   overflow: auto;
@@ -2447,11 +2447,11 @@ button, .button {
   padding: 10px;
   opacity: 1;
   transition: all 1s; }
-  .visualiser.inprint {
+  .viewer.inprint {
     box-shadow: none;
     margin: 0;
     padding: 0; }
-  .visualiser.hidden {
+  .viewer.hidden {
     width: 0;
     flex-grow: 0.0001;
     opacity: 0;
@@ -2505,6 +2505,8 @@ input, p {
   .setting h1 {
     color: black;
     font-size: 24px; }
+  .setting .viewer {
+    margin: 10px 0 0 10px; }
 
 .tab-content .tab-pane {
   display: none; }
@@ -2550,6 +2552,10 @@ hr {
   height: 1px;
   width: 100%;
   background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.75), transparent); }
+
+.lineField {
+  height: 3em;
+  min-height: 3em; }
 
 /***********************TreeView***********************/
 .treeContainer {

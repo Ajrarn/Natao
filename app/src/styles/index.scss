@@ -186,7 +186,7 @@ button,.button {
   //background-color: yellow;
 }
 
-.visualiser {
+.viewer {
   flex-grow:1;
   background-color: white;
   overflow: auto;
@@ -232,8 +232,6 @@ ui-codemirror, div[ui-codemirror] {
     }
 
   }
-
-
 
 }
 
@@ -290,6 +288,11 @@ input,p{
     color: black;
     font-size: 24px;
   }
+
+  .viewer {
+    margin: 10px 0 0 10px;
+  }
+  
 }
 .tab-content {
   .tab-pane {
@@ -356,6 +359,11 @@ hr {
   height: 1px;
   width: 100%;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.lineField {
+  height: 3em;
+  min-height: 3em;
 }
 
 /***********************TreeView***********************/

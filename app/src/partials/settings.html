@@ -110,11 +110,14 @@
 
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
-                            <p>{{ 'DOC_CSS' | translate }}</p>
-                            <select id="css" ng-model="SettingCtrl.currentCss"
-                                    ng-options="css as css.name for css in SettingCtrl.CssService.availableCss"
-                                    ng-change="SettingCtrl.changeCss()">
-                            </select>
+                            <label for="css" layout="row" layout-align="start center">
+                                <p>{{ 'DOC_CSS' | translate }}</p>
+                                <select id="css" ng-model="SettingCtrl.currentCss"
+                                        ng-options="css as css.name for css in SettingCtrl.CssService.availableCss"
+                                        ng-change="SettingCtrl.changeCss()">
+                                </select>
+                            </label>
+
 
                             <script type="text/ng-template" id="popoverAddCss">
                                 <div class="triangle"></div>
@@ -166,7 +169,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div layout="row" layout-align="space-between center">
+                        <div class="lineField" layout="row" layout-align="space-between center">
                             <label for="cssName" layout="row" layout-align="start center">
                                 <p>{{ 'CSS_NAME' | translate }}</p>
                                 <input flex id="cssName" type="text" ng-model="SettingCtrl.currentCss.name"
@@ -204,13 +207,13 @@
                     </div>
 
                     <div flex layout="column" layout-align="start stretch">
-                        <div layout="row" layout-align="space-between center">
-                            <div layout="row" layout-align="start center">
+                        <div  layout="row" layout-align="space-between center">
+                            <label for="document" layout="row" layout-align="start center">
                                 <p>{{ 'SETTING_DOCUMENT_TEST' | translate }}</p>
                                 <select id="document" ng-model="SettingCtrl.currentDoc"
                                         ng-options="document as document.title for document in SettingCtrl.documents"
                                         ng-change="SettingCtrl.changeDocument()"></select>
-                            </div>
+                            </label>
                             <switch id="enabled" name="enabled" ng-model="SettingCtrl.viewer"
                                     on="{{ 'SETTING_SWITCH_VIEWER' | translate }}"
                                     off="{{ 'SETTING_SWITCH_HTML' | translate }}" class="green wide"></switch>
@@ -219,7 +222,7 @@
                         <ui-codemirror flex ui-codemirror-opts="SettingCtrl.htmlEditorOptions" ng-model="SettingCtrl.currentHtmlAll" ng-if="!SettingCtrl.viewer"
                                        ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
 
-                        <div ng-if="SettingCtrl.viewer" class="visualiser" flex
+                        <div ng-if="SettingCtrl.viewer" class="viewer" flex
                              layout="column" layout-align="start stretch">
                             <div class="haut" layout="row" layout-align="start stretch">
                                 <div class="identity" layout="column" layout-align="center center">

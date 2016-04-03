@@ -9,7 +9,7 @@
         <div layout="row" layput-align="start center">
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showMenu}" ng-click="appCtrl.toggleMenu()" title="{{'MENU' | translate}}"><span class="typcn typcn-th-menu-outline"></span></button>
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showEditor}" ng-click="appCtrl.toggleEditor()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-edit"></span></button>
-            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showVisualiser}" ng-click="appCtrl.toggleVisualiser()" title="{{'VISUALIZER' | translate}}"><span class="typcn typcn-eye-outline"></span></button>
+            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showviewer}" ng-click="appCtrl.toggleviewer()" title="{{'VISUALIZER' | translate}}"><span class="typcn typcn-eye-outline"></span></button>
         </div>
 
         <div layout="row" layput-align="start center">
@@ -225,7 +225,7 @@
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
                     </div>
                 </div>
-                <div class="visualiser" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"
+                <div class="viewer" flex ng-class="[{hidden: !EditorCtrl.showVisualizer()},{inprint: EditorCtrl.inPrint}]"
                      layout="column">
                     <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showVisualizer()">
                         <div class="haut" layout="row" layout-align="start stretch">
