@@ -48,13 +48,20 @@
                                 <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
                                 <input type="text" id="firstName"
                                        ng-model="SettingCtrl.PreferencesService.preferences.firstName"
-                                       ng-change="SettingCtrl.changeName()"
+                                       ng-change="SettingCtrl.settingsValide()"
                                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
                             <label for="name" layout="column" layout-align="center center">
                                 <p>{{ 'PROFILE_NAME' | translate }}</p>
                                 <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"
-                                       ng-change="SettingCtrl.changeName()"
+                                       ng-change="SettingCtrl.settingsValide()"
+                                       ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+                            <label for="className" layout="column" layout-align="center center">
+                                <p>{{ 'PROFILE_CLASSNAME' | translate }}</p>
+                                <input type="text" id="className"
+                                       ng-model="SettingCtrl.PreferencesService.preferences.className"
+                                       ng-change="SettingCtrl.settingsValide()"
                                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
                         </div>
@@ -224,22 +231,24 @@
 
                         <div ng-if="SettingCtrl.viewer" class="viewer" flex
                              layout="column" layout-align="start stretch">
-                            <div class="haut" layout="row" layout-align="start stretch">
-                                <div class="identity" layout="column" layout-align="center center">
-                                    <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
-                                    <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
+                            <div flex layout="column" layout-align="start stretch">
+                                <div class="haut" layout="row" layout-align="start stretch">
+                                    <div class="identity" layout="column" layout-align="center stretch">
+                                        <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
+                                        <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
+                                        <p>{{SettingCtrl.PreferencesService.preferences.className}}</p>
+                                    </div>
+                                    <div class="title-zone" flex layout="column" layout-align="center stretch">
+                                        <h1>{{SettingCtrl.currentDoc.title}}</h1>
+                                        <p id="dateCreated">{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
+                                    </div>
                                 </div>
-                                <div class="title-zone" flex layout="column" layout-align="center stretch">
-                                    <h1>{{SettingCtrl.currentDoc.title}}</h1>
-                                    <p id="dateCreated">{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
+                                <div class="notation"></div>
+                                <div class="devoir" flex layout="row" layout-align="start stretch">
+                                    <div class="marge"></div>
+                                    <div class="rendu" ng-bind-html="SettingCtrl.currentHTML" flex></div>
                                 </div>
                             </div>
-                            <div class="notation"></div>
-                            <div class="devoir" flex layout="row" layout-align="start stretch">
-                                <div class="marge"></div>
-                                <div class="rendu" ng-bind-html="SettingCtrl.currentHTML" flex></div>
-                            </div>
-
                         </div>
 
                     </div>

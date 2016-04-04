@@ -235,9 +235,10 @@
                      layout="column">
                     <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer()">
                         <div class="haut" layout="row" layout-align="start stretch">
-                            <div class="identity" layout="column" layout-align="center center">
+                            <div class="identity" layout="column" layout-align="center stretch">
                                 <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
                                 <p>{{EditorCtrl.PreferencesService.preferences.firstName}}</p>
+                                <p>{{EditorCtrl.PreferencesService.preferences.className}}</p>
                             </div>
                             <div class="title-zone" flex layout="column" layout-align="center stretch">
                                 <h1>{{EditorCtrl.PrincipalTreeService.currentMarkdown.title}}</h1>

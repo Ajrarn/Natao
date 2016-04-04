@@ -42,7 +42,8 @@
 
         self.changeName = function() {
             self.settingsValide();
-            if (self.PreferencesService.preferences.name && self.PreferencesService.preferences.firstName && self.PreferencesService.preferences.name !== '' && self.PreferencesService.preferences.firstName !== '') {
+            if (self.PreferencesService.preferences.name && self.PreferencesService.preferences.firstName && self.PreferencesService.preferences.className
+                && self.PreferencesService.preferences.name !== '' && self.PreferencesService.preferences.firstName !== '' && self.PreferencesService.preferences.className !== '') {
                 self.step = 4;
             }
         };

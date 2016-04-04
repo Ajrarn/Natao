@@ -72,12 +72,7 @@
             self.valid = self.PreferencesService.isValid();
         };
 
-        self.changeName = function() {
-            self.settingsValide();
-            if (self.PreferencesService.preferences.name && self.PreferencesService.preferences.firstName && self.PreferencesService.preferences.name !== '' && self.PreferencesService.preferences.firstName !== '') {
-                self.step = 4;
-            }
-        };
+       
 
         self.save = function() {
             self.PreferencesService.save();
@@ -87,7 +82,6 @@
         self.changeLanguage = function(language) {
             self.PreferencesService.changeLanguage(language);
             self.settingsValide();
-            self.step = 2;
         };
 
 
@@ -97,7 +91,6 @@
                 if (fs.existsSync(filename)) {
                     fs.unlinkSync(filename);
                 }
-                self.step = 3;
                 self.$scope.$apply();
             },'Natao.db',['db']);
         };
@@ -160,10 +153,12 @@
 
         self.allHtml = function() {
 
-            var completeHtml = '<div class="haut" layout="row" layout-align="start stretch">' +
+            var completeHtml = '<div flex layout="column" layout-align="start stretch">' +
+                '<div class="haut" layout="row" layout-align="start stretch">' +
                 '<div class="identity" layout="column" layout-align="center center">' +
                 '<p>' + self.PreferencesService.preferences.name +'</p>' +
                 '<p>' + self.PreferencesService.preferences.firstName +'</p>' +
+                '<p>' + self.PreferencesService.preferences.className + '</p>' +
                 '</div>' +
                 '<div class="title-zone" flex layout="column" layout-align="center center">' +
                 '<h1>' + self.currentDoc.title +'</h1>' +
@@ -174,7 +169,7 @@
                 '<div class="devoir" flex layout="row" layout-align="start stretch">' +
                 '<div class="marge"></div>' +
                 '<div id="rendu" flex>'+ self.currentHTML +'</div>' +
-                '</div>';
+                '</div></div>';
 
             self.currentHtmlAll = beautify_html(completeHtml);
         };
