@@ -54,7 +54,7 @@
             zoomLevel: 0,
             showMenu: true,
             showEditor: true,
-            showVisualiser: true
+            showViewer: true
         };
 
        self.saveSettings = function() {

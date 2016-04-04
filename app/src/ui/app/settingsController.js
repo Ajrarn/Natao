@@ -2,6 +2,7 @@
     "use strict";
 
     var beautify_html = require('js-beautify').html;
+    var fs = require('fs');
 
     angular
         .module('Natao')
@@ -93,6 +94,9 @@
         self.newDatabase = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;
+                if (fs.existsSync(filename)) {
+                    fs.unlinkSync(filename);
+                }
                 self.step = 3;
                 self.$scope.$apply();
             },'Natao.db',['db']);

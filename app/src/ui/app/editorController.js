@@ -60,8 +60,8 @@
             self.inPrint = false;
         };
 
-        self.showVisualizer = function() {
-            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showVisualiser;
+        self.showViewer = function() {
+            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showViewer;
         };
 
         self.showEditor = function() {
@@ -69,6 +69,7 @@
         };
 
         self.print = function() {
+            self.PreferencesService.preferences.showViewer = true;
             self.inPrint = true;
             setTimeout(window.print, 1050);       //without angular $digest
             self.$timeout(self.offPrint, 1150);  //with angular $digest

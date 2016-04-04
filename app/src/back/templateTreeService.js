@@ -37,7 +37,7 @@
                         reject(err);
                     } else {
                         if (docs.length === 0) {
-                            var templateFile = fs.readFileSync('./translations/templates-' + self.$translate.use() + '.json','utf8');
+                            var templateFile = fs.readFileSync('./languages/templates-' + self.$translate.use() + '.json','utf8');
 
                             var templates = [];
 

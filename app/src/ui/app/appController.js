@@ -78,18 +78,21 @@
         };
 
         self.toggleEditor = function() {
-            if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showVisualiser) {
+            if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showViewer) {
                 self.toggleVisualiser();
             }
             self.PreferencesService.preferences.showEditor = !self.PreferencesService.preferences.showEditor;
             self.PreferencesService.savePreferences();
         };
 
-        self.toggleVisualiser = function() {
-            if (self.PreferencesService.preferences.showVisualiser && !self.PreferencesService.preferences.showEditor) {
+        self.toggleViewer = function() {
+            if (self.PreferencesService.preferences.showViewer && !self.PreferencesService.preferences.showEditor) {
                 self.toggleEditor();
             }
-            self.PreferencesService.preferences.showVisualiser = !self.PreferencesService.preferences.showVisualiser;
+            if (!self.PreferencesService.preferences.showViewer) {
+                self.PreferencesService.preferences.showViewer = false;
+            }
+            self.PreferencesService.preferences.showViewer = !self.PreferencesService.preferences.showViewer;
             self.PreferencesService.savePreferences();
         };
 

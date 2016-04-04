@@ -1,6 +1,8 @@
 (function () {
     "use strict";
 
+    var fs = require('fs');
+
     angular
         .module('Natao')
         .controller('FirstTimeSettingsController', FirstTimeSettingsController);
@@ -60,7 +62,9 @@
         self.newDatabase = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;
-                console.log('fileDatabase',self.PreferencesService.settings.fileDatabase);
+                if (fs.existsSync(filename)) {
+                    fs.unlinkSync(filename);
+                }
                 self.step = 3;
                 self.$scope.$apply();
             },'Natao.db',['db']);
