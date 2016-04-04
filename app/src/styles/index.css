@@ -2446,7 +2446,13 @@ button, .button {
   margin: 10px;
   padding: 10px;
   opacity: 1;
+  position: relative;
   transition: all 1s; }
+  .viewer > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0; }
   .viewer.inprint {
     box-shadow: none;
     margin: 0;
