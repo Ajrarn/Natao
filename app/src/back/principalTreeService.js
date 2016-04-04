@@ -597,6 +597,12 @@
                 });
             }
         };
+        
+        self.clearBuffer = function() {
+            delete self.principalTree.buffer;
+            self.docsPendingForBuffer = 0;
+            self.save();
+        };
 
         return self;
 

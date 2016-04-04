@@ -15,11 +15,13 @@
         .module('Natao', modules)
         .run(run);
 
-    function run($rootScope, $timeout, PendingService) {
+    function run($rootScope, $timeout, PendingService,PrincipalTreeService) {
         console.log('run');
 
         //prevent properly close
         win.on('close', function () {
+
+            PrincipalTreeService.clearBuffer();
 
             if (PendingService.pending > 0) {
 

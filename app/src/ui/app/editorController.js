@@ -123,6 +123,7 @@
         self.openAddFolder = function() {
             self.newFolderName = null;
             self.folderPopover = 'addFolder';
+            self.templateName = null;
             self.focus('addFolderName');
         };
 
@@ -256,7 +257,7 @@
 
         self.addFolder = function(hide) {
             if (self.newFolderName && self.newFolderName.length > 0) {
-                self.PrincipalTreeService.addFolder(self.newFolderName, self.currentNode);
+                self.PrincipalTreeService.addFolder(self.newFolderName, self.currentNode, self.templateName);
             }
             hide();
         };
