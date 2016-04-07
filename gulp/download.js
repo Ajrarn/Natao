@@ -3,22 +3,24 @@ var gulpSequence = require('gulp-sequence');
 var request = require('request');
 var fs = require('fs');
 
-var urlBaseDownload = 'http://dl.nwjs.io/v0.13.1/nwjs-v0.13.1-';
-var fileBasePath = './downloads/nwjs-v0.13.1-';
+
+var fileBasePath = './downloads/nwjs-v';
+var version = '0.13.3';
+var urlBaseDownload = 'http://dl.nwjs.io/v' + version + '/nwjs-v' + version;
 
 
 gulp.task('downloadWindows', function(cb) {
-    var endFileName = 'win-x64.zip';
-    if (fs.existsSync(fileBasePath + endFileName)) {
+    var endFileName = '-win-x64.zip';
+    if (fs.existsSync(fileBasePath + version + endFileName)) {
         cb();
     } else {
-        return request(urlBaseDownload + endFileName).pipe(fs.createWriteStream(fileBasePath + endFileName));
+        return request(urlBaseDownload + endFileName).pipe(fs.createWriteStream(fileBasePath + version + endFileName));
     }
 });
 
 gulp.task('downloadWindowsSDK', function(cb) {
-    var fileSDK = './downloads/nwjs-sdk-v0.13.1-win-x64.zip';
-    var urlSDK = 'http://dl.nwjs.io/v0.13.1/nwjs-sdk-v0.13.1-win-x64.zip';
+    var fileSDK = './downloads/nwjs-sdk-v' + version + '-win-x64.zip';
+    var urlSDK = 'http://dl.nwjs.io/v' + version + '/nwjs-sdk-v' + version + '-win-x64.zip';
     if (fs.existsSync(fileSDK)) {
         cb();
     } else {
@@ -26,26 +28,26 @@ gulp.task('downloadWindowsSDK', function(cb) {
     }
 });
 
-gulp.task('downloadOsX', function(cb) {
-    var endFileName = 'osx-x64.zip';
+gulp.task('downloadOSX', function(cb) {
+    var endFileName = '-osx-x64.zip';
     
-    if (fs.existsSync(fileBasePath + endFileName)) {
+    if (fs.existsSync(fileBasePath + version + endFileName)) {
         cb();
     } else {
-        return request(urlBaseDownload + endFileName).pipe(fs.createWriteStream(fileBasePath + endFileName));
+        return request(urlBaseDownload + endFileName).pipe(fs.createWriteStream(fileBasePath + version + endFileName));
     }
     
 });
 
 gulp.task('downloadLinux', function(cb) {
-    var endFileName = 'linux-x64.tar.gz';
+    var endFileName = '-linux-x64.tar.gz';
 
-    if (fs.existsSync(fileBasePath + endFileName)) {
+    if (fs.existsSync(fileBasePath + version + endFileName)) {
         cb();
     } else {
-        return request(urlBaseDownload + endFileName).pipe(fs.createWriteStream(fileBasePath + endFileName));
+        return request(urlBaseDownload + endFileName).pipe(fs.createWriteStream(fileBasePath + version + endFileName));
     }
 
 });
 
-gulp.task('downloadAll', gulpSequence(['downloadWindows', 'downloadWindowsSDK','downloadLinux']));
+gulp.task('downloadAll', gulpSequence(['downloadWindows', 'downloadWindowsSDK','downloadLinux','downloadOSX']));

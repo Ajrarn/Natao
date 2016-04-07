@@ -18,6 +18,7 @@
     "gulp-util": "^3.0.7",
     "gulp-zip": "^3.2.0",
     "nw-builder": "^2.2.0",
-    "request": "^2.69.0"
+    "request": "^2.69.0",
+    "gulp-rename": "^1.2.2"
   }
 }

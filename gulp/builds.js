@@ -5,13 +5,13 @@ var gutil = require('gulp-util');
 
 gulp.task('buildOSX',function() {
     var nw = new NwBuilder({
-        version: '0.13.1',
+        version: '0.13.3',
         files: [ './app/**/**.*'],
         //platforms: ['osx64','win64'],
         platforms: ['osx64'],
         appName:'Natao',
         appVersion:'0.1.0',
-        macIcns:'./app/Natao.icns'
+        macIcns:'./app/app.icns'
     });
 
     // Log stuff you want

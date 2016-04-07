@@ -534,6 +534,9 @@
 
         self.writeToFile = function() {
             self.PendingService.start();
+            if (fs.existsSync(self.exportFileName)) {
+                fs.unlinkSync(self.exportFileName);
+            }
             fs.writeFile(self.exportFileName, JSON.stringify(self.principalTree.buffer), 'utf8', function(err) {
                 if (err) throw err;
                 self.PendingService.stop();
