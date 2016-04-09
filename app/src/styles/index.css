@@ -2465,6 +2465,9 @@ button, .button {
     padding: 0;
     transition: all 1s; }
 
+.viewerHelp {
+  overflow-y: auto; }
+
 /* ****************** codeMirror **********************/
 ui-codemirror, div[ui-codemirror] {
   position: relative; }

@@ -6,9 +6,6 @@
 @import '../../bower_components/nsPopover/sass/ns-popover';
 
 
-
-
-
 html, body {
   height: 100%;
   padding: 0;
@@ -220,6 +217,11 @@ button,.button {
     transition: all 1s;
   }
 }
+
+.viewerHelp {
+  overflow-y: auto;
+}
+
 
 /* ****************** codeMirror **********************/
 ui-codemirror, div[ui-codemirror] {

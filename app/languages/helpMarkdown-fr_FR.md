@@ -32,7 +32,7 @@ Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s
 Tu vas aussi avoir besoin d'organiser ton document. Et tu peux le faire grace aux différents titres.
 
 Tu peux créer un titre en ajoutant un ou plusieurs # au début du texte de ton titre. Le nombre de # que tu utilises détermine l'importance du titre. Plus il y en a et moins il est important.
-L'exmple ci-dessous ne sera pas illustré, car il perturberait la présentation de cette aide. Mais les premiers titres que tu vas voir sont ceux de ce document :
+L'exemple ci-dessous ne sera pas illustré, car il perturberait la présentation de cette aide. Mais les premiers titres que tu vas voir sont ceux de ce document :
 
     # Les bases
     ## Paragraphes
@@ -48,7 +48,8 @@ Tu peux aussi souligner le titre.
     Le second plus important
     ------------------------
 
-Tu ne disposera alors que de deux niveaux pour tes titres, mais ton Markdown sera plus lisible.
+Tu ne disposera alors que de deux niveaux pour tes titres, mais ton Markdown sera plus lisible dans un éditeur Markdown différent de Natao.
+Ici, la première syntaxe, celle avec les # est beaucoup plus lisible, c'est celle que je te recommande.
 
 Si je peux te donner un bon conseil, ne dépasses pas trois niveaux de titre dans tes documents. Cela améliorera grandement sa lisibilité.
 
@@ -164,6 +165,10 @@ Tu peux créer une liste non ordonnée en mettant devant chaque article un '*' o
     - Article
     - Article
 
+- Article
+- Article
+- Article
+
 ### Listes ordonnées
 
 Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
@@ -172,19 +177,32 @@ Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
     2. Article 2
     3. Article 3
 
+1. Article 1
+2. Article 2
+3. Article 3
+
 
 ### Listes imbriquées
 
-Tu peux créer des listes imbriquées en ajoutant 2 espaces avant les articles de la liste 'fille'.
+Tu peux créer des listes imbriquées en ajoutant 1 tabulation ou 4 espaces avant les articles de la liste 'fille'.
 
     1. Article 1
-      1. Un point important de l'article 1.
-      2. Un autre point à considérer.
+        1. Un point important de l'article 1.
+        2. Un autre point à considérer.
     2. Article 2
-      * Une règle dont l'ordre nous indifère.
-      * Une autre règle.
-      * Et une dernière.
+        * Une règle dont l'ordre nous indifère.
+        * Une autre règle.
+        * Et une dernière.
     3. Article 3
+
+1. Article 1
+    1. Un point important de l'article 1.
+    2. Un autre point à considérer.
+2. Article 2
+  * Une règle dont l'ordre nous indifère.
+  * Une autre règle.
+  * Et une dernière.
+3. Article 3
 
 
 ## Tableaux
