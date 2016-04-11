@@ -2388,6 +2388,8 @@ button, .button {
     padding: 1px 5px 5px 5px;
     border: solid 2px;
     border-radius: 30px; }
+  button.help, .button.help {
+    padding: 1px 15px 5px 15px; }
 
 .bandeau {
   background-color: black;
