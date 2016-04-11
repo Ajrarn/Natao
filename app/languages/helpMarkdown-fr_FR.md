@@ -243,7 +243,7 @@ Tu peux aussi insérer une image, en utilisant son emplacement, dans l'exemple, 
 
 ![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 
-Attention, pour l'instant, les images ne sont pas sauvegardées dans Natao. Si tu utilises ta base de données sur plusieurs ordinateurs, il se peut que tu doives modifie l'adresse de l'image, mais tu dois surtout penser à la déplacer avec ton fichier Natao.db.
+Attention, pour l'instant, les images ne sont pas sauvegardées dans Natao. Si tu utilises ta base de données sur plusieurs ordinateurs, il se peut que tu doives modifier l'adresse de l'image, mais tu dois surtout penser à la déplacer avec ton fichier Natao.db.
 
 
 ## Liens
