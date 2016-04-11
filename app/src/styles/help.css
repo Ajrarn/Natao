@@ -15,6 +15,9 @@ p {
 .rendu {
   padding: 20px; }
 
+span {
+  font-size: 1.7em; }
+
 /* Table */
 .rendu table {
   border-collapse: collapse;
