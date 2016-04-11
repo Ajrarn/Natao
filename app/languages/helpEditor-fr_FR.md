@@ -6,8 +6,8 @@ Cette barre présente en haut de l'éditeur te donne accès aux fonctionnalités
 
 ## Zoome et Dézoome
 
- - Le bouton désigné par <span class="typcn typcn-zoom-out-outline"></span> te permet de diminuer la taille des caractères pour toute l'application.
- - Le bouton désigné par <span class="typcn typcn-zoom-in-outline"></span> te permet d'augmenter la taille des caractères pour toute l'application.
+ - <span class="typcn typcn-zoom-out-outline"></span> te permet de diminuer la taille des caractères pour toute l'application.
+ - <span class="typcn typcn-zoom-in-outline"></span> te permet d'augmenter la taille des caractères pour toute l'application.
 
 Une chose que tu dois savoir à propos de Natao, c'est que tout est enregistré automatiquement. Les modifications que tu apportes en le règlant, par exemple ici avec ces boutons, est sauvegardé.
 Tu n'auras pas à refaire ces réglages lorsque tu le redémarrera.
@@ -27,15 +27,15 @@ Il y a une petite exception à cette règle : les polices explicitement choisies
 
 ## Imprimer
 
-Le bouton désigné par <span class="typcn typcn-printer"></span> te permet d'imprimer le document actif.
+<span class="typcn typcn-printer"></span> te permet d'imprimer le document actif.
 
 ## Aide
 
-Le bouton désigné par <span>?</span> te permet d'ouvrir une nouvelle fenêtre avec l'aide (ce que tu es en train de lire).
+<span>?</span> te permet d'ouvrir une nouvelle fenêtre avec l'aide (ce que tu es en train de lire).
 
 ## Règlages
 
-Le bouton désigné par <span class="typcn typcn-cog-outline"></span> te permet d'accéder aux réglages de Natao.
+<span class="typcn typcn-cog-outline"></span> te permet d'accéder aux réglages de Natao.
 
 # Mes Cours
 
@@ -56,7 +56,8 @@ Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te c
  - Un clic sur le nom du dossier ouvrira un menu d'actions sur ce dernier que l'on verra juste après.
  - un clic sur un document, l'ouvrira dans la partie de droite dans l'éditeur et le panneau de visualisation.
 
- ## Les actions sur les dossiers
+
+## Les actions sur les dossiers
 
  ![Image of Explorer](./src/images/folderOptions.png)
 
@@ -68,7 +69,7 @@ Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te c
  - <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
  - <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier un dossier et tout son contenu.
  - <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
- - <span class="typcn typcn-download-outline"></span> permet d'enregistrer la structure, tous les sous-dossiers sans les documents, en tant que modèle de structure. Ce modèle de structure pourra être utilisé à chaque création de dossier/sous-dossier.
+ - <span class="typcn typcn-flow-children"></span> permet d'enregistrer la structure, tous les sous-dossiers sans les documents, en tant que modèle de structure. Ce modèle de structure pourra être utilisé à chaque création de dossier/sous-dossier.
  - <span class="typcn typcn-trash"></span> permet de supprimer le dossier ainsi que tout ce qu'il contient.
 
 
