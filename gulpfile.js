@@ -11,12 +11,12 @@ require('./gulp/builds');
 require('./gulp/internalBuild');
 
 gulp.task('default', function() {
-    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/app');  // create a command object for `cat`.
+    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.4-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/app');  // create a command object for `cat`.
     cmd.exec();
 });
 
 gulp.task('testTemp', function() {
-    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.0-rc3-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/temp');  // create a command object for `cat`.
+    var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.13.4-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/temp');  // create a command object for `cat`.
     cmd.exec();
 });
 
