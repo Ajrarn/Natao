@@ -1,165 +1,101 @@
-# Markdown Syntax
+# La barre de boutons principale
 
+![Image of MenuBar](./src/images/menuBar.png)
 
-## Paragraphs
+Cette barre présente en haut de l'éditeur te donne accès aux fonctionnalités essentielles de Natao.
 
-Paragraphs in Markdown are just one or more lines of consecutive text followed by one or more blank lines.
+## Zoome et Dézoome
 
-    On July 2, an alien mothership entered Earth's orbit and deployed several dozen saucer-shaped "destroyer" spacecraft, each 15 miles (24 km) wide.
+ - <span class="typcn typcn-zoom-out-outline"></span> te permet de diminuer la taille des caractères pour toute l'application.
+ - <span class="typcn typcn-zoom-in-outline"></span> te permet d'augmenter la taille des caractères pour toute l'application.
 
-    On July 3, the Black Knights, a squadron of Marine Corps F/A-18 Hornets, participated in an assault on a destroyer near the city of Los Angeles.
+Une chose que tu dois savoir à propos de Natao, c'est que tout est enregistré automatiquement. Les modifications que tu apportes en le règlant, par exemple ici avec ces boutons, est sauvegardé.
+Tu n'auras pas à refaire ces réglages lorsque tu le redémarrera.
 
-## Headings
+## Dyslexie
 
-You can create a heading by adding one or more # symbols before your heading text. The number of # you use will determine the size of the heading. This is similar to [**atx style**][atx].
+<span class="typcn typcn-lightbulb"></span> te permet d'activer ou de désactiver pour toute l'application, la police de caractère open-dyslexic.
+Cette dernière est spécialement étudiée pour améliorer le confort de lecture des dyslexiques.
 
-    # The largest heading (an <h1> tag)
-    ## The second largest heading (an <h2> tag)
-    …
-    ###### The 6th largest heading (an <h6> tag)
+Il y a une petite exception à cette règle : les polices explicitement choisies dans les feuilles de style, mais on verra cela plus tard.
 
-You can also use [setext style][setext] headings.
+## Les 3 panneaux
 
-    This is an H1
-    =============
+- <span class="typcn typcn-th-menu-outline"></span> permet de masquer/afficher le panneau de navigation dans tes documents, appelé aussi **Mes Cours**.
+- <span class="typcn typcn-edit"></span> permet de masquer/afficher l'éditeur Markdown
+- <span class="typcn typcn-eye-outline"></span> permet de masquer/afficher le panneau de visualisation du résultat.
 
-    This is an H2
-    -------------
+## Imprimer
 
-## Blockquotes
+<span class="typcn typcn-printer"></span> te permet d'imprimer le document actif.
 
-You can indicate blockquotes with a >.
+## Aide
 
-    In the words of Abraham Lincoln:
+<span>?</span> te permet d'ouvrir une nouvelle fenêtre avec l'aide (ce que tu es en train de lire).
 
-    > Pardon my french
+## Règlages
 
+<span class="typcn typcn-cog-outline"></span> te permet d'accéder aux réglages de Natao.
 
-## Styling text
+# Mes Cours
 
-You can make text **bold** or *italic*.
+## La barre d'outils du navigateur
+![Image of ExplorerBar](./src/images/myLessons.png)
 
-    *This text will be italic*
-    **This text will be bold**
+Cette barre contient, en plus du titre, 3 boutons :
+- <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
+- <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
+- <span class="typcn typcn-plus-outline"></span> permet d'ajouter un dossier à la racine de **Mes Cours**. Lors de la création d'un dossier, tu peux utiliser un modèle de structure qui ajouteras dans ton dossier des sous-dossier correspondant à l'organisation que tu as choisi.
 
-Both bold and italic can use either a `*` or an `_` around the text for styling. This allows you to combine both bold and italic if needed.
+## Le navigateur
 
-    **Everyone _must_ attend the meeting at 5 o'clock today.**
+![Image of Explorer](./src/images/explorer.png)
 
+Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te convient.
+- Un clic sur une icône de dossier le sélectionnera, le pliera ou le dépliera.
+- Un clic sur le nom du dossier ouvrira un menu d'actions sur ce dernier que l'on verra juste après.
+- un clic sur un document, l'ouvrira dans la partie de droite dans l'éditeur et le panneau de visualisation.
 
-## Lists
 
-### Unordered lists
+## Les actions sur les dossiers
 
-You can make an unordered list by preceding list items with either a * or a -.
+ ![Image of Explorer](./src/images/folderOptions.png)
 
-    * Item
-    * Item
-    * Item
+- <span class="typcn typcn-edit"></span> permet de modifier le nom du dossier, sa couleur, ou la feuille de style par défaut des documents qu'il contient. La modification du style par défaut n'est pas appliquée par défaut à tous les sous-dossiers et documents de ce dernier.
+- <span class="typcn typcn-folder-add"></span> permet d'ajouter un sous-dossier à celui que l'on a sélectionné. On peut également ici utiliser un modèle de structure pour créer automatiquement les sous-dossiers correspondant au modèle.
+- <span class="typcn typcn-document-add"></span> permet d'ajouter un document dans le dossier sélectionné.
+- <span class="typcn typcn-tabs-outline"></span> permet de copier un dossier et tout son contenu dans le presse-papier de Natao.
+- <span class="typcn typcn-scissors-outline"></span> permet de couper un dossier tout son contenu dans le presse-papier de Natao.
+- <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
+- <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier un dossier et tout son contenu.
+- <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
+- <span class="typcn typcn-flow-children"></span> permet d'enregistrer la structure, tous les sous-dossiers sans les documents, en tant que modèle de structure. Ce modèle de structure pourra être utilisé à chaque création de dossier/sous-dossier.
+- <span class="typcn typcn-trash"></span> permet de supprimer le dossier ainsi que tout ce qu'il contient.
 
-    - Item
-    - Item
-    - Item
+# L'éditeur
 
-### Ordered lists
+## Généralités
+ Voici l'outil principal de Natao. Celui qui te permet de rédiger tes documents. Tu peux y voir 3 champs de saisie/sélection:
+- *Le titre* : Le titre de ton document n'est pas inclus dans la rédaction de ce dernier. Cela permet notamment de le voir dans le navigateur. Mais ne t'inquiètes pas, il apparait bien dans le panneau de visualisation et quand tu imprimes le document.
+- *Le style* :  Le style que tu choisis ici modifie la mise en page de ton document dans le panneau de visualisation. On verra plus loin, comment créer ou modifier une feuille de style.
+- *Créé le* : La date de création. Par défaut, c'est la date du jour, mais tu peux la modifier. Cette date apparaîtra dans ton document en fonction de la feuille de style choisie. Cela peut donc être la date de remise d'un devoir par exemple.
 
-You can make an ordered list by preceding list items with a number.
+ Il y a également quelques boutons qui ont la même signification que dans le navigateur:
+- <span class="typcn typcn-tabs-outline"></span> permet de copier le document courant(avec ses champs) dans le presse-papier de Natao.
+- <span class="typcn typcn-scissors-outline"></span> permet de couper le document courant dans le presse-papier de Natao.
+- <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier le document courant.
+- <span class="typcn typcn-trash"></span> permet de supprimer le document courant.
 
-    1. Item 1
-    2. Item 2
-    3. Item 3
+## Réglages de l'éditeur
+Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présentation de l'éditeur avec 2 options très pratiques notamment en cas de troubles visuo-spatiaux:
+- la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro àa gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.
+- la possibilité d'augmenter la taille des lignes, et donc de séparer davantage les lignes de texte que par défaut. Attention ce réglage a un effet sur le curseur. Pour l'instant, il vaut mieux, après avoir modifié ce réglage, sortir de l'éditeur et y revenir. Soit en fermant Natao, soit en allant dans les réglages.
 
+## L'éditeur Markdown
 
-### Nested lists
+L'éditeur est composé d'un espace où tu peux saisir ton document en Markdown (pour connaître cette syntaxe, je 'invite à consulter la section d'aide dédiée), et d'une barre verticale contenant des numéros de lignes et qui peut aussi contenir d'autres symbôles suivant le contexte. Ici, tu pourras y voir des petits triangle te permettant de plier ou déplier ton document. Cela te permet entre autres de visualiser le plan de ton document.
 
-You can create nested lists by indenting list items by two spaces.
+Tu pourras également constater que l'éditeur met en valeur ton texte Markdown pour t'aider à t'y retrouver, à l'aide de couleurs, taille de catactères, etc...
 
-    1. Item 1
-      1. A corollary to the above item.
-      2. Yet another point to consider.
-    2. Item 2
-      * A corollary that does not need to be ordered.
-      * This is indented four spaces, because it's two spaces further than the item above.
-      * You might want to consider making a new list.
-    3. Item 3
-
-
-## Code formatting
-
-### Inline formats
-
-Use single backticks (\`) to format text in a special monospace format. Everything within the backticks appear as-is, with no other special formatting.
-
-    Here's an idea: why don't we take `SuperiorProject` and turn it into `**Reasonable**Project`.
-
-### Multiple lines
-
-Showdown wraps a code block in both `<pre>` and `<code>` tags.
-
-To produce a code block in Markdown, simply indent every line of the block by at least 4 spaces or 1 tab.
-
-    This is a normal paragraph:
-
-        This is a code block.
-
-You can also use triple backticks to format text as its own distinct block.
-
-
-    Check out this neat program I wrote:
-
-    ```
-    x = 0
-    x = 2 + 2
-    what is x
-    ```
-
-
-## Links
-
-Showdown supports two style of links: *inline* and *reference*.
-
-### Inline
-
-You can create an inline link by wrapping link text in brackets ( `[ ]` ), and then wrapping the link in parentheses ( `( )` ).
-
-For example, to create a hyperlink to `showdown.github.io`, with a link text that says, Showdown is great!, you'd write this in Markdown:
-
-    [Showdown is great!](http://showdown.github.io/)
-
-### Reference
-
-Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:
-
-    This is [an example][id] reference-style link.
-
-Then, anywhere in the document (usually at the end), you define your link label like this, on a line by itself:
-
-    [id]: http://example.com/  "Optional Title Here"
-
-
-## Tables
-
-Tables aren't part of the core Markdown spec, but they are part of GFM and Showdown supports them by turning on the flag `tables`.
-
-```
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-```
-
-this will produce this:
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| **col 3 is**  | right-aligned | $1600 |
-| col 2 is      | *centered*    |   $12 |
-| zebra stripes | ~~are neat~~  |    $1 |
-
-
-Colons can be used to align columns.
-
-The outer pipes (|) are **NOT** optional. But you don't need to make the raw Markdown line up prettily.
-
-You can also use other markdown syntax inside them.
+# Le panneau de visualisation
+C'est le panneau le plus simple, et finalement le plus important. C'est lui qui te montre à quoi ressemblera ton document une fois imprimé. Si tu cliques, sur le bouton <span class="typcn typcn-printer"></span>, ce panneau prendra tout l'espace avant de te proposer l'impression.

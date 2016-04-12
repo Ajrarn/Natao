@@ -61,5 +61,9 @@
   "SETTING_SWITCH_HTML":"HTML",
   "SETTING_SWITCH_VIEWER":"Aperçu",
   "SETTING_EDITOR":"Réglages de l'éditeur",
-  "TRASH":"Corbeille"
+  "TRASH":"Corbeille",
+  "HELP_INTERFACE": "Interface",
+  "HELP_MARKDOWN": "Markdown",
+  "HELP_ASCIIMATH": "AsciiMath",
+  "HELP_SETTINGS": "Réglages"
 }

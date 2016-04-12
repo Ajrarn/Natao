@@ -61,5 +61,9 @@
   "SETTING_SWITCH_HTML":"HTML",
   "SETTING_SWITCH_SHOW":"Viewer",
   "SETTING_EDITOR":"Editor settings",
-  "TRASH":"Trash"
+  "TRASH":"Trash",
+  "HELP_INTERFACE": "Interface",
+  "HELP_MARKDOWN": "Markdown",
+  "HELP_ASCIIMATH": "AsciiMath",
+  "HELP_SETTINGS": "Settings"
 }

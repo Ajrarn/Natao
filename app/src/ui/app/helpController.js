@@ -8,7 +8,7 @@
         .controller('HelpController', HelpController);
 
 
-    function HelpController($location,$showdown) {
+    function HelpController($location,$showdown,$translate,tmhDynamicLocale) {
         console.log('HelpController');
 
         var self = this;
@@ -23,7 +23,9 @@
         self.lang = self.urlArray[1].split('=')[1].split(',')[0];
         self.theme = self.urlArray[1].split('=')[2];
 
-        console.log(self.param);
+        //Set the language of the help
+        $translate.use(self.lang);
+        tmhDynamicLocale.set(self.lang.toLowerCase().replace('_','-'));
 
 
         self.currentHelpMarkdown = fs.readFileSync(process.cwd() + '/languages/helpMarkdown-' + self.lang + '.md','utf8');

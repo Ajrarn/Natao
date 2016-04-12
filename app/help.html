@@ -10,17 +10,22 @@
     <body layout="column" ng-class="helpCtrl.theme">
         <div flex layout="row"  layout-align="start stretch">
             <tabs>
-                <pane title="Interface" icon="typcn-device-desktop" class="setting">
+                <pane title="{{ 'HELP_INTERFACE' | translate }}" icon="typcn-device-desktop" class="setting">
                     <div flex layout="column" layout-align="start stretch" class="visualiser">
                         <div class="viewerHelp rendu" markdown-to-html="helpCtrl.currentHelpEditor" flex></div>
                     </div>
                 </pane>
-                <pane title="Markdown" icon="typcn-pen" class="setting">
+                <pane title="{{ 'HELP_MARKDOWN' | translate }}" icon="typcn-pen" class="setting">
                     <div flex layout="column" layout-align="start stretch" class="visualiser">
                         <div class="viewerHelp rendu" markdown-to-html="helpCtrl.currentHelpMarkdown" flex></div>
                     </div>
                 </pane>
-                <pane title="AsciiMath" icon="typcn-divide-outline" class="setting">
+                <pane title="{{ 'HELP_ASCIIMATH' | translate }}" icon="typcn-divide-outline" class="setting">
+                    <div flex layout="column" layout-align="start stretch" class="visualiser">
+                        <div class="viewerHelp rendu" markdown-to-html="helpCtrl.currentHelpAsciiMath" flex></div>
+                    </div>
+                </pane>
+                <pane title="{{ 'HELP_SETTINGS' | translate }}" icon="typcn-cog-outline" class="setting">
                     <div flex layout="column" layout-align="start stretch" class="visualiser">
                         <div class="viewerHelp rendu" markdown-to-html="helpCtrl.currentHelpAsciiMath" flex></div>
                     </div>
@@ -32,7 +37,13 @@
         <script type="text/javascript" src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
         <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script type="text/javascript" src="bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
+        <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
+        <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_en-us.js"></script>
+        <script type="text/javascript" src="bower_components/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
+        <script type="text/javascript" src="bower_components/angular-translate/angular-translate.js"></script>
+        <script type="text/javascript" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
         <script type="text/javascript" src="src/ui/app/appHelp.js"></script>
+        <script type="text/javascript" src="src/ui/app/appConfig.js"></script>
         <script type="text/javascript" src="src/ui/app/appConfigMathJax.js"></script>
         <script type="text/javascript" src="src/ui/app/helpController.js"></script>
         <script type="text/javascript" src="src/utils/tabs.js"></script>

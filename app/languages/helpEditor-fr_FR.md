@@ -72,9 +72,9 @@ Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te c
 - <span class="typcn typcn-flow-children"></span> permet d'enregistrer la structure, tous les sous-dossiers sans les documents, en tant que modèle de structure. Ce modèle de structure pourra être utilisé à chaque création de dossier/sous-dossier.
 - <span class="typcn typcn-trash"></span> permet de supprimer le dossier ainsi que tout ce qu'il contient.
 
- # L'éditeur
+# L'éditeur
 
- ## Généralités
+## Généralités
  Voici l'outil principal de Natao. Celui qui te permet de rédiger tes documents. Tu peux y voir 3 champs de saisie/sélection:
 - *Le titre* : Le titre de ton document n'est pas inclus dans la rédaction de ce dernier. Cela permet notamment de le voir dans le navigateur. Mais ne t'inquiètes pas, il apparait bien dans le panneau de visualisation et quand tu imprimes le document.
 - *Le style* :  Le style que tu choisis ici modifie la mise en page de ton document dans le panneau de visualisation. On verra plus loin, comment créer ou modifier une feuille de style.
@@ -90,3 +90,12 @@ Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te c
 Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présentation de l'éditeur avec 2 options très pratiques notamment en cas de troubles visuo-spatiaux:
 - la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro àa gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.
 - la possibilité d'augmenter la taille des lignes, et donc de séparer davantage les lignes de texte que par défaut. Attention ce réglage a un effet sur le curseur. Pour l'instant, il vaut mieux, après avoir modifié ce réglage, sortir de l'éditeur et y revenir. Soit en fermant Natao, soit en allant dans les réglages.
+
+## L'éditeur Markdown
+
+L'éditeur est composé d'un espace où tu peux saisir ton document en Markdown (pour connaître cette syntaxe, je 'invite à consulter la section d'aide dédiée), et d'une barre verticale contenant des numéros de lignes et qui peut aussi contenir d'autres symbôles suivant le contexte. Ici, tu pourras y voir des petits triangle te permettant de plier ou déplier ton document. Cela te permet entre autres de visualiser le plan de ton document.
+
+Tu pourras également constater que l'éditeur met en valeur ton texte Markdown pour t'aider à t'y retrouver, à l'aide de couleurs, taille de catactères, etc...
+
+# Le panneau de visualisation
+C'est le panneau le plus simple, et finalement le plus important. C'est lui qui te montre à quoi ressemblera ton document une fois imprimé. Si tu cliques, sur le bouton <span class="typcn typcn-printer"></span>, ce panneau prendra tout l'espace avant de te proposer l'impression.
