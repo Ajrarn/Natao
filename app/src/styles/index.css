@@ -2399,6 +2399,14 @@ button, .button {
   .bandeau button {
     font-size: 1.7em; }
 
+/* ************************ fields ******************/
+.allInOne input {
+  margin-right: 0; }
+.allInOne button {
+  margin-left: 0;
+  border-radius: 0;
+  font-size: 1.2em; }
+
 .principal {
   position: relative; }
 

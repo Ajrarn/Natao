@@ -33,9 +33,10 @@
                                         <option value="aucun">Aucun</option>
                                     </select>
                                 </label>
-                                <label for="newClassName" layout="column" layout-align="center center">
+                                <label for="newClassName" layout="row" layout-align="center center" class="allInOne">
                                     <p>{{ 'CLASS_NAME' | translate }}</p>
                                     <input id="newClassName" ng-model="EditorCtrl.newClass" focus-on="newClassName">
+                                    <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
                                 </label>
                             </form>
                         </div>
@@ -82,11 +83,12 @@
                                 <span class="button" ng-click="EditorCtrl.openDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
                             </div>
                             <form name="EditFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'edit'">
-                                <label for="folderName" layout="column" layout-align="center center">
+                                <label for="folderName" layout="row" layout-align="center center" class="allInOne">
                                     <p>{{ 'NODE_NAME' | translate }}</p>
                                     <input id="folderName" ng-model="EditorCtrl.newNameFolder" focus-on="folderName">
+                                    <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
                                 </label>
-                                <label for="defaultCss" layout="column" layout-align="center center">
+                                <label for="defaultCss" layout="row" layout-align="center center">
                                     <p>{{ 'DEFAULT_CSS' | translate }}</p>
                                     <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.submitFolderPopover(hidePopover)">
                                     </select>
@@ -100,21 +102,24 @@
                                         <option value="aucun">Aucun</option>
                                     </select>
                                 </label>
-                                <label for="addFolderName" layout="column" layout-align="center center">
+                                <label for="addFolderName" layout="row" layout-align="center center" class="allInOne">
                                     <p>{{ 'SUB_NODE_NAME' | translate }}</p>
                                     <input id="addFolderName" ng-model="EditorCtrl.newFolderName" focus-on="addFolderName">
+                                    <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
                                 </label>
                             </form>
                             <form name="AddDocument" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addDocument'">
-                                <label for="addDocumentName" layout="column" layout-align="center center">
+                                <label for="addDocumentName" layout="row" layout-align="center center" class="allInOne">
                                     <p>{{ 'DOC_TITLE' | translate }}</p>
                                     <input id="addDocumentName" ng-model="EditorCtrl.newDocumentName" focus-on="addDocumentName">
+                                    <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
                                 </label>
                             </form>
                             <form name="SaveTemplate" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'saveTemplate'">
-                                <label for="templateName" layout="column" layout-align="center center">
+                                <label for="templateName" layout="row" layout-align="center center" class="allInOne">
                                     <p>{{ 'TEMPLATE_NAME' | translate }}</p>
                                     <input id="templateName" ng-model="EditorCtrl.templateName" focus-on="templateName">
+                                    <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
                                 </label>
                             </form>
                             <form name="Delete" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'delete'">
