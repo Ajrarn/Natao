@@ -15,6 +15,7 @@
   "FILE_NEW":"Nouvelle base de données",
   "FILE_LOAD":"Ouvrir Base de données",
   "SCHOOLBAG":"Mes Cours",
+  "WELCOME": "Bienvenue",
   "SETTING_MESSAGE":"#Bienvenue dans Natao\n\n Avant d'aller plus loin, j'ai besoin d'informations pour apprendre à te connaître.",
   "SETTING_MESSAGE_DATABASE":"Ton fichier base de données pour commencer, je te conseille d'ailleurs de le stocker dans un dossier Dropbox",
   "SETTING_MESSAGE_NAME":" J'ai aussi besoin de ton nom et de ton prénom",

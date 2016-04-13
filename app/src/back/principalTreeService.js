@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate) {
         console.log('PrincipalTreeService');
 
         var self = this;
@@ -27,6 +27,7 @@
         self.PendingService = PendingService;
         self.$timeout = $timeout;
         self.$q = $q;
+        self.$translate = $translate;
         self.docsMarkdown = [];
         self.principalTree = {
             docName: 'PrincipalTree',
@@ -88,8 +89,20 @@
                                 self.principalTree = newDoc;
                                 console.log('principalTree',self.principalTree);
 
+                                //We will create the first document
+                                self.$translate('WELCOME').then(function (translation) {
+                                    self.addFolderOnly(translation);
+                                    var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
+                                    self.addMarkdown(self.principalTree.selectedNode,translation,welcomeMd);
+                                    //self.save();
+                                });
+                                
+
+
+
                                 //and we save the first version
-                                var copyPrincipalTree = {};
+                                
+                                /*var copyPrincipalTree = {};
                                 angular.copy(self.principalTree,copyPrincipalTree);
                                 self.PendingService.start();
                                 self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
@@ -97,7 +110,7 @@
                                     if (err) {
                                         console.error('error:', err);
                                     }
-                                });
+                                });*/
                             }
                         });
 
@@ -130,7 +143,7 @@
             var copyPrincipalTree = {};
             angular.copy(self.principalTree,copyPrincipalTree);
             self.PendingService.start();
-            self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err,doc) {
+            self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
                 self.PendingService.stop();
                 if (err) {
                     console.error('error:', err);
@@ -164,13 +177,6 @@
             MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
         };
 
-        // if we do the save on the select node, the selected node is not yet set
-        //so we have to watch it
-        /*self.$rootScope.$watch(function(){
-                return self.principalTree.selectedNode;
-        },function() {
-            self.save();
-        });*/
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
             if (templateName) {
@@ -227,7 +233,7 @@
             self.addFolder(nameClass,null,nameTemplate);
         };
 
-        self.addMarkdown = function(node,title) {
+        self.addMarkdown = function(node,title,markdown) {
 
             var newMarkDown = {
                 docName: 'markdown',
@@ -236,6 +242,10 @@
                 css: node.defaultCss,
                 md: ''
             };
+            
+            if (markdown) {
+                newMarkDown.md = markdown;
+            }
 
             self.PendingService.start();
             self.db.insert(newMarkDown, function (err, newDoc) {
