@@ -5,7 +5,7 @@ var gutil = require('gulp-util');
 
 gulp.task('buildOSX',function() {
     var nw = new NwBuilder({
-        version: '0.13.3',
+        version: '0.13.4',
         files: [ './app/**/**.*'],
         //platforms: ['osx64','win64'],
         platforms: ['osx64'],

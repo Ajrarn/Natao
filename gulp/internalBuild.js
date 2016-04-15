@@ -5,7 +5,7 @@ var rename = require("gulp-rename");
 var gutil = require('gulp-util');
 
 
-var version = '0.13.3';
+var version = '0.13.4';
 
 gulp.task('copyWindows',function() {
     return gulp.src([ 'cache/nwjs-v' + version + '-win-x64/**/**' ]).pipe(gulp.dest('build/win64'));
@@ -68,7 +68,7 @@ gulp.task('cleanBuild',function() {
 
 gulp.task('copyCache',function() {
     gulp.src([
-        'cache/nwjs-v0.13.3-osx-x64/**/*.*'
+        'cache/nwjs-v0.13.4-osx-x64/**/*.*'
     ]).pipe(gulp.dest('./build/linux64'));
 });
 

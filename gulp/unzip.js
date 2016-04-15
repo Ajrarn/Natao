@@ -7,7 +7,7 @@ var fs = require('fs');
 var del = require('del');
 
 var fileBasePath = './downloads/nwjs-v';
-var version = '0.13.3';
+var version = '0.13.4';
 
 gulp.task('unzipWindows',function() {
     var endFileName = '-win-x64.zip';
@@ -57,4 +57,4 @@ gulp.task('cleanCache',function() {
     return del(['cache/**/*']);
 });
 
-gulp.task('unzipAll',gulpSequence('cleanCache',['unzipWindows', 'unzipOSX', 'unzipWindowsSDK','unzipLinux'],['correctWindows','correctLinux']));
+gulp.task('unzipAll',gulpSequence('cleanCache',['unzipWindows', 'unzipWindowsSDK','unzipLinux'],['correctWindows','correctLinux']));

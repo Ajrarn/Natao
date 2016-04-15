@@ -5,7 +5,7 @@ var fs = require('fs');
 
 
 var fileBasePath = './downloads/nwjs-v';
-var version = '0.13.3';
+var version = '0.13.4';
 var urlBaseDownload = 'http://dl.nwjs.io/v' + version + '/nwjs-v' + version;
 
 
@@ -50,4 +50,4 @@ gulp.task('downloadLinux', function(cb) {
 
 });
 
-gulp.task('downloadAll', gulpSequence(['downloadWindows', 'downloadWindowsSDK','downloadLinux','downloadOSX']));
+gulp.task('downloadAll', gulpSequence(['downloadWindows', 'downloadWindowsSDK','downloadLinux']));
