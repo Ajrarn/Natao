@@ -24,7 +24,7 @@
         self.theme = self.urlArray[1].split('=')[2];
 
         //Set the language of the help
-        $translate.use(self.lang);
+        //$translate.use(self.lang);
         tmhDynamicLocale.set(self.lang.toLowerCase().replace('_','-'));
 
 
