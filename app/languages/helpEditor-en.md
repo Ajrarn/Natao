@@ -39,33 +39,33 @@ Il y a une petite exception à cette règle : les polices explicitement choisies
 
 # Mes Cours
 
-## La barre d'outils du navigateur
+## La barre d'outils de l'explorateur de documents
 ![Image of ExplorerBar](./src/images/myLessons.png)
 
 Cette barre contient, en plus du titre, 3 boutons :
 - <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
-- <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
-- <span class="typcn typcn-plus-outline"></span> permet d'ajouter un dossier à la racine de **Mes Cours**. Lors de la création d'un dossier, tu peux utiliser un modèle de structure qui ajouteras dans ton dossier des sous-dossier correspondant à l'organisation que tu as choisi.
+- <span class="typcn typcn-download-outline"></span> permet d'importer un contenu depuis un fichier.
+- <span class="typcn typcn-plus-outline"></span> permet d'ajouter un dossier à la racine de **Mes Cours**. Lors de la création d'un dossier, tu peux utiliser un modèle de structure qui ajoutera dans ton dossier des sous-dossier correspondant à l'organisation que tu as choisi.
 
-## Le navigateur
+## L'explorateur de documents
 
 ![Image of Explorer](./src/images/explorer.png)
 
-Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te convient.
+Dans ce dernier apparaissent tes dossiers et documents, selon l'organisation qui te convient.
 - Un clic sur une icône de dossier le sélectionnera, le pliera ou le dépliera.
 - Un clic sur le nom du dossier ouvrira un menu d'actions sur ce dernier que l'on verra juste après.
-- un clic sur un document, l'ouvrira dans la partie de droite dans l'éditeur et le panneau de visualisation.
+- un clic sur un document, l'ouvrira dans la partie de droite, dans l'éditeur et le panneau de visualisation.
 
 
 ## Les actions sur les dossiers
 
  ![Image of Explorer](./src/images/folderOptions.png)
 
-- <span class="typcn typcn-edit"></span> permet de modifier le nom du dossier, sa couleur, ou la feuille de style par défaut des documents qu'il contient. La modification du style par défaut n'est pas appliquée par défaut à tous les sous-dossiers et documents de ce dernier.
+- <span class="typcn typcn-edit"></span> permet de modifier le nom du dossier, sa couleur, ou la feuille de style par défaut des documents qu'il contient. La modification du style par défaut n'est pas appliquée  à tous les sous-dossiers et documents de ce dernier.
 - <span class="typcn typcn-folder-add"></span> permet d'ajouter un sous-dossier à celui que l'on a sélectionné. On peut également ici utiliser un modèle de structure pour créer automatiquement les sous-dossiers correspondant au modèle.
 - <span class="typcn typcn-document-add"></span> permet d'ajouter un document dans le dossier sélectionné.
 - <span class="typcn typcn-tabs-outline"></span> permet de copier un dossier et tout son contenu dans le presse-papier de Natao.
-- <span class="typcn typcn-scissors-outline"></span> permet de couper un dossier tout son contenu dans le presse-papier de Natao.
+- <span class="typcn typcn-scissors-outline"></span> permet de couper un dossier et tout son contenu dans le presse-papier de Natao.
 - <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
 - <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier un dossier et tout son contenu.
 - <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
@@ -88,14 +88,14 @@ Dans ce dernier apparait tes dossier et documents, selon l'organisation qui te c
 
 ## Réglages de l'éditeur
 Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présentation de l'éditeur avec 2 options très pratiques notamment en cas de troubles visuo-spatiaux:
-- la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro àa gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.
+- la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro à gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.
 - la possibilité d'augmenter la taille des lignes, et donc de séparer davantage les lignes de texte que par défaut. Attention ce réglage a un effet sur le curseur. Pour l'instant, il vaut mieux, après avoir modifié ce réglage, sortir de l'éditeur et y revenir. Soit en fermant Natao, soit en allant dans les réglages.
 
 ## L'éditeur Markdown
 
 L'éditeur est composé d'un espace où tu peux saisir ton document en Markdown (pour connaître cette syntaxe, je 'invite à consulter la section d'aide dédiée), et d'une barre verticale contenant des numéros de lignes et qui peut aussi contenir d'autres symbôles suivant le contexte. Ici, tu pourras y voir des petits triangle te permettant de plier ou déplier ton document. Cela te permet entre autres de visualiser le plan de ton document.
 
-Tu pourras également constater que l'éditeur met en valeur ton texte Markdown pour t'aider à t'y retrouver, à l'aide de couleurs, taille de catactères, etc...
+Tu pourras également constater que l'éditeur met en valeur ton texte Markdown pour t'aider à t'y retrouver, à l'aide de couleurs, taille de caractères, etc...
 
 # Le panneau de visualisation
 C'est le panneau le plus simple, et finalement le plus important. C'est lui qui te montre à quoi ressemblera ton document une fois imprimé. Si tu cliques, sur le bouton <span class="typcn typcn-printer"></span>, ce panneau prendra tout l'espace avant de te proposer l'impression.
