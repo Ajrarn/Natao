@@ -79,12 +79,6 @@
             $location.path( '/editor' );
         };
 
-        self.changeLanguage = function(language) {
-            self.PreferencesService.changeLanguage(language);
-            self.settingsValide();
-        };
-
-
         self.newDatabase = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;

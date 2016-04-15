@@ -6,20 +6,20 @@
         .config(AppConfig);
 
 
-    function AppConfig($translateProvider,tmhDynamicLocaleProvider) {
+    function AppConfig($translateProvider) {
         console.log('AppConfig');
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',
             suffix: '.json'
-        });
+        }).registerAvailableLanguageKeys(['en_US', 'fr_FR'], {
+            'en': 'en_US',
+            'fr': 'fr_FR'
+        }).determinePreferredLanguage().fallbackLanguage(['en_US']);;
 
         //$translateProvider.useSanitizeValueStrategy('sanitize');
         $translateProvider.useSanitizeValueStrategy('escape');
-        $translateProvider.preferredLanguage('fr_FR');
-
-        tmhDynamicLocaleProvider.localeLocationPattern('./bower_components/angular-i18n/angular-locale_{{locale}}.js');
-
+  
     }
 
 }());

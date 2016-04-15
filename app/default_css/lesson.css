@@ -11,57 +11,68 @@
     display: none;
 }
 
-.rendu{
+.rendu {
     padding:20px;
 }
 
-p {
-    text-align: justify;
+.title-zone > h1 {
+    text-align: center;
+    font-size: 2em;
+    color: red;
+}
+
+#dateCreated {
+    display: none;
+}
+
+.rendu p {
+    text-align:justify;
 }
 
 
 /* Table */
-.rendutable {
+.rendu table {
     border-collapse: collapse;
     margin-left:auto;
     margin-right:auto;
 }
 
-.rendutable thead, .rendutable tr {
+.rendu table thead, .rendu table tr {
     border-top-width: 1px;
     border-top-style: solid;
-    border-top-color: rgb(211, 202, 221);
+    border-top-color: rgb(214,221,202);
 }
-.rendutable {
+
+.rendu table {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgb(211, 202, 221);
 }
 
 /* Padding and font style */
-.rendutable td, .rendutable th {
+.rendu table td, .rendu table th {
     padding: 5px 10px;
     font-size: 12px;
     font-family: Verdana;
-    color: rgb(95, 74, 121);
+    color: rgb(96,120,73);
 }
 
 /* Alternating background colors */
-.rendutable tr:nth-child(even) {
-    background: rgb(223, 216, 232)
+.rendu table tr:nth-child(even) {
+    background: rgb(218,232,216)
 }
-.rendutable tr:nth-child(odd) {
+.rendu table tr:nth-child(odd) {
     background: #FFF
 }
 
-blockquote {
+.rendu blockquote {
     background: #f9f9f9;
     border-left: 10px solid #ccc;
-    margin: 1.5em 1em 1.5em 0.5empx;
+    margin: 1.5em 1em 1.5em 0.5em;
     padding: 0.5em 10px;
     quotes: "\201C""\201D""\2018""\2019";
 }
-blockquote:before {
+.rendu blockquote:before {
     color: #ccc;
     content: open-quote;
     font-size: 4em;
@@ -69,55 +80,60 @@ blockquote:before {
     margin-right: 0.25em;
     vertical-align: -0.4em;
 }
-blockquote p {
+.rendu blockquote p {
     display: block;
     margin-left:50px;
 }
 
-.rendu{counter-reset: h1 h2 h3;}
+.rendu {counter-reset: h1 h2 h3;}
 
-.rendu h1 {
+.rendu  h1 {
     font-family: "Courier New", Courier, monospace;
-    margin-bottom: 40px;
-    margin-top: 40px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    font-size: 1.5em;
 }
 
-.rendu h1:before {
+.rendu  h1:before {
     content: counter(h1,upper-roman) " - ";
     counter-increment: h1;
 }
 
-.renduh1:after {
+.rendu h1:after {
     content:' ';
     display:block;
     border:1px solid lightgrey;
 }
 
-.renduh2:before {
+.rendu h2 {
+    font-size: 1.2em;
+}
+
+.rendu h2:before {
     content: counter(h1) "." counter(h2) "  ";
     counter-increment: h2;
 }
-.rendu h3:before {
+.rendu  h3:before {
     content: counter(h1) "." counter(h2) "." counter(h3) "  ";
     counter-increment: h3;
 }
-.rendu h1 {
+.rendu  h1 {
     counter-reset: h2;
 }
-.rendu h2 {
+.rendu  h2 {
     counter-reset: h3;
 }
-.rendu h1.unnumbered, h2.unnumbered {
+.rendu  h1.unnumbered, h2.unnumbered {
     counter-reset: none;
 }
-.rendu h1.unnumbered:before,
-.rendu h2.unnumbered:before,
-.rendu h3.unnumbered:before{
+.rendu  h1.unnumbered:before,
+.rendu  h2.unnumbered:before,
+.rendu  h3.unnumbered:before{
     content: none;
     counter-increment: none;
 }
 
-pre {
+.rendu pre {
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
@@ -130,8 +146,12 @@ pre {
     padding: 0.125rem 0.3125rem 0.0625rem;
 }
 
-pre code {
+.rendu pre code {
     background-color: transparent;
     border: 0;
     padding: 0;
+}
+
+.rendu strong {
+    text-decoration: underline;
 }

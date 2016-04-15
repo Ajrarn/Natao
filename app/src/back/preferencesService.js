@@ -21,7 +21,7 @@
 
 
     //Service itself
-    function PreferencesService(DatabaseService,$location,$rootScope,$translate,tmhDynamicLocale) {
+    function PreferencesService(DatabaseService,$location,$rootScope,$translate) {
         console.log('PreferencesService');
 
         var self = this;
@@ -29,7 +29,6 @@
         self.$location = $location;
         self.$rootScope=$rootScope;
         self.$translate = $translate;
-        self.tmhDynamicLocale = tmhDynamicLocale;
 
 
         self.fileDatabaseExist = function() {
@@ -49,7 +48,6 @@
             name: null,
             firstName: null,
             colorTheme: null,
-            language: null,
             showDys: false,
             zoomLevel: 0,
             showMenu: true,
@@ -85,7 +83,6 @@
             valid = valid && self.preferences && self.preferences.name;
             valid = valid && self.preferences && self.preferences.firstName;
             valid = valid && self.preferences && self.preferences.colorTheme;
-            valid = valid && self.preferences && self.preferences.language;
             valid = valid && self.preferences && self.preferences.zoomLevel !== null;
             valid = valid && self.preferences && self.preferences.showDys !== null;
             valid = valid && self.preferences && self.preferences.showMenu !== null;
@@ -120,17 +117,7 @@
         self.getDB = function() {
            return self.db;
         };
-
-        //This function use the language in the settings
-        self.changeLanguage = function(language) {
-            if (language){
-                self.preferences.language = language;
-            }
-            self.$translate.use(self.preferences.language);
-
-            self.tmhDynamicLocale.set(self.preferences.language.toLowerCase().replace('_','-'));
-
-        };
+        
 
         self.init = function() {
 
@@ -150,9 +137,6 @@
                         } else {
                             self.preferences = docs[0];
                             if (self.isValid()) {
-                                // language settings
-                                self.changeLanguage();
-
                                 // and then go to the editor
                                 self.$location.path('/loading');
                                 self.zoomChange();

@@ -72,7 +72,7 @@ Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisat
 
 **Tout le monde _doit_ arriver à l'heure aujourd'hui.**
 
-Enfin, il existe une dernière valorisation de texte qui consiste à signifier qu'il est faut, en le rayant par exemple
+Enfin, il existe une dernière valorisation de texte qui consiste à signifier qu'il est faux, en le rayant par exemple
 
     ~~une bêtise~~
 

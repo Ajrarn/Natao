@@ -10,7 +10,7 @@
 
     function FirstTimeSettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$translate,$sce,fileDialog) {
         console.log('FirstTimeSettingsController');
-
+        
         var self = this;
 
         self.PreferencesService = PreferencesService;
@@ -19,19 +19,21 @@
         self.$scope = $scope;
 
         self.fileDialog = fileDialog;
+        
+        self.step = 1;
 
-        // for the first time, we have to go step by step
-        if (!self.PreferencesService.settings.fileDatabase) {
-            self.step = 1;
-        } else {
-            self.step = 5;
-        }
-
-        // The only way to the good message with asynchroneous loading of translation
-        $rootScope.$on('$translateChangeSuccess', function () {
-            self.message = $translate.instant('SETTING_MESSAGE');
+        $translate('SETTING_MESSAGE').then(function (translation) {
+            self.welcomeMessage = translation;
         });
 
+        $translate('SETTING_MESSAGE_DATABASE').then(function (translation) {
+            self.databaseMessage = translation;
+        });
+
+        $translate('SETTING_MESSAGE_NAME').then(function (translation) {
+            self.identityMessage = translation;
+        });
+        
 
         self.settingsValide = function() {
             self.valid = self.PreferencesService.isValid();
@@ -44,7 +46,7 @@
             self.settingsValide();
             if (self.PreferencesService.preferences.name && self.PreferencesService.preferences.firstName && self.PreferencesService.preferences.className
                 && self.PreferencesService.preferences.name !== '' && self.PreferencesService.preferences.firstName !== '' && self.PreferencesService.preferences.className !== '') {
-                self.step = 4;
+                self.step = 3;
             }
         };
 
@@ -52,21 +54,15 @@
             self.PreferencesService.save();
             $location.path( '/loading' );
         };
-
-        self.changeLanguage = function(language) {
-            self.PreferencesService.changeLanguage(language);
-            self.settingsValide();
-            self.step = 2;
-        };
-
-
+        
+        
         self.newDatabase = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;
                 if (fs.existsSync(filename)) {
                     fs.unlinkSync(filename);
                 }
-                self.step = 3;
+                self.step = 2;
                 self.$scope.$apply();
             },'Natao.db',['db']);
         };
@@ -80,23 +76,23 @@
         };
 
         self.showMessage = function() {
-            return (self.step > 1)
+            return (self.step > 0)
         };
 
         self.showFile = function() {
-            return (self.step > 1)
+            return (self.step > 0)
         };
 
         self.showId = function() {
-            return (self.step > 2)
+            return (self.step > 1)
         };
 
         self.showColor = function() {
-            return (self.step > 3)
+            return (self.step > 2)
         };
 
         self.showDone = function() {
-            return (self.step > 3 && self.valid)
+            return (self.step > 2 && self.valid)
         };
 
         self.settingsValide();

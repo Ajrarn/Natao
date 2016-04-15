@@ -27,6 +27,7 @@
 
     function AppController($location,PreferencesService,CssService,$translate,$showdown) {
         console.log('AppController');
+        console.info(window.navigator.language);
 
         var self = this;
         self.$location = $location;

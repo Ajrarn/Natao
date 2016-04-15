@@ -9,7 +9,7 @@
 // Get the current window
     var win = gui.Window.get();
 
-    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch','ngjsColorPicker','ui.codemirror'];
+    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch','ngjsColorPicker','ui.codemirror'];
 
     angular
         .module('Natao', modules)
@@ -21,11 +21,8 @@
         //prevent properly close
         win.on('close', function () {
 
-            PrincipalTreeService.clearBuffer();
-
             if (PendingService.pending > 0) {
-
-                var _this = this;
+                PrincipalTreeService.clearBuffer();
                 $rootScope.$watch(function () {
                     return PendingService.pending;
                 }, function () {
