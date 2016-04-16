@@ -1,0 +1,23 @@
+{
+  "name": "Natao",
+  "version": "1.0.0-alpha2",
+  "description": "A Markdown, AsciiMath Editor for school",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christophe Dos Santos",
+  "license": "MIT",
+  "main": "index.html",
+  "window": {
+    "width": 1366,
+    "height": 768,
+    "min_width": 1200,
+    "min_height": 580
+  },
+  "dependencies": {
+    "js-beautify": "^1.6.2",
+    "lodash": "^3.10.1",
+    "nedb": "^1.5.0",
+    "node-uuid": "^1.4.7"
+  }
+}

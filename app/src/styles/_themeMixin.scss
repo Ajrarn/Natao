@@ -1,0 +1,111 @@
+
+@mixin color-theme($color_map) {
+
+  button,.button {
+    background-color: map-get($color_map, DD);
+
+
+    &:hover {
+      background-color: map-get($color_map, MD);
+    }
+
+    &:disabled,&.disabled {
+      background-color: map-get($color_map, MM);
+      &:hover {
+        background-color: map-get($color_map, MM);
+      }
+    }
+
+    &.transparent {
+
+      background-color: transparent;
+
+      &:hover {
+        background-color: map-get($color_map, DD);
+      }
+
+      &:disabled {
+        color: map-get($color_map, MM);
+        &:hover {
+          background-color: transparent;
+        }
+      }
+
+      &.light{
+
+        &:hover {
+          background-color: map-get($color_map, MD);
+        }
+
+        &:disabled {
+          color: map-get($color_map, MM);
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+    &.toggle {
+      background-color: map-get($color_map, DD);
+      color:white;
+      border-color: map-get($color_map, LL);
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px map-get($color_map, ML), 0 0 70px map-get($color_map, ML), 0 0 80px map-get($color_map, ML), 0 0 100px map-get($color_map, ML), 0 0 150px map-get($color_map, ML);
+
+      /*&:hover {
+        background-color: map-get($color_map, DD);
+      }*/
+
+      &.off {
+        color: black;
+        text-shadow: none;
+        border-color: black;
+      }
+    }
+  }
+
+  .principal {
+    background-color: map-get($color_map, ML);
+  }
+
+  .menu {
+    background-color: map-get($color_map, DD);
+  }
+
+  .files {
+    background-color: map-get($color_map, MD);
+  }
+
+  .nav-tabs {
+    background-color: map-get($color_map, MM);
+
+    li {
+      background-color: map-get($color_map, ML);
+
+      border-color: map-get($color_map, MD);
+
+      &.active {
+        background-color: white;
+      }
+    }
+  }
+
+  .switch.checked {
+    background: map-get($color_map, MD);
+    border-color: map-get($color_map, MD);
+  }
+
+  .border {
+    border: solid 1px map-get($color_map,MD);
+  }
+}
+
+@mixin color-square($color_map) {
+  min-height: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  background-color: map-get($color_map,MM);
+  border: solid 1px map-get($color_map,DD);
+}
+

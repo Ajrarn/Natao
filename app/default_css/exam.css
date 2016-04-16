@@ -1,0 +1,94 @@
+.haut {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.notation {
+    height: 200px;
+    border-top: blue solid 1px;
+    border-bottom: blue solid 1px;
+}
+
+.identity {
+    width: 200px;
+    text-align: left;
+    line-height: 1em;
+}
+
+.identity > p {
+    margin: 0.6em;
+}
+
+.title-zone > h1 {
+    text-align: center;
+    font-size: 2em;
+    color: red;
+}
+
+.title-zone > p {
+    text-align: center;
+}
+
+.marge {
+    width: 200px;
+    min-width: 100px;
+    border-right: red solid 1px;
+}
+
+p {
+    text-align:justify;
+}
+
+h1 {
+    color: red;
+}
+
+.rendu {
+    margin: 20px;
+}
+.rendu  h1 {
+    color: blue;
+}
+
+/* Table Head */
+.rendu table {
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
+}
+.rendu table thead th {
+    background-color: rgb(101,158,155);
+    color: #fff;
+    border-bottom-width: 0;
+}
+
+/* Column Style */
+.rendu table tbody td {
+    color: #000;
+}
+/* Heading and Column Style */
+.rendu table tbody tr, .rendu table thead th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(101,158,127);
+}
+
+/* Padding and font style */
+.rendu table tbody td, .rendu table thead th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+}
+
+blockquote {
+    font: 14px/22px normal helvetica, sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    padding-left: 15px;
+    border-left: 3px solid #ccc;
+}
+
+
+

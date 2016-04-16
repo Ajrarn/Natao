@@ -1,0 +1,44 @@
+{
+  "name": "Natao",
+  "version": "0.0.1",
+  "authors": [
+    "Christophe Dos Santos <christophe.ajrarn@gmail.com>"
+  ],
+  "description": "An editor for school",
+  "main": "index.html",
+  "keywords": [
+    "school"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "ng-showdown": "~1.1.0",
+    "MathJax": "latest",
+    "typicons": "~2.0.7",
+    "angular-tree-control": "~0.2.23",
+    "open-dyslexic": "*",
+    "nw-fileDialog": "git://github.com/DWand/nw-fileDialog#b50f8c1b7aa1bb19be8f90b24ab1e3ed049dc1eb",
+    "angular-i18n": "~1.5.2",
+    "angular-dynamic-locale": "~0.1.29",
+    "nsPopover": "~0.6.8",
+    "angular-ui-switch": "~0.1.1",
+    "angular-route": "latest",
+    "ngjs-color-picker": "^1.0.4",
+    "codemirror": "^5.13.2",
+    "angular-ui-codemirror": "^0.3.0",
+    "Inlet": "git://github.com/enjalot/Inlet#^0.1.8",
+    "angular-translate": "^2.11.0",
+    "angular-translate-loader-static-files": "^2.11.0"
+  },
+  "resolutions": {
+    "angular": "~1.4.8"
+  }
+}

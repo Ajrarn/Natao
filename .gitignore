@@ -1,5 +1,11 @@
 bower_components/
 node_modules/
+app/bower_components/
+app/node_modules/
 .idea/
-**/*.css
+build/
+cache/
+downloads/
 **/*.map
+**/.DS_Store
+app/NataoSetting.json
