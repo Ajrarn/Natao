@@ -12,7 +12,7 @@ D'ailleurs, la documentation que tu es en train de lire a été écrite en Markd
 
 ## Paragraphes
 
-Les paragraphes en Markdown sont simplement composées d'une ou plusieurs lignes consécutives suivies par une ou deux lignes vides.
+Les paragraphes en Markdown sont simplement composés d'une ou plusieurs lignes consécutives suivies par une ou deux lignes vides.
 Dans le bloc gris que tu vois en dessous, tu peux voir deux paragraphes séparés par une ligne vide, juste en dessous, tu peux voir comment Natao le met en forme :
 
     Lorsque Zarathoustra eut atteint sa trentième année, il quitta sa patrie et le lac de sa patrie et s'en alla dans la montagne.
@@ -48,7 +48,7 @@ Tu peux aussi souligner le titre.
     Le second plus important
     ------------------------
 
-Tu ne disposera alors que de deux niveaux pour tes titres, mais ton Markdown sera plus lisible dans un éditeur Markdown différent de Natao.
+Tu ne disposeras alors que de deux niveaux pour tes titres, mais ton Markdown sera plus lisible dans un éditeur Markdown différent de Natao.
 Ici, la première syntaxe, celle avec les # est beaucoup plus lisible, c'est celle que je te recommande.
 
 Si je peux te donner un bon conseil, ne dépasses pas trois niveaux de titre dans tes documents. Cela améliorera grandement sa lisibilité.
@@ -57,7 +57,7 @@ Si je peux te donner un bon conseil, ne dépasses pas trois niveaux de titre dan
 
 Tu peux valoriser du texte, c'est à dire faire ressortir certains mots ou phrases, pour qu'on les remarque.
 Tu as deux niveaux de valorisation qui s'obtiennent en entourant le mot ou le groupe de mots du caractère \*.
-Un seul \* le met en valeur, deux \* signifie qu'il est très important. Par défaut, la première mise en valeur, met le texte en italique, la deuxième, le met en gras.
+Un seul \* le met en valeur, deux \* signifient qu'il est très important. Par défaut, la première mise en valeur, met le texte en italique, la deuxième, le met en gras.
 Mais tu peux changer les règles (avec les feuilles de style qui sont expliquées dans une autre partie), en souligner un en rouge par exemple.
 
     *Ce texte sera valorisé*
@@ -72,7 +72,7 @@ Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisat
 
 **Tout le monde _doit_ arriver à l'heure aujourd'hui.**
 
-Enfin, il existe une dernière valorisation de texte qui consiste à signifier qu'il est faut, en le rayant par exemple
+Enfin, il existe une dernière valorisation de texte qui consiste à signifier qu'il est faux, en le rayant par exemple
 
     ~~une bêtise~~
 
@@ -119,8 +119,8 @@ Et voila un texte `important` mais là, il devient  `**Super**Important`.
 
 ### Sur plusieurs lignes
 
-Les blocs gris que tu as vu jusqu'à présent pour te montrer des exemples ont été faits avec cette technique. Tu pourras maintenant facilement la reproduire.
-Pour créer ce genre de blocs, il faut que toutes les lignes le composant commence par 4 espaces ou une tabulation. Ca va te paraître bizarre, mais le premier bloc gris est le code permettant de faire le deuxième bloc :
+Les encarts gris que tu as vu jusqu'à présent pour te montrer des exemples ont été faits avec cette technique. Tu pourras maintenant facilement la reproduire.
+Pour créer ce genre d'encarts, il faut que toutes les lignes le composant commencent par 4 espaces ou une tabulation. Ca va te paraître bizarre, mais le premier encart gris est le code permettant de faire le deuxième bloc :
 
     Voici un exemple de code
 
@@ -225,7 +225,7 @@ Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères 
 | zebra stripes  | ~~une bêtise~~   |    $1 |
 
 
-On dessine les colonnes avec des pipes ( `| ), et on sépare l'entête des autre lignes avec le -.
+On dessine les colonnes avec des pipes ( | ), et on sépare l'entête des autre lignes avec le -.
 Les : sur la séparation permettent de choisir comment le texte des colonnes est aligné:
 
 * : à droite, le texte s'aligne à droite

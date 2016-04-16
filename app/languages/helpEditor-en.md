@@ -10,7 +10,7 @@ Cette barre présente en haut de l'éditeur te donne accès aux fonctionnalités
  - <span class="typcn typcn-zoom-in-outline"></span> te permet d'augmenter la taille des caractères pour toute l'application.
 
 Une chose que tu dois savoir à propos de Natao, c'est que tout est enregistré automatiquement. Les modifications que tu apportes en le règlant, par exemple ici avec ces boutons, est sauvegardé.
-Tu n'auras pas à refaire ces réglages lorsque tu le redémarrera.
+Tu n'auras pas à refaire ces réglages lorsque tu le redémarreras.
 
 ## Dyslexie
 
@@ -93,7 +93,7 @@ Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présent
 
 ## L'éditeur Markdown
 
-L'éditeur est composé d'un espace où tu peux saisir ton document en Markdown (pour connaître cette syntaxe, je 'invite à consulter la section d'aide dédiée), et d'une barre verticale contenant des numéros de lignes et qui peut aussi contenir d'autres symbôles suivant le contexte. Ici, tu pourras y voir des petits triangle te permettant de plier ou déplier ton document. Cela te permet entre autres de visualiser le plan de ton document.
+L'éditeur est composé d'un espace où tu peux saisir ton document en Markdown (pour connaître cette syntaxe, je t'invite à consulter la section d'aide dédiée), et d'une barre verticale contenant des numéros de lignes et qui peut aussi contenir d'autres symbôles suivant le contexte. Ici, tu pourras y voir des petits triangles te permettant de plier ou déplier ton document. Cela te permet entre autres de visualiser le plan de ton document.
 
 Tu pourras également constater que l'éditeur met en valeur ton texte Markdown pour t'aider à t'y retrouver, à l'aide de couleurs, taille de caractères, etc...
 
