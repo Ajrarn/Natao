@@ -1,74 +1,57 @@
 var gulp = require('gulp');
 var gulpSequence = require('gulp-sequence');
-var unzip = require('gulp-unzip');
-var gunzip = require('gulp-gunzip');
-var untar = require('gulp-untar');
 var fs = require('fs');
 var del = require('del');
+var run = require('gulp-run');
 
-var fileBasePath = './downloads/nwjs-v';
-var version = '0.14.0';
+var fileBasePath = './downloads/nwjs-';
+var version = 'sdk-v0.14.0';
 
-gulp.task('unzipWindows',function() {
+gulp.task('unzip:Windows',function() {
     var endFileName = '-win-x64.zip';
-    return gulp.src(fileBasePath + version + endFileName)
-        .pipe(unzip())
-        .pipe(gulp.dest('./cache'))
+
+    // unzip with command line to keep the executables executables
+    var cmd = new run.Command('unzip ' + fileBasePath + version + endFileName + ' -d ./cache');
+    cmd.exec();
 });
 
-gulp.task('unzipWindowsSDK',function() {
-    var endFileName = '-win-x64.zip';
-    return gulp.src('./downloads/nwjs-sdk-v' + version + '-win-x64.zip')
-        .pipe(unzip())
-        .pipe(gulp.dest('./cache'));
-});
 
-gulp.task('unzipOSX',function() {
+gulp.task('unzip:OSX',function() {
     var endFileName = '-osx-x64.zip';
-    return gulp.src(fileBasePath + version + endFileName)
-        .pipe(unzip())
-        .pipe(gulp.dest('./cache'));
+    // unzip with command line to keep the executables executables
+    var cmd = new run.Command('unzip ' + fileBasePath + version + endFileName + ' -d ./cache');
+    cmd.exec();
 });
 
-gulp.task('unzipOSXSDK',function() {
-    var endFileName = '-osx-x64.zip';
-    return gulp.src('./downloads/nwjs-sdk-v' + version + '-osx-x64.zip')
-        .pipe(unzip())
-        .pipe(gulp.dest('./cache'));
-});
 
-gulp.task('unzipLinux',function() {
+gulp.task('unzip:Linux',function() {
     var endFileName = '-linux-x64.tar.gz';
-
-    return gulp.src(fileBasePath + version + endFileName)
-        .pipe(gunzip())
-        .pipe(untar())
-        .pipe(gulp.dest('./cache'));
+    // unzip with command line to keep the executables executables
+    var cmd = new run.Command('gunzip -c '+ fileBasePath + version + endFileName +' | tar -C cache -xopf -');
+    cmd.exec();
+    
 });
 
-gulp.task('correctWindows',function() {
+
+gulp.task('correct:Windows',function() {
     if (!fs.existsSync('cache/nwjs-v' + version + '-win-x64/locales/fr.pak')) {
         return gulp.src(['cache/nwjs-sdk-v' + version + '-win-x64/locales/*.*'])
             .pipe(gulp.dest('./cache/nwjs-v' + version + '-win-x64/locales'));
     }
 });
 
-gulp.task('correctLinux',function() {
+gulp.task('correct:Linux',function() {
     if (!fs.existsSync('cache/downloads/nwjs-v' + version + '-linux-x64/locales/fr.pak')) {
         return gulp.src(['cache/nwjs-sdk-v' + version + '-win-x64/locales/*.*'])
             .pipe(gulp.dest('./cache/downloads/nwjs-v' + version + '-linux-x64/locales'));
     }
 });
 
-gulp.task('correctOSX',function() {
-    if (!fs.existsSync('build/Natao/osx64/nwjs.app/Contents/Resources/fr.lproj')) {
-        return gulp.src(['cache/nwjs-sdk-v' + version + '-osx-x64/nwjs.app/Contents/Resources/*.lproj/*.*'])
-            .pipe(gulp.dest('build/Natao/osx64/nwjs.app/Contents/Resources'));
-    }
-});
+
 
 gulp.task('cleanCache',function() {
     return del(['cache/**/*']);
 });
 
-gulp.task('unzipAll',gulpSequence('cleanCache',['unzipWindows', 'unzipWindowsSDK','unzipLinux','unzipOSXSDK'],['correctWindows','correctLinux']));
+gulp.task('unzip',gulpSequence('cleanCache',['unzip:Windows', 'unzip:Windows','unzip:Linux','unzip:OSX'],'correct:Linux'));
+

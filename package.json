@@ -9,8 +9,10 @@
   "license": "MIT",
   "devDependencies": {
     "del": "^2.2.0",
+    "fs-extra": "^0.27.0",
     "gulp": "^3.9.1",
     "gulp-gunzip": "0.0.3",
+    "gulp-rename": "^1.2.2",
     "gulp-run": "^1.6.12",
     "gulp-sequence": "^0.4.5",
     "gulp-untar": "0.0.4",
@@ -18,7 +20,6 @@
     "gulp-util": "^3.0.7",
     "gulp-zip": "^3.2.0",
     "nw-builder": "^2.2.0",
-    "request": "^2.69.0",
-    "gulp-rename": "^1.2.2"
+    "request": "^2.69.0"
   }
 }
