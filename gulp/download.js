@@ -5,11 +5,11 @@ var fs = require('fs');
 
 
 var fileBasePath = './downloads/nwjs-v';
-var version = '0.13.4';
+var version = '0.14.0';
 var urlBaseDownload = 'http://dl.nwjs.io/v' + version + '/nwjs-v' + version;
 
 
-gulp.task('downloadWindows', function(cb) {
+gulp.task('download:Windows', function(cb) {
     var endFileName = '-win-x64.zip';
     if (fs.existsSync(fileBasePath + version + endFileName)) {
         cb();
@@ -18,7 +18,7 @@ gulp.task('downloadWindows', function(cb) {
     }
 });
 
-gulp.task('downloadWindowsSDK', function(cb) {
+gulp.task('download:WindowsSDK', function(cb) {
     var fileSDK = './downloads/nwjs-sdk-v' + version + '-win-x64.zip';
     var urlSDK = 'http://dl.nwjs.io/v' + version + '/nwjs-sdk-v' + version + '-win-x64.zip';
     if (fs.existsSync(fileSDK)) {
@@ -28,7 +28,7 @@ gulp.task('downloadWindowsSDK', function(cb) {
     }
 });
 
-gulp.task('downloadOSX', function(cb) {
+gulp.task('download:OSX', function(cb) {
     var endFileName = '-osx-x64.zip';
     
     if (fs.existsSync(fileBasePath + version + endFileName)) {
@@ -39,7 +39,17 @@ gulp.task('downloadOSX', function(cb) {
     
 });
 
-gulp.task('downloadLinux', function(cb) {
+gulp.task('download:OSXSDK', function(cb) {
+    var fileSDK = './downloads/nwjs-sdk-v' + version + '-osx-x64.zip';
+    var urlSDK = 'http://dl.nwjs.io/v' + version + '/nwjs-sdk-v' + version + '-osx-x64.zip';
+    if (fs.existsSync(fileSDK)) {
+        cb();
+    } else {
+        return request(urlSDK).pipe(fs.createWriteStream(fileSDK));
+    }
+});
+
+gulp.task('download:Linux', function(cb) {
     var endFileName = '-linux-x64.tar.gz';
 
     if (fs.existsSync(fileBasePath + version + endFileName)) {
@@ -50,4 +60,16 @@ gulp.task('downloadLinux', function(cb) {
 
 });
 
-gulp.task('downloadAll', gulpSequence(['downloadWindows', 'downloadWindowsSDK','downloadLinux']));
+gulp.task('download:LinuxSDK', function(cb) {
+    var fileSDK = './downloads/nwjs-sdk-v' + version + '-linux-x64.tar.gz';
+    var urlSDK = 'http://dl.nwjs.io/v' + version + '/nwjs-sdk-v' + version + '-linux-x64.tar.gz';
+    if (fs.existsSync(fileSDK)) {
+        cb();
+    } else {
+        return request(urlSDK).pipe(fs.createWriteStream(fileSDK));
+    }
+});
+
+gulp.task('download:Normal', gulpSequence(['download:Windows', 'download:Windows','download:Linux','download:OSX']));
+
+gulp.task('download:SDK', gulpSequence([ 'download:WindowsSDK','download:LinuxSDK','download:OSXSDK']));

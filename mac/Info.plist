@@ -13,7 +13,7 @@
 	<key>CFBundleExecutable</key>
 	<string>nwjs</string>
 	<key>CFBundleIconFile</key>
-	<string>Natao.icns</string>
+	<string>nw.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.nw-builder.natao</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -85,7 +85,7 @@
 	<key>OSAScriptingDefinition</key>
 	<string>scripting.sdef</string>
 	<key>SCMRevision</key>
-	<string>933c5d2884527a5767e1939eaa555a1dab38011d</string>
+	<string>80b6452ce6db081fc5cf75c44bd4e46a51bb9713</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 </dict>

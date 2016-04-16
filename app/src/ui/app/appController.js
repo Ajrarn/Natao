@@ -25,9 +25,14 @@
         }]);
 
 
-    function AppController($location,PreferencesService,CssService,$translate,$showdown) {
+    function AppController($location,PreferencesService,CssService,$translate,$showdown,tmhDynamicLocale) {
+
+        // For a good date translation
+        $translate.onReady().then(function() {
+            tmhDynamicLocale.set($translate.resolveClientLocale());
+        });
+        
         console.log('AppController');
-        console.info(window.navigator.language);
 
         var self = this;
         self.$location = $location;
@@ -52,7 +57,6 @@
                 width: 1366,
                 height: 768
             });
-            //window.open('help.html?language=' + self.$translate.use() +',color=' + self.PreferencesService.preferences.colorTheme, '_blank');
         };
 
 

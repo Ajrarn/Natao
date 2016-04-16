@@ -19,9 +19,12 @@ Tu peux voir à gauche un explorateur qui te permet d'organiser tes documents. C
 
 Il n'est pas évident de s'occuper à la fois du contenu de son document et de sa mise forme dans un traitement de texte classique. Il faut parfois s'arrêter de taper, sélectionner une portion de texte, et aller cliquer sur un bouton pour modifier la façon dont il s'affiche. Et bien sur, il y a beaucoup, voire trop d'options de mise en page. Tout cela nous fait perdre du temps, là où on ne devrait pas en perdre.
 
-Et c'est là qu'intervient le Markdown. Mais qu'est-ce donc ?
+Et c'est là qu'intervient le Markdown.
 
-Le Markdown est langage de balisage léger créé par John Gruber en 2004. Ce langage va te permettre d'augmenter un simple texte avec quelques caractères ayant une signification en Markdown. Par exemple:
+*Mais qu'est-ce donc ?*
+
+Le Markdown est langage de balisage léger créé par John Gruber en 2004. Ce langage va te permettre d'augmenter un simple texte avec quelques caractères ayant une signification structurelle.
+Par exemple:
 - un texte commençant par un # est un titre important. Avec 2 #, c'est un titre un peu moins important.
 - un texte entouré par des * est mis en valeur, encore plus s'il est entouré de 2 *.
 

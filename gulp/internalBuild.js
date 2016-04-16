@@ -3,77 +3,108 @@ var gulpSequence = require('gulp-sequence');
 var del = require('del');
 var rename = require("gulp-rename");
 var gutil = require('gulp-util');
+var fs = require('fs-extra');
+
+var version = 'nwjs-sdk-v0.14.0';
 
 
-var version = '0.13.4';
+var copyFiles = function (source, destination, callback) {
+    fs.copy(source, destination, function (err) {
+        if (err) {
+            console.error(err);
+        }
+        callback();
+    });
+};
 
-gulp.task('copyWindows',function() {
-    return gulp.src([ 'cache/nwjs-v' + version + '-win-x64/**/**' ]).pipe(gulp.dest('build/win64'));
+
+
+gulp.task('copy:Windows',function() {
+    return gulp.src([ 'cache/' + version + '-win-x64/**/**' ]).pipe(gulp.dest('build/win64'));
 });
 
-gulp.task('copyOSX',function() {
-    return gulp.src([
-        'cache/nwjs-v' + version + '-osx-x64/nwjs.app/**/**'
-    ]).pipe(gulp.dest('build/osx64/nwjs.app'));
+gulp.task('copy:OSX',function(cb) {
+
+    var src = 'cache/' + version + '-osx-x64';
+    var dest = 'build/osx64/';
+
+   copyFiles(src,dest,cb);
 });
 
-gulp.task('copyLinux',function() {
+gulp.task('copy:Linux',function() {
     return gulp.src([
-        'cache/downloads/nwjs-v' + version + '-linux-x64/**/**'
+        'cache/' + version + '-linux-x64/**/**'
     ]).pipe(gulp.dest('build/linux64'));
 });
 
-gulp.task('copyAppWindows',function() {
+gulp.task('copy:AppWindows',function() {
     return gulp.src([
         './app/**/*.*',
         '!./app/**/*.scss'
     ]).pipe(gulp.dest('build/win64'));
 });
 
-gulp.task('copyAppLinux',function() {
+gulp.task('copy:AppLinux',function() {
     return gulp.src([
         './app/**/*.*',
         '!./app/**/*.scss'
     ]).pipe(gulp.dest('build/linux64'));
 });
 
-gulp.task('copyAppOSX',function() {
-    return gulp.src([
-        './app/**/*.*',
-        '!./app/**/*.scss'
-    ]).pipe(gulp.dest('build/osx64/nwjs.app/Contents/Resources/app.nw'));
+gulp.task('copy:AppOSX',function(cb) {
+    var src = 'app';
+    var dest = 'build/osx64/nwjs.app/Contents/Resources/app.nw';
+
+    copyFiles(src,dest,cb);
 });
 
-gulp.task('infoPlistOSX',function() {
-    return gulp.src(['mac/Info.plist']).pipe(gulp.dest('build/osx64/Natao.app/Contents'));
+gulp.task('osx:infoPlist',function(cb) {
+    //return gulp.src(['mac/Info.plist']).pipe(gulp.dest('build/osx64/Natao.app/Contents'));
+
+    var src = 'mac/Info.plist';
+    var dest = 'build/osx64/nwjs.app/Contents';
+
+    copyFiles(src,dest,cb);
 });
-
-gulp.task('infoPlistStringsOSX',function() {
-    return gulp.src(['mac/InfoPlist.strings']).pipe(gulp.dest('build/osx64/Natao.app/Contents/Resources/en.lproj'));
-});
-
-gulp.task('iconOSX',function() {
-    return gulp.src(['app/natao.icns'])
-        .pipe(rename('app.icns'))
-        .pipe(gulp.dest('build/osx64/nwjs.app/Contents/Resources'));
-});
-
-gulp.task('finishOSX',gulpSequence(['infoPlistOSX','infoPlistStringsOSX','iconOSX']));
-
-
 
 gulp.task('cleanBuild',function() {
     return del(['build/**/*']);
 });
 
-gulp.task('copyCache',function() {
-    gulp.src([
-        'cache/nwjs-v0.13.4-osx-x64/**/*.*'
-    ]).pipe(gulp.dest('./build/linux64'));
+gulp.task('internalBuild',gulpSequence('cleanBuild',['copy:Windows','copy:Linux','copy:OSX'],['copy:AppWindows','copy:AppLinux','copy:AppOSX']));
+
+// *********************************** From here nothing works because of permissions, I will find how to do later
+
+gulp.task('osx:enInfoPlistStrings',function(cb) {
+    //return gulp.src(['mac/InfoPlist.strings']).pipe(gulp.dest('build/osx64/Natao.app/Contents/Resources/en.lproj'));
+
+    var src = 'mac/en/InfoPlist.strings';
+    var dest = 'build/osx64/nwjs.app/Contents/Resources/en.lproj/InfoPlist.strings';
+
+    copyFiles(src,dest,cb);
 });
 
-gulp.task('internalBuild',gulpSequence('cleanBuild',['copyWindows','copyLinux'],['copyAppWindows','copyAppLinux'],'buildOSX'));
-//gulp.task('internalBuild',gulpSequence('cleanBuild', 'copyWindows'));
+gulp.task('osx:frInfoPlistStrings',function(cb) {
+
+    var src = 'mac/fr/InfoPlist.strings';
+    var dest = 'build/osx64/nwjs.app/Contents/Resources/fr.lproj/InfoPlist.strings';
+
+    copyFiles(src,dest,cb);
+});
+
+gulp.task('osx:icon',function(cb) {
+    var src = 'mac/Icon';
+    var dest = 'build/osx64/nwjs.app/Icon';
+
+    copyFiles(src,dest,cb);
+});
+
+gulp.task('finishOSX',gulpSequence('osx:infoPlist','osx:enInfoPlistStrings','osx:frInfoPlistStrings'));
+
+
+
+
+
 
 
 
