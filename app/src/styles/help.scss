@@ -20,7 +20,9 @@ p {
 }
 
 span {
-  font-size: 1.7em;
+  &.typcn {
+    font-size: 1.7em;
+  }
 }
 
 /* Table */
