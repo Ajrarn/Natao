@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function CssService($translate,$q,PendingService) {
+    function CssService($translate,$q,PendingService,DatabaseService) {
         console.log('CssService');
 
         var self = this;
@@ -25,6 +25,7 @@
         self.$translate = $translate;
         self.$q = $q;
         self.PendingService = PendingService;
+        self.DatabaseService = DatabaseService;
 
 
 
@@ -48,7 +49,55 @@
                 }
 
                 //Then we search for existing css documents
-                self.db.find({docName:'css'},function(err,docs) {
+                self.DatabaseService.find({docName:'css'})
+                    .then(function(docs) {
+                        if (docs.length === 0) {
+
+                            //If there is no document we will add the defaults css
+                            var pathCss = './default_css';
+                            self.availableCss = [];
+
+                            //We will read the fils in the path and it to the availableCss
+                            var defaultFilesCss = fs.readdirSync(pathCss);
+                            var nbfilesPending = defaultFilesCss.length;
+
+                            defaultFilesCss.forEach(function(file) {
+                                var cssContent = fs.readFileSync(pathCss + '/' + file,'utf8');
+
+                                var nameToTranslate = _.find(self.cssNames,{originalName:file});
+
+                                var docCss = {
+                                    docName:'css',
+                                    name: nameToTranslate.inDatabaseName,
+                                    default: nameToTranslate.default,
+                                    css: cssContent
+                                };
+
+                                self.db.insert(docCss,function(err,doc) {
+                                    if (err) {
+                                        reject(err);
+                                    } else {
+                                        self.availableCss.push(doc);
+                                        nbfilesPending--;
+                                        if (nbfilesPending === 0) {
+                                            defaultCss = _.find(self.availableCss,{default:true});
+                                            resolve(defaultCss);
+                                        }
+                                    }
+                                });
+                            });
+
+                        } else {
+                            self.availableCss = docs;
+                            defaultCss = _.find(self.availableCss,{default:true});
+                            resolve(defaultCss);
+                        }
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });
+
+                /*self.db.find({docName:'css'},function(err,docs) {
                     if (err) {
                         reject(err);
                     } else {
@@ -94,7 +143,7 @@
                             resolve(defaultCss);
                         }
                     }
-                });
+                });*/
             });
         };
 

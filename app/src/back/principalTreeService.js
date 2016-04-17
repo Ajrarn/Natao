@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate) {
+    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate,DatabaseService) {
         console.log('PrincipalTreeService');
 
         var self = this;
@@ -28,6 +28,7 @@
         self.$timeout = $timeout;
         self.$q = $q;
         self.$translate = $translate;
+        self.DatabaseService = DatabaseService;
         self.docsMarkdown = [];
         self.principalTree = {
             docName: 'PrincipalTree',
@@ -76,65 +77,49 @@
 
             return self.$q(function(resolve,reject) {
 
-                self.db.find({docName:'PrincipalTree'}, function (err, docs) {
-                    if (err || docs.length === 0) {
-                        console.log('Principal Document not found');
+                self.DatabaseService.find({docName:'PrincipalTree'})
+                    .then(function(docs){
+                        if (docs.length === 0) {
+                            console.log('Principal Document not found');
 
-                        self.principalTree.tree.defaultCss = defaultCss._id;
+                            self.principalTree.tree.defaultCss = defaultCss._id;
 
-                        self.db.insert(self.principalTree, function (err, newDoc) {
-                            if (err) {
-                                reject(err);
-                            } else {
-                                self.principalTree = newDoc;
-                                console.log('principalTree',self.principalTree);
-
-                                //We will create the first document
-                                self.$translate('WELCOME').then(function (translation) {
-                                    self.addFolderOnly(translation);
-                                    var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
-                                    self.addMarkdown(self.principalTree.selectedNode,translation,welcomeMd);
-                                    //self.save();
-                                });
-                                
-
-
-
-                                //and we save the first version
-                                
-                                /*var copyPrincipalTree = {};
-                                angular.copy(self.principalTree,copyPrincipalTree);
-                                self.PendingService.start();
-                                self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
-                                    self.PendingService.stop();
-                                    if (err) {
-                                        console.error('error:', err);
-                                    }
-                                });*/
-                            }
-                        });
-
-
-                    } else {
-                        self.principalTree = docs[0];
-                        console.log('principalTree', self.principalTree);
-
-                        if (self.principalTree.currentMarkdownId) {
-                            self.db.find({
-                                docName: 'markdown',
-                                _id: self.principalTree.currentMarkdownId
-                            }, function (err, docs) {
+                            self.db.insert(self.principalTree, function (err, newDoc) {
                                 if (err) {
                                     reject(err);
                                 } else {
-                                    self.currentMarkdown = docs[0];
-                                    self.CssService.initCurrentById(self.currentMarkdown.css);
+                                    self.principalTree = newDoc;
+                                    console.log('principalTree',self.principalTree);
+
+                                    //We will create the first document
+                                    self.$translate('WELCOME').then(function (translation) {
+                                        self.addFolderOnly(translation);
+                                        var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
+                                        self.addMarkdown(self.principalTree.selectedNode,translation,welcomeMd);
+                                    });
                                 }
                             });
+                        } else {
+                            self.principalTree = docs[0];
+                            console.log('principalTree', self.principalTree);
+
+                            if (self.principalTree.currentMarkdownId) {
+                                
+                                self.DatabaseService.find({
+                                    docName: 'markdown',
+                                    _id: self.principalTree.currentMarkdownId
+                                }).then(function(docs) {
+                                    self.currentMarkdown = docs[0];
+                                    self.CssService.initCurrentById(self.currentMarkdown.css);
+                                }).catch(function(err) {
+                                    reject(err);
+                                });
+                            }
                         }
-                    }
-                    resolve();
-                });
+                        resolve();
+                }).catch(function(err) {
+                        reject(err);
+                    });
             });
         };
 
@@ -155,10 +140,9 @@
 
             if (node.leaf) {
                 if ( !self.principalTree.currentMarkdownId || (self.principalTree.currentMarkdownId && node.id !== self.principalTree.currentMarkdownId)) {
-                    self.db.find({docName:'markdown',_id: node.id}, function (err, docs) {
-                        if (err) {
-                            console.error(err);
-                        } else {
+
+                    self.DatabaseService.find({docName:'markdown',_id: node.id})
+                        .then(function(docs){
                             if (docs && docs.length > 0){
                                 self.currentMarkdown = docs[0];
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
@@ -167,7 +151,8 @@
 
                                 setTimeout(self.refreshMath, 100);  //without angular $digest
                             }
-                        }
+                        }).catch(function(err){
+                            console.error(err);
                     });
                 }
             }
@@ -320,17 +305,15 @@
 
         //Copy a document and push in  the buffer.documents
         self.copyDocumentInBuffer = function(node) {
-
-            self.db.find({
+            
+            self.DatabaseService.find({
                 docName: 'markdown',
                 _id: node.id
-            }, function (err, docs) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    self.principalTree.buffer.documents.push(docs[0]);
-                    self.save();
-                }
+            }).then(function(docs) {
+                
+                self.principalTree.buffer.documents.push(docs[0]);
+                self.save();
+                
                 self.docsPendingForBuffer--;
 
                 //And delete when the job is done
@@ -347,6 +330,8 @@
                         }
                     }
                 }
+            }).catch(function(err) {
+                console.error(err);
             });
         };
 

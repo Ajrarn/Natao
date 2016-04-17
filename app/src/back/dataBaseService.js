@@ -17,17 +17,33 @@
 
 
     //Service itself
-    function DatabaseService() {
+    function DatabaseService($q) {
         console.log('DatabaseService');
 
         var self = this;
-
-
-        self.getDB = function(file) {
+        self.$q = $q;
+        
+        self.setDB = function(file) {
             if (!self.db || self.db.filename != file) {
                 self.db = new Datastore({ filename: file, autoload:true});
             }
+        };
+        
+        self.getDB = function(file) {
+            self.setDB(file);
             return self.db;
+        };
+        
+        self.find = function(findParams) {
+            return self.$q(function(resolve,reject) {
+                self.db.find(findParams,function(err,docs) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(docs);
+                    }
+                });
+            });
         };
 
 
