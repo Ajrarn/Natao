@@ -28,8 +28,7 @@
         self.DatabaseService = DatabaseService;
 
 
-        self.getInitTemplate = function(db) {
-            self.db = db;
+        self.getInitTemplate = function() {
 
             return self.$q(function (resolve, reject) {
                 
@@ -50,18 +49,20 @@
                                     templates.forEach(function(template) {
                                         template.docName = 'template';
                                         self.adaptCssTemplate(template);
-                                        self.db.insert(template, function (err,doc) {
-                                            if (err) {
-                                                reject(err);
-                                            } else {
+
+                                        self.DatabaseService
+                                            .insert(template)
+                                            .then(function(doc) {
                                                 self.availableTemplates.push(doc);
                                                 nbTemplatesPending--;
                                                 if (nbTemplatesPending === 0) {
                                                     console.log('templates',self.availableTemplates);
                                                     resolve();
                                                 }
-                                            }
-                                        });
+                                            })
+                                            .catch(function(err) {
+                                                reject(err);
+                                            });
                                     });
                                 }
                                 catch (err) {
@@ -115,11 +116,14 @@
 
                 oldTemplate.children = template.children;
 
-                self.db.update({_id: oldTemplate._id }, oldTemplate, {}, function (err) {
-                    if (err){
+                self.DatabaseService
+                    .update(oldTemplate._id, oldTemplate)
+                    .then(function(doc) {
+                        oldTemplate = doc;
+                    })
+                    .catch(function(err) {
                         console.error(err);
-                    }
-                });
+                    });
 
             } else {
                 //We insert the new template
@@ -129,13 +133,16 @@
                 delete template.id;
 
                 //and finally save it in the database
-                self.db.insert(template, function (err,doc) {
-                    if (err) {
-                        console.error(err);
-                    } else {
+
+                self.DatabaseService
+                    .insert(template)
+                    .then(function(doc) {
                         self.availableTemplates.push(doc);
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                
             }
 
         };

@@ -19,17 +19,17 @@
 
         var self = this;
 
-        self.db = self.PreferencesService.getDB();
+        //self.db = self.PreferencesService.getDB();
 
-        var cssPromise = self.CssService.getInitCss(self.db);
+        var cssPromise = self.CssService.getInitCss();
 
 
         //when all the services are ready we go to the editor
         cssPromise.then(function(defaultCss) {
-            var templatePromise = self.TemplateTreeService.getInitTemplate(self.db);
+            var templatePromise = self.TemplateTreeService.getInitTemplate();
 
             templatePromise.then(function() {
-                var principalTreePromise = self.PrincipalTreeService.getInitTreeService(self.db,defaultCss);
+                var principalTreePromise = self.PrincipalTreeService.getInitTreeService(defaultCss);
 
                 principalTreePromise.then(function() {
                     $location.path('/editor');

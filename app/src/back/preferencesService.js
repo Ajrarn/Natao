@@ -61,17 +61,26 @@
 
         self.savePreferences = function() {
             if (self.preferences._id) {
-                self.db.update({ _id: self.preferences._id }, self.preferences, {}, function (err) {
-                    if (err) console.error('error:',err);
-                });
-            } else {
-                self.db.insert(self.preferences, function (err, newDoc) {
-                    if (err) {
+                
+                self.DatabaseService
+                    .update(self.preferences._id,self.preferences)
+                    .then(function(doc) {
+                        //self.preferences = doc;
+                        console.log(doc);
+                    })
+                    .catch(function(err) {
                         console.error('error:',err);
-                    } else {
+                    });
+            } else {
+                
+                self.DatabaseService
+                    .insert(self.preferences)
+                    .then(function(newDoc) {
                         self.preferences = newDoc;
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        console.error('error:',err);
+                    });
             }
         };
 
@@ -96,14 +105,8 @@
 
 
         self.save = function() {
-
-            if(!self.db) {
-                //the database is not yet connected
-                self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
-            }
             self.saveSettings();
             self.savePreferences();
-
         };
 
         self.zoomChange = function() {
@@ -113,12 +116,7 @@
                 win.zoomLevel = self.preferences.zoomLevel;
             }
         };
-
-        self.getDB = function() {
-           return self.db;
-        };
         
-
         self.init = function() {
 
             //First we have to parse the json file and check if it exist
@@ -139,7 +137,7 @@
                                 // and then go to the editor
                                 self.$location.path('/loading');
                                 self.zoomChange();
-                                self.$rootScope.$digest();
+                                //self.$rootScope.$digest();
                             } else {
                                 self.$location.path(urlFirstSetting);
                             }
@@ -155,11 +153,9 @@
                 }
             }
         };
-
-
+        
         return self;
-
-
+        
     }
 
 }());

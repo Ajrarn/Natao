@@ -72,8 +72,7 @@
             };
         };
 
-        self.getInitTreeService = function(db,defaultCss) {
-            self.db = db;
+        self.getInitTreeService = function(defaultCss) {
 
             return self.$q(function(resolve,reject) {
 
@@ -83,11 +82,10 @@
                             console.log('Principal Document not found');
 
                             self.principalTree.tree.defaultCss = defaultCss._id;
-
-                            self.db.insert(self.principalTree, function (err, newDoc) {
-                                if (err) {
-                                    reject(err);
-                                } else {
+                            
+                            self.DatabaseService
+                                .insert(self.principalTree)
+                                .then(function(newDoc) {
                                     self.principalTree = newDoc;
                                     console.log('principalTree',self.principalTree);
 
@@ -97,8 +95,11 @@
                                         var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
                                         self.addMarkdown(self.principalTree.selectedNode,translation,welcomeMd);
                                     });
-                                }
-                            });
+                                })
+                                .catch(function(err) {
+                                    reject(err);
+                                });
+                            
                         } else {
                             self.principalTree = docs[0];
                             console.log('principalTree', self.principalTree);
@@ -125,15 +126,19 @@
 
 
         self.save = function() {
-            var copyPrincipalTree = {};
-            angular.copy(self.principalTree,copyPrincipalTree);
             self.PendingService.start();
-            self.db.update({_id: self.principalTree._id }, copyPrincipalTree, {}, function (err) {
-                self.PendingService.stop();
-                if (err) {
+
+            self.DatabaseService
+                .update(self.principalTree._id,self.principalTree)
+                .then(function(doc) {
+                    self.PendingService.stop();
+                    self.principalTree = doc;
+                })
+                .catch(function(err) {
+                    self.PendingService.stop();
                     console.error('error:', err);
-                }
-            });
+                });
+
         };
 
         self.selectNode = function(node) {
@@ -233,11 +238,12 @@
             }
 
             self.PendingService.start();
-            self.db.insert(newMarkDown, function (err, newDoc) {
-                self.PendingService.stop();
-                if (err) {
-                    console.error(err);
-                } else {
+
+
+            self.DatabaseService
+                .insert(newMarkDown)
+                .then(function(newDoc) {
+                    self.PendingService.stop();
 
                     var newNode = {
                         id: newDoc._id,
@@ -254,21 +260,29 @@
                     //and we open the node parent
                     self.principalTree.expandedNodes.push(node);
                     self.save();
-                }
-            });
+
+                })
+                .catch(function(err) {
+                    self.PendingService.stop();
+                    console.error(err);
+                });
+
         };
 
         //delete of a document
         self.deleteDocument = function(node) {
             self.PendingService.start();
-            self.db.remove({ _id: node.id }, {}, function (err, numRemoved) {
-                self.PendingService.stop();
-                if (err) {
-                    console.error(err);
-                } else {
+
+            self.DatabaseService
+                .remove(node.id)
+                .then(function(numRemoved) {
+                    self.PendingService.stop();
                     console.log('removed',numRemoved);
-                }
-            });
+                })
+                .catch(function(err) {
+                    self.PendingService.stop();
+                    console.error(err);
+                });
         };
 
         //copy of a document by its content to a node in the tree
@@ -281,12 +295,11 @@
 
             //and then add it to the database
             self.PendingService.start();
-            self.db.insert(newDocument, function (err, newDoc) {
-                self.PendingService.stop();
-                if (err) {
-                    console.error(err);
-                } else {
 
+            self.DatabaseService
+                .insert(newDocument)
+                .then(function(newDoc) {
+                    self.PendingService.stop();
                     var newNode = {
                         id: newDoc._id,
                         name: newDoc.title,
@@ -298,8 +311,11 @@
                     }
                     nodeParent.children.push(newNode);
                     self.save();
-                }
-            });
+                })
+                .catch(function(err) {
+                    self.PendingService.stop();
+                    console.error(err);
+                });
         };
 
 
@@ -503,7 +519,7 @@
         };
 
         self.howManyNodes = function(node) {
-            if (node.children.length === 0) {
+            if (node.leaf || node.children.length === 0) {
                 return 1;
             } else {
                 var nbNode = 1;
@@ -577,22 +593,23 @@
 
             if (self.currentMarkdown) {
                 self.CssService.initCurrentById(self.currentMarkdown.css);
-
-                var copyCurrent = {};
-                angular.copy(self.currentMarkdown,copyCurrent);
+                
                 self.PendingService.start();
-                self.db.update({_id: self.currentMarkdown._id }, copyCurrent, {}, function (err) {
-                    self.PendingService.stop();
-                    if (err) {
-                        console.error(err);
-                    } else {
+
+                self.DatabaseService
+                    .update(self.currentMarkdown._id,self.currentMarkdown)
+                    .then(function(doc) {
+                        self.PendingService.stop();
                         self.principalTree.selectedNode.name = self.currentMarkdown.title;
 
                         self.save();
                         setTimeout(self.refreshMath, 100);  //without angular $digest
-                    }
-
-                });
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        console.error(err);
+                    });
+                
             }
         };
         

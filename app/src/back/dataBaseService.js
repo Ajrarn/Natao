@@ -46,9 +46,13 @@
             });
         };
 
-        self.update = function(findParams, doc) {
+        self.update = function(id, doc) {
             return self.$q(function(resolve,reject) {
-                self.db.update(findParams, doc, {}, function (err) {
+                
+                var copyCurrent = {};
+                angular.copy(doc,copyCurrent);
+                
+                self.db.update({ _id: id }, copyCurrent, {}, function(err) {
                     if (err) {
                         reject(err);
                     } else {

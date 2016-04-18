@@ -29,8 +29,7 @@
 
 
 
-        self.getInitCss = function(db) {
-            self.db = db;
+        self.getInitCss = function() {
 
             return self.$q(function(resolve,reject) {
 
@@ -49,7 +48,8 @@
                 }
 
                 //Then we search for existing css documents
-                self.DatabaseService.find({docName:'css'})
+                self.DatabaseService
+                    .find({docName:'css'})
                     .then(function(docs) {
                         if (docs.length === 0) {
 
@@ -73,18 +73,20 @@
                                     css: cssContent
                                 };
 
-                                self.db.insert(docCss,function(err,doc) {
-                                    if (err) {
-                                        reject(err);
-                                    } else {
+                                self.DatabaseService
+                                    .insert(docCss)
+                                    .then(function(doc) {
                                         self.availableCss.push(doc);
                                         nbfilesPending--;
                                         if (nbfilesPending === 0) {
-                                            defaultCss = _.find(self.availableCss,{default:true});
+                                            defaultCss = _.find(self.availableCss, {default: true});
                                             resolve(defaultCss);
                                         }
-                                    }
-                                });
+                                    })
+                                    .catch(function(err) {
+                                        reject(err);
+                                    });
+
                             });
 
                         } else {
@@ -96,63 +98,20 @@
                     .catch(function(err) {
                         reject(err);
                     });
-
-                /*self.db.find({docName:'css'},function(err,docs) {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        if (docs.length === 0) {
-
-                            //If there is no document we will add the defaults css
-                            var pathCss = './default_css';
-                            self.availableCss = [];
-
-                           //We will read the fils in the path and it to the availableCss
-                            var defaultFilesCss = fs.readdirSync(pathCss);
-                            var nbfilesPending = defaultFilesCss.length;
-
-                            defaultFilesCss.forEach(function(file) {
-                                var cssContent = fs.readFileSync(pathCss + '/' + file,'utf8');
-
-                                var nameToTranslate = _.find(self.cssNames,{originalName:file});
-
-                                var docCss = {
-                                    docName:'css',
-                                    name: nameToTranslate.inDatabaseName,
-                                    default: nameToTranslate.default,
-                                    css: cssContent
-                                };
-
-                                self.db.insert(docCss,function(err,doc) {
-                                    if (err) {
-                                        reject(err);
-                                    } else {
-                                        self.availableCss.push(doc);
-                                        nbfilesPending--;
-                                        if (nbfilesPending === 0) {
-                                            defaultCss = _.find(self.availableCss,{default:true});
-                                            resolve(defaultCss);
-                                        }
-                                    }
-                                });
-                            });
-
-                        } else {
-                            self.availableCss = docs;
-                            defaultCss = _.find(self.availableCss,{default:true});
-                            resolve(defaultCss);
-                        }
-                    }
-                });*/
             });
         };
 
         self.addCss = function(newCss) {
-             self.db.insert(newCss, function(err) {
-                if (err) {
+
+            self.DatabaseService
+                .insert(newCss)
+                .then(function(doc) {
+                    console.log(doc);
+                })
+                .catch(function(err) {
                     console.error(err);
-                }
-             });
+                });
+            
         };
 
         self.addCssNamed = function(nameCss) {
@@ -162,16 +121,19 @@
                 default: false,
                 css: null
             };
+            
 
             return self.$q(function(resolve,reject) {
-                self.db.insert(docCss, function(err,doc) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                
+                self.DatabaseService
+                    .insert(docCss)
+                    .then(function(doc) {
                         self.availableCss.push(doc);
                         resolve(doc);
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });
             });
 
         };
@@ -215,22 +177,27 @@
                 }
             }
             if (css._id) {
-                var copyCurrent = {};
-                angular.copy(css,copyCurrent);
-                self.db.update({_id: css._id }, copyCurrent, {}, function (err) {
-                    if (err) {
+                
+                self.DatabaseService
+                    .update(css._id, css)
+                    .then(function(doc) {
+                        css = doc;
+                    })
+                    .catch(function(err) {
                         console.error(err);
-                    }
-                });
+                    });
+            
             } else {
-                self.db.insert(css,function(err,doc) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                
+                self.DatabaseService
+                    .insert(css)
+                    .then(function(doc) {
                         self.availableCss.push(doc);
                         css = doc;
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
         };
 
@@ -242,15 +209,15 @@
                 if (indexCss && indexCss >= 0) {
                     self.availableCss.splice(indexCss,1);
                 }
-
-                self.db.remove({ _id: css._id }, {}, function (err, numRemoved) {
-                    self.PendingService.stop();
-                    if (err) {
-                        console.error(err);
-                    } else {
+                
+                self.DatabaseService
+                    .remove(css._id)
+                    .then(function(numRemoved) {
                         console.log('removed',numRemoved);
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
         };
 
