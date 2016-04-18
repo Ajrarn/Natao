@@ -129,12 +129,11 @@
                 self.$location.path(urlFirstSetting);
             } else {
                 if (self.fileDatabaseExist()) {
-                    self.db = self.DatabaseService.getDB(self.settings.fileDatabase);
-                    self.db.find({docName:'Preferences'}, function (err, docs) {
-                        if (err) {
-                            console.log('Document not found');
-                            self.$location.path('/settings');
-                        } else {
+                    self.DatabaseService.setDB(self.settings.fileDatabase);
+                    
+                    self.DatabaseService
+                        .find({docName:'Preferences'})
+                        .then(function(docs) {
                             self.preferences = docs[0];
                             if (self.isValid()) {
                                 // and then go to the editor
@@ -144,8 +143,12 @@
                             } else {
                                 self.$location.path(urlFirstSetting);
                             }
-                        }
+                        })
+                        .catch(function() {
+                            console.log('Document not found');
+                            self.$location.path('/settings');
                     });
+                    
                 } else {
                     self.settings.fileDatabase = null;
                     self.$location.path(urlFirstSetting);

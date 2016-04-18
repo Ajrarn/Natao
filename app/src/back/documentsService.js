@@ -13,28 +13,17 @@
 
 
 
-    function DocumentsService(PreferencesService,$q) {
+    function DocumentsService(DatabaseService) {
         console.log('DocumentsService');
-
-        this.PreferencesService = PreferencesService;
-        this.$q = $q;
 
         var self = this;
 
+        self.PreferencesService = PreferencesService;
+        self.$q = $q;
+        self.DatabaseService = DatabaseService;
 
         self.getDocuments = function() {
-
-            return self.$q(function(resolve,reject) {
-                var db = self.PreferencesService.getDB();
-
-                db.find({docName:'markdown'}).limit(10).exec(function (err, docs) {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(docs);
-                    }
-                });
-            });
+            return self.DatabaseService.find({docName:'markdown'});
         };
 
         return self;

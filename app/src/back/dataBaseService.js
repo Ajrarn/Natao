@@ -46,6 +46,44 @@
             });
         };
 
+        self.update = function(findParams, doc) {
+            return self.$q(function(resolve,reject) {
+                self.db.update(findParams, doc, {}, function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(doc);
+                    }
+                });
+            });
+        };
+
+        self.insert = function(doc) {
+          return self.$q(function(resolve,reject) {
+              
+              self.db.insert(doc,function(err,newDoc) {
+                  if (err) {
+                      reject(err);
+                  } else {
+                      resolve(newDoc);
+                  }
+              });
+
+          });
+        };
+
+        self.remove = function(id) {
+            return self.$q(function(resolve,reject) {
+                self.db.remove({ _id: id }, {}, function(err, numRemoved) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(numRemoved);
+                    }
+                })
+            });
+        };
+
 
         return self;
 

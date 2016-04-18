@@ -17,25 +17,25 @@
 
 
     //Service itself
-    function TemplateTreeService($translate,$q,CssService) {
+    function TemplateTreeService($translate,$q,CssService,DatabaseService) {
         console.log('TemplateTreeService');
-        this.$translate = $translate;
-        this.$q = $q;
-        this.CssService = CssService;
-
         var self = this;
+
+        self.$translate = $translate;
+        self.$q = $q;
+        self.CssService = CssService;
         self.availableTemplates = [];
+        self.DatabaseService = DatabaseService;
 
 
         self.getInitTemplate = function(db) {
             self.db = db;
 
             return self.$q(function (resolve, reject) {
-
-                self.db.find({docName:'template'},function(err,docs) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                
+                self.DatabaseService
+                    .find({docName:'template'})
+                    .then(function(docs) {
                         if (docs.length === 0) {
                             var templateFile = fs.readFileSync('./languages/templates-' + self.$translate.use() + '.json','utf8');
 
@@ -73,8 +73,10 @@
                             self.availableTemplates = docs;
                             resolve();
                         }
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });    
             });
         };
 
