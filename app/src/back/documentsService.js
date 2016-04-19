@@ -17,9 +17,6 @@
         console.log('DocumentsService');
 
         var self = this;
-
-        self.PreferencesService = PreferencesService;
-        self.$q = $q;
         self.DatabaseService = DatabaseService;
 
         self.getDocuments = function() {

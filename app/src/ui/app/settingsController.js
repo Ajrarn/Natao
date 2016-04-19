@@ -28,10 +28,6 @@
         self.$timeout = $timeout;
         self.viewer = true;
 
-        /*if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
-                self.currentCss = self.CssService.availableCss[0];
-        }*/
-
         //for codeMirror
         self.cssEditorOptions = {
             lineWrapping : true,
@@ -56,10 +52,6 @@
         self.documentsPromise = self.DocumentsService.getDocuments();
         self.documentsPromise.then(function(docs) {
             self.documents = docs;
-            /*if (self.documents && self.documents.length > 0){
-                self.currentDoc = self.documents[0];
-                self.changeDocument();
-            }*/
         });
         
         self.setCssEditor = function(editor) {
@@ -97,6 +89,9 @@
             }, false, ['db']);
         };
 
+
+        /* *************CSS**************** */
+
         self.saveCss = function(e) {
             if (self.currentCss) {
                 self.CssService.initCurrentByContent(self.currentCss.css);
@@ -108,6 +103,7 @@
             self.currentHTML = self.$showdown.makeHtml(self.currentDoc.md);
             self.allHtml();
         };
+        
 
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
@@ -185,6 +181,43 @@
                 return node.leaf;
             }
         };
+
+
+        /* *************Templates**************** */
+
+        self.saveTemplate = function(e) {
+            if (self.currentTemplate) {
+                self.TemplateTreeService.saveTemplate(self.currentTemplate);
+            }
+        };
+        
+
+        self.initAddTemplate= function() {
+            self.newTemplateName = null;
+            self.focus('addTemplateName');
+        };
+
+        self.addTemplate = function(hide) {
+            self.TemplateTreeService.addTemplate(self.newTemplateName)
+                .then(function(res) {
+                    self.currentTemplate = res;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+            hide();
+        };
+
+        self.deleteTemplate = function(hide) {
+            self.TemplateTreeService.deleteTemplate(self.currentTemplate);
+            self.currentTemplate = null;
+            hide();
+        };
+
+
+        /* ***************************** */
+
+        
 
 
         self.settingsValide();

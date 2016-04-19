@@ -237,19 +237,74 @@
 
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
-                            <p>{{ 'DOC_CSS' | translate }}</p>
-                            <select id="template" ng-model="SettingCtrl.currentTemplate"
-                                    ng-options="template as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates"
-                                    ng-change="SettingCtrl.changeCss()">
-                            </select>
+                            <label for="template" layout="row" layout-align="start center">
+                                <p>{{ 'TEMPLATE_SELECT' | translate }}</p>
+                                <select id="template" ng-model="SettingCtrl.currentTemplate"
+                                        ng-options="template as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates">
+                                </select>
+                            </label>
+
+                            <script type="text/ng-template" id="popoverAddTemplate">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip"
+                                     ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                    <form name="AddTemplate" novalidate ng-submit="SettingCtrl.addTemplate(hidePopover)"
+                                          layout="column" layout-align="start center">
+                                        <label for="addTemplateName" layout="column" layout-align="center center">
+                                            <p>{{ 'DOC_TITLE' | translate }}</p>
+                                            <input id="addTemplateName" ng-model="SettingCtrl.newTemplateName"
+                                                   focus-on="addTemplateName">
+                                        </label>
+                                    </form>
+                                </div>
+                            </script>
+
+
+                            <script type="text/ng-template" id="popoverDeleteTemplate">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip"
+                                     ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                    <p>{{ 'CONFIRM_DELETE_TEMPLATE' | translate }}</p>
+                                    <div layout="row" layout-align="center center">
+                                        <button ng-click="SettingCtrl.deleteTemplate(hidePopover)">{{ 'YES' | translate }}
+                                        </button>
+                                        <button ng-click="hidePopover()">{{ 'NO' | translate }}</button>
+                                    </div>
+                                </div>
+                            </script>
+
+                            <div class="buttonBar" layout="row" layout-align="end center">
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverAddTemplate"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="bottom"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        title="{{ 'BTN_ADD' | translate }}" ng-click="SettingCtrl.initAddTemplate()"><span
+                                        class="typcn typcn-plus-outline"></span></button>
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverDeleteTemplate"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="bottom"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span>
+                                </button>
+                            </div>
                         </div>
-                        <treecontrol class="tree-classic border"
-                                     tree-model="SettingCtrl.currentTemplate"
-                                     options="SettingCtrl.treeOptions"
-                                     selected-node="SettingCtrl.selectedNode"
-                                     expanded-nodes="SettingCtrl.expandedNodes">
-                            <span>{{node.name}}</span>
-                        </treecontrol>
+
+                        <div class="templateContainer" flex>
+                            <treecontrol class="tree-classic border"
+                                         tree-model="SettingCtrl.currentTemplate"
+                                         options="SettingCtrl.treeOptions"
+                                         selected-node="SettingCtrl.selectedNode"
+                                         expanded-nodes="SettingCtrl.expandedNodes">
+                                <span>{{node.name}}</span>
+                            </treecontrol>
+                        </div>
+
 
                     </div>
                 </div>

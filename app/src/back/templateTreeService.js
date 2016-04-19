@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function TemplateTreeService($translate,$q,CssService,DatabaseService) {
+    function TemplateTreeService($translate,$q,CssService,DatabaseService,PendingService) {
         console.log('TemplateTreeService');
         var self = this;
 
@@ -26,6 +26,7 @@
         self.CssService = CssService;
         self.availableTemplates = [];
         self.DatabaseService = DatabaseService;
+        self.PendingService = PendingService;
 
 
         self.getInitTemplate = function() {
@@ -149,6 +150,28 @@
 
         self.getTemplate = function(name) {
             return _.find(self.availableTemplates,{name:name});
+        };
+
+        self.deleteTemplate = function(template) {
+            if (template._id) {
+                self.PendingService.start();
+                var indexTemplate = _.findIndex(self.availableTemplates,{_id:template._id});
+
+                if (indexTemplate && indexTemplate >= 0) {
+                    self.availableTemplates.splice(indexTemplate,1);
+                }
+
+                self.DatabaseService
+                    .remove(template._id)
+                    .then(function(numRemoved) {
+                        self.PendingService.stop();
+                        console.log('removed',numRemoved);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        console.error(err);
+                    });
+            }
         };
 
         return self;
