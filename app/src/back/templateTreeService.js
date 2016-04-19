@@ -94,13 +94,16 @@
 
         self.deleteDocReference = function(node) {
             if (node.children && node.children.length > 0) {
-                node.children.forEach(function(item) {
-                    if (item.leaf) {
-                        node.children.splice(_.findIndex(node.children,{id:item.id}),1);
-                    } else {
-                        self.deleteDocReference(item);
-                    }
+
+                _.remove(node.children,function(item) {
+                    return item.leaf;
                 });
+
+                if (node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        self.deleteDocReference(item);
+                    });
+                }
             }
         };
 
@@ -109,7 +112,10 @@
             //first we copy the node
             angular.copy(node,template);
             //then delete the document reference from the copy
-            self.deleteDocReference(node);
+            self.deleteDocReference(template);
+            delete template._id;
+
+            console.log('template',template);
 
             //we search if the template already exist
             var oldTemplate = self.getTemplate(nameTemplate);
