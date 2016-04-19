@@ -370,6 +370,19 @@
                     self.deleteDocument(document);
                 });
             }
+            // delete the selectednode if it is the current node
+            if (angular.equals(node,self.principalTree.selectedNode)) {
+                delete self.principalTree.selectedNode;
+            }
+
+            //delete from the expanded nodes
+            var allFoldersId = [];
+            self.allSubFoldersIds(node,allFoldersId);
+            allFoldersId.push(node.id);
+            _.remove(self.principalTree.expandedNodes, function(item) {
+                return allFoldersId.indexOf(item.id) > 0;
+            });
+
             // In all case we have to delete it from the tree
             var parent = self.findParent(node);
 
@@ -379,7 +392,8 @@
                     parent.children.splice(indexOfNode,1);
                 }
             }
-            delete self.principalTree.selectedNode;
+
+
 
             self.save();
         };
@@ -612,7 +626,27 @@
                 
             }
         };
-        
+
+
+        //get All Ids of the folders inside a node
+        self.allSubFoldersIds = function(node,arrayOfIds) {
+            if (!node) {
+                node = self.principalTree.tree;
+            }
+
+            if(!arrayOfIds) {
+                arrayOfIds = [];
+            }
+            if (!node.leaf) {
+                arrayOfIds.push(node.id);
+                if (node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        self.allSubFoldersIds(item,arrayOfIds);
+                    });
+                }
+            }
+        };
+
         self.clearBuffer = function() {
             delete self.principalTree.buffer;
             self.docsPendingForBuffer = 0;
