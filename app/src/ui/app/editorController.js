@@ -240,7 +240,7 @@
 
         self.saveTemplate = function(hide) {
             if (self.templateName && self.templateName.length > 0) {
-                if (self.PrincipalTreeService.TemplateTreeService.getTemplate(self.templateName)) {
+                if (self.TemplateTreeService.getTemplate(self.templateName)) {
                     self.openConfirmTemplate();
                 } else {
                     self.PrincipalTreeService.saveTemplate(self.currentNode,self.templateName);
@@ -250,7 +250,7 @@
         };
 
         self.saveForceTemplate = function(hide) {
-            self.PrincipalTreeService.saveTemplate(self.currentNode,self.templateName);
+            self.TemplateTreeService.saveTemplate(self.currentNode,self.templateName);
             hide();
         };
 

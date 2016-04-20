@@ -17,11 +17,12 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate,DatabaseService) {
+    function PrincipalTreeService(PreferencesService,TreeUtilService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate,DatabaseService,DocumentsService) {
         console.log('PrincipalTreeService');
 
         var self = this;
         self.PreferencesService = PreferencesService;
+        self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
@@ -29,6 +30,7 @@
         self.$q = $q;
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;
+        self.DocumentsService = DocumentsService;
         self.docsMarkdown = [];
         self.principalTree = {
             docName: 'PrincipalTree',
@@ -181,7 +183,7 @@
                 delete newFolder.docName;
 
                 //We start the pending and count the node to paste
-                self.nodesPendingPaste = self.howManyNodes(newFolder);
+                self.nodesPendingPaste = self.TreeUtilService.howManyNodes(newFolder);
                 self.PendingService.start();
 
                 self.pasteNodefolder(nodeParent,newFolder);
@@ -225,25 +227,9 @@
 
         self.addMarkdown = function(node,title,markdown) {
 
-            var newMarkDown = {
-                docName: 'markdown',
-                title: title,
-                created: new Date(),
-                css: node.defaultCss,
-                md: ''
-            };
-            
-            if (markdown) {
-                newMarkDown.md = markdown;
-            }
-
-            self.PendingService.start();
-
-
-            self.DatabaseService
-                .insert(newMarkDown)
+            self.DocumentsService
+                .addDocument(node.defaultCss,title,markdown)
                 .then(function(newDoc) {
-                    self.PendingService.stop();
 
                     var newNode = {
                         id: newDoc._id,
@@ -263,7 +249,6 @@
 
                 })
                 .catch(function(err) {
-                    self.PendingService.stop();
                     console.error(err);
                 });
 
@@ -377,14 +362,14 @@
 
             //delete from the expanded nodes
             var allFoldersId = [];
-            self.allSubFoldersIds(node,allFoldersId);
+            self.TreeUtilService.allSubFoldersIds(node,allFoldersId);
             allFoldersId.push(node.id);
             _.remove(self.principalTree.expandedNodes, function(item) {
                 return allFoldersId.indexOf(item.id) > 0;
             });
 
             // In all case we have to delete it from the tree
-            var parent = self.findParent(node);
+            var parent = self.TreeUtilService.findParent(node,self.principalTree.tree);
 
             if (parent.children && parent.children.length > 0) {
                 var indexOfNode = _.findIndex(parent.children,{id:node.id});
@@ -423,30 +408,7 @@
             return storeDocuments;
         };
 
-        //Method to find the parent of a node
-        self.findParent = function(node, nodeParent) {
-            if (!nodeParent) {
-                nodeParent = self.principalTree.tree;
-            }
-
-            if (nodeParent.leaf) {
-                return null;
-            } else {
-                var item = _.find(nodeParent.children,{id:node.id});
-                if (item) {
-                    return nodeParent;
-                } else {
-                    var result = null;
-                    for(var i=0; result == null && i < nodeParent.children.length; i++){
-                        if (!nodeParent.children[i].leaf) {
-                            result = self.findParent(node,nodeParent.children[i]);
-                        }
-                    }
-                    return result;
-                }
-            }
-
-        };
+        
 
         //Copy of a folder with documents
         self.copyNodeFolder = function(node) {
@@ -531,18 +493,7 @@
                 }
             }
         };
-
-        self.howManyNodes = function(node) {
-            if (node.leaf || node.children.length === 0) {
-                return 1;
-            } else {
-                var nbNode = 1;
-                node.children.forEach(function(item) {
-                    nbNode = nbNode + self.howManyNodes(item);
-                });
-                return nbNode;
-            }
-        };
+        
 
         self.pasteBufferToNode = function(nodeDestinationParent) {
             if (self.principalTree.buffer.tree) {
@@ -592,14 +543,9 @@
         };
 
         self.transformDatesInBuffer = function() {
-            self.principalTree.buffer.documents.forEach(function (document) {
-                document.created = new Date(document.created);
+            self.principalTree.buffer.documents.forEach(function (doc) {
+                doc.created = new Date(document.created);
             });
-        };
-
-
-        self.saveTemplate = function(node,nameTemplate) {
-            self.TemplateTreeService.saveTemplate(node,nameTemplate);
         };
 
 
@@ -607,45 +553,22 @@
 
             if (self.currentMarkdown) {
                 self.CssService.initCurrentById(self.currentMarkdown.css);
-                
-                self.PendingService.start();
 
-                self.DatabaseService
-                    .update(self.currentMarkdown._id,self.currentMarkdown)
+                self.DocumentsService
+                    .updateDocument(self.currentMarkdown)
                     .then(function(doc) {
-                        self.PendingService.stop();
-                        self.principalTree.selectedNode.name = self.currentMarkdown.title;
+                        self.principalTree.selectedNode.name = doc.title;
 
                         self.save();
                         setTimeout(self.refreshMath, 100);  //without angular $digest
                     })
                     .catch(function(err) {
-                        self.PendingService.stop();
                         console.error(err);
                     });
                 
             }
         };
-
-
-        //get All Ids of the folders inside a node
-        self.allSubFoldersIds = function(node,arrayOfIds) {
-            if (!node) {
-                node = self.principalTree.tree;
-            }
-
-            if(!arrayOfIds) {
-                arrayOfIds = [];
-            }
-            if (!node.leaf) {
-                arrayOfIds.push(node.id);
-                if (node.children && node.children.length > 0) {
-                    node.children.forEach(function(item) {
-                        self.allSubFoldersIds(item,arrayOfIds);
-                    });
-                }
-            }
-        };
+        
 
         self.clearBuffer = function() {
             delete self.principalTree.buffer;
