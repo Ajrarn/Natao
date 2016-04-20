@@ -105,19 +105,6 @@
                         } else {
                             self.principalTree = docs[0];
                             console.log('principalTree', self.principalTree);
-
-                            if (self.principalTree.currentMarkdownId) {
-                                
-                                self.DatabaseService.find({
-                                    docName: 'markdown',
-                                    _id: self.principalTree.currentMarkdownId
-                                }).then(function(docs) {
-                                    self.currentMarkdown = docs[0];
-                                    self.CssService.initCurrentById(self.currentMarkdown.css);
-                                }).catch(function(err) {
-                                    reject(err);
-                                });
-                            }
                         }
                         resolve();
                 }).catch(function(err) {
@@ -142,33 +129,7 @@
                 });
 
         };
-
-        self.selectNode = function(node) {
-
-            if (node.leaf) {
-                if ( !self.principalTree.currentMarkdownId || (self.principalTree.currentMarkdownId && node.id !== self.principalTree.currentMarkdownId)) {
-
-                    self.DatabaseService.find({docName:'markdown',_id: node.id})
-                        .then(function(docs){
-                            if (docs && docs.length > 0){
-                                self.currentMarkdown = docs[0];
-                                self.CssService.initCurrentById(self.currentMarkdown.css);
-                                self.principalTree.currentMarkdownId = self.currentMarkdown._id;
-                                self.save();
-
-                                setTimeout(self.refreshMath, 100);  //without angular $digest
-                            }
-                        }).catch(function(err){
-                            console.error(err);
-                    });
-                }
-            }
-        };
-
-        self.refreshMath = function() {
-            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-        };
-
+        
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
             if (templateName) {
@@ -544,29 +505,8 @@
 
         self.transformDatesInBuffer = function() {
             self.principalTree.buffer.documents.forEach(function (doc) {
-                doc.created = new Date(document.created);
+                doc.created = new Date(doc.created);
             });
-        };
-
-
-        self.saveCurrent = function() {
-
-            if (self.currentMarkdown) {
-                self.CssService.initCurrentById(self.currentMarkdown.css);
-
-                self.DocumentsService
-                    .updateDocument(self.currentMarkdown)
-                    .then(function(doc) {
-                        self.principalTree.selectedNode.name = doc.title;
-
-                        self.save();
-                        setTimeout(self.refreshMath, 100);  //without angular $digest
-                    })
-                    .catch(function(err) {
-                        console.error(err);
-                    });
-                
-            }
         };
         
 

@@ -24,6 +24,10 @@
         self.getDocuments = function() {
             return self.DatabaseService.find({docName:'markdown'});
         };
+        
+        self.findDocument = function(id) {
+            return self.DatabaseService.find({docName:'markdown',_id: id});
+        };
 
         
         //Create new markdown with defaultCss, title and markdown

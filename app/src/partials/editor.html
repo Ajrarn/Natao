@@ -141,7 +141,7 @@
                     <treecontrol class="tree-classic"
                                  tree-model="EditorCtrl.PrincipalTreeService.principalTree.tree"
                                  options="EditorCtrl.PrincipalTreeService.treeOptions"
-                                 on-selection="EditorCtrl.PrincipalTreeService.selectNode(node)"
+                                 on-selection="EditorCtrl.selectNode(node)"
                                  selected-node="EditorCtrl.PrincipalTreeService.principalTree.selectedNode"
                                  expanded-nodes="EditorCtrl.PrincipalTreeService.principalTree.expandedNodes">
                         <span ns-popover ns-popover-timeout="-1"
@@ -177,7 +177,7 @@
                         <div layout="row" layout-align="space-between center">
                             <label for="title" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_TITLE' | translate }}</p>
-                                <input flex id="title" type="text" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                <input flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
                             <div class="buttonBar" layout="row" layout-align="end center">
                                 <button ng-click="EditorCtrl.copyDocument()" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></button>
@@ -197,13 +197,13 @@
                         <div layout="row" layout-align="space-between center">
                             <label for="css" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_CSS' | translate }}</p>
-                                <select id="css" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
+                                <select id="css" ng-model="EditorCtrl.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
                                 </select>
                             </label>
 
                             <label for="created" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_CREATED' | translate }}</p>
-                                <input id="created" type="date" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                <input id="created" type="date" ng-model="EditorCtrl.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
 
                             <script type="text/ng-template" id="popoverEditorSetting">
@@ -232,7 +232,7 @@
                             </div>
 
                         </div>
-                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.PrincipalTreeService.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
+                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
                     </div>
                 </div>
@@ -246,14 +246,14 @@
                                 <p>{{EditorCtrl.PreferencesService.preferences.className}}</p>
                             </div>
                             <div class="title-zone" flex layout="column" layout-align="center stretch">
-                                <h1>{{EditorCtrl.PrincipalTreeService.currentMarkdown.title}}</h1>
-                                <p id="dateCreated">{{EditorCtrl.PrincipalTreeService.currentMarkdown.created | date : 'longDate'}}</p>
+                                <h1>{{EditorCtrl.currentMarkdown.title}}</h1>
+                                <p id="dateCreated">{{EditorCtrl.currentMarkdown.created | date : 'longDate'}}</p>
                             </div>
                         </div>
                         <div class="notation"></div>
                         <div class="devoir" flex layout="row" layout-align="start stretch">
                             <div class="marge"></div>
-                            <div class="rendu" markdown-to-html="EditorCtrl.PrincipalTreeService.currentMarkdown.md" flex></div>
+                            <div class="rendu" markdown-to-html="EditorCtrl.currentMarkdown.md" flex></div>
                         </div>
                     </div>
                 </div>

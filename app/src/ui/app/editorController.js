@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService) {
         console.log('EditorController');
 
         var self = this;
@@ -19,6 +19,7 @@
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
+        self.DocumentsService = DocumentsService;
         self.fileDialog = fileDialog;
         self.$location = $location;
         self.inPrint = false;
@@ -31,7 +32,18 @@
             mode: 'gfm'
         };
 
-        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        //Init of the current Markdown
+        if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
+            self.DocumentsService
+                .findDocument(self.PrincipalTreeService.principalTree.currentMarkdownId)
+                .then(function(docs) {
+                    self.currentMarkdown = docs[0];
+                    self.CssService.initCurrentById(self.currentMarkdown.css);
+                    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+            }).catch(function(err) {
+                console.log(err);
+            });
+        }
 
         // options for the color Picker
         self.optionsColumn = {
@@ -44,16 +56,63 @@
 
         self.refresh = function() {
 
-            // to avoid save (which is blocking for the user) at each change, we use a timeout at 1s.
+            // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
             if (self.refreshTimeout) {
                 clearTimeout(self.refreshTimeout);
             }
             self.refreshTimeout = setTimeout(function() {
                 self.refreshTimeout = null;
-                self.PrincipalTreeService.saveCurrent();
+                self.saveCurrentMarkdown();
             },1000);
 
+        };
+
+        self.refreshMath = function() {
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        };
+
+
+        self.saveCurrentMarkdown = function() {
+
+            if (self.currentMarkdown) {
+                self.CssService.initCurrentById(self.currentMarkdown.css);
+
+                self.DocumentsService
+                    .updateDocument(self.currentMarkdown)
+                    .then(function(doc) {
+                        self.PrincipalTreeService.principalTree.selectedNode.name = doc.title;
+
+                        self.PrincipalTreeService.save();
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+            }
+        };
+
+        self.selectNode = function(node) {
+            if (node.leaf) {
+                if ( !self.PrincipalTreeService.principalTree.currentMarkdownId || (self.PrincipalTreeService.principalTree.currentMarkdownId && node.id !== self.currentMarkdownId)) {
+
+                    self.DocumentsService
+                        .findDocument(node.id)
+                        .then(function(docs){
+                            if (docs && docs.length > 0){
+                                self.currentMarkdown = docs[0];
+                                self.CssService.initCurrentById(self.currentMarkdown.css);
+                                self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
+                                self.PrincipalTreeService.save();
+
+                                setTimeout(self.refreshMath, 100);  //without angular $digest
+                            }
+                        })
+                        .catch(function(err){
+                            console.error(err);
+                    });
+                }
+            }
         };
 
         self.offPrint = function() {
@@ -61,11 +120,11 @@
         };
 
         self.showViewer = function() {
-            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showViewer;
+            return self.currentMarkdown && self.PreferencesService.preferences.showViewer;
         };
 
         self.showEditor = function() {
-            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showEditor;
+            return self.currentMarkdown && self.PreferencesService.preferences.showEditor;
         };
 
         self.print = function() {
