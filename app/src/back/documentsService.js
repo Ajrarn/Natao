@@ -79,6 +79,24 @@
             });
         };
 
+        //delete of a document
+        self.deleteDocument = function(id) {
+            self.PendingService.start();
+
+            self.DatabaseService
+                .remove(id)
+                .then(function(numRemoved) {
+                    self.PendingService.stop();
+                    console.log('removed',numRemoved);
+                })
+                .catch(function(err) {
+                    self.PendingService.stop();
+                    console.error(err);
+                });
+           
+            
+        };
+
         return self;
 
 

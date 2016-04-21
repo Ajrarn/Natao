@@ -215,21 +215,7 @@
 
         };
 
-        //delete of a document
-        self.deleteDocument = function(node) {
-            self.PendingService.start();
-
-            self.DatabaseService
-                .remove(node.id)
-                .then(function(numRemoved) {
-                    self.PendingService.stop();
-                    console.log('removed',numRemoved);
-                })
-                .catch(function(err) {
-                    self.PendingService.stop();
-                    console.error(err);
-                });
-        };
+       
 
         //copy of a document by its content to a node in the tree
         self.copyDocumentTo = function(originalDoc,nodeParent) {
@@ -301,7 +287,7 @@
         self.deleteNode = function(node) {
             if (node.leaf) {
                 // If it's a document we have to delete it first from the markdown collection
-                self.deleteDocument(node);
+                self.DocumentsService.deleteDocument(node.id);
                 self.currentMarkdown = null;
                 self.principalTree.currentMarkdownId = null;
             } else {
@@ -313,7 +299,7 @@
                         self.currentMarkdown = null;
                         self.principalTree.currentMarkdownId = null;
                     }
-                    self.deleteDocument(document);
+                    self.DocumentsService.deleteDocument(document.id);
                 });
             }
             // delete the selectednode if it is the current node
@@ -362,7 +348,7 @@
                     });
                 }
             } else {
-                //this case happens only if th efirst node is a document
+                //this case happens only if the first node is a document
                 storeDocuments = [];
                 storeDocuments.push(node);
             }
