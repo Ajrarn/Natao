@@ -444,6 +444,9 @@
 
         self.pasteBufferToNode = function(nodeDestinationParent) {
             if (self.principalTree.buffer.tree) {
+                //We start the pending and count the node to paste
+                self.nodesPendingPaste = self.TreeUtilService.howManyNodes(newFolder);
+                self.PendingService.start();
                 self.pasteNodefolder(nodeDestinationParent);
                 self.principalTree.buffer.tree = null;
             }

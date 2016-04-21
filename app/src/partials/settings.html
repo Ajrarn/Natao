@@ -296,12 +296,66 @@
                         </div>
 
                         <div class="templateContainer" flex>
+                            <script type="text/ng-template" id="popoverActionsFolder">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
+                                    <div class="buttonBar" layout="row" layout-align="start start" ng-show="SettingCtrl.folderPopover === 'buttonBar'">
+                                        <span class="button" ng-click="SettingCtrl.editFolder()" title="{{ 'BTN_EDIT_FOLDER' | translate }}"><span class="typcn typcn-edit"></span></span>
+                                        <span class="button" ng-click="SettingCtrl.openAddFolder()" title="{{ 'BTN_ADD_FOLDER' | translate }}"><span class="typcn typcn-folder-add"></span></span>
+                                        <div layout="column" layout-align="start start">
+                                            <span class="button" ng-click="SettingCtrl.copyFolder(hidePopover)" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></span>
+                                            <span class="button" ng-click="SettingCtrl.cutFolder(hidePopover)" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></span>
+                                            <span class="button" ng-class="{'disabled':SettingCtrl.pasteButtonDisabled()}" ng-click="SettingCtrl.pasteFolder(hidePopover)" title="{{ 'BTN_PASTE' | translate }}"><span class="typcn typcn-book"></span></span>
+                                        </div>
+                                        <span class="button" ng-click="SettingCtrl.openDelete()" title="{{ 'BTN_DELETE' | translate }}"><span class="typcn typcn-trash"></span></span>
+                                    </div>
+                                    <form name="EditFolder" novalidate ng-submit="SettingCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="SettingCtrl.folderPopover === 'edit'">
+                                        <label for="folderName" layout="row" layout-align="center center" class="allInOne">
+                                            <p>{{ 'NODE_NAME' | translate }}</p>
+                                            <input id="folderName" ng-model="SettingCtrl.newNameFolder" focus-on="folderName">
+                                            <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
+                                        </label>
+                                        <label for="defaultCss" layout="row" layout-align="center center">
+                                            <p>{{ 'DEFAULT_CSS' | translate }}</p>
+                                            <select id="defaultCss" ng-model="SettingCtrl.newDefaultCss" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.submitFolderPopover(hidePopover)">
+                                            </select>
+                                        </label>
+                                        <ngjs-color-picker ng-model="SettingCtrl.newColor" selected="SettingCtrl.newColor" options="appCtrl.ColorPickerService.optionsColumn" custom-colors="appCtrl.ColorPickerService.customColors" ng-click="SettingCtrl.submitFolderPopover(hidePopover)"></ngjs-color-picker>
+                                    </form>
+                                    <form name="AddFolder" novalidate ng-submit="SettingCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="SettingCtrl.folderPopover === 'addFolder'">
+                                        <label for="templateFolder" layout="row" layout-align="start center">
+                                            <p>{{ 'TEMPLATE' | translate }}</p>
+                                            <select id="templateFolder" ng-model="SettingCtrl.templateName" ng-options="template.name as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates">
+                                                <option value="aucun">Aucun</option>
+                                            </select>
+                                        </label>
+                                        <label for="addFolderName" layout="row" layout-align="center center" class="allInOne">
+                                            <p>{{ 'SUB_NODE_NAME' | translate }}</p>
+                                            <input id="addFolderName" ng-model="SettingCtrl.newFolderName" focus-on="addFolderName">
+                                            <button type="submit"><span class="typcn typcn-tick-outline"></span></button>
+                                        </label>
+                                    </form>
+                                    <form name="Delete" novalidate ng-submit="SettingCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="SettingCtrl.folderPopover === 'delete'">
+                                        <p>{{ 'CONFIRM_DELETE_FOLDER' | translate }}</p>
+                                        <div layout="row" layout-align="center center">
+                                            <button type="submit"  value="Submit">{{ 'YES' | translate }}</button>
+                                            <span class="button" ng-click="SettingCtrl.cancelAction(hidePopover)">{{ 'NO' | translate }}</span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </script>
                             <treecontrol class="tree-classic border"
                                          tree-model="SettingCtrl.currentTemplate"
                                          options="SettingCtrl.treeOptions"
                                          selected-node="SettingCtrl.selectedNode"
                                          expanded-nodes="SettingCtrl.expandedNodes">
-                                <span>{{node.name}}</span>
+                                <span ns-popover ns-popover-timeout="-1"
+                                      ns-popover-template="popoverActionsFolder"
+                                      ns-popover-trigger="click"
+                                      ns-popover-hide-on-click="false"
+                                      ns-popover-hide-on-inside-click="false"
+                                      ns-popover-placement="right"
+                                      ns-popover-theme="ns-popover-tooltip-theme" ng-click="SettingCtrl.openFolderPopover(node)" ng-style="{color:node.color}">{{node.name}}</span>
                             </treecontrol>
                         </div>
 

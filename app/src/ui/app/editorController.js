@@ -44,16 +44,7 @@
                 console.log(err);
             });
         }
-
-        // options for the color Picker
-        self.optionsColumn = {
-            columns: 4,
-            roundCorners: true
-        };
-
-        self.customColors = ['#7bd148', '#5484ed', '#a4bdfc', '#46d6db', '#7ae7bf', '#51b749', '#fbd75b', '#ffb878', '#ff887c', '#dc2127', '#dbadff', '#000000' ];
         
-
         self.refresh = function() {
 
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.

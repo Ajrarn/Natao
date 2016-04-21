@@ -14,7 +14,7 @@
 
         <div layout="row" layput-align="start center">
             <button ng-click="EditorCtrl.print()" title="{{'PRINT' | translate}}" class="transparent"><span class="typcn typcn-printer"></span></button>
-            <button ng-click="appCtrl.help()" title="{{'HELP' | translate}}" class="transparent help"><!--span class="typcn typcn-compass"></span-->?</button>
+            <button ng-click="appCtrl.help()" title="{{'HELP' | translate}}" class="transparent help">?</button>
             <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}" class="transparent"><span class="typcn typcn-cog-outline"></span></button>
         </div>
     </div>
@@ -93,7 +93,7 @@
                                     <select id="defaultCss" ng-model="EditorCtrl.newDefaultCss" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.submitFolderPopover(hidePopover)">
                                     </select>
                                 </label>
-                                <ngjs-color-picker ng-model="EditorCtrl.newColor" selected="EditorCtrl.newColor" options="EditorCtrl.optionsColumn" custom-colors="EditorCtrl.customColors" ng-click="EditorCtrl.submitFolderPopover(hidePopover)"></ngjs-color-picker>
+                                <ngjs-color-picker ng-model="EditorCtrl.newColor" selected="EditorCtrl.newColor" options="appCtrl.ColorPickerService.optionsColumn" custom-colors="appCtrl.ColorPickerService.customColors" ng-click="EditorCtrl.submitFolderPopover(hidePopover)"></ngjs-color-picker>
                             </form>
                             <form name="AddFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'addFolder'">
                                 <label for="templateFolder" layout="row" layout-align="start center">

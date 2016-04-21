@@ -3,13 +3,14 @@
 
     var beautify_html = require('js-beautify').html;
     var fs = require('fs');
+    var uuid = require('node-uuid');
 
     angular
         .module('Natao')
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService) {
 
         var self = this;
 
@@ -26,7 +27,12 @@
         self.$showdown = $showdown;
         self.focus = focus;
         self.$timeout = $timeout;
+        self.TreeUtilService = TreeUtilService;
+        self.PendingService = PendingService;
         self.viewer = true;
+
+        self.buffer = {};
+        self.nodesPendingPaste = 0;
 
         //for codeMirror
         self.cssEditorOptions = {
@@ -214,8 +220,183 @@
             hide();
         };
 
+        // the possible values of folderPopover are ['buttonBar','edit','addFolder','delete']
+        self.openFolderPopover = function(node) {
+            self.currentNode = node;
+            self.newNameFolder = node.name;
+            self.newDefaultCss = node.defaultCss;
+            self.folderPopover = 'buttonBar';
+            self.newColor = node.color;
+            console.log('disabled',self.pasteButtonDisabled());
+        };
+
+        self.pasteButtonDisabled = function() {
+            return !(self.buffer);
+        };
+
+        self.editFolder = function() {
+            self.folderPopover = 'edit';
+            self.focus('folderName');
+        };
+
+
+        self.openAddFolder = function() {
+            self.newFolderName = null;
+            self.folderPopover = 'addFolder';
+            self.templateName = null;
+            self.focus('addFolderName');
+        };
+
+
+        self.openDelete = function() {
+            self.folderPopover = 'delete';
+            self.cancel = false;
+        };
+
+        self.openConfirmTemplate = function() {
+            self.folderPopover = 'confirmTemplate';
+            self.cancel = false;
+        };
+
+        self.cancelAction = function(hide) {
+            self.cancel = true;
+            hide();
+        };
+
+        self.submitFolderPopover = function(hide){
+            switch (self.folderPopover) {
+                case 'edit':
+                    self.saveFolder(hide);
+                    break;
+                case 'addFolder':
+                    self.addFolder(hide);
+                    break;
+                case 'delete':
+                    if (!self.cancel) {
+                        self.deleteNode(self.currentNode);
+                    } else {
+                        hide();
+                    }
+                    break;
+                default: break;
+            }
+        };
+
+        self.copyFolder = function(hide) {
+            angular.copy(self.currentNode,self.buffer);
+            hide();
+        };
+
+        self.cutFolder = function(hide) {
+            angular.copy(self.currentNode,self.buffer);
+            self.deleteNode(self.currentNode);
+            hide();
+        };
+
+        self.pasteFolder = function(hide) {
+            if (self.buffer) {
+                //We start the pending and count the node to paste
+                self.nodesPendingPaste = self.TreeUtilService.howManyNodes(self.buffer);
+                self.PendingService.start();
+                self.pasteNodefolder(self.currentNode);
+                self.buffer = {};
+            }
+            //And we save the modifications
+            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+            hide();
+        };
+
+        self.addFolder = function(hide) {
+            if (self.newFolderName && self.newFolderName.length > 0) {
+                var newNode = {
+                    id: uuid.v4(),
+                    name: self.newFolderName,
+                    color: '#000000',
+                    children:[]
+                };
+
+                newNode.defaultCss = self.currentNode.defaultCss;
+                self.currentNode.children.push(newNode);
+
+                //and we open the node parent
+                self.expandedNodes.push(self.currentNode);
+
+                // if the new folder is the first one
+                if (!self.selectedNode) {
+                    self.selectedNode = newNode;
+                }
+            }
+            //And we save the modifications
+            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+            hide();
+        };
+
+        self.saveFolder = function(hide) {
+            if (self.newNameFolder && self.newNameFolder.length > 0) {
+                self.currentNode.name = self.newNameFolder;
+                self.currentNode.color = self.newColor;
+                self.currentNode.defaultCss = self.newDefaultCss;
+
+                //And we save the modifications
+                self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                hide();
+            }
+        };
+
+        self.deleteNode = function(node) {
+
+            // delete the selectednode if it is the current node
+            if (angular.equals(node,self.selectedNode)) {
+                delete self.selectedNode;
+            }
+
+            // In all case we have to delete it from the tree
+            var parent = self.TreeUtilService.findParent(node,self.currentTemplate);
+
+            if (parent.children && parent.children.length > 0) {
+                var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                if (indexOfNode >=0) {
+                    parent.children.splice(indexOfNode,1);
+                }
+            }
+            //And we save the modifications
+            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+        };
+
+        //paste a node from the buffer
+        self.pasteNodefolder = function(nodeDestinationParent, nodeSource) {
+            if (!nodeSource) {
+                nodeSource = self.buffer;
+            }
+
+            var nodeToGo = {};
+            angular.copy(nodeSource,nodeToGo);
+            nodeToGo.id = uuid.v4();
+            nodeToGo.children = [];
+            if (nodeSource.children && nodeSource.children.length > 0) {
+                nodeSource.children.forEach(function(item) {
+                    self.pasteNodefolder(nodeToGo, item);
+                });
+            }
+
+            nodeDestinationParent.children.push(nodeToGo);
+
+            // count down the node to paste
+            if (self.nodesPendingPaste > 0) {
+                self.nodesPendingPaste--;
+
+                if (self.nodesPendingPaste === 0) {
+                    self.PendingService.stop();
+                    self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                }
+            }
+        };
+
 
         /* ***************************** */
+
+
+
 
         
 

@@ -114,9 +114,7 @@
             //then delete the document reference from the copy
             self.deleteDocReference(template);
             delete template._id;
-
-            console.log('template',template);
-
+            
             //we search if the template already exist
             var oldTemplate = self.getTemplate(nameTemplate);
             if (oldTemplate) {
