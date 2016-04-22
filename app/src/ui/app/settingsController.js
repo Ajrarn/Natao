@@ -4,6 +4,7 @@
     var beautify_html = require('js-beautify').html;
     var fs = require('fs');
     var uuid = require('node-uuid');
+    var _ = require('lodash');
 
     angular
         .module('Natao')

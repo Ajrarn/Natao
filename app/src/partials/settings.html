@@ -323,12 +323,6 @@
                                         <ngjs-color-picker ng-model="SettingCtrl.newColor" selected="SettingCtrl.newColor" options="appCtrl.ColorPickerService.optionsColumn" custom-colors="appCtrl.ColorPickerService.customColors" ng-click="SettingCtrl.submitFolderPopover(hidePopover)"></ngjs-color-picker>
                                     </form>
                                     <form name="AddFolder" novalidate ng-submit="SettingCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="SettingCtrl.folderPopover === 'addFolder'">
-                                        <label for="templateFolder" layout="row" layout-align="start center">
-                                            <p>{{ 'TEMPLATE' | translate }}</p>
-                                            <select id="templateFolder" ng-model="SettingCtrl.templateName" ng-options="template.name as template.name for template in SettingCtrl.TemplateTreeService.availableTemplates">
-                                                <option value="aucun">Aucun</option>
-                                            </select>
-                                        </label>
                                         <label for="addFolderName" layout="row" layout-align="center center" class="allInOne">
                                             <p>{{ 'SUB_NODE_NAME' | translate }}</p>
                                             <input id="addFolderName" ng-model="SettingCtrl.newFolderName" focus-on="addFolderName">
