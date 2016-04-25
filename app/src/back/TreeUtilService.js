@@ -67,6 +67,38 @@
                     return result;
                 }
             }
+        };
+
+        self.getNode = function(nodeId,node) {
+            var nodeFound = null;
+            if (node.id === nodeId) {
+                nodeFound = node;
+            } else {
+                if (!node.leaf && node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        var nodeInSearch = self.getNode(nodeId,item,nodeFound);
+                        if (nodeInSearch) {
+                            nodeFound = nodeInSearch;
+                        }
+                    });
+                }
+            }
+            return nodeFound;
+
+        };
+
+        self.flatFolders = function(node) {
+            if (!node.leaf) {
+                var arrayFolder = [node];
+                if (node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        arrayFolder =  _.union(arrayFolder,self.flatFolders(item));
+                    });
+                }
+                return arrayFolder;
+            } else {
+                return [];
+            }
 
         };
 
