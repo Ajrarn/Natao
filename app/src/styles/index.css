@@ -2594,11 +2594,12 @@ hr {
 treecontrol {
   position: absolute; }
 
-/**********************flags*************************/
-.flag-icon {
-  margin: 5px;
-  font-size: 6em;
-  border: solid black 1px; }
+/***********************DragDrop***********************/
+.drag {
+  opacity: 0.5; }
+
+.over {
+  background: yellow; }
 
 /***********************ColorChooser*****************/
 .chooser-purple {

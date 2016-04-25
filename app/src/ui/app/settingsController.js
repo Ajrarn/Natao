@@ -360,8 +360,15 @@
                     parent.children.splice(indexOfNode,1);
                 }
             }
+
             //And we save the modifications
             self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+
+            //we have to clean the expandedNodes
+            var arrayOfNode = self.TreeUtilService.flatFolders(self.currentTemplate);
+            self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                return object.id === other.id;
+            });
         };
 
         //paste a node from the buffer
