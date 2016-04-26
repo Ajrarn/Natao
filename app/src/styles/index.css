@@ -2599,7 +2599,36 @@ treecontrol {
   opacity: 0.5; }
 
 .over {
-  background: yellow; }
+  border: dashed black 1px; }
+
+[dragdroppable] {
+  position: relative; }
+  [dragdroppable] .before {
+    position: absolute;
+    top: 0.1em;
+    left: 0;
+    right: 0;
+    min-height: 1px;
+    display: inline-block;
+    background-color: rgba(0, 0, 255, 0.5); }
+  [dragdroppable] .after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 1px;
+    display: inline-block;
+    background-color: rgba(0, 255, 0, 0.5); }
+
+.beforeAfter {
+  height: 1em;
+  width: 0.2em;
+  min-height: 1em;
+  min-width: 0.2em;
+  display: inline-block; }
+  .beforeAfter.over {
+    border: dashed black 1px;
+    min-width: 5em; }
 
 /***********************ColorChooser*****************/
 .chooser-purple {

@@ -400,6 +400,12 @@
             }
         };
 
+        self.expand = function(node) {
+            if (self.expanded.indexOf(node) < 0) {
+                self.expandedNodes.push(node);
+            }
+        };
+
 
         /* ***************************** */
         self.handleDrop = function(item, bin) {
@@ -417,15 +423,18 @@
             self.expand(nodeDrop);*/
         };
 
-        self.expand = function(node) {
-            if (self.expanded.indexOf(node) < 0) {
-                self.expandedNodes.push(node);
-            }
+        self.startDrag = function() {
+            console.log('startDrag');
         };
 
+        self.endDrag = function() {
+            console.log('endDrag');
+        };
 
+        self.isFirstChild = function(node) {
+            return self.TreeUtilService.isFirstChild(node,self.currentTemplate);
+        };
 
-        
 
 
         self.settingsValide();
