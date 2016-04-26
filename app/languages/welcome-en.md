@@ -1,40 +1,52 @@
-**Bonjour, et Bienvenue dans Natao.**
+**Hello and welcome to Natao.**
 
-Pour ton confort, avant de poursuivre, règles la taille des caractères avec les petites loupes en haut à gauche (dans la grande barre noire), et eventuellement avec le bouton engrenage situé juste au dessus de l'éditeur (pas celui qui est tout en haut à droite).
+For your own comfort, you may adjust the size of the interface's characters by clicking on the small looking-glass icons visible within the black bar located at the top, left-hand corner of the screen. 
+You may also adjust the look of Natao's user-interface by clicking on the gears icon located right above the central panel.
 
-Tu dois te demander ce que tu peux faire avec ce logigiel, et comment l'utiliser.
-Ce premier document est à la fois un mini-guide et un exemple de son utilisation.
-Tu peux voir dans l'éditeur (au milieu) la syntaxe Markdown, et le rendu de celui-ci dans le panneau de visualisation (à droite).
+You are probably wondering what Natao is and what it can help you accomplish. The document you are currently reading should help you answer these questions.
 
-# Les deux grandes principes de Natao
+# Natao's Interface
 
-## T'aider à organiser tes documents
+Looking at Natao's user-interface, you can notice three windows:
 
-Tu peux voir à gauche un explorateur qui te permet d'organiser tes documents. Cela n'a rien d'extraordinaire en soi, tu as déjà certainement un explorateur de fichier sur ton ordinateur. Celui-ci a tout de même quelques différences:
-- Il est intégré dans ton éditeur de document. Autrement dit, sur ton explorateur classique tu choisis un document, tu double-cliques dessus et il s'ouvre dans une **nouvelle** fenêtre. Et il en sera de même pour chaque document que tu ouvriras. Ici, un simple clic suffit à l'ouvrir dans l'éditeur. Et chaque document que tu sélectionnera prendra la place du précédent.
-- Il dispose de modèles de structure de dossiers. Cela te permet de créer facilement un dossier avec une structure de sous-dossier en une seule fois. Tu peux d'ailleurs modifier les structures existantes et en créer de nouvelles à ta convenance.
-- Tu peux colorer les titres des dossiers pour une meilleure lisibilité.
+- The left window is called the "Explorer". It lets you organize the documents you create within Natao.
+- The center window is called the "Editor". It shows the markdown syntax as you write it.
+- The right window is called the "Viewer". It shows how the text appears in its final, formatted form.
 
-## T'aider à rédiger des documents sans te préoccuper de leur mise en forme
+# Natao's Two Core Principles
 
-Il n'est pas évident de s'occuper à la fois du contenu de son document et de sa mise forme dans un traitement de texte classique. Il faut parfois s'arrêter de taper, sélectionner une portion de texte, et aller cliquer sur un bouton pour modifier la façon dont il s'affiche. Et bien sur, il y a beaucoup, voire trop d'options de mise en page. Tout cela nous fait perdre du temps, là où on ne devrait pas en perdre.
+## To help you organize your documents.
 
-Et c'est là qu'intervient le Markdown.
+Although the Explorer window operates the way your computer organizes files and documents, it offers additional functions:
 
-*Mais qu'est-ce donc ?*
+- The Explorer is integrated within Natao's interface. You may therefore navigate through your documents and edit them within the program. Indeed, if you were to click on one of the documents visible within the Explorer window, the selected document would open in Natao's Editor window, and let you start working immediately.
 
-Le Markdown est langage de balisage léger créé par John Gruber en 2004. Ce langage va te permettre d'augmenter un simple texte avec quelques caractères ayant une signification structurelle.
-Par exemple:
-- un texte commençant par un # est un titre important. Avec 2 #, c'est un titre un peu moins important.
-- un texte entouré par des * est mis en valeur, encore plus s'il est entouré de 2 *.
+- The Explorer contains examples of folder structure to help you organize your work. Each folder you create within the panel automatically appears with its own set of sub-folders. You may modify these sub-folders and create your own structures.
 
-*Et pour la mise en forme, on fait quoi ?*
+- The Explorer allows you to colorize the folder names for facilitate their reading.
 
-Pour la mise en forme, Natao utilise des feuilles de style. Il t'en fournit quelques une au départ à titre d'exemple, mais tu peux les modifier à ta guise, et en créer de nouvelles selon tes besoins.
+## To help you write without worrying about formatting.
 
-# Aller plus loin
-Voila, tu connais les grandes lignes de cette application. Si tu souhaites aller plus loin, je t'invite à cliquer sur le point d'interrogation en haut à droite. Cela ouvrira une fenêtre avec l'aide qui te permettra de mieux découvrir Natao et tout ce que tu peux faire avec.
+Working on the content and the formatting of a document within the confines of a traditional desktop publishing program can be cumbersome and time-consuming. In order to modify a text's appearance in such programs, one has to stop typing, select the text to be formated, and click on a button to change its appearance, after having gone through many options. Natao lets you concentrate on a document's content by doing the formatting for you. 
 
-J'espère que tu trouveras cet outil utile et qu'il t'apportera une aide efficace.
+This is where the Markdown approach of composing documents comes in.
 
-A bientôt.
+What's Markdown?
+
+The Markdown language was created in 2004 by John Gruber, with significant help from Aaron Swartz. It purports to convert a simple text containing a few structurally significant characters into an easily readable and clearly formatted document. For instance:
+
+- A line beginning with a single pound or hash sign (such as this #) becomes an important title. A sentence beginning with two pound or hash signs appears as a less important title.
+- A text beginning and ending with a star sign (such as this *) is highlighted, while one that begins and ends with two stars becomes even more visible.
+
+What about formatting styles?
+
+Natao uses style sheets. A few examples of these are made available as soon as the program starts. You may modify them and even create your own.
+
+# Next Steps
+
+You should now have a better idea of what Natao is and what it can allow you to accomplish.
+If you decide to go further, click on the question mark icon located at the top, right-hand corner of Natao's interface. A new window will pop up and let you delve deeper into the program.
+
+I hope you will find Natao easy to use and useful to your work.
+
+Thanks and good luck!
