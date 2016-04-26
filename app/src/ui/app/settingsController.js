@@ -404,14 +404,17 @@
         /* ***************************** */
         self.handleDrop = function(item, bin) {
 
-            var nodeDrag = self.TreeUtilService.getNode(item,self.currentTemplate);
+            console.log('item',item);
+            console.log('bin',bin);
+
+            /*var nodeDrag = self.TreeUtilService.getNode(item,self.currentTemplate);
             var nodeDrop = self.TreeUtilService.getNode(bin,self.currentTemplate);
             console.log('itemDrag',nodeDrag);
             console.log('itemDrop', nodeDrop);
 
             self.pasteNodefolder(nodeDrop,nodeDrag);
             self.deleteNode(nodeDrag);
-            self.expand(nodeDrop);
+            self.expand(nodeDrop);*/
         };
 
         self.expand = function(node) {

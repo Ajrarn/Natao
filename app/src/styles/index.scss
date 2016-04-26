@@ -424,7 +424,20 @@ treecontrol {
 }
 
 .over {
-  background: yellow;
+  border: dashed black 1px;
+}
+
+.beforeAfter {
+  height: 1em;
+  width: 0.2em;
+  min-height: 1em;
+  min-width: 0.2em;
+  display: inline-block;
+
+  &.over {
+    border: dashed black 1px;
+    min-width: 5em;
+  }
 }
 
 
