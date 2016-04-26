@@ -99,8 +99,13 @@
             } else {
                 return [];
             }
-
         };
+
+        self.isFirstChild = function(node,nodeRoot) {
+            var parent = self.findParent(node,nodeRoot);
+            return parent && parent.children && parent.children.indexOf(node) === 0;
+        };
+        
 
 
         return self;

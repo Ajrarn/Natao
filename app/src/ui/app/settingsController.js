@@ -434,6 +434,10 @@
         self.isFirstChild = function(node) {
             return self.TreeUtilService.isFirstChild(node,self.currentTemplate);
         };
+        
+        self.isExpanded = function(node) {
+            return self.expandedNodes && self.expandedNodes.indexOf(node) >= 0;
+        };
 
 
 

@@ -354,7 +354,7 @@
                                       ng-style="{color:node.color}">
                                     <span dragdroppable drop="SettingCtrl.handleDrop" bin="bin" id="{{node.id}}" item="item" start="SettingCtrl.startDrag" end="SettingCtrl.endDrag">{{node.name}}
                                         <div class="before" droppable drop="SettingCtrl.handleDrop" bin="bin" id="before{{node.id}}" ng-if="SettingCtrl.isFirstChild(node)"></div>
-                                        <div class="after" droppable drop="SettingCtrl.handleDrop" bin="bin" id="after{{node.id}}"></div>
+                                        <div class="after" droppable drop="SettingCtrl.handleDrop" bin="bin" id="after{{node.id}}" ng-if="!SettingCtrl.isExpanded(node)"></div>
                                     </span>
 
                                 </span>
