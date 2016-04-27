@@ -1,101 +1,100 @@
-# La barre de boutons principale
+# The main buttons bar
 
 ![Image of MenuBar](./src/images/menuBar.png)
 
-Cette barre présente en haut de l'éditeur te donne accès aux fonctionnalités essentielles de Natao.
+This bar, located at the top of the Editor panel, lets you access the core functions of Natao.
 
-## Zoome et Dézoome
+## Zoo-In and Zoom-Out
 
- - <span class="typcn typcn-zoom-out-outline"></span> te permet de diminuer la taille des caractères pour toute l'application.
- - <span class="typcn typcn-zoom-in-outline"></span> te permet d'augmenter la taille des caractères pour toute l'application.
+ - <span class="typcn typcn-zoom-out-outline"></span> Lets you decrease the size of all the characters used in Natao's user interface.
+ - <span class="typcn typcn-zoom-in-outline"></span> Lets you increase the size of all the characters used in Natao's user interface.
 
-Une chose que tu dois savoir à propos de Natao, c'est que tout est enregistré automatiquement. Les modifications que tu apportes en le règlant, par exemple ici avec ces boutons, est sauvegardé.
-Tu n'auras pas à refaire ces réglages lorsque tu le redémarreras.
+You should note that Natao saves interface modifications automatically. You won't have to go over them again after you've re-launched Natao.
 
-## Dyslexie
+## The Dyslexia button
 
-<span class="typcn typcn-lightbulb"></span> te permet d'activer ou de désactiver pour toute l'application, la police de caractère open-dyslexic.
-Cette dernière est spécialement étudiée pour améliorer le confort de lecture des dyslexiques.
+<span class="typcn typcn-lightbulb"></span> lets you activate OpenDyslexic characters for the whole of the program's interface.
+These characters are especially designed to increase words' readability for dyslexics.
 
-Il y a une petite exception à cette règle : les polices explicitement choisies dans les feuilles de style, mais on verra cela plus tard.
+You should note that the characters used in the document style-sheets do not have a dyslexia mode (more on style-sheets further down).
 
-## Les 3 panneaux
+## The Three Panels button
 
-- <span class="typcn typcn-th-menu-outline"></span> permet de masquer/afficher le panneau de navigation dans tes documents, appelé aussi **Mes Cours**.
-- <span class="typcn typcn-edit"></span> permet de masquer/afficher l'éditeur Markdown
-- <span class="typcn typcn-eye-outline"></span> permet de masquer/afficher le panneau de visualisation du résultat.
+- <span class="typcn typcn-th-menu-outline"></span> lets you hide or display the Explorer panel, which is also where **My Courses** figure.
+- <span class="typcn typcn-edit"></span> lets you hide or display the Markdown Editor panel.
+- <span class="typcn typcn-eye-outline"></span> lets you hide or display the Viewer panel.
 
-## Imprimer
+## The Print button
 
-<span class="typcn typcn-printer"></span> te permet d'imprimer le document actif.
+<span class="typcn typcn-printer"></span> lets you print the document visible in the Viewer panel.
 
-## Aide
+## The Help button
 
-<span>?</span> te permet d'ouvrir une nouvelle fenêtre avec l'aide (ce que tu es en train de lire).
+<span>?</span> lets you open the Natao's Help window. This is what you are currently reading.
 
-## Règlages
+## The Settings button
 
-<span class="typcn typcn-cog-outline"></span> te permet d'accéder aux réglages de Natao.
+<span class="typcn typcn-cog-outline"></span> lets you access Natao's settings.
 
-# Mes Cours
+# The *My Courses* button:
 
-## La barre d'outils de l'explorateur de documents
+## The documents Explorer's tool bar
+
 ![Image of ExplorerBar](./src/images/myLessons.png)
 
-Cette barre contient, en plus du titre, 3 boutons :
-- <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
-- <span class="typcn typcn-download-outline"></span> permet d'importer un contenu depuis un fichier.
-- <span class="typcn typcn-plus-outline"></span> permet d'ajouter un dossier à la racine de **Mes Cours**. Lors de la création d'un dossier, tu peux utiliser un modèle de structure qui ajoutera dans ton dossier des sous-dossier correspondant à l'organisation que tu as choisi.
+This bar displays three extra buttons which let you:
+- <span class="typcn typcn-book"></span> paste copied or cut content present in Natao's clipboard
+- <span class="typcn typcn-download-outline"></span> import content from a file.
+- <span class="typcn typcn-plus-outline"></span> add a folder at the root of **My Courses**. During the creation of the folder, you have the option of selecting one of Natao's folder structure templates. This will add sub-folders to the folder you're creating.
 
-## L'explorateur de documents
+## The Explorer panel
 
 ![Image of Explorer](./src/images/explorer.png)
 
-Dans ce dernier apparaissent tes dossiers et documents, selon l'organisation qui te convient.
-- Un clic sur une icône de dossier le sélectionnera, le pliera ou le dépliera.
-- Un clic sur le nom du dossier ouvrira un menu d'actions sur ce dernier que l'on verra juste après.
-- un clic sur un document, l'ouvrira dans la partie de droite, dans l'éditeur et le panneau de visualisation.
+Folders and documents are organized here as you see fit.
+- One click on a folder icon will either open or close it.
+- One click on the folder's name will open a pop-up tool menu that will let you edit aspects of the folder.
+- One click on a document will open it at once in the Editor panel, as an editable Markdown text, and in the Viewer panel as it will appear once printed.
 
-
-## Les actions sur les dossiers
+## The Folder pop-up tool menu lets you:
 
  ![Image of Explorer](./src/images/folderOptions.png)
 
-- <span class="typcn typcn-edit"></span> permet de modifier le nom du dossier, sa couleur, ou la feuille de style par défaut des documents qu'il contient. La modification du style par défaut n'est pas appliquée  à tous les sous-dossiers et documents de ce dernier.
-- <span class="typcn typcn-folder-add"></span> permet d'ajouter un sous-dossier à celui que l'on a sélectionné. On peut également ici utiliser un modèle de structure pour créer automatiquement les sous-dossiers correspondant au modèle.
-- <span class="typcn typcn-document-add"></span> permet d'ajouter un document dans le dossier sélectionné.
-- <span class="typcn typcn-tabs-outline"></span> permet de copier un dossier et tout son contenu dans le presse-papier de Natao.
-- <span class="typcn typcn-scissors-outline"></span> permet de couper un dossier et tout son contenu dans le presse-papier de Natao.
-- <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
-- <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier un dossier et tout son contenu.
-- <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
-- <span class="typcn typcn-flow-children"></span> permet d'enregistrer la structure, tous les sous-dossiers sans les documents, en tant que modèle de structure. Ce modèle de structure pourra être utilisé à chaque création de dossier/sous-dossier.
-- <span class="typcn typcn-trash"></span> permet de supprimer le dossier ainsi que tout ce qu'il contient.
+- <span class="typcn typcn-edit"></span> modify the folder's name, its color, and its default style-sheet. You should note that modifying the folder's style-sheet neither changes the style of that folder's sub-folders nor the documents it contains.
+- <span class="typcn typcn-folder-add"></span> add a sub-folder to the folder you've selected. Here, you may also choose to use one Natao's folder structure templates. Natao will automatically create sub-folders that correspond to that template.
+- <span class="typcn typcn-document-add"></span> add a document to the selected folder.
+- <span class="typcn typcn-tabs-outline"></span> copy the selected folder and its content to Natao's clipboard.
+- <span class="typcn typcn-scissors-outline"></span> cut the selected folder and its content to Natao's clipboard.
+- <span class="typcn typcn-book"></span> paste the selected folder and its content to Natao's clipboard.
+- <span class="typcn typcn-export-outline"></span> export the selected folder and its content as a single file.
+- <span class="typcn typcn-download-outline"></span> import a file's content to the selected folder.
+- <span class="typcn typcn-flow-children"></span> save the selected folders' sub-folder structure as a new template. Please, be aware that the content of these folders and sub-folders is not saved. The new template will be usable each time you create new folders and sub-folders.
+- <span class="typcn typcn-trash"></span> delete the selected folder and its content.
 
-# L'éditeur
+# The Editor panel
 
-## Généralités
- Voici l'outil principal de Natao. Celui qui te permet de rédiger tes documents. Tu peux y voir 3 champs de saisie/sélection:
-- *Le titre* : Le titre de ton document n'est pas inclus dans la rédaction de ce dernier. Cela permet notamment de le voir dans le navigateur. Mais ne t'inquiètes pas, il apparait bien dans le panneau de visualisation et quand tu imprimes le document.
-- *Le style* :  Le style que tu choisis ici modifie la mise en page de ton document dans le panneau de visualisation. On verra plus loin, comment créer ou modifier une feuille de style.
-- *Créé le* : La date de création. Par défaut, c'est la date du jour, mais tu peux la modifier. Cette date apparaîtra dans ton document en fonction de la feuille de style choisie. Cela peut donc être la date de remise d'un devoir par exemple.
+The Editor gives you the space to write down your text with Markdown signs; to know this unique syntax, consult the appropriate Help section. The Editor panel displays a grayed out margin which either shows signs or line numbers, depending on the context. For instance, little triangles may appear there, which, once clicked, let you fold or unfold your document and thus help you look at your document's overall structure.
 
- Il y a également quelques boutons qui ont la même signification que dans le navigateur:
-- <span class="typcn typcn-tabs-outline"></span> permet de copier le document courant(avec ses champs) dans le presse-papier de Natao.
-- <span class="typcn typcn-scissors-outline"></span> permet de couper le document courant dans le presse-papier de Natao.
-- <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier le document courant.
-- <span class="typcn typcn-trash"></span> permet de supprimer le document courant.
+You may have already noticed that the Editor panel highlights elements of your Markdown text with colors and different character sizes. This should help you better make sense of your document.
 
-## Réglages de l'éditeur
-Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présentation de l'éditeur avec 2 options très pratiques notamment en cas de troubles visuo-spatiaux:
-- la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro à gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.
-- la possibilité d'augmenter la taille des lignes, et donc de séparer davantage les lignes de texte que par défaut. Attention ce réglage a un effet sur le curseur. Pour l'instant, il vaut mieux, après avoir modifié ce réglage, sortir de l'éditeur et y revenir. Soit en fermant Natao, soit en allant dans les réglages.
+Three input-fields are available:
 
-## L'éditeur Markdown
+- *Title*: your document's title is independent of the text's core content. This allows you to see it within the Explorer panel. The document's title also appears in the Viewer panel.
+- *Style*:  the one you select modifies your document’s formatting. Styles can be modified.
+- *Creation Date*: by default, this is the day's date as it appears on your computer. However, you can modify it: you could make it the date at which you are supposed to return your homework. Please note that the way the date appears in your document depends on the style-sheet you've selected.
 
-L'éditeur est composé d'un espace où tu peux saisir ton document en Markdown (pour connaître cette syntaxe, je t'invite à consulter la section d'aide dédiée), et d'une barre verticale contenant des numéros de lignes et qui peut aussi contenir d'autres symbôles suivant le contexte. Ici, tu pourras y voir des petits triangles te permettant de plier ou déplier ton document. Cela te permet entre autres de visualiser le plan de ton document.
+ Besides the three input-fields, additional buttons are present. These function similarly to the ones seen in the Explorer panel. They let you:
+- <span class="typcn typcn-tabs-outline"></span> copy the active document, including its input-fields, to Natao's clipboard.
+- <span class="typcn typcn-scissors-outline"></span> cut the active document to Natao's clipboard.
+- <span class="typcn typcn-export-outline"></span> export the active document to a file.
+- <span class="typcn typcn-trash"></span> delete the active document. When you do, the Editor and Viewer windows will disappear, until you create a new document.
 
-Tu pourras également constater que l'éditeur met en valeur ton texte Markdown pour t'aider à t'y retrouver, à l'aide de couleurs, taille de caractères, etc...
+## The Editor Settings button
 
-# Le panneau de visualisation
-C'est le panneau le plus simple, et finalement le plus important. C'est lui qui te montre à quoi ressemblera ton document une fois imprimé. Si tu cliques, sur le bouton <span class="typcn typcn-printer"></span>, ce panneau prendra tout l'espace avant de te proposer l'impression.
+This button <span class="typcn typcn-cog"></span> lets you change the way the content seen in the Editor panel is displayed. The two available options are specifically designed to help people with visuospatial perception difficulties. This button lets you:
+- add gray and white stripes to your document. Some of the document's lines will turn gray, while others will remain white. This juxtaposition of gray and white lines will help you navigate your document faster.
+- Add space between the lines by increasing their size. Be aware that this setting adversely impacts the way the computer's cursor is positioned. For now, once you've modified this setting, close down the Editor panel by either quitting Natao or getting into Natao's overall Settings panel. This should make put the cursor in its proper position.
+
+# The Viewer panel
+
+This panel, the simplest of the three, may also be the most important. With it, you can see what your document will look like once printed. When you click on the <span class="typcn typcn-printer"></span> button, the entire Viewer panel will expand before asking you if you want to print your document or not.
