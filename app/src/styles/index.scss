@@ -424,12 +424,12 @@ treecontrol {
 }
 
 .over {
-  border: dashed black 1px;
+  font-weight: bold;
 }
 
-[dragdroppable] {
+.anchor {
   position: relative;
-  background-color: red;
+  //background-color: red;
 
   .before {
     position: absolute;
@@ -438,7 +438,21 @@ treecontrol {
     right: 0;
     min-height: 0.24em;
     display: inline-block;
-    background-color: blue;
+
+    hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none;
+    }
+
+    &.over {
+      hr {
+        border-bottom: solid 2px;
+      }
+    }
+
   }
 
   .after {
@@ -448,25 +462,23 @@ treecontrol {
     right: 0;
     min-height: 0.24em;
     display: inline-block;
-    background-color: green;
+
+    hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none;
+    }
+
+    &.over {
+      hr {
+        border-bottom: solid 2px;
+      }
+    }
   }
 
 
-}
-
-
-
-.beforeAfter {
-  height: 1em;
-  width: 0.2em;
-  min-height: 1em;
-  min-width: 0.2em;
-  display: inline-block;
-
-  &.over {
-    border: dashed black 1px;
-    min-width: 5em;
-  }
 }
 
 
