@@ -2599,37 +2599,40 @@ treecontrol {
   opacity: 0.5; }
 
 .over {
-  border: dashed black 1px; }
+  font-weight: bold; }
 
-[dragdroppable] {
-  position: relative;
-  background-color: red; }
-  [dragdroppable] .before {
+.anchor {
+  position: relative; }
+  .anchor .before {
     position: absolute;
     top: -0.1em;
     left: 0;
     right: 0;
     min-height: 0.24em;
-    display: inline-block;
-    background-color: blue; }
-  [dragdroppable] .after {
+    display: inline-block; }
+    .anchor .before hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none; }
+    .anchor .before.over hr {
+      border-bottom: solid 2px; }
+  .anchor .after {
     position: absolute;
     top: 1.24em;
     left: 0;
     right: 0;
     min-height: 0.24em;
-    display: inline-block;
-    background-color: green; }
-
-.beforeAfter {
-  height: 1em;
-  width: 0.2em;
-  min-height: 1em;
-  min-width: 0.2em;
-  display: inline-block; }
-  .beforeAfter.over {
-    border: dashed black 1px;
-    min-width: 5em; }
+    display: inline-block; }
+    .anchor .after hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none; }
+    .anchor .after.over hr {
+      border-bottom: solid 2px; }
 
 /***********************ColorChooser*****************/
 .chooser-purple {
@@ -2741,6 +2744,8 @@ treecontrol {
   border-color: #756bb1; }
 .purple .border {
   border: solid 1px #756bb1; }
+.purple .anchor .before.over hr, .purple .anchor .after.over hr {
+  border-color: #756bb1; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2794,6 +2799,8 @@ treecontrol {
   border-color: #3182bd; }
 .blue .border {
   border: solid 1px #3182bd; }
+.blue .anchor .before.over hr, .blue .anchor .after.over hr {
+  border-color: #3182bd; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -2847,6 +2854,8 @@ treecontrol {
   border-color: #de2d26; }
 .red .border {
   border: solid 1px #de2d26; }
+.red .anchor .before.over hr, .red .anchor .after.over hr {
+  border-color: #de2d26; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -2900,6 +2909,8 @@ treecontrol {
   border-color: #dd1c77; }
 .pink .border {
   border: solid 1px #dd1c77; }
+.pink .anchor .before.over hr, .pink .anchor .after.over hr {
+  border-color: #dd1c77; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -2953,6 +2964,8 @@ treecontrol {
   border-color: #e6550d; }
 .orange .border {
   border: solid 1px #e6550d; }
+.orange .anchor .before.over hr, .orange .anchor .after.over hr {
+  border-color: #e6550d; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -3006,6 +3019,8 @@ treecontrol {
   border-color: #2ca25f; }
 .green .border {
   border: solid 1px #2ca25f; }
+.green .anchor .before.over hr, .green .anchor .after.over hr {
+  border-color: #2ca25f; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -3059,5 +3074,7 @@ treecontrol {
   border-color: #636363; }
 .grey .border {
   border: solid 1px #636363; }
+.grey .anchor .before.over hr, .grey .anchor .after.over hr {
+  border-color: #636363; }
 
 /*# sourceMappingURL=index.css.map */
