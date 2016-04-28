@@ -2,6 +2,7 @@
     "use strict";
 
     var _ = require('lodash');
+    var uuid = require('node-uuid');
 
 
     angular
@@ -104,6 +105,86 @@
         self.isFirstChild = function(node,nodeRoot) {
             var parent = self.findParent(node,nodeRoot);
             return parent && parent.children && parent.children.indexOf(node) === 0;
+        };
+
+
+        self.pasteNodefolder = function(nodeDestinationParent, nodeSource, jobDone, start) {
+            
+            if (start && typeof start == 'function') {
+                self.nodesPendingPaste = self.howManyNodes(nodeSource);
+                start();
+            }
+
+            var nodeToGo = {};
+            angular.copy(nodeSource,nodeToGo);
+            nodeToGo.id = uuid.v4();
+            nodeToGo.children = [];
+            if (nodeSource.children && nodeSource.children.length > 0) {
+                nodeSource.children.forEach(function(item) {
+                    self.pasteNodefolder(nodeToGo, item,jobDone);
+                });
+            }
+
+            nodeDestinationParent.children.push(nodeToGo);
+
+            // count down the node to paste
+            if (self.nodesPendingPaste > 0) {
+                self.nodesPendingPaste--;
+
+                if (self.nodesPendingPaste === 0) {
+                    if (jobDone && typeof jobDone == 'function'){
+                        jobDone();
+                    }
+                }
+            }
+        };
+        
+        self.changeIds = function(node) {
+            
+            if (!node.leaf) {
+                node.id = uuid.v4();
+
+                if(node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        self.changeIds(item);
+                    });
+                }
+            }
+            
+        };
+
+        self.insertBefore = function(nodeToInsert,nodeAfter,nodeRoot) {
+
+            var nodeInsert = {};
+            angular.copy(nodeToInsert,nodeInsert);
+            
+            self.changeIds(nodeInsert);
+            
+            var parent = self.findParent(nodeAfter,nodeRoot);
+            var positionAfter = parent.children.indexOf(nodeAfter);
+
+            if (positionAfter === 0) {
+                parent.children.unshift(nodeInsert);
+            } else {
+                parent.children.splice(positionAfter,0,nodeInsert);
+            }
+        };
+
+        self.insertAfter = function(nodeToInsert,nodeBefore,nodeRoot) {
+            
+            var nodeInsert = {};
+            angular.copy(nodeToInsert,nodeInsert);
+            
+            self.changeIds(nodeInsert);
+            
+            var parent = self.findParent(nodeBefore,nodeRoot);
+            var positionBefore = parent.children.indexOf(nodeBefore);
+
+            if (positionBefore === parent.children.length - 1) {
+                parent.children.push(nodeInsert);
+            } else {
+                parent.children.splice(positionBefore + 1,0,nodeInsert);
+            }
         };
         
 
