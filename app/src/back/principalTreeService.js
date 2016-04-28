@@ -306,15 +306,7 @@
             if (angular.equals(node,self.principalTree.selectedNode)) {
                 delete self.principalTree.selectedNode;
             }
-
-            //delete from the expanded nodes
-            var allFoldersId = [];
-            self.TreeUtilService.allSubFoldersIds(node,allFoldersId);
-            allFoldersId.push(node.id);
-            _.remove(self.principalTree.expandedNodes, function(item) {
-                return allFoldersId.indexOf(item.id) > 0;
-            });
-
+            
             // In all case we have to delete it from the tree
             var parent = self.TreeUtilService.findParent(node,self.principalTree.tree);
 
@@ -325,7 +317,11 @@
                 }
             }
 
-
+            //we have to clean the expandedNodes
+            var arrayOfNode = self.TreeUtilService.flatFolders(self.principalTree.tree);
+            self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                return object.id === other.id;
+            });
 
             self.save();
         };

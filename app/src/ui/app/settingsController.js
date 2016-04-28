@@ -352,14 +352,7 @@
             }
 
             // In all case we have to delete it from the tree
-            var parent = self.TreeUtilService.findParent(node,self.currentTemplate);
-
-            if (parent.children && parent.children.length > 0) {
-                var indexOfNode = _.findIndex(parent.children,{id:node.id});
-                if (indexOfNode >=0) {
-                    parent.children.splice(indexOfNode,1);
-                }
-            }
+            self.TreeUtilService.deleteNode(node,self.currentTemplate);
 
             //And we save the modifications
             self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
@@ -400,14 +393,6 @@
             }
 
             self.deleteNode(nodeDrag);
-        };
-
-        self.startDrag = function() {
-            console.log('startDrag');
-        };
-
-        self.endDrag = function() {
-            console.log('endDrag');
         };
 
         self.isFirstChild = function(node) {

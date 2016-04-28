@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService) {
         console.log('EditorController');
 
         var self = this;
@@ -16,6 +16,7 @@
         self.$timeout = $timeout;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
@@ -327,6 +328,45 @@
                 self.PrincipalTreeService.addMarkdown(self.currentNode,self.newDocumentName);
             }
             hide();
+        };
+        
+        
+        /* ************* Drag Drop ********/
+        self.handleDrop = function(item, bin) {
+
+            var nodeDrag = self.TreeUtilService.getNode(item,self.PrincipalTreeService.principalTree.tree);
+            var nodeDrop = null;
+
+            if (bin.startsWith('before')) {
+                nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.PrincipalTreeService.principalTree.tree);
+                self.TreeUtilService.insertBefore(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+            } else {
+                if (bin.startsWith('after')) {
+                    nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.PrincipalTreeService.principalTree.tree);
+                    self.TreeUtilService.insertAfter(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                } else {
+                    nodeDrop = self.TreeUtilService.getNode(bin,self.PrincipalTreeService.principalTree.tree);
+                    self.TreeUtilService.pasteNodefolder(nodeDrop,nodeDrag,self.endPasteFolder,self.PendingService.start);
+                    self.expand(nodeDrop);
+                }
+            }
+
+            self.PrincipalTreeService.deleteNode(nodeDrag);
+        };
+        
+
+        self.expand = function(node) {
+            if (self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) < 0) {
+                self.PrincipalTreeService.principalTree.expandedNodes.push(node);
+            }
+        };
+
+        self.isFirstChild = function(node) {
+            return self.TreeUtilService.isFirstChild(node,self.PrincipalTreeService.principalTree.tree);
+        };
+
+        self.isExpanded = function(node) {
+            return self.PrincipalTreeService.principalTree.expandedNodes && self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) >= 0;
         };
 
     }

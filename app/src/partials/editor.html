@@ -152,8 +152,18 @@
                               ns-popover-hide-on-click="false"
                               ns-popover-hide-on-inside-click="false"
                               ns-popover-placement="top|left"
-                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf" ng-style="{color:node.color}">{{node.name}}</span>
-                        <span ng-if="node.leaf">{{node.name}}</span>
+                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf" ng-style="{color:node.color}">
+                            <span class="anchor">
+                                <span droppable drop="EditorCtrl.handleDrop" bin="bin" id="{{node.id}}" draggable item="item">{{node.name}}</span>
+                                <div class="before" droppable drop="EditorCtrl.handleDrop" bin="bin" id="before{{node.id}}" ng-if="EditorCtrl.isFirstChild(node)"><hr></div>
+                                <div class="after" droppable drop="EditorCtrl.handleDrop" bin="bin" id="after{{node.id}}" ng-if="!EditorCtrl.isExpanded(node)"><hr></div>
+                            </span>
+                        </span>
+                        <span ng-if="node.leaf" >
+                            <span class="anchor">
+                                <span draggable item="item" id="{{node.id}}">{{node.name}}</span>
+                            </span>
+                        </span>
                     </treecontrol>
                 </div>
             </div>
