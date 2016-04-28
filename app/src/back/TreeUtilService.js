@@ -102,6 +102,22 @@
             }
         };
 
+        //Inventory of all documents in a structure
+        self.documentsInStructure = function(node) {
+            if (!node.leaf) {
+                var arrayDocuments = [];
+                if (node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        arrayDocuments =  _.union(arrayDocuments,self.documentsInStructure(item));
+                    });
+                }
+                return arrayDocuments;
+            } else {
+                return [node];
+            }
+        };
+        
+
         self.isFirstChild = function(node,nodeRoot) {
             var parent = self.findParent(node,nodeRoot);
             return parent && parent.children && parent.children.indexOf(node) === 0;
@@ -111,31 +127,18 @@
         self.pasteNodefolder = function(nodeDestinationParent, nodeSource, jobDone, start) {
             
             if (start && typeof start == 'function') {
-                self.nodesPendingPaste = self.howManyNodes(nodeSource);
                 start();
             }
 
             var nodeToGo = {};
             angular.copy(nodeSource,nodeToGo);
-            nodeToGo.id = uuid.v4();
-            nodeToGo.children = [];
-            if (nodeSource.children && nodeSource.children.length > 0) {
-                nodeSource.children.forEach(function(item) {
-                    self.pasteNodefolder(nodeToGo, item,jobDone);
-                });
-            }
+
+            self.changeIds(nodeToGo);
 
             nodeDestinationParent.children.push(nodeToGo);
 
-            // count down the node to paste
-            if (self.nodesPendingPaste > 0) {
-                self.nodesPendingPaste--;
-
-                if (self.nodesPendingPaste === 0) {
-                    if (jobDone && typeof jobDone == 'function'){
-                        jobDone();
-                    }
-                }
+            if (jobDone && typeof jobDone == 'function'){
+                jobDone();
             }
         };
         
@@ -184,6 +187,18 @@
                 parent.children.push(nodeInsert);
             } else {
                 parent.children.splice(positionBefore + 1,0,nodeInsert);
+            }
+        };
+
+        self.deleteNode = function(node,nodeRoot) {
+
+            var parent = self.findParent(node,nodeRoot);
+
+            if (parent.children && parent.children.length > 0) {
+                var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                if (indexOfNode >=0) {
+                    parent.children.splice(indexOfNode,1);
+                }
             }
         };
         
