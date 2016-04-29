@@ -70,6 +70,11 @@
             }
         };
 
+        self.isParent = function(node,nodeParent) {
+            var parent = self.findParent(node,nodeParent);
+            return parent != null;
+        };
+
         self.getNode = function(nodeId,node) {
             var nodeFound = null;
             if (node.id === nodeId) {
@@ -156,39 +161,77 @@
             
         };
 
-        self.insertBefore = function(nodeToInsert,nodeAfter,nodeRoot) {
-
-            var nodeInsert = {};
-            angular.copy(nodeToInsert,nodeInsert);
+        self.moveBefore = function(nodeToMove,nodeAfter,nodeRoot) {
             
-            self.changeIds(nodeInsert);
-            
-            var parent = self.findParent(nodeAfter,nodeRoot);
-            var positionAfter = parent.children.indexOf(nodeAfter);
+            var parentDestination = self.findParent(nodeAfter,nodeRoot);
 
-            if (positionAfter === 0) {
-                parent.children.unshift(nodeInsert);
-            } else {
-                parent.children.splice(positionAfter,0,nodeInsert);
+            if (!self.isParent(parentDestination,nodeToMove) && nodeToMove !== parentDestination) {
+                var parentSource = self.findParent(nodeToMove,nodeRoot);
+                var positionSource = parentSource.children.indexOf(nodeToMove);
+                var positionAfter = parentDestination.children.indexOf(nodeAfter);
+                
+                var nodeMove = {};
+                angular.copy(nodeToMove,nodeMove);
+                self.changeIds(moveNode);
+
+                if (positionAfter === 0) {
+                    parentDestination.children.unshift(nodeMove);
+                } else {
+                    parentDestination.children.splice(positionAfter,0,nodeMove);
+                }
+
+                //delete from the origin
+                parentSource.children.splice(positionSource,1);
             }
+
         };
 
-        self.insertAfter = function(nodeToInsert,nodeBefore,nodeRoot) {
+        self.moveAfter = function(nodeToMove,nodeBefore,nodeRoot) {
             
-            var nodeInsert = {};
-            angular.copy(nodeToInsert,nodeInsert);
             
-            self.changeIds(nodeInsert);
-            
-            var parent = self.findParent(nodeBefore,nodeRoot);
-            var positionBefore = parent.children.indexOf(nodeBefore);
+            var parentDestination = self.findParent(nodeBefore,nodeRoot);
 
-            if (positionBefore === parent.children.length - 1) {
-                parent.children.push(nodeInsert);
-            } else {
-                parent.children.splice(positionBefore + 1,0,nodeInsert);
+            if (!self.isParent(parentDestination,nodeToMove) && nodeToMove !== parentDestination) {
+                var parentSource = self.findParent(nodeToMove,nodeRoot);
+                var positionSource = parentSource.children.indexOf(nodeToMove);
+                var positionBefore = parentDestination.children.indexOf(nodeBefore);
+
+                var nodeMove = {};
+                angular.copy(nodeToMove,nodeMove);
+                self.changeIds(moveNode);
+
+                if (positionBefore === parentDestination.children.length - 1) {
+                    parentDestination.children.push(nodeMove);
+                } else {
+                    parentDestination.children.splice(positionBefore + 1,0,nodeMove);
+                }
+
+                //delete from the origin
+                parentSource.children.splice(positionSource,1);
             }
+
         };
+        
+        self.moveIn = function(nodeToMove,nodeMoveIn,nodeRoot) {
+
+            if (!self.isParent(nodeMoveIn,nodeToMove) && nodeMoveIn !== nodeToMove) {
+                var parentSource = self.findParent(nodeToMove,nodeRoot);
+                var positionSource = parentSource.children.indexOf(nodeToMove);
+
+                var nodeMove = {};
+                angular.copy(nodeToMove,nodeMove);
+                self.changeIds(moveNode);
+
+                if (!nodeMoveIn.leaf && nodeMoveIn.children) {
+                    nodeMoveIn.children.push(moveNode);
+                }
+
+                //delete from the origin
+                parentSource.children.splice(positionSource,1);
+            }
+
+        };
+        
 
         self.deleteNode = function(node,nodeRoot) {
 
