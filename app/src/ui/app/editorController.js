@@ -340,17 +340,18 @@
             if (bin.startsWith('before')) {
                 nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.PrincipalTreeService.principalTree.tree);
                 self.TreeUtilService.insertBefore(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                self.PrincipalTreeService.save();
             } else {
                 if (bin.startsWith('after')) {
                     nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.PrincipalTreeService.principalTree.tree);
                     self.TreeUtilService.insertAfter(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                    self.PrincipalTreeService.save();
                 } else {
                     nodeDrop = self.TreeUtilService.getNode(bin,self.PrincipalTreeService.principalTree.tree);
                     self.TreeUtilService.pasteNodefolder(nodeDrop,nodeDrag,self.endPasteFolder,self.PendingService.start);
                     self.expand(nodeDrop);
                 }
             }
-
             self.PrincipalTreeService.deleteNode(nodeDrag);
         };
         

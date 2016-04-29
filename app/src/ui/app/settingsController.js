@@ -380,19 +380,17 @@
 
             if (bin.startsWith('before')) {
                 nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.currentTemplate);
-                self.TreeUtilService.insertBefore(nodeDrag,nodeDrop,self.currentTemplate);
+                self.TreeUtilService.moveBefore(nodeDrag,nodeDrop,self.currentTemplate);
             } else {
                 if (bin.startsWith('after')) {
                     nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.currentTemplate);
-                    self.TreeUtilService.insertAfter(nodeDrag,nodeDrop,self.currentTemplate);
+                    self.TreeUtilService.moveAfter(nodeDrag,nodeDrop,self.currentTemplate);
                 } else {
                     nodeDrop = self.TreeUtilService.getNode(bin,self.currentTemplate);
-                    self.TreeUtilService.pasteNodefolder(nodeDrop,nodeDrag,self.endPasteFolder,self.PendingService.start);
+                    self.TreeUtilService.moveIn(nodeDrag,nodeDrop,self.currentTemplate);
                     self.expand(nodeDrop);
                 }
             }
-
-            self.deleteNode(nodeDrag);
         };
 
         self.isFirstChild = function(node) {

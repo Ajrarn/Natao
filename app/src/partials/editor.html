@@ -162,6 +162,8 @@
                         <span ng-if="node.leaf" >
                             <span class="anchor">
                                 <span draggable item="item" id="{{node.id}}">{{node.name}}</span>
+                                <div class="before" droppable drop="EditorCtrl.handleDrop" bin="bin" id="before{{node.id}}" ng-if="EditorCtrl.isFirstChild(node)"><hr></div>
+                                <div class="after" droppable drop="EditorCtrl.handleDrop" bin="bin" id="after{{node.id}}"><hr></div>
                             </span>
                         </span>
                     </treecontrol>
