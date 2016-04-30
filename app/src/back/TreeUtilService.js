@@ -15,7 +15,11 @@
     }
 
     //Service itself
-    function TreeUtilService() {
+    function TreeUtilService(DocumentsService,$q) {
+        
+        var self = this;
+        self.DocumentsService = DocumentsService;
+        self.$q = $q;
         
         
         //Give all the ids of subfolder of the node in an array
@@ -75,13 +79,13 @@
             return parent != null;
         };
 
-        self.getNode = function(nodeId,node) {
+        self.getNode = function(nodeId,nodeParent) {
             var nodeFound = null;
-            if (node.id === nodeId) {
+            if (nodeParent.id === nodeId) {
                 nodeFound = node;
             } else {
-                if (!node.leaf && node.children && node.children.length > 0) {
-                    node.children.forEach(function(item) {
+                if (!nodeParent.leaf && nodeParent.children && nodeParent.children.length > 0) {
+                    nodeParent.children.forEach(function(item) {
                         var nodeInSearch = self.getNode(nodeId,item,nodeFound);
                         if (nodeInSearch) {
                             nodeFound = nodeInSearch;
@@ -159,6 +163,91 @@
                 }
             }
             
+        };
+
+        //This function return a buffer with the node to copy/cut with all the documents it contains
+        self.nodeToBuffer = function(node) {
+
+            //First we proceed with a copy of the node
+            var nodeInBuffer = {};
+            angular.copy(node,nodeInBuffer);
+
+
+            return self.$q(function(resolve,reject) {
+                var buffer = {
+                    node: nodeInBuffer,
+                    documents : []
+                };
+
+                // we copy all documents in documents array
+                // and resolve only when all documents are in the buffer
+                var listDocs = self.documentsInStructure(node);
+
+
+                if (listDocs && listDocs.length > 0) {
+                    var nbDocsPending = listDocs.length;
+                    listDocs.forEach(function(item) {
+                        self.DocumentsService
+                            .find(item.id)
+                            .then(function(doc) {
+                                buffer.documents.push(doc);
+
+                                nbDocsPending--;
+                                if (nbDocsPending === 0) {
+                                    resolve(buffer);
+                                }
+                            })
+                            .catch(function(err) {
+                                reject(err);
+                            });
+                    });
+                } else {
+                    resolve(buffer);
+                }
+            });
+        };
+
+        self.bufferToNode = function(buffer) {
+
+            return self.$q(function(resolve,reject) {
+                //First we proceed with a copy of the node required
+                var nodeToReturn = {};
+                angular.copy(buffer.node,nodeToReturn);
+
+                self.changeIds(nodeToReturn);
+
+                //then we have to copy all documents in the buffer by content, so new documents
+                // but we have to keep the change of Ids
+
+                if (buffer.documents && buffer.documents.length > 0) {
+                    var nbDocsPending = buffer.documents.length;
+                    buffer.documents.forEach(function(item) {
+
+                        //For each document we find the node that represent it in the tree
+                       var nodeDoc = self.getNode(item._id);
+
+                        self.DocumentsService
+                            .insertDocument(item)
+                            .then(function(doc) {
+
+                                nodeDoc.id = doc._id;
+
+                                nbDocsPending--;
+                                if (nbDocsPending === 0) {
+                                    resolve(nodeToReturn);
+                                }
+
+                            })
+                            .catch(function(err) {
+                                reject(err);
+                            });
+
+                    });
+                } else {
+                    resolve(nodeToReturn);
+                }
+            });
+
         };
 
         self.moveBefore = function(nodeToMove,nodeAfter,nodeRoot) {

@@ -32,7 +32,7 @@
         self.PendingService = PendingService;
         self.viewer = true;
 
-        self.buffer = {};
+        self.buffer = null;
         self.nodesPendingPaste = 0;
 
         //for codeMirror
@@ -284,27 +284,52 @@
         };
 
         self.copyFolder = function(hide) {
-            angular.copy(self.currentNode,self.buffer);
+
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.cutFolder = function(hide) {
-            angular.copy(self.currentNode,self.buffer);
-            self.deleteNode(self.currentNode);
+
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.currentNode);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+
             hide();
         };
 
-        self.endPasteFolder = function() {
-            self.PendingService.stop();
-            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
-        };
 
         self.pasteFolder = function(hide) {
+
             if (self.buffer) {
-                self.TreeUtilService.pasteNodefolder(self.currentNode,self.buffer,self.endPasteFolder,self.PendingService.start);
-                self.buffer = {};
+                self.TreeUtilService
+                    .bufferToNode(self.buffer)
+                    .then(function(node) {
+                        if (self.currentNode && self.currentNode.children) {
+                            self.currentNode.children.push(node);
+                            self.buffer = null;
+                            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                        }
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
             hide();
+
         };
 
         self.addFolder = function(hide) {

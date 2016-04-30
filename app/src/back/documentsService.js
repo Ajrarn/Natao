@@ -79,6 +79,24 @@
             });
         };
 
+        self.insertDocument = function(docSource) {
+            return self.$q(function(resolve,reject) {
+
+                self.PendingService.start();
+
+                self.DatabaseService
+                    .insert(docSource)
+                    .then(function(doc) {
+                        self.PendingService.stop();
+                        resolve(doc);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
+        };
+
         //delete of a document
         self.deleteDocument = function(id) {
             self.PendingService.start();
