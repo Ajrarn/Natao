@@ -426,6 +426,10 @@
             return self.expandedNodes && self.expandedNodes.indexOf(node) >= 0;
         };
 
+        self.showAfter = function(node) {
+            return !(self.isExpanded(node) && node.children.length > 0);
+        };
+
 
 
         self.settingsValide();

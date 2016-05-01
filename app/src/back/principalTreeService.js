@@ -249,257 +249,42 @@
                     console.error(err);
                 });
         };
-
-
-        //Copy a document and push in  the buffer.documents
-        self.copyDocumentInBuffer = function(node) {
-            
-            self.DatabaseService.find({
-                docName: 'markdown',
-                _id: node.id
-            }).then(function(docs) {
-                
-                self.principalTree.buffer.documents.push(docs[0]);
-                self.save();
-                
-                self.docsPendingForBuffer--;
-
-                //And delete when the job is done
-                if (self.docsPendingForBuffer === 0) {
-                    self.PendingService.stop();
-                    if ( self.cutNodePending) {
-                        //it's a cut, so have to delete the node
-                        self.deleteNode(self.cutNodePending);
-                        self.cutNodePending = null;
-                    } else {
-                        if (self.exportFileName) {
-                            //it's an export
-                            self.writeToFile();
-                        }
-                    }
-                }
-            }).catch(function(err) {
-                console.error(err);
-            });
-        };
+        
 
         //delete of a node
         self.deleteNode = function(node) {
-            if (node.leaf) {
-                // If it's a document we have to delete it first from the markdown collection
-                self.DocumentsService.deleteDocument(node.id);
-                self.currentMarkdown = null;
-                self.principalTree.currentMarkdownId = null;
-            } else {
-                //If it's a folder we have to find all his documents in him
-                var documents = self.documentsInStructure(node);
-                //and then delete all the documents
-                documents.forEach(function(document) {
-                    if (document.id === self.principalTree.currentMarkdownId ) {
-                        self.currentMarkdown = null;
-                        self.principalTree.currentMarkdownId = null;
-                    }
-                    self.DocumentsService.deleteDocument(document.id);
-                });
-            }
-            // delete the selectednode if it is the current node
-            if (angular.equals(node,self.principalTree.selectedNode)) {
-                delete self.principalTree.selectedNode;
-            }
             
-            // In all case we have to delete it from the tree
-            var parent = self.TreeUtilService.findParent(node,self.principalTree.tree);
+            self.TreeUtilService
+                .deleteNode(node,self.principalTree.tree)
+                .then(function() {
+                    
+                    //First we have to check if we have deleted the selected node
+                    var selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode,self.principalTree.tree);
+                    if (!selNode) {
+                        delete self.principalTree.selectedNode;
+                    }
+                    
+                    //and check the selected markdown
+                    selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode,self.principalTree.currentMarkdownId);
+                    if (!selNode) {
+                        self.principalTree.currentMarkdownId = null;
+                        self.currentMarkdown = null;
+                    }
 
-            if (parent.children && parent.children.length > 0) {
-                var indexOfNode = _.findIndex(parent.children,{id:node.id});
-                if (indexOfNode >=0) {
-                    parent.children.splice(indexOfNode,1);
-                }
-            }
-
-            //we have to clean the expandedNodes
-            var arrayOfNode = self.TreeUtilService.flatFolders(self.principalTree.tree);
-            self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
-                return object.id === other.id;
-            });
-
-            self.save();
-        };
-
-        //Inventory of all documents in a structure
-        self.documentsInStructure = function(node,storeDocuments) {
-            if (!node.leaf) {
-                // When call the first time without storeDocuments
-                if (!storeDocuments) {
-                    storeDocuments = [];
-                }
-                // now we will accumulate the documents in storeDocuments
-                if (node.children && node.children.length > 0) {
-                    node.children.forEach(function(item) {
-                        if (item.leaf) {
-                            storeDocuments.push(item);
-                        } else {
-                            self.documentsInStructure(item,storeDocuments);
-                        }
+                    //finally we have to clean the expandedNodes
+                    var arrayOfNode = self.TreeUtilService.flatFolders(self.principalTree.tree);
+                    self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                        return object.id === other.id;
                     });
-                }
-            } else {
-                //this case happens only if the first node is a document
-                storeDocuments = [];
-                storeDocuments.push(node);
-            }
-            return storeDocuments;
-        };
 
-        
-
-        //Copy of a folder with documents
-        self.copyNodeFolder = function(node) {
-            //First we copy the structure
-            self.initBuffer();
-            self.principalTree.buffer.tree = {};
-            angular.copy(node,self.principalTree.buffer.tree);
-
-            self.save();
-
-            //we initialize the buffer for documents
-            self.principalTree.buffer.documents = [];
-
-            //then we'll copy the documents of this structure
-            var documents = [];
-            documents = self.documentsInStructure(node,documents);
-
-            if (documents.length > 0) {
-
-                //We need to know if the buffer is ready for the cut, paste, etc, so we use a counter of documents waiting to be in the buffer
-                self.docsPendingForBuffer = documents.length;
-                self.PendingService.start();
-
-                //and add the documents in the buffer
-                documents.forEach(function(node) {
-                    self.copyDocumentInBuffer(node);
-                });
-            } else {
-                // if for exports
-                if (self.exportFileName) {
-                    self.writeToFile();
-                }
-
-                //If it's a folder without documents to cut
-                if (self.cutNodePending) {
-                    self.deleteNode(node);
-                    self.cutNodePending = null;
-                }
-            }
-        };
-
-        //Cut of a folder with documents
-        self.cutNodefolder = function(node) {
-            // It's the same that copy except we add a node to delete when finish
-            self.cutNodePending = node;
-            self.copyNodeFolder(node);
-        };
-
-
-
-        //paste a node from the buffer
-        self.pasteNodefolder = function(nodeDestinationParent, nodeSource) {
-            if (!nodeSource) {
-                nodeSource = self.principalTree.buffer.tree;
-            }
-            if (nodeSource.leaf) {
-                //If it's a document we have to copy and save it
-                var document = _.find(self.principalTree.buffer.documents,{_id:nodeSource.id});
-                if (document) {
-                    self.copyDocumentTo(document,nodeDestinationParent);
-                }
-            } else {
-                var nodeToGo = {};
-                angular.copy(nodeSource,nodeToGo);
-                nodeToGo.id = uuid.v4();
-                nodeToGo.children = [];
-                if (nodeSource.children && nodeSource.children.length > 0) {
-                    nodeSource.children.forEach(function(item) {
-                        self.pasteNodefolder(nodeToGo, item);
-                    });
-                }
-
-                nodeDestinationParent.children.push(nodeToGo);
-            }
-            // count down the node to paste
-            if (self.nodesPendingPaste > 0) {
-                self.nodesPendingPaste--;
-
-                if (self.nodesPendingPaste === 0) {
-                    self.PendingService.stop();
                     self.save();
-                }
-            }
-        };
-        
-
-        self.pasteBufferToNode = function(nodeDestinationParent) {
-            if (self.principalTree.buffer.tree) {
-                //We start the pending and count the node to paste
-                self.nodesPendingPaste = self.TreeUtilService.howManyNodes(newFolder);
-                self.PendingService.start();
-                self.pasteNodefolder(nodeDestinationParent);
-                self.principalTree.buffer.tree = null;
-            }
-        };
-
-        //export the buffer in a file
-        self.exportTo = function(node,filename) {
-            self.exportFileName = filename;
-            self.copyNodeFolder(node);
-        };
-
-        self.writeToFile = function() {
-            self.PendingService.start();
-            if (fs.existsSync(self.exportFileName)) {
-                fs.unlinkSync(self.exportFileName);
-            }
-            fs.writeFile(self.exportFileName, JSON.stringify(self.principalTree.buffer), 'utf8', function(err) {
-                if (err) throw err;
-                self.PendingService.stop();
-                console.log('It\'s saved!');
-            });
-            self.exportFileName = null;
-        };
-
-        self.importFrom = function(node,filename) {
-            self.initBuffer();
-            self.PendingService.start();
-            fs.readFile(filename,'utf8',function(err,data) {
-                self.PendingService.stop();
-                if (err) {
+                  
+                })
+                .catch(function(err) {
                     console.error(err);
-                } else {
-                    try {
-                        self.principalTree.buffer = JSON.parse(data);
-                        self.transformDatesInBuffer();
-                        self.pasteBufferToNode(node);
-                    }
-                    catch (err) {
-                        console.log('There has been an error parsing your JSON.');
-                        console.log(err);
-                    }
-                }
-            });
-        };
-
-        self.transformDatesInBuffer = function() {
-            self.principalTree.buffer.documents.forEach(function (doc) {
-                doc.created = new Date(doc.created);
-            });
+                });
         };
         
-
-        self.clearBuffer = function() {
-            delete self.principalTree.buffer;
-            self.docsPendingForBuffer = 0;
-            self.save();
-        };
 
         return self;
 

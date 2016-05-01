@@ -355,7 +355,7 @@
                                     <span class="anchor">
                                         <span droppable drop="SettingCtrl.handleDrop" bin="bin" id="{{node.id}}" draggable item="item">{{node.name}}</span>
                                         <div class="before" droppable drop="SettingCtrl.handleDrop" bin="bin" id="before{{node.id}}" ng-if="SettingCtrl.isFirstChild(node)"><hr></div>
-                                        <div class="after" droppable drop="SettingCtrl.handleDrop" bin="bin" id="after{{node.id}}" ng-if="!SettingCtrl.isExpanded(node)"><hr></div>
+                                        <div class="after" droppable drop="SettingCtrl.handleDrop" bin="bin" id="after{{node.id}}" ng-if="SettingCtrl.showAfter(node)"><hr></div>
                                     </span>
                                 </span>
                             </treecontrol>

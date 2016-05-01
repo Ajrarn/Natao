@@ -232,25 +232,55 @@
         };
 
         self.copyFolder = function(hide) {
-            self.PrincipalTreeService.copyNodeFolder(self.currentNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.copyDocument = function() {
-            self.PrincipalTreeService.copyNodeFolder(self.PrincipalTreeService.principalTree.selectedNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
         };
 
         self.cutFolder = function(hide) {
-            self.PrincipalTreeService.cutNodefolder(self.currentNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.cutDocument = function() {
-            self.PrincipalTreeService.cutNodefolder(self.PrincipalTreeService.principalTree.selectedNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
         };
 
         self.deleteDocument = function(hide) {
-            self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode);
+            self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
             hide();
         };
 
@@ -261,19 +291,49 @@
         };
 
         self.pasteFolder = function(hide) {
-            if (hide) {
-                self.PrincipalTreeService.pasteBufferToNode(self.currentNode);
-                hide();
-            } else {
-                //it's done without selecting a node so the node will be the tree himself
-                self.PrincipalTreeService.pasteBufferToNode(self.PrincipalTreeService.principalTree.tree);
+
+            if (self.buffer) {
+                self.TreeUtilService
+                    .bufferToNode(self.buffer)
+                    .then(function(node) {
+                        if (hide) {
+                            // then the paste command is past from the tree
+                            if (self.currentNode && self.currentNode.children) {
+                                self.currentNode.children.push(node);
+                            }
+                            hide();
+                        } else {
+                            //the command was past by the toolbar
+                            self.PrincipalTreeService.principalTree.tree.children.push(node);
+                        }
+                        self.buffer = null;
+                        self.PrincipalTreeService.save();
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
         };
 
 
         self.exportTo = function(hide) {
             self.fileDialog.saveAs(function(filename) {
-                self.PrincipalTreeService.exportTo(self.currentNode,filename);
+
+                self.TreeUtilService
+                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToFile(buffer,filename)
+                            .then(function() {
+                                console.log('export terminé');
+                            }).catch(function(err) {
+                                console.error(err);
+                            })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
                 hide();
             },'nataoExport.json',['json']);
         };
@@ -339,20 +399,17 @@
 
             if (bin.startsWith('before')) {
                 nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.PrincipalTreeService.principalTree.tree);
-                self.TreeUtilService.insertBefore(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
-                self.PrincipalTreeService.save();
+                self.TreeUtilService.moveBefore(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
             } else {
                 if (bin.startsWith('after')) {
                     nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.PrincipalTreeService.principalTree.tree);
-                    self.TreeUtilService.insertAfter(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
-                    self.PrincipalTreeService.save();
+                    self.TreeUtilService.moveAfter(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
                 } else {
                     nodeDrop = self.TreeUtilService.getNode(bin,self.PrincipalTreeService.principalTree.tree);
-                    self.TreeUtilService.pasteNodefolder(nodeDrop,nodeDrag,self.endPasteFolder,self.PendingService.start);
+                    self.TreeUtilService.moveIn(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
                     self.expand(nodeDrop);
                 }
             }
-            self.PrincipalTreeService.deleteNode(nodeDrag);
         };
         
 
@@ -368,6 +425,10 @@
 
         self.isExpanded = function(node) {
             return self.PrincipalTreeService.principalTree.expandedNodes && self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) >= 0;
+        };
+
+        self.showAfter = function(node) {
+            return !(self.isExpanded(node) && node.children.length > 0);
         };
 
     }

@@ -99,20 +99,22 @@
 
         //delete of a document
         self.deleteDocument = function(id) {
-            self.PendingService.start();
-
-            self.DatabaseService
-                .remove(id)
-                .then(function(numRemoved) {
-                    self.PendingService.stop();
-                    console.log('removed',numRemoved);
-                })
-                .catch(function(err) {
-                    self.PendingService.stop();
-                    console.error(err);
-                });
-           
             
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+
+                self.DatabaseService
+                    .remove(id)
+                    .then(function(numRemoved) {
+                        self.PendingService.stop();
+                        resolve(numRemoved);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
+   
         };
 
         return self;
