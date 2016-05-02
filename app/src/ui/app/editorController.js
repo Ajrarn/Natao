@@ -339,13 +339,37 @@
         };
 
         self.importFrom = function(hide) {
+
+            var nodeIn;
+
+            if (hide) {
+                nodeIn = self.currentNode;
+                hide();
+            } else {
+                nodeIn = self.PrincipalTreeService.principalTree.tree;
+            }
+
             self.fileDialog.openFile(function(filename) {
-                if (hide) {
-                    self.PrincipalTreeService.importFrom(self.currentNode,filename);
-                    hide();
-                } else {
-                    self.PrincipalTreeService.importFrom(self.PrincipalTreeService.principalTree.tree,filename);
-                }
+
+                self.TreeUtilService
+                    .fileToBuffer(filename)
+                    .then(function(buffer) {
+
+                        self.TreeUtilService
+                            .bufferToNode(buffer)
+                            .then(function(nodeToInsert) {
+                                nodeIn.children.push(nodeToInsert);
+                                self.expand(nodeIn);
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            })
+                        
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    })
+
             }, false, ['json']);
         };
 

@@ -3,6 +3,7 @@
 
     var _ = require('lodash');
     var uuid = require('node-uuid');
+    var fs = require('fs');
 
 
     angular
@@ -82,7 +83,7 @@
         self.getNode = function(nodeId,nodeParent) {
             var nodeFound = null;
             if (nodeParent.id === nodeId) {
-                nodeFound = node;
+                nodeFound = nodeParent;
             } else {
                 if (!nodeParent.leaf && nodeParent.children && nodeParent.children.length > 0) {
                     nodeParent.children.forEach(function(item) {
@@ -131,25 +132,6 @@
             var parent = self.findParent(node,nodeRoot);
             return parent && parent.children && parent.children.indexOf(node) === 0;
         };
-
-
-        self.pasteNodefolder = function(nodeDestinationParent, nodeSource, jobDone, start) {
-            
-            if (start && typeof start == 'function') {
-                start();
-            }
-
-            var nodeToGo = {};
-            angular.copy(nodeSource,nodeToGo);
-
-            self.changeIds(nodeToGo);
-
-            nodeDestinationParent.children.push(nodeToGo);
-
-            if (jobDone && typeof jobDone == 'function'){
-                jobDone();
-            }
-        };
         
         self.changeIds = function(node) {
             
@@ -183,15 +165,13 @@
                 // and resolve only when all documents are in the buffer
                 var listDocs = self.documentsInStructure(node);
 
-
                 if (listDocs && listDocs.length > 0) {
                     var nbDocsPending = listDocs.length;
                     listDocs.forEach(function(item) {
                         self.DocumentsService
-                            .find(item.id)
-                            .then(function(doc) {
-                                buffer.documents.push(doc);
-
+                            .findDocument(item.id)
+                            .then(function(docs) {
+                                buffer.documents = _.union(buffer.documents,docs);
                                 nbDocsPending--;
                                 if (nbDocsPending === 0) {
                                     resolve(buffer);
@@ -218,14 +198,17 @@
 
                 //then we have to copy all documents in the buffer by content, so new documents
                 // but we have to keep the change of Ids
-
                 if (buffer.documents && buffer.documents.length > 0) {
                     var nbDocsPending = buffer.documents.length;
                     buffer.documents.forEach(function(item) {
 
                         //For each document we find the node that represent it in the tree
-                       var nodeDoc = self.getNode(item._id);
+                        var nodeDoc = self.getNode(item._id,nodeToReturn);
 
+                        //we delete the previous Id
+                        delete item._id;
+
+                        // and the insert the new Doc
                         self.DocumentsService
                             .insertDocument(item)
                             .then(function(doc) {
@@ -247,7 +230,54 @@
                     resolve(nodeToReturn);
                 }
             });
+        };
+        
+        self.fileToBuffer = function(fileName) {
+            
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+                fs.readFile(fileName,'utf8',function(err,data) {
+                    self.PendingService.stop();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        try {
+                            var buffer = JSON.parse(data);
+                            self.transformDatesInBuffer(buffer);
+                            resolve(buffer);
+                        }
+                        catch (err) {
+                            reject(err);
+                        }
+                    }
+                });
+            });
+        };
+        
+        self.bufferToFile = function(buffer,fileName) {
+            
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+                if (fs.existsSync(fileName)) {
+                    fs.unlinkSync(fileName);
+                }
+                fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
+                    self.PendingService.stop();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                });
+                
+            });
+     
+        };
 
+        self.transformDatesInBuffer = function(buffer) {
+            buffer.documents.forEach(function (doc) {
+                doc.created = new Date(doc.created);
+            });
         };
 
         self.moveBefore = function(nodeToMove,nodeAfter,nodeRoot) {
@@ -258,19 +288,33 @@
                 var parentSource = self.findParent(nodeToMove,nodeRoot);
                 var positionSource = parentSource.children.indexOf(nodeToMove);
                 var positionAfter = parentDestination.children.indexOf(nodeAfter);
-                
-                var nodeMove = {};
-                angular.copy(nodeToMove,nodeMove);
-                self.changeIds(moveNode);
 
-                if (positionAfter === 0) {
-                    parentDestination.children.unshift(nodeMove);
-                } else {
-                    parentDestination.children.splice(positionAfter,0,nodeMove);
-                }
+                //To make copy without errors we wil pass it in the buffer and the return a node
+                self.nodeToBuffer(nodeToMove)
+                    .then(function(buffer) {
 
-                //delete from the origin
-                parentSource.children.splice(positionSource,1);
+                        //we can delete the original when the copy is in the buffer
+                        parentSource.children.splice(positionSource,1);
+
+                        self.bufferToNode(buffer)
+                            .then(function(node) {
+
+                                //when we have the new safe node we move the copy in the right place
+                                if (positionAfter === 0) {
+                                    parentDestination.children.unshift(node);
+                                } else {
+                                    parentDestination.children.splice(positionAfter,0,node);
+                                }
+
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            });
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
 
         };
@@ -285,18 +329,32 @@
                 var positionSource = parentSource.children.indexOf(nodeToMove);
                 var positionBefore = parentDestination.children.indexOf(nodeBefore);
 
-                var nodeMove = {};
-                angular.copy(nodeToMove,nodeMove);
-                self.changeIds(moveNode);
+                //To make copy without errors we wil pass it in the buffer and the return a node
+                self.nodeToBuffer(nodeToMove)
+                    .then(function(buffer) {
 
-                if (positionBefore === parentDestination.children.length - 1) {
-                    parentDestination.children.push(nodeMove);
-                } else {
-                    parentDestination.children.splice(positionBefore + 1,0,nodeMove);
-                }
+                        //we can delete the original when the copy is in the buffer
+                        parentSource.children.splice(positionSource,1);
 
-                //delete from the origin
-                parentSource.children.splice(positionSource,1);
+                        self.bufferToNode(buffer)
+                            .then(function(node) {
+
+                                //when we have the new safe node we move the copy in the right place
+                                if (positionBefore === parentDestination.children.length - 1) {
+                                    parentDestination.children.push(node);
+                                } else {
+                                    parentDestination.children.splice(positionBefore + 1,0,node);
+                                }
+
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            });
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
 
         };
@@ -306,32 +364,88 @@
             if (!self.isParent(nodeMoveIn,nodeToMove) && nodeMoveIn !== nodeToMove) {
                 var parentSource = self.findParent(nodeToMove,nodeRoot);
                 var positionSource = parentSource.children.indexOf(nodeToMove);
+                
+                //To make copy without errors we wil pass it in the buffer and the return a node
+                self.nodeToBuffer(nodeToMove)
+                    .then(function(buffer) {
 
-                var nodeMove = {};
-                angular.copy(nodeToMove,nodeMove);
-                self.changeIds(moveNode);
+                        //we can delete the original when the copy is in the buffer
+                        parentSource.children.splice(positionSource,1);
 
-                if (!nodeMoveIn.leaf && nodeMoveIn.children) {
-                    nodeMoveIn.children.push(moveNode);
-                }
+                        self.bufferToNode(buffer)
+                            .then(function(node) {
 
-                //delete from the origin
-                parentSource.children.splice(positionSource,1);
+                                //when we have the new safe node we move the copy in the right place
+                                if (!nodeMoveIn.leaf && nodeMoveIn.children) {
+                                    nodeMoveIn.children.push(node);
+                                }
+                                
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            });
+                        
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                
             }
 
         };
         
 
         self.deleteNode = function(node,nodeRoot) {
+            
+            return self.$q(function(resolve,reject) {
+                
+                if (node.leaf) {
+                    // If it's a document we have to delete it first from the markdown collection
+                    self.DocumentsService
+                        .deleteDocument(node.id)
+                        .then(function () {
+                            resolve();
+                        })
+                        .catch(function(err) {
+                            reject(err);
+                        });
+                } else {
+                    //If it's a folder we have to find all his documents in him
+                    var documents = self.documentsInStructure(node);
+                    var nbDocsPending = documents.length;
+                    
+                    if (nbDocsPending > 0) {
+                        //and then delete all the documents
+                        documents.forEach(function(document) {
 
-            var parent = self.findParent(node,nodeRoot);
+                            self.DocumentsService
+                                .deleteDocument(document.id)
+                                .then(function() {
+                                    nbDocsPending--;
+                                    if (nbDocsPending === 0) {
+                                        // In all case we have to delete it from the tree
+                                        var parent = self.findParent(node,nodeRoot);
 
-            if (parent.children && parent.children.length > 0) {
-                var indexOfNode = _.findIndex(parent.children,{id:node.id});
-                if (indexOfNode >=0) {
-                    parent.children.splice(indexOfNode,1);
+                                        if (parent.children && parent.children.length > 0) {
+                                            var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                                            if (indexOfNode >=0) {
+                                                parent.children.splice(indexOfNode,1);
+                                            }
+                                        }
+                                        resolve();
+                                    }
+                                })
+                                .catch(function(err) {
+                                    reject(err);
+                                });
+                        });
+                    } else {
+                        resolve();
+                    }
+                    
                 }
-            }
+            });
+            
         };
         
 
