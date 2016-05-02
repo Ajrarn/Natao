@@ -17,16 +17,14 @@ The document you are currently reading was actually written in Markdown, with Na
 Paragraphs in Markdown are created by inserting a blank line between two portions of text. 
 In the first blockquote that follows, you can see two text excerpts, separated by a blank line space. In the second blockquote, you can see how Natao formats the two paragraphs.
 
-        When Zarathustra was thirty years old, he left his home and the lake of his home, and went into the mountains. There
-    he enjoyed his spirit and his solitude, and for ten years did not weary of it. But at last his heart changed,- and rising one morning with the rosy dawn, he went before the sun, and spake thus unto it:
+                When Zarathustra was thirty years old, he left his home and the lake of his home, and went into the mountains.
+        There he enjoyed his spirit and his solitude, and for ten years did not weary of it. But at last his heart changed,- and rising one morning with the rosy dawn, he went before the sun, and spake thus unto it:
     
-        "O grand astre ! Quel serait ton bonheur, si tu n'avais pas ceux que tu éclaires ?
+                Thou great star! What would be thy happiness if thou hadst not those for whom thou shinest!
 
-Lorsque Zarathoustra eut atteint sa trentième année, il quitta sa patrie et le lac de sa patrie et s'en alla dans la montagne.
-Là il jouit de son esprit et de sa solitude et ne s'en lassa point durant dix années.
-Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s'avança devant le soleil et lui parla ainsi :
+When Zarathustra was thirty years old, he left his home and the lake of his home, and went into the mountains. There he enjoyed his spirit and his solitude, and for ten years did not weary of it. But at last his heart changed,- and rising one morning with the rosy dawn, he went before the sun, and spake thus unto it:
 
-"O grand astre ! Quel serait ton bonheur, si tu n'avais pas ceux que tu éclaires ?
+Thou great star! What would be thy happiness if thou hadst not those for whom thou shinest!
 
 ## Titles
 
@@ -74,7 +72,7 @@ You may also add an underscore sign ( _ ) in front and after some text to combin
 
 **Everyone _must_ arrive on time today.**
 
-You may choose to cross-out a word or words by adding two tilde signs ( ~ ) before and after the word(s) you would like to cros-out.
+You may choose to strike through a word or words by adding two tilde signs ( ~ ) before and after the word(s) you would like to strike through.
 
     ~~A mistake.~~
 
@@ -98,7 +96,7 @@ Abraham Lincoln wrote:
 
 > I desire to see the time when education, and by its means, morality, sobriety, enterprise and industry, shall become much more general than at present.
 
-If you wish the name of the author to appear in the citation bloc, write the citation as follows:
+If you wish the name of the author to appear in the citation block itself, write the citation as follows:
 
     > One need not be a chamber to be haunted.
 
@@ -121,7 +119,7 @@ This text is 'important' and here, it becomes even '**more**' important
 
 ### Over Many Lines
 
-The grayed out blockquotes we've been using in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces or one use of the TAB-key on your keyboard.
+The grayed out blockquotes we've been using in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces, or one use of the TAB-key on your keyboard.
 
     As an example, here's some text:
 
@@ -131,7 +129,7 @@ As an example, here's some text:
 
     An example of text.
 
-You may also three grave accents ( ` ) to indicate the beginning and the end of a the block of grayed out text:
+You may also three grave accents ( ` ) to indicate the beginning and the end of a block of grayed out text:
 
     Here's my text:
 
@@ -149,25 +147,25 @@ x = 2 + 2
 
 ## Lists
 
-### Unordered Lists
+### Unnumbered Lists
 
-You may create unordered lists by adding a star sign ( * ) or an underscore sign ( _ ) in front of each portion of text.
+You may create unnumbered lists by adding a star sign ( * ) or an underscore sign ( _ ) in front of each portion of text.
 
     * This is some text.
     * Here, some text.
-    * Just wrote some words.
+    * I just wrote some words.
 
     - This is some text
     - Here, some text.
-    - Just wrote some words.
+    - I just wrote some words.
 
 - This is some text
 - Here, some text.
-- Just wrote some words.
+- I just wrote some words.
 
-### Ordered Lists
+### Numbered Lists
 
-You may create an ordered list by beginning each list item by a number.
+You may create a numbered list simply and logically by beginning each list item by a number.
 
     1. This is some text
     2. Here, some text.
@@ -179,7 +177,7 @@ You may create an ordered list by beginning each list item by a number.
 
 ### Indented Lists
 
-You may create tabbed lists by adding one TAB-key space or four empty character spaces in front of the text that needs to be indented.
+You may create tabbed lists by adding one TAB-key space, or four empty character spaces, in front of the text that needs to be indented.
 
     1. Write some text here:
         1. And add a detail about that text here.
@@ -201,7 +199,7 @@ You may create tabbed lists by adding one TAB-key space or four empty character 
 
 ## Tables
 
-Creating tables with the original version of the Markdown syntax is not possible. We can create them by using a variant of Markdown called GFM, which stands for "Git-Hub Flavored Markdown".
+Creating tables with the original version of the Markdown syntax is not possible. We can create them by using a variant of Markdown called "GFM", which stands for "Git-Hub Flavored Markdown".
 
 Creating a table consists of drawing your table with symbols as follows:
 
@@ -217,7 +215,7 @@ Creating a table consists of drawing your table with symbols as follows:
 | col 2 is      | *centered*    |   $12 |
 | zebra stripes | ~~are neat~~  |    $1 |
 
-Columns are drawn by using vertical bars or piptes ( | ).
+Columns are drawn by using vertical bars or pipes ( | ).
 Table headers are separated from rows by using hyphen-minus signs ( - ).
 Colon signs ( : ) are used to align the columns as follows:
 
@@ -226,6 +224,7 @@ Colon signs ( : ) are used to align the columns as follows:
 * If not colons are used, the text becomes left-aligned.
 
 You should note that, although vertical bars or pipes are needed to create columns, they do not need to be aligned for the table appear properly in its final print-ready form. That said, aligning them makes reading the Markdown tables easier.
+Finally, the tables will appear in the center of your document's page.
 
 ## Images
 
@@ -243,24 +242,25 @@ Please, be aware that images are not saved within Natao or any of its databases.
 
 You can create an inline link by wrapping link text in brackets ( [ ] ), and then wrapping the link in parentheses ( ( ) ).
 
-For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a link text that says, Natao est sur Github!, you'd write this in Markdown:
+For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a link text that says, Natao is on Github!, you'd write the follwing Markdown:
 
-    [Natao est sur Github!](https://github.com/Ajrarn/Natao)
+    [Natao is on Github!](https://github.com/Ajrarn/Natao)
 
-[Natao est sur Github!](https://github.com/Ajrarn/Natao)
+[Natao is on Github!](https://github.com/Ajrarn/Natao)
 
 ### Reference
 
 Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:
 
-    Natao est sur [Github][github.natao] normalement.
+    Natao should be on [Github][github.natao].
 
-Natao est sur [Github][github.natao] normalement.
+Natao should be on [Github][github.natao].
 
 Then, anywhere in the document (usually at the end), you define your link label by putting it in between brackets followed by a colon, followed by the destination between quotations marks:
 
-    [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
+    [github.natao]: https://github.com/Ajrarn/Natao  "Natao on Github"
 
-You will note that reference-words you place at the end of your document remain invisible in the document's final, ready-for-print version. The reference-words only pop up when you put your cursor above the link within your document. This allows you to organize your references, and to use them more than once in your text.
+You will note that the link labels you place at the end of your document remain invisible in the document's final, ready-to-print version. The labels only pop up when you drag your mouse's cursor above the link within your document. 
+Creating those link labels allows you to stay organized and to use them more than once in your text.
 
 [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
