@@ -1,17 +1,21 @@
 # The Markdown Language
 
-To write a text with Natao, you are going to have to learn a new language. But do not worry as this will be nothing like learning a foreign tongue.
-Producing a text with Natao consists of including certain signs and characters to your document. These signs and characters, which are designed to help Natao format the text you are writing for you, constitute the Markdown language.
-Let's start with its very easy to learn basic principles.
+To write a text with Natao, you are going to have to learn a new language called Markdown. But do not worry as this will be much easier than learning a foreign tongue.
 
-By the way, the document you are currently reading was written in Markdown, with Natao.
+The Markdown language was created in 2004 by John Gruber, with significant help from Aaron Swartz. It was designed to help format text documents with simple, readable signs and characters, like the pound sign ( # ), or the greater-than sign ( > ).
+
+Producing a text with Natao consists of including these signs and other characters to your document to instruct Natao on how to format the text you are writing.
+
+Of course, any Markdown document you produce with Natao will be readable and usable in any other Markdown program.
+
+The document you are currently reading was actually written in Markdown, with Natao.
 
 # Basic Syntax
 
 ## Paragraphs
 
-Paragraphs in Markdown are simply composed of one or two consecutive lines followed by one or two empty lines. 
-In the first blockquote that follows, you can see two bits of text separated by one empty line. In the second blockquote, you can see how Natao formats them.
+Paragraphs in Markdown are created by inserting a blank line between two portions of text. 
+In the first blockquote that follows, you can see two text excerpts, separated by a blank line space. In the second blockquote, you can see how Natao formats the two paragraphs.
 
         When Zarathustra was thirty years old, he left his home and the lake of his home, and went into the mountains. There
     he enjoyed his spirit and his solitude, and for ten years did not weary of it. But at last his heart changed,- and rising one morning with the rosy dawn, he went before the sun, and spake thus unto it:
@@ -26,57 +30,65 @@ Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s
 
 ## Titles
 
-You can create a title by adding one or a few pound or hash signs (#) at the beginning of your text.
-The number of (#) you add determines how important the title is. You may only add up to six (#) signs. The following example shows you how the titles of this particular document have been designed.
+You can create a title by adding one or a few pound or hash signs ( # ) at the beginning of your text.
+The number of ( # ) you add determines how important the title is. You may only add up to six (#) signs.
 
-    # Basic Principles
+The following example shows you how the titles of this particular document have been designed.
+
+    # Basic Syntax
     ## Paragraphs
     ## Titles
-    ### etc.
-
-You may underline a title as follows:
-
-    The most important level
-    ========================
-
-    The second most important level
-    -------------------------------
-
-You will only have access to two title levels, but your Markdown will be more readable in a Markdown program other than Natao. Note that the titles that use the (#) are easier to read. We recommend you use that.
+    ### Within a Line
 
 We also recommend that you do not go beyond three title levels for readability.
 
+## Headers
+
+You may create an underlined, numbered, first-level header by inserting at least one equal sign ( = ) under the header's text.
+
+    This is the header text.
+    =
+
+You may create a second-level header by inserting at least one hyphen-minus sign ( - ) under the header text. Markdown will number these headers automatically.
+
+    The is the second-level header text.
+    -
+
+Please note that Markdown only permits two header levels. Note also that the titles that use the ( # ) are easier to read. We recommend you use that.
+
 ## Highlight Text Elements
 
-You may decide to bring your readers' attention to specific parts or portions of you text. Two highlighting levels can be achieved by placing a star sign (*) before and after the word or words you want to highlight. One (*) will italicize the text, while two (*) will put the text in bold.
+You may decide to bring your readers' attention to specific parts or portions of you text. 
 
-Some of the style-sheets available by default in Natao also allow you to underline portions of text with a red line for instance.
-
-    *This text will be italicized.*
-    **This text will be put in bold.**
+Place a star sign ( * ) before and after the word(s) you would like highlighted, and the text will italicized.
 
 *This text will be italicized.*
+
+Place two star signs ( * ) before and after the word(s) you would like highlighted, and the text will be put in bold.
+
 **This text will be put in bold.**
 
-You may also add the underscore sign ( _ ) in front and after some text to combine the italics and bold letters.
+You may also add an underscore sign ( _ ) in front and after some text to combine the italics and the bold letters.
 
     **Everyone _must_ arrive on time today.**
 
 **Everyone _must_ arrive on time today.**
 
-Finally, you may choose to cross-out a word or words by adding the tilde sign (~).
+You may choose to cross-out a word or words by adding two tilde signs ( ~ ) before and after the word(s) you would like to cros-out.
 
     ~~A mistake.~~
 
 ~~A mistake.~~
 
+Please note that some of Natao's default style-sheets allow you to underline portions of a text with a red line.
+
 # Advanced Syntax
 
-The basic Markdown syntax allows anyone to write clear documents. The simple elements of syntax that follow should allow you to go a step further.
+The basic Markdown syntax allows anyone to write clear documents. The elements of syntax that follow should allow you to go a step further.
 
 ## Citations
 
-You may create a citation by adding a greater-than symbol (>) in front of the text you'd like to have appear as a quote. As long as your lines start with (>), your text will remain a citation.
+You may create a citation by adding a greater-than symbol ( > ) in front of the text you would like to have appear as a quote. As long as your lines start with ( > ), your text will remain a citation.
 
     Abraham Lincoln wrote:
 
@@ -101,7 +113,7 @@ If you wish the name of the author to appear in the citation bloc, write the cit
 ### Within a Line
 
 To highlight a few words within a larger section of text, use quotation marks.
-The font of the highlighted words or word will change but the text's overall formatting will remain unchanged. In the example that follows, the star signs (*) are added for even more emphasis.
+The font of the highlighted words or word will change but the text's overall formatting will remain unchanged. In the example that follows, the star signs ( * ) are added for even more emphasis.
 
     This text is `important` and here, it becomes even `**more**` important.
 
@@ -109,7 +121,7 @@ This text is 'important' and here, it becomes even '**more**' important
 
 ### Over Many Lines
 
-The grayed out blockquotes we've been using in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces or one use of the TAB key.
+The grayed out blockquotes we've been using in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces or one use of the TAB-key on your keyboard.
 
     As an example, here's some text:
 
@@ -139,7 +151,7 @@ x = 2 + 2
 
 ### Unordered Lists
 
-You may create unordered lists by adding a star sign (*) or an underscore sign ( _ ) in front of each portion of text.
+You may create unordered lists by adding a star sign ( * ) or an underscore sign ( _ ) in front of each portion of text.
 
     * This is some text.
     * Here, some text.
@@ -155,7 +167,7 @@ You may create unordered lists by adding a star sign (*) or an underscore sign (
 
 ### Ordered Lists
 
-Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
+You may create an ordered list by beginning each list item by a number.
 
     1. This is some text
     2. Here, some text.
@@ -167,7 +179,7 @@ Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
 
 ### Indented Lists
 
-You may create tabbed lists by adding one TAB space or four empty character spaces in front of the text that needs to be indented.
+You may create tabbed lists by adding one TAB-key space or four empty character spaces in front of the text that needs to be indented.
 
     1. Write some text here:
         1. And add a detail about that text here.
@@ -189,7 +201,7 @@ You may create tabbed lists by adding one TAB space or four empty character spac
 
 ## Tables
 
-Creating tables with the original version of the Markdown syntax is not possible. We can create them by using a variant of Markdown called GFM, which stands for Git-Hub Flavored Markdown.
+Creating tables with the original version of the Markdown syntax is not possible. We can create them by using a variant of Markdown called GFM, which stands for "Git-Hub Flavored Markdown".
 
 Creating a table consists of drawing your table with symbols as follows:
 
@@ -229,7 +241,7 @@ Please, be aware that images are not saved within Natao or any of its databases.
 
 ### Inline
 
-You can create an inline link by wrapping link text in brackets ([ ]), and then wrapping the link in parentheses (( )).
+You can create an inline link by wrapping link text in brackets ( [ ] ), and then wrapping the link in parentheses ( ( ) ).
 
 For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a link text that says, Natao est sur Github!, you'd write this in Markdown:
 
