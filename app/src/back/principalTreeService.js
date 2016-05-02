@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,TreeUtilService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate,DatabaseService,DocumentsService) {
+    function PrincipalTreeService(PreferencesService,TreeUtilService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate,DatabaseService,DocumentsService,$rootScope) {
         console.log('PrincipalTreeService');
 
         var self = this;
@@ -31,6 +31,7 @@
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;
         self.DocumentsService = DocumentsService;
+        self.$rootScope = $rootScope;
         self.docsMarkdown = [];
         self.principalTree = {
             docName: 'PrincipalTree',
@@ -38,10 +39,7 @@
                 children:[]
             },
             expandedNodes: [],
-            buffer: {
-                tree: null,
-                documents: []
-            }
+            selectedNode: null
         };
 
         self.cutNodePending = null;
@@ -67,12 +65,13 @@
             }
         };
 
-        self.initBuffer = function() {
-            self.principalTree.buffer = {
-                tree: null,
-                documents: []
-            };
-        };
+        // if we do the save on the select node, the selected node is not yet set
+        //so we have to watch it
+        self.$rootScope.$watch(function(){
+            return self.principalTree.selectedNode;
+        },function() {
+            self.save();
+        });
 
         self.getInitTreeService = function(defaultCss) {
 
@@ -97,6 +96,8 @@
                                         var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
                                         self.addMarkdown(self.principalTree.selectedNode,translation,welcomeMd);
                                     });
+
+                                    resolve();
                                 })
                                 .catch(function(err) {
                                     reject(err);
@@ -105,8 +106,8 @@
                         } else {
                             self.principalTree = docs[0];
                             console.log('principalTree', self.principalTree);
+                            resolve();
                         }
-                        resolve();
                 }).catch(function(err) {
                         reject(err);
                     });

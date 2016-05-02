@@ -23,7 +23,7 @@
     "ng-showdown": "~1.1.0",
     "MathJax": "latest",
     "typicons": "~2.0.7",
-    "angular-tree-control": "~0.2.23",
+    "angular-tree-control": "~0.2.25",
     "open-dyslexic": "*",
     "nw-fileDialog": "git://github.com/DWand/nw-fileDialog#b50f8c1b7aa1bb19be8f90b24ab1e3ed049dc1eb",
     "angular-i18n": "~1.5.2",

@@ -32,6 +32,7 @@
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             mode: 'gfm'
         };
+        self.buffer = null;
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -151,11 +152,10 @@
             self.newDefaultCss = node.defaultCss;
             self.folderPopover = 'buttonBar';
             self.newColor = node.color;
-            console.log('disabled',self.pasteButtonDisabled());
         };
 
         self.pasteButtonDisabled = function() {
-            return !(self.PrincipalTreeService && self.PrincipalTreeService.principalTree && self.PrincipalTreeService.principalTree.buffer && self.PrincipalTreeService.principalTree.buffer.tree  && self.PrincipalTreeService.docsPendingForBuffer === 0);
+            return !(self.buffer);
         };
 
         self.editFolder = function() {
@@ -364,7 +364,7 @@
                             .catch(function(err) {
                                 console.error(err);
                             })
-                        
+
                     })
                     .catch(function(err) {
                         console.error(err);

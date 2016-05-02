@@ -2,11 +2,8 @@
     "use strict";
 
     var fs = require('fs');
-
     var fileName = 'NataoSetting.json';
-
     var urlFirstSetting = '/firstTimeSettings';
-
     var gui = require('nw.gui');
 
 
@@ -57,30 +54,14 @@
 
        self.saveSettings = function() {
            localStorage.setItem('nataoFileDatabase',self.settings.fileDatabase);
+           self.DatabaseService.setDB(self.settings.fileDatabase);
        };
 
         self.savePreferences = function() {
             if (self.preferences._id) {
-                
-                self.DatabaseService
-                    .update(self.preferences._id,self.preferences)
-                    .then(function(doc) {
-                        //self.preferences = doc;
-                        console.log(doc);
-                    })
-                    .catch(function(err) {
-                        console.error('error:',err);
-                    });
+                return self.DatabaseService.update(self.preferences._id,self.preferences);
             } else {
-                
-                self.DatabaseService
-                    .insert(self.preferences)
-                    .then(function(newDoc) {
-                        self.preferences = newDoc;
-                    })
-                    .catch(function(err) {
-                        console.error('error:',err);
-                    });
+                return self.DatabaseService.insert(self.preferences);
             }
         };
 
@@ -96,7 +77,7 @@
             valid = valid && self.preferences && self.preferences.showDys !== null;
             valid = valid && self.preferences && self.preferences.showMenu !== null;
             valid = valid && self.preferences && self.preferences.showEditor !== null;
-            valid = valid && self.preferences && self.preferences.showVisualiser !== null;
+            valid = valid && self.preferences && self.preferences.showViewer !== null;
 
             return valid;
         };
@@ -106,7 +87,8 @@
 
         self.save = function() {
             self.saveSettings();
-            self.savePreferences();
+            
+            return self.savePreferences();
         };
 
         self.zoomChange = function() {
