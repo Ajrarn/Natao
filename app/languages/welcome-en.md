@@ -35,8 +35,8 @@ What's Markdown?
 
 The Markdown language was created in 2004 by John Gruber, with significant help from Aaron Swartz. It purports to convert a simple text containing a few structurally significant characters into an easily readable and clearly formatted document. For instance:
 
-- A line beginning with a single pound or hash sign (#) becomes an important title. A sentence beginning with two pound or hash signs appears as a less important title.
-- A text beginning and ending with a star sign (*) is highlighted, while one that begins and ends with two stars becomes even more visible.
+- A line beginning with a single pound or hash sign ( # ) becomes an important title. A sentence beginning with two pound or hash signs appears as a less important title.
+- A text beginning and ending with a star sign ( * ) is highlighted, while one that begins and ends with two stars becomes even more visible.
 
 What about formatting styles?
 
