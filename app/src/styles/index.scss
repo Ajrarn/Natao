@@ -418,14 +418,69 @@ treecontrol {
   position: absolute;
 }
 
-
-
-/**********************flags*************************/
-.flag-icon {
-  margin: 5px;
-  font-size: 6em;
-  border: solid black 1px;
+/***********************DragDrop***********************/
+.drag {
+  opacity: 0.5;
 }
+
+.over {
+  font-weight: bold;
+}
+
+.anchor {
+  position: relative;
+  //background-color: red;
+
+  .before {
+    position: absolute;
+    top: -0.1em;
+    left: 0;
+    right: 0;
+    min-height: 0.24em;
+    display: inline-block;
+
+    hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none;
+    }
+
+    &.over {
+      hr {
+        border-bottom: solid 2px;
+      }
+    }
+
+  }
+
+  .after {
+    position: absolute;
+    top: 1.24em;
+    left: 0;
+    right: 0;
+    min-height: 0.24em;
+    display: inline-block;
+
+    hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none;
+    }
+
+    &.over {
+      hr {
+        border-bottom: solid 2px;
+      }
+    }
+  }
+
+
+}
+
 
 /***********************ColorChooser*****************/
 .chooser-purple {

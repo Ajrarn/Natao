@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService) {
         console.log('EditorController');
 
         var self = this;
@@ -16,6 +16,7 @@
         self.$timeout = $timeout;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
@@ -31,6 +32,7 @@
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             mode: 'gfm'
         };
+        self.buffer = null;
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -40,11 +42,11 @@
                     self.currentMarkdown = docs[0];
                     self.CssService.initCurrentById(self.currentMarkdown.css);
                     MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-            }).catch(function(err) {
+                }).catch(function(err) {
                 console.log(err);
             });
         }
-        
+
         self.refresh = function() {
 
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
@@ -101,7 +103,7 @@
                         })
                         .catch(function(err){
                             console.error(err);
-                    });
+                        });
                 }
             }
         };
@@ -134,7 +136,7 @@
 
         self.addClassPopover = function(hide){
             if (self.newClass && self.newClass !== '') {
-                self.PrincipalTreeService.addClass(self.newClass,self.templateName);
+                self.PrincipalTreeService.addFolder(self.newClass,null,self.templateName);
             }
             hide();
         };
@@ -150,11 +152,10 @@
             self.newDefaultCss = node.defaultCss;
             self.folderPopover = 'buttonBar';
             self.newColor = node.color;
-            console.log('disabled',self.pasteButtonDisabled());
         };
 
         self.pasteButtonDisabled = function() {
-            return !(self.PrincipalTreeService && self.PrincipalTreeService.principalTree && self.PrincipalTreeService.principalTree.buffer && self.PrincipalTreeService.principalTree.buffer.tree  && self.PrincipalTreeService.docsPendingForBuffer === 0);
+            return !(self.buffer);
         };
 
         self.editFolder = function() {
@@ -231,60 +232,172 @@
         };
 
         self.copyFolder = function(hide) {
-            self.PrincipalTreeService.copyNodeFolder(self.currentNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.copyDocument = function() {
-            self.PrincipalTreeService.copyNodeFolder(self.PrincipalTreeService.principalTree.selectedNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
         };
 
         self.cutFolder = function(hide) {
-            self.PrincipalTreeService.cutNodefolder(self.currentNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.cutDocument = function() {
-            self.PrincipalTreeService.cutNodefolder(self.PrincipalTreeService.principalTree.selectedNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
         };
 
         self.deleteDocument = function(hide) {
-            self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode);
+            self.PrincipalTreeService
+                .deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree)
+                .then(function() {
+                    //and check the selected markdown
+                    var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
+                    if (!selNode) {
+                        self.PrincipalTreeService.principalTree.currentMarkdownId = null;
+                        self.PrincipalTreeService.save();
+                        self.currentMarkdown = null;
+                    }
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.exportDocument = function() {
             self.fileDialog.saveAs(function(filename) {
-                self.PrincipalTreeService.exportTo(self.PrincipalTreeService.principalTree.selectedNode,filename);
+
+                self.TreeUtilService
+                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToFile(buffer,filename)
+                            .then(function() {
+                                console.log('export terminé');
+                            }).catch(function(err) {
+                            console.error(err);
+                        })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                
             },'nataoExport.json',['json']);
         };
 
         self.pasteFolder = function(hide) {
-            if (hide) {
-                self.PrincipalTreeService.pasteBufferToNode(self.currentNode);
-                hide();
-            } else {
-                //it's done without selecting a node so the node will be the tree himself
-                self.PrincipalTreeService.pasteBufferToNode(self.PrincipalTreeService.principalTree.tree);
+
+            if (self.buffer) {
+                self.TreeUtilService
+                    .bufferToNode(self.buffer)
+                    .then(function(node) {
+                        if (hide) {
+                            // then the paste command is past from the tree
+                            if (self.currentNode && self.currentNode.children) {
+                                self.currentNode.children.push(node);
+                            }
+                            hide();
+                        } else {
+                            //the command was past by the toolbar
+                            self.PrincipalTreeService.principalTree.tree.children.push(node);
+                        }
+                        self.buffer = null;
+                        self.PrincipalTreeService.save();
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
         };
 
 
         self.exportTo = function(hide) {
             self.fileDialog.saveAs(function(filename) {
-                self.PrincipalTreeService.exportTo(self.currentNode,filename);
+
+                self.TreeUtilService
+                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToFile(buffer,filename)
+                            .then(function() {
+                                console.log('export terminé');
+                            }).catch(function(err) {
+                            console.error(err);
+                        })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
                 hide();
             },'nataoExport.json',['json']);
         };
 
         self.importFrom = function(hide) {
+
+            var nodeIn;
+
+            if (hide) {
+                nodeIn = self.currentNode;
+                hide();
+            } else {
+                nodeIn = self.PrincipalTreeService.principalTree.tree;
+            }
+
             self.fileDialog.openFile(function(filename) {
-                if (hide) {
-                    self.PrincipalTreeService.importFrom(self.currentNode,filename);
-                    hide();
-                } else {
-                    self.PrincipalTreeService.importFrom(self.PrincipalTreeService.principalTree.tree,filename);
-                }
+
+                self.TreeUtilService
+                    .fileToBuffer(filename)
+                    .then(function(buffer) {
+
+                        self.TreeUtilService
+                            .bufferToNode(buffer)
+                            .then(function(nodeToInsert) {
+                                nodeIn.children.push(nodeToInsert);
+                                self.expand(nodeIn);
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            })
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    })
+
             }, false, ['json']);
         };
 
@@ -324,9 +437,66 @@
 
         self.addDocument = function(hide) {
             if (self.newDocumentName && self.newDocumentName.length > 0) {
-                self.PrincipalTreeService.addMarkdown(self.currentNode,self.newDocumentName);
+
+                self.DocumentsService
+                    .addDocument(self.currentNode.defaultCss,self.newDocumentName)
+                    .then(function(newDoc) {
+                        var newNode = {
+                            id: newDoc._id,
+                            name: newDoc.title,
+                            leaf: true
+                        };
+
+                        self.currentNode.children.push(newNode);
+                        self.PrincipalTreeService.principalTree.selectedNode = newNode;
+                        self.selectNode(newNode);
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
             hide();
+        };
+
+
+        /* ************* Drag Drop ********/
+        self.handleDrop = function(item, bin) {
+
+            var nodeDrag = self.TreeUtilService.getNode(item,self.PrincipalTreeService.principalTree.tree);
+            var nodeDrop = null;
+
+            if (bin.startsWith('before')) {
+                nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.PrincipalTreeService.principalTree.tree);
+                self.TreeUtilService.moveBefore(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+            } else {
+                if (bin.startsWith('after')) {
+                    nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.PrincipalTreeService.principalTree.tree);
+                    self.TreeUtilService.moveAfter(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                } else {
+                    nodeDrop = self.TreeUtilService.getNode(bin,self.PrincipalTreeService.principalTree.tree);
+                    self.TreeUtilService.moveIn(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                    self.expand(nodeDrop);
+                }
+            }
+        };
+
+
+        self.expand = function(node) {
+            if (self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) < 0) {
+                self.PrincipalTreeService.principalTree.expandedNodes.push(node);
+            }
+        };
+
+        self.isFirstChild = function(node) {
+            return self.TreeUtilService.isFirstChild(node,self.PrincipalTreeService.principalTree.tree);
+        };
+
+        self.isExpanded = function(node) {
+            return self.PrincipalTreeService.principalTree.expandedNodes && self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) >= 0;
+        };
+
+        self.showAfter = function(node) {
+            return !(self.isExpanded(node) && node.children.length > 0);
         };
 
     }

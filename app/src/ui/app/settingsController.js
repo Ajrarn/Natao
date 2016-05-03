@@ -32,7 +32,7 @@
         self.PendingService = PendingService;
         self.viewer = true;
 
-        self.buffer = {};
+        self.buffer = null;
         self.nodesPendingPaste = 0;
 
         //for codeMirror
@@ -284,27 +284,52 @@
         };
 
         self.copyFolder = function(hide) {
-            angular.copy(self.currentNode,self.buffer);
+
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.cutFolder = function(hide) {
-            angular.copy(self.currentNode,self.buffer);
-            self.deleteNode(self.currentNode);
+
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.currentNode);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+
             hide();
         };
 
+
         self.pasteFolder = function(hide) {
+
             if (self.buffer) {
-                //We start the pending and count the node to paste
-                self.nodesPendingPaste = self.TreeUtilService.howManyNodes(self.buffer);
-                self.PendingService.start();
-                self.pasteNodefolder(self.currentNode);
-                self.buffer = {};
+                self.TreeUtilService
+                    .bufferToNode(self.buffer)
+                    .then(function(node) {
+                        if (self.currentNode && self.currentNode.children) {
+                            self.currentNode.children.push(node);
+                            self.buffer = null;
+                            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                        }
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
-            //And we save the modifications
-            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
             hide();
+
         };
 
         self.addFolder = function(hide) {
@@ -352,54 +377,59 @@
             }
 
             // In all case we have to delete it from the tree
-            var parent = self.TreeUtilService.findParent(node,self.currentTemplate);
+            self.TreeUtilService.deleteNode(node,self.currentTemplate);
 
-            if (parent.children && parent.children.length > 0) {
-                var indexOfNode = _.findIndex(parent.children,{id:node.id});
-                if (indexOfNode >=0) {
-                    parent.children.splice(indexOfNode,1);
-                }
-            }
             //And we save the modifications
             self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+
+            //we have to clean the expandedNodes
+            var arrayOfNode = self.TreeUtilService.flatFolders(self.currentTemplate);
+            self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                return object.id === other.id;
+            });
         };
+        
 
-        //paste a node from the buffer
-        self.pasteNodefolder = function(nodeDestinationParent, nodeSource) {
-            if (!nodeSource) {
-                nodeSource = self.buffer;
-            }
-
-            var nodeToGo = {};
-            angular.copy(nodeSource,nodeToGo);
-            nodeToGo.id = uuid.v4();
-            nodeToGo.children = [];
-            if (nodeSource.children && nodeSource.children.length > 0) {
-                nodeSource.children.forEach(function(item) {
-                    self.pasteNodefolder(nodeToGo, item);
-                });
-            }
-
-            nodeDestinationParent.children.push(nodeToGo);
-
-            // count down the node to paste
-            if (self.nodesPendingPaste > 0) {
-                self.nodesPendingPaste--;
-
-                if (self.nodesPendingPaste === 0) {
-                    self.PendingService.stop();
-                    self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
-                }
+        self.expand = function(node) {
+            if (self.expandedNodes.indexOf(node) < 0) {
+                self.expandedNodes.push(node);
             }
         };
 
 
         /* ***************************** */
+        self.handleDrop = function(item, bin) {
 
+            var nodeDrag = self.TreeUtilService.getNode(item,self.currentTemplate);
+            var nodeDrop = null;
 
+            if (bin.startsWith('before')) {
+                nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.currentTemplate);
+                self.TreeUtilService.moveBefore(nodeDrag,nodeDrop,self.currentTemplate);
+            } else {
+                if (bin.startsWith('after')) {
+                    nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.currentTemplate);
+                    self.TreeUtilService.moveAfter(nodeDrag,nodeDrop,self.currentTemplate);
+                } else {
+                    nodeDrop = self.TreeUtilService.getNode(bin,self.currentTemplate);
+                    self.TreeUtilService.moveIn(nodeDrag,nodeDrop,self.currentTemplate);
+                    self.expand(nodeDrop);
+                }
+            }
+        };
 
-
+        self.isFirstChild = function(node) {
+            return self.TreeUtilService.isFirstChild(node,self.currentTemplate);
+        };
         
+        self.isExpanded = function(node) {
+            return self.expandedNodes && self.expandedNodes.indexOf(node) >= 0;
+        };
+
+        self.showAfter = function(node) {
+            return !(self.isExpanded(node) && node.children.length > 0);
+        };
+
 
 
         self.settingsValide();

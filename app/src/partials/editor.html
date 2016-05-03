@@ -68,13 +68,15 @@
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
                             <div class="buttonBar" layout="row" layout-align="start start" ng-show="EditorCtrl.folderPopover === 'buttonBar'">
                                 <span class="button" ng-click="EditorCtrl.editFolder()" title="{{ 'BTN_EDIT_FOLDER' | translate }}"><span class="typcn typcn-edit"></span></span>
-                                <span class="button" ng-click="EditorCtrl.openAddFolder()" title="{{ 'BTN_ADD_FOLDER' | translate }}"><span class="typcn typcn-folder-add"></span></span>
-                                <span class="button" ng-click="EditorCtrl.openAddDocument()" title="{{ 'BTN_ADD_MARKDOWN' | translate }}"><span class="typcn typcn-document-add"></span></span>
+                                <div layout="column" layout-align="start start">
+                                    <span class="button" ng-click="EditorCtrl.openAddFolder()" title="{{ 'BTN_ADD_FOLDER' | translate }}"><span class="typcn typcn-folder-add"></span></span>
+                                    <span class="button" ng-click="EditorCtrl.openAddDocument()" title="{{ 'BTN_ADD_MARKDOWN' | translate }}"><span class="typcn typcn-document-add"></span></span>
+                                </div>
                                 <div layout="column" layout-align="start start">
                                     <span class="button" ng-click="EditorCtrl.copyFolder(hidePopover)" title="{{ 'BTN_COPY' | translate }}"><span class="typcn typcn-tabs-outline"></span></span>
                                     <span class="button" ng-click="EditorCtrl.cutFolder(hidePopover)" title="{{ 'BTN_CUT' | translate }}"><span class="typcn typcn-scissors-outline"></span></span>
-                                    <span class="button" ng-class="{'disabled':EditorCtrl.pasteButtonDisabled()}" ng-click="EditorCtrl.pasteFolder(hidePopover)" title="{{ 'BTN_PASTE' | translate }}"><span class="typcn typcn-book"></span></span>
                                 </div>
+                                <span class="button" ng-class="{'disabled':EditorCtrl.pasteButtonDisabled()}" ng-click="EditorCtrl.pasteFolder(hidePopover)" title="{{ 'BTN_PASTE' | translate }}"><span class="typcn typcn-book"></span></span>
                                 <div layout="column" layout-align="start start">
                                     <span class="button" ng-click="EditorCtrl.exportTo(hidePopover)" title="{{ 'BTN_EXPORT' | translate }}"><span class="typcn typcn-export-outline"></span></span>
                                     <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)" title="{{ 'BTN_IMPORT' | translate }}"><span class="typcn typcn-download-outline"></span></span>
@@ -149,9 +151,21 @@
                               ns-popover-trigger="click"
                               ns-popover-hide-on-click="false"
                               ns-popover-hide-on-inside-click="false"
-                              ns-popover-placement="right"
-                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf" ng-style="{color:node.color}">{{node.name}}</span>
-                        <span ng-if="node.leaf">{{node.name}}</span>
+                              ns-popover-placement="top|left"
+                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openFolderPopover(node)" ng-if="!node.leaf" ng-style="{color:node.color}">
+                            <span class="anchor">
+                                <span droppable drop="EditorCtrl.handleDrop" bin="bin" id="{{node.id}}" draggable item="item">{{node.name}}</span>
+                                <div class="before" droppable drop="EditorCtrl.handleDrop" bin="bin" id="before{{node.id}}" ng-if="EditorCtrl.isFirstChild(node)"><hr></div>
+                                <div class="after" droppable drop="EditorCtrl.handleDrop" bin="bin" id="after{{node.id}}" ng-if="EditorCtrl.showAfter(node)"><hr></div>
+                            </span>
+                        </span>
+                        <span ng-if="node.leaf" >
+                            <span class="anchor">
+                                <span draggable item="item" id="{{node.id}}">{{node.name}}</span>
+                                <div class="before" droppable drop="EditorCtrl.handleDrop" bin="bin" id="before{{node.id}}" ng-if="EditorCtrl.isFirstChild(node)"><hr></div>
+                                <div class="after" droppable drop="EditorCtrl.handleDrop" bin="bin" id="after{{node.id}}"><hr></div>
+                            </span>
+                        </span>
                     </treecontrol>
                 </div>
             </div>
