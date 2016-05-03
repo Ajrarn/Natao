@@ -272,7 +272,7 @@
                 .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
-                    self.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                    self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -280,7 +280,20 @@
         };
 
         self.deleteDocument = function(hide) {
-            self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+            self.PrincipalTreeService
+                .deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree)
+                .then(function() {
+                    //and check the selected markdown
+                    var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
+                    if (!selNode) {
+                        self.PrincipalTreeService.principalTree.currentMarkdownId = null;
+                        self.PrincipalTreeService.save();
+                        self.currentMarkdown = null;
+                    }
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 

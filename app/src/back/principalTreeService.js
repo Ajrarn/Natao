@@ -171,36 +171,35 @@
 
         //delete of a node
         self.deleteNode = function(node) {
+            
+            return self.$q(function(resolve,reject) {
+                
+                self.TreeUtilService
+                    .deleteNode(node,self.principalTree.tree)
+                    .then(function() {
 
-            self.TreeUtilService
-                .deleteNode(node,self.principalTree.tree)
-                .then(function() {
+                        //First we have to check if we have deleted the selected node
+                        var selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode.id,self.principalTree.tree);
+                        if (!selNode) {
+                            delete self.principalTree.selectedNode;
+                        }
 
-                    //First we have to check if we have deleted the selected node
-                    var selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode,self.principalTree.tree);
-                    if (!selNode) {
-                        delete self.principalTree.selectedNode;
-                    }
+                        //finally we have to clean the expandedNodes
+                        var arrayOfNode = self.TreeUtilService.flatFolders(self.principalTree.tree);
+                        self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                            return object.id === other.id;
+                        });
 
-                    //and check the selected markdown
-                    selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode,self.principalTree.currentMarkdownId);
-                    if (!selNode) {
-                        self.principalTree.currentMarkdownId = null;
-                        self.currentMarkdown = null;
-                    }
+                        self.save();
+                        
+                        resolve();
 
-                    //finally we have to clean the expandedNodes
-                    var arrayOfNode = self.TreeUtilService.flatFolders(self.principalTree.tree);
-                    self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
-                        return object.id === other.id;
+                    })
+                    .catch(function(err) {
+                        reject(err);
                     });
-
-                    self.save();
-
-                })
-                .catch(function(err) {
-                    console.error(err);
-                });
+            });
+            
         };
 
 
