@@ -136,7 +136,7 @@
 
         self.addClassPopover = function(hide){
             if (self.newClass && self.newClass !== '') {
-                self.PrincipalTreeService.addClass(self.newClass,self.templateName);
+                self.PrincipalTreeService.addFolder(self.newClass,null,self.templateName);
             }
             hide();
         };

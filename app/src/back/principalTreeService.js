@@ -17,16 +17,13 @@
 
 
     //Service itself
-    function PrincipalTreeService(PreferencesService,TreeUtilService,CssService,TemplateTreeService,$q,PendingService,$timeout,$translate,DatabaseService,DocumentsService,$rootScope) {
+    function PrincipalTreeService(TreeUtilService,TemplateTreeService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope) {
         console.log('PrincipalTreeService');
 
         var self = this;
-        self.PreferencesService = PreferencesService;
         self.TreeUtilService = TreeUtilService;
-        self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
-        self.$timeout = $timeout;
         self.$q = $q;
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;
@@ -133,94 +130,44 @@
 
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
-            if (templateName) {
-                if (!nodeParent) {
-                    nodeParent = self.principalTree.tree;
-                }
-
-                var template = self.TemplateTreeService.getTemplate(templateName);
-                var newFolder = {};
-                angular.copy(template,newFolder);
-                newFolder.name = nodeName;
-                delete newFolder.docName;
-
-                //We start the pending and count the node to paste
-                self.nodesPendingPaste = self.TreeUtilService.howManyNodes(newFolder);
-                self.PendingService.start();
-
-                self.pasteNodefolder(nodeParent,newFolder);
-                //the save will be done at the end of the paste action
-            } else {
-                self.addFolderOnly(nodeName,nodeParent);
-                self.save();
-            }
-
-        };
-
-
-        self.addFolderOnly = function(nodeName,nodeParent) {
-
-            var newNode = {
-                id: uuid.v4(),
-                name: nodeName,
-                color: '#000000',
-                children:[]
-            };
 
             if (!nodeParent) {
                 nodeParent = self.principalTree.tree;
             }
-            newNode.defaultCss = nodeParent.defaultCss;
-            nodeParent.children.push(newNode);
+            
+            if (templateName) {
+                
+                // To make a good copy we will pass by the buffer
+                var buffer = self.TreeUtilService
+                    .nodeToBuffer(self.TemplateTreeService.getTemplate(templateName))
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToNode(buffer)
+                            .then(function(node) {
+                                delete node.docName;
+                                node.name = nodeName;
+                                nodeParent.children.push(node);
+                                self.save();
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+            } else {
+                var newNode = {
+                    id: uuid.v4(),
+                    name: nodeName,
+                    color: '#000000',
+                    children:[]
+                };
 
-            //and we open the node parent
-            self.principalTree.expandedNodes.push(nodeParent);
-
-            // if the new folder is the first one
-            if (!self.principalTree.selectedNode) {
-                self.principalTree.selectedNode = newNode;
+                nodeParent.children.push(newNode);
+                self.save();
             }
-
         };
-
-        self.addClass = function(nameClass,nameTemplate) {
-            self.addFolder(nameClass,null,nameTemplate);
-        };
-
-
-        //copy of a document by its content to a node in the tree
-        self.copyDocumentTo = function(originalDoc,nodeParent) {
-
-            var newDocument = {};
-            angular.copy(originalDoc, newDocument);
-            delete newDocument._id;
-
-
-            //and then add it to the database
-            self.PendingService.start();
-
-            self.DatabaseService
-                .insert(newDocument)
-                .then(function(newDoc) {
-                    self.PendingService.stop();
-                    var newNode = {
-                        id: newDoc._id,
-                        name: newDoc.title,
-                        leaf: true
-                    };
-
-                    if (!nodeParent.children) {
-                        nodeParent.children = [];
-                    }
-                    nodeParent.children.push(newNode);
-                    self.save();
-                })
-                .catch(function(err) {
-                    self.PendingService.stop();
-                    console.error(err);
-                });
-        };
-
 
         //delete of a node
         self.deleteNode = function(node) {
