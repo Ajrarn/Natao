@@ -16,11 +16,12 @@
     }
 
     //Service itself
-    function TreeUtilService(DocumentsService,$q) {
+    function TreeUtilService(DocumentsService,$q,PendingService) {
         
         var self = this;
         self.DocumentsService = DocumentsService;
         self.$q = $q;
+        self.PendingService = PendingService;
         
         
         //Give all the ids of subfolder of the node in an array
@@ -404,6 +405,15 @@
                     self.DocumentsService
                         .deleteDocument(node.id)
                         .then(function () {
+
+                            //now we will delete it from the tree
+                            var parent = self.findParent(node,nodeRoot);
+                            if (parent.children && parent.children.length > 0) {
+                                var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                                if (indexOfNode >=0) {
+                                    parent.children.splice(indexOfNode,1);
+                                }
+                            }
                             resolve();
                         })
                         .catch(function(err) {
