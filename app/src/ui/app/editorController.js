@@ -42,11 +42,11 @@
                     self.currentMarkdown = docs[0];
                     self.CssService.initCurrentById(self.currentMarkdown.css);
                     MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-            }).catch(function(err) {
+                }).catch(function(err) {
                 console.log(err);
             });
         }
-        
+
         self.refresh = function() {
 
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
@@ -103,7 +103,7 @@
                         })
                         .catch(function(err){
                             console.error(err);
-                    });
+                        });
                 }
             }
         };
@@ -328,8 +328,8 @@
                             .then(function() {
                                 console.log('export terminé');
                             }).catch(function(err) {
-                                console.error(err);
-                            })
+                            console.error(err);
+                        })
                     })
                     .catch(function(err) {
                         console.error(err);
@@ -409,12 +409,28 @@
 
         self.addDocument = function(hide) {
             if (self.newDocumentName && self.newDocumentName.length > 0) {
-                self.PrincipalTreeService.addMarkdown(self.currentNode,self.newDocumentName);
+
+                self.DocumentsService
+                    .addDocument(self.currentNode.defaultCss,self.newDocumentName)
+                    .then(function(newDoc) {
+                        var newNode = {
+                            id: newDoc._id,
+                            name: newDoc.title,
+                            leaf: true
+                        };
+
+                        self.currentNode.children.push(newNode);
+                        self.PrincipalTreeService.principalTree.selectedNode = newNode;
+                        self.selectNode(newNode);
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
             hide();
         };
-        
-        
+
+
         /* ************* Drag Drop ********/
         self.handleDrop = function(item, bin) {
 
@@ -435,7 +451,7 @@
                 }
             }
         };
-        
+
 
         self.expand = function(node) {
             if (self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) < 0) {

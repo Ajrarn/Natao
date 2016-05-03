@@ -83,7 +83,7 @@
                             console.log('Principal Document not found');
 
                             self.principalTree.tree.defaultCss = defaultCss._id;
-                            
+
                             self.DatabaseService
                                 .insert(self.principalTree)
                                 .then(function(newDoc) {
@@ -102,15 +102,15 @@
                                 .catch(function(err) {
                                     reject(err);
                                 });
-                            
+
                         } else {
                             self.principalTree = docs[0];
                             console.log('principalTree', self.principalTree);
                             resolve();
                         }
-                }).catch(function(err) {
-                        reject(err);
-                    });
+                    }).catch(function(err) {
+                    reject(err);
+                });
             });
         };
 
@@ -130,7 +130,7 @@
                 });
 
         };
-        
+
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
             if (templateName) {
@@ -187,36 +187,6 @@
             self.addFolder(nameClass,null,nameTemplate);
         };
 
-        self.addMarkdown = function(node,title,markdown) {
-
-            self.DocumentsService
-                .addDocument(node.defaultCss,title,markdown)
-                .then(function(newDoc) {
-
-                    var newNode = {
-                        id: newDoc._id,
-                        name: newDoc.title,
-                        leaf: true
-                    };
-
-                    node.children.push(newNode);
-
-                    self.currentMarkdown = newDoc;
-                    self.principalTree.currentMarkdownId = newDoc._id;
-                    self.CssService.initCurrentById(self.currentMarkdown.css);
-                    self.principalTree.selectedNode = newNode;
-                    //and we open the node parent
-                    self.principalTree.expandedNodes.push(node);
-                    self.save();
-
-                })
-                .catch(function(err) {
-                    console.error(err);
-                });
-
-        };
-
-       
 
         //copy of a document by its content to a node in the tree
         self.copyDocumentTo = function(originalDoc,nodeParent) {
@@ -250,21 +220,21 @@
                     console.error(err);
                 });
         };
-        
+
 
         //delete of a node
         self.deleteNode = function(node) {
-            
+
             self.TreeUtilService
                 .deleteNode(node,self.principalTree.tree)
                 .then(function() {
-                    
+
                     //First we have to check if we have deleted the selected node
                     var selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode,self.principalTree.tree);
                     if (!selNode) {
                         delete self.principalTree.selectedNode;
                     }
-                    
+
                     //and check the selected markdown
                     selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode,self.principalTree.currentMarkdownId);
                     if (!selNode) {
@@ -279,13 +249,13 @@
                     });
 
                     self.save();
-                  
+
                 })
                 .catch(function(err) {
                     console.error(err);
                 });
         };
-        
+
 
         return self;
 
