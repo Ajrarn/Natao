@@ -299,7 +299,22 @@
 
         self.exportDocument = function() {
             self.fileDialog.saveAs(function(filename) {
-                self.PrincipalTreeService.exportTo(self.PrincipalTreeService.principalTree.selectedNode,filename);
+
+                self.TreeUtilService
+                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToFile(buffer,filename)
+                            .then(function() {
+                                console.log('export terminé');
+                            }).catch(function(err) {
+                            console.error(err);
+                        })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                
             },'nataoExport.json',['json']);
         };
 
