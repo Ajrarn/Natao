@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope) {
         console.log('EditorController');
 
         var self = this;
@@ -21,6 +21,7 @@
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
         self.DocumentsService = DocumentsService;
+        self.$rootScope = $rootScope;
         self.fileDialog = fileDialog;
         self.$location = $location;
         self.inPrint = false;
@@ -47,6 +48,21 @@
             });
         }
 
+        // to ensure that the <a href> wil open in a browser not in Natao
+        // We have to watch the current markdown and force the behavior of all <a href>
+        self.$rootScope.$watch(function(){
+            return self.currentMarkdownCode;
+        },function() {
+            self.$timeout(function() {
+                $('a').on('click', function(){
+                    require('nw.gui').Shell.openExternal( this.href );
+                    return false;
+                });
+            },0,false);
+        });
+
+        
+
         self.refresh = function() {
 
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
@@ -57,6 +73,8 @@
             self.refreshTimeout = setTimeout(function() {
                 self.refreshTimeout = null;
                 self.saveCurrentMarkdown();
+                //this one is for the watcher of <a href>
+                self.currentMarkdownCode = self.currentMarkdown.md;
             },1000);
 
         };
@@ -94,6 +112,8 @@
                         .then(function(docs){
                             if (docs && docs.length > 0){
                                 self.currentMarkdown = docs[0];
+                                //this one is for the watcher of <a href>
+                                self.currentMarkdownCode = self.currentMarkdown.md;
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
                                 self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                 self.PrincipalTreeService.save();
