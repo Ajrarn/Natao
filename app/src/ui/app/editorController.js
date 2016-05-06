@@ -61,10 +61,37 @@
             },0,false);
         });
 
+
+        //catch after editor loaded
+        self.codeMirrorLoaded = function(editor) {
+            self.codeMirror = editor;
+
+            //This will synchronize the 2 scrollbar
+            var elements = $('.CodeMirror-vscrollbar');
+            var avgScroll = 0;
+            elements.on('scroll', function(e){
+
+                if (e.isTrigger){
+                    e.target.scrollTop = Math.round(avgScroll * e.target.scrollHeight - e.target.clientHeight / 2);
+                }else {
+                    avgScroll = (e.target.scrollTop + e.target.clientHeight / 2) / e.target.scrollHeight;
+
+                    elements.each(function (element) {
+                        if( !this.isSameNode(e.target) ){
+                            $(this).trigger('scroll');
+                        }
+                    });
+                }
+                
+            });
+
+
+
+        };
+
         
 
         self.refresh = function() {
-
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
             if (self.refreshTimeout) {

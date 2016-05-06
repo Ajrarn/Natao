@@ -172,7 +172,7 @@
         </div>
 
         <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
-            <div flex layout=row" combine-scroll="vertical-scroll">
+            <div flex layout=row">
                 <div class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor()}">
                     <div flex layout="column" ng-if="EditorCtrl.showEditor()">
                         <script type="text/ng-template" id="popoverDeleteDocument">
@@ -244,11 +244,11 @@
                             </div>
 
                         </div>
-                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()" class="vertical-scroll"
-                                       ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
+                        <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
+                                       ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
                 </div>
-                <div class="viewer vertical-scroll" flex ng-class="[{hidden: !EditorCtrl.showViewer()},{inprint: EditorCtrl.inPrint}]"
+                <div class="viewer CodeMirror-vscrollbar" flex ng-class="[{hidden: !EditorCtrl.showViewer()},{inprint: EditorCtrl.inPrint}]"
                      layout="column">
                     <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer()">
                         <div class="haut" layout="row" layout-align="start stretch">
