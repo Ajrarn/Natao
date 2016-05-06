@@ -244,11 +244,11 @@
                             </div>
 
                         </div>
-                        <ui-codemirror flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
-                                       ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
+                        <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
+                                       ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
                 </div>
-                <div class="viewer" flex ng-class="[{hidden: !EditorCtrl.showViewer()},{inprint: EditorCtrl.inPrint}]"
+                <div class="viewer CodeMirror-vscrollbar" flex ng-class="[{hidden: !EditorCtrl.showViewer()},{inprint: EditorCtrl.inPrint}]"
                      layout="column">
                     <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer()">
                         <div class="haut" layout="row" layout-align="start stretch">
