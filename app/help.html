@@ -9,7 +9,7 @@
     </head>
     <body layout="column" ng-class="helpCtrl.theme">
         <div flex layout="row"  layout-align="start stretch">
-            <tabs>
+            <tabs panel-selected="helpCtrl.panelSelected">
                 <pane title="{{ 'HELP_INTERFACE' | translate }}" icon="typcn-device-desktop" class="setting">
                     <div flex layout="column" layout-align="start stretch" class="visualiser">
                         <div class="viewerHelp rendu" markdown-to-html="helpCtrl.currentHelpEditor" flex></div>
@@ -32,6 +32,7 @@
                 </pane>
             </tabs>
         </div>
+        <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="bower_components/showdown/dist/showdown.js"></script>
         <script type="text/javascript" src="bower_components/ng-showdown/dist/ng-showdown.js"></script>
