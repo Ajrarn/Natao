@@ -228,7 +228,7 @@
 
                                     <label for="striped" layout="row">
                                         <p>Espace entre les lignes</p>
-                                        <input type="checkbox" id="space" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.space" ng-change="EditorCtrl.PreferencesService.savePreferences()">
+                                        <input type="checkbox" id="space" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.space" ng-change="EditorCtrl.changeSpace()">
                                     </label>
                                 </div>
                             </script>
@@ -245,6 +245,7 @@
 
                         </div>
                         <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
+                             ng-if="EditorCtrl.currentMarkdown.md"
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
                 </div>

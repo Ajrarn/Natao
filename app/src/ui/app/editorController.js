@@ -546,6 +546,18 @@
             return !(self.isExpanded(node) && node.children.length > 0);
         };
 
+        /* *********** Editor Setting *************/
+        self.changeSpace = function () {
+            self.PreferencesService.savePreferences();
+            var markdown = self.currentMarkdown;
+            self.currentMarkdown = null;
+
+            self.$timeout(function() {
+                self.currentMarkdown = markdown;
+            },100);
+
+        }
+
     }
 
 }());
