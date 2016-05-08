@@ -12,8 +12,12 @@
 
         MathJax.Hub.Config({
             asciimath2jax: {
-                delimiters: [['$$','$$']],
+                delimiters: [['@@','@@']],
                 ignoreClass: ['customEditor']
+            },
+            tex2jax: {
+                inlineMath: [ ['\\(','\\)'] ],
+                displayMath: [ ['$$','$$'] ]
             }
         });
 
