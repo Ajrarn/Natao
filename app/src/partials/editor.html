@@ -226,9 +226,13 @@
                                         <input type="checkbox" id="striped" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.striped" ng-change="EditorCtrl.PreferencesService.savePreferences()">
                                     </label>
 
-                                    <label for="striped" layout="row">
+                                    <label for="space" layout="row">
                                         <p>Espace entre les lignes</p>
                                         <input type="checkbox" id="space" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.space" ng-change="EditorCtrl.changeSpace()">
+                                    </label>
+                                    <label for="scroll" layout="row">
+                                        <p>Défilement synchronisé</p>
+                                        <input type="checkbox" id="scroll" name="striped" value="true" ng-model="EditorCtrl.PreferencesService.preferences.syncScroll" ng-change="EditorCtrl.PreferencesService.savePreferences()">
                                     </label>
                                 </div>
                             </script>

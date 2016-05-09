@@ -72,20 +72,21 @@
             var ratioTop = 0;
             elements.on('scroll', function(e){
 
-                if (e.isTrigger){
-                    //e.target.scrollTop = Math.round(avgScroll * e.target.scrollHeight - e.target.clientHeight / 2);
-                    e.target.scrollTop = Math.round((e.target.scrollHeight - e.target.clientHeight) * ratioTop);
-                }else {
-                    //avgScroll = (e.target.scrollTop + e.target.clientHeight / 2) / e.target.scrollHeight;
-                    ratioTop = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight);
+                if (self.PreferencesService.preferences.syncScroll) {
+                    if (e.isTrigger){
+                        //e.target.scrollTop = Math.round(avgScroll * e.target.scrollHeight - e.target.clientHeight / 2);
+                        e.target.scrollTop = Math.round((e.target.scrollHeight - e.target.clientHeight) * ratioTop);
+                    }else {
+                        //avgScroll = (e.target.scrollTop + e.target.clientHeight / 2) / e.target.scrollHeight;
+                        ratioTop = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight);
 
-                    elements.each(function (element) {
-                        if( !this.isSameNode(e.target) ){
-                            $(this).trigger('scroll');
-                        }
-                    });
+                        elements.each(function (element) {
+                            if( !this.isSameNode(e.target) ){
+                                $(this).trigger('scroll');
+                            }
+                        });
+                    }
                 }
-                
             });
 
 
