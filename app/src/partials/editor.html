@@ -249,7 +249,7 @@
 
                         </div>
                         <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
-                             ng-if="EditorCtrl.currentMarkdown.md"
+                             ng-if="EditorCtrl.currentMarkdown"
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
                 </div>

@@ -70,5 +70,6 @@
   "HELP_INTERFACE": "Interface",
   "HELP_MARKDOWN": "Markdown",
   "HELP_ASCIIMATH": "AsciiMath",
+  "HELP_TEX": "TeX",
   "HELP_SETTINGS": "Réglages"
 }
