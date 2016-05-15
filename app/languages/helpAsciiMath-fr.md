@@ -285,6 +285,32 @@ Et celle-ci qui ne fonctionne pas dans un tableau markdown :
 | @@dot x@@           | dot x     |
 | @@ddot x@@          | ddot x    |
 
+## Autres symboles
+
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@sqrt@@           | sqrt       |
+| @@int@@            | int        |
+| @@oint@@           | oint       |
+| @@del@@            | del        |
+| @@grad@@           | grad       |
+| @@+-@@             | +-         |
+| @@O/@@             | O/         |
+| @@oo@@             | oo         |
+| @@aleph@@          | aleph      |
+| @@/_@@             | /_         |
+| @@:.@@             | :.         |
+| @@cdots@@          | cdots      |
+| @@vdots@@          | vdots      |
+| @@ddots@@          | ddots      |
+| @@diamond@@        | diamond    |
+| @@square@@         | square     |
+| @@CC@@             | CC         |
+| @@NN@@             | NN         |
+| @@QQ@@             | QQ         |
+| @@RR@@             | RR         |
+| @@ZZ@@             | ZZ         |
+
 ## Les lettres grecques
 
 
