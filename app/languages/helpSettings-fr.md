@@ -20,8 +20,8 @@ Elle est constituée de 2 panneaux:
 * un éditeur Css, pour modifier la feuille de style.
 * un panneau de visualisation te permettant de voir soit le rendu, soit le code HTML du document.
 
-Dans une future version, j'essaierai de créer un assistant pour t'aider à modifier les feuilles de style sans connaissances de la syntaxe Css, ni du HTML. En attendant, c'est un passage obligé vers l'amélioration de tes documents.
-
-
+Dans une future version, j'essaierai de créer un assistant pour t'aider à modifier les feuilles de style sans connaissances de la syntaxe Css, ni du HTML. En attendant, c'est un passage obligé vers l'amélioration de tes documents. N'hésites pas à te faire aider.
 
 # Structures
+
+Cette dernière section te permet de manipuler les structures de dossiers. Ce sont les mêmes outils que dans l'éditeur normal, sauf que tu ne peux pas y créer de documents. Tu pourras donc facilement modifier tes modèles de structure préférés avant de les réutiliser dans l'éditeur.
