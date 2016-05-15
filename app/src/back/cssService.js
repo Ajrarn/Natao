@@ -2,7 +2,8 @@
     "use strict";
 
     var _ = require('lodash')
-        ,fs = require('fs');
+        ,fs = require('fs')
+        ,cssParser = require('css');
 
 
     angular
@@ -140,11 +141,11 @@
 
         self.initCurrentById = function(idCss) {
             var css = _.find(self.availableCss,{_id:idCss});
-            self.currentCss = css.css;
+            self.currentCss = self.safeCss(css.css);
         };
 
         self.initCurrentByContent = function(css) {
-            self.currentCss = css;
+            self.currentCss = self.safeCss(css);
         };
 
         self.findCssId = function(what) {
@@ -219,6 +220,33 @@
                         console.error(err);
                     });
             }
+        };
+
+        self.safeCss = function(css) {
+            var objCss = cssParser.parse(css);
+            console.log('objCss',objCss);
+
+            var newRules = objCss.stylesheet.rules.map(function(rule) {
+                var newRule = rule;
+                if (rule.type === 'rule') {
+
+                    var newSelectors = rule.selectors.map(function(selector) {
+                        if (!selector.startsWith('.viewer')) {
+                            return '.viewer ' + selector;
+                        } else {
+                            return selector;
+                        }
+                    });
+
+                    newRule.selectors = newSelectors;
+                }
+                return newRule
+            });
+
+            objCss.stylesheet.rules = newRules;
+
+            return cssParser.stringify(objCss);
+
         };
 
         return self;
