@@ -140,7 +140,150 @@ Pour obtenir un vecteur:
 
 >@@((a,b),(c,d))@@
 
+## Portée des symboles et fonctions
+
+La plupart du temps, la portée des symboles s'applique au prochain caractère.
+
+	>@@sqrt 1/3@@
+
+donne :
+
+>@@sqrt 1/3@@
+
+Si tu souhaites appliquer le symbole ou la fonction sur plusieurs caractères, il suffit de mettre des parenthèses autour de l'expression pour laquelle ceka va s'appliquer.
+
+	>@@sqrt(1/3)@@
+
+donne :
+
+>@@sqrt(1/3)@@
+
+On voit qu'ici, les parenthèses ne sont pas affichées, mais le symbole racine carrée s'applique à 1/3.
 # Listes de symboles et fonctions
+
+## Pour les opérations
+
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@+@@              | +          |
+| @@-@@              | -          |
+| @@\*@@             | \*         |
+| @@\*\*@@           | \*\*       |
+| @@\*\*\*@@         | \*\*\*     |
+| @@//@@             | //         |
+| @@\\\\@@           | \\\\       |
+| @@xx@@             | xx         |
+| @@-:@@             | -:         |
+| @@ @ @@            | @          |
+| @@o+@@             | o+         |
+| @@ox@@             | ox         |
+| @@o.@@             | o.         |
+| @@sqrt@@           | sqrt       |
+| @@sum@@            | sum        |
+| @@prod@@           | prod       |
+| @@^^@@             | ^^         |
+| @@^^^@@            | ^^^        |
+| @@vv@@             | vv         |
+| @@vvv@@            | vvv        |
+| @@nn@@             | nn         |
+| @@nnn@@            | nnn        |
+| @@uu@@             | uu         |
+| @@uuu@@            | uuu        |
+
+## Pour les ensembles
+
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@=@@              | =          |
+| @@!=@@             | !=         |
+| @@<@@              | <          |
+| @@>@@              | >          |
+| @@<=@@             | <=         |
+| @@>=@@             | >=         |
+| @@-<@@             | -<         |
+| @@>-@@             | >-         |
+| @@in@@             | in         |
+| @@!in@@            | !in        |
+| @@sub@@            | sub        |
+| @@sup@@            | sup        |
+| @@sube@@           | sube       |
+| @@supe@@           | supe       |
+| @@-=@@             | -=         |
+| @@~=@@             | ~=         |
+| @@\~~@@            | ~~         |
+| @@prop@@           | prop       |
+
+
+## Symboles logiques
+
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@and@@            | and        |
+| @@or@@             | or         |
+| @@=>@@             | =>         |
+| @@if@@             | if         |
+| @@iff@@            | iff        |
+| @@AA@@             | AA         |
+| @@EE@@             | EE         |
+| @@TT@@             | TT         |
+
+
+Il reste 3 symboles que l'on ne peut pas écrire en markdown dans un tableau (à cause des |) :
+
+	>@@ \_|_ @@
+ 	>@@ |-- @@
+ 	>@@ |== @@
+
+
+ >@@ \_|_ @@
+ >@@ |-- @@
+ >@@ |== @@
+
+
+## Groupements
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@(@@              | (          |
+| @@)@@              | )          |
+| @@[@@              | [          |
+| @@]@@              | ]          |
+| @@{@@              | {          |
+| @@}@@              | }          |
+| @@(:@@             | (:         |
+| @@:)@@             | :)         |
+| @@{:@@             | {:         |
+| @@:}@@             | :}         |
+
+
+## Flèches
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@uarr@@           | uarr       |
+| @@darr@@           | darr       |
+| @@rarr@@           | rarr       |
+| @@->@@             | ->         |
+| @@larr@@           | larr       |
+| @@harr@@           | harr       |
+| @@rArr@@           | rArr       |
+| @@lArr@@           | lArr       |
+| @@hArr@@           | hArr       |
+
+Et celle-ci qui ne fonctionne pas dans un tableau markdown :
+
+	> @@|->@@
+
+> @@|->@@
+
+## Accents
+
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@hat x@@           | hat x     |
+| @@bar x@@           | bar x     |
+| @@ul x@@            | ul x      |
+| @@vec x@@           | vec x     |
+| @@dot x@@           | dot x     |
+| @@ddot x@@          | ddot x    |
 
 ## Les lettres grecques
 
