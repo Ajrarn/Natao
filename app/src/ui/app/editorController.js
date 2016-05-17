@@ -278,10 +278,13 @@
                     break;
                 case 'delete':
                     if (!self.cancel) {
-                        self.PrincipalTreeService.deleteNode(self.currentNode);
-                    } else {
-                        hide();
+                        self.PrincipalTreeService
+                            .deleteNode(self.currentNode)
+                            .catch(function(err) {
+                                console.error(err);
+                            });
                     }
+                    hide();
                     break;
                 default: break;
             }
@@ -462,7 +465,7 @@
                 if (self.TemplateTreeService.getTemplate(self.templateName)) {
                     self.openConfirmTemplate();
                 } else {
-                    self.PrincipalTreeService.saveTemplate(self.currentNode,self.templateName);
+                    self.TemplateTreeService.saveTemplate(self.currentNode,self.templateName);
                     hide();
                 }
             }

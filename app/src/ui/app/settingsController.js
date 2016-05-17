@@ -377,16 +377,23 @@
             }
 
             // In all case we have to delete it from the tree
-            self.TreeUtilService.deleteNode(node,self.currentTemplate);
+            self.TreeUtilService
+                .deleteNode(node,self.currentTemplate)
+                .then(function() {
+                    //And we save the modifications
+                    self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
 
-            //And we save the modifications
-            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                    //we have to clean the expandedNodes
+                    var arrayOfNode = self.TreeUtilService.flatFolders(self.currentTemplate);
+                    self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                        return object.id === other.id;
+                    });
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
 
-            //we have to clean the expandedNodes
-            var arrayOfNode = self.TreeUtilService.flatFolders(self.currentTemplate);
-            self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
-                return object.id === other.id;
-            });
+
         };
         
 

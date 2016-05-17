@@ -450,6 +450,15 @@
                                 });
                         });
                     } else {
+                        // In all case we have to delete it from the tree
+                        var parent = self.findParent(node,nodeRoot);
+
+                        if (parent.children && parent.children.length > 0) {
+                            var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                            if (indexOfNode >=0) {
+                                parent.children.splice(indexOfNode,1);
+                            }
+                        }
                         resolve();
                     }
 

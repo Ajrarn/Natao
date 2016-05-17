@@ -110,7 +110,7 @@
                                                         node.children.push(newNode);
                                                         self.principalTree.selectedNode = newNode;
                                                         self.save();
-                                                        
+
                                                         resolve();
                                                     })
                                                     .catch(function(err ){
@@ -217,10 +217,13 @@
                     .then(function() {
 
                         //First we have to check if we have deleted the selected node
-                        var selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode.id,self.principalTree.tree);
-                        if (!selNode) {
-                            delete self.principalTree.selectedNode;
+                        if(self.principalTree.selectedNode) {
+                            var selNode = self.TreeUtilService.getNode(self.principalTree.selectedNode.id,self.principalTree.tree);
+                            if (!selNode) {
+                                delete self.principalTree.selectedNode;
+                            }
                         }
+
 
                         //finally we have to clean the expandedNodes
                         var arrayOfNode = self.TreeUtilService.flatFolders(self.principalTree.tree);
