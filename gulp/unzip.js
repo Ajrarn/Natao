@@ -5,7 +5,7 @@ var del = require('del');
 var run = require('gulp-run');
 
 var fileBasePath = './downloads/nwjs-';
-var version = 'sdk-v0.14.0';
+var version = 'sdk-v0.14.5';
 
 gulp.task('unzip:Windows',function() {
     var endFileName = '-win-x64.zip';

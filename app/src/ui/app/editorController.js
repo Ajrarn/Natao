@@ -159,6 +159,11 @@
             }
         };
 
+        //select current selected node if necessary
+        if(self.PrincipalTreeService && self.PrincipalTreeService.principalTree && self.PrincipalTreeService.principalTree.selectedNode) {
+            self.selectNode(self.PrincipalTreeService.principalTree.selectedNode);
+        }
+
         self.offPrint = function() {
             self.inPrint = false;
         };
@@ -471,7 +476,11 @@
 
         self.addFolder = function(hide) {
             if (self.newFolderName && self.newFolderName.length > 0) {
-                self.PrincipalTreeService.addFolder(self.newFolderName, self.currentNode, self.templateName);
+                self.PrincipalTreeService
+                    .addFolder(self.newFolderName, self.currentNode, self.templateName)
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
             hide();
         };

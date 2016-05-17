@@ -6,7 +6,7 @@ var fs = require('fs-extra');
 
 gulp.task('buildOSX',function() {
     var nw = new NwBuilder({
-        version: '0.14.0',
+        version: '0.14.5',
         files: [ './app/**/**.*'],
         //platforms: ['osx64','win64'],
         platforms: ['osx64'],

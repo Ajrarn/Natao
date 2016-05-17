@@ -80,8 +80,8 @@
                                         self.availableCss.push(doc);
                                         nbfilesPending--;
                                         if (nbfilesPending === 0) {
-                                            defaultCss = _.find(self.availableCss, {default: true});
-                                            resolve(defaultCss);
+                                            self.defaultCss = _.find(self.availableCss, {default: true});
+                                            resolve(self.defaultCss);
                                         }
                                     })
                                     .catch(function(err) {
@@ -92,8 +92,8 @@
 
                         } else {
                             self.availableCss = docs;
-                            defaultCss = _.find(self.availableCss,{default:true});
-                            resolve(defaultCss);
+                            self.defaultCss = _.find(self.availableCss,{default:true});
+                            resolve(self.defaultCss);
                         }
                     })
                     .catch(function(err) {

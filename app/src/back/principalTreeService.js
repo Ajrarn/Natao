@@ -89,12 +89,41 @@
 
                                     //We will create the first document
                                     self.$translate('WELCOME').then(function (translation) {
-                                        self.addFolderOnly(translation);
-                                        var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
-                                        self.addMarkdown(self.principalTree.selectedNode,translation,welcomeMd);
+                                        self.addFolder(translation)
+                                            .then(function(node) {
+
+                                                self.principalTree.expandedNodes.push(node);
+
+
+                                                var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
+
+                                                self.DocumentsService
+                                                    .addDocument(self.principalTree.tree.defaultCss,translation,welcomeMd)
+                                                    .then(function(newDoc) {
+
+                                                        var newNode = {
+                                                            id: newDoc._id,
+                                                            name: newDoc.title,
+                                                            leaf: true
+                                                        };
+
+                                                        node.children.push(newNode);
+                                                        self.principalTree.selectedNode = newNode;
+                                                        self.save();
+                                                        
+                                                        resolve();
+                                                    })
+                                                    .catch(function(err ){
+                                                        console.error(err);
+                                                    });
+
+                                            })
+                                            .catch(function(err) {
+                                                console.error(err);
+                                            });
+
                                     });
 
-                                    resolve();
                                 })
                                 .catch(function(err) {
                                     reject(err);
@@ -106,8 +135,8 @@
                             resolve();
                         }
                     }).catch(function(err) {
-                    reject(err);
-                });
+                        reject(err);
+                    });
             });
         };
 
@@ -131,42 +160,51 @@
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
 
-            if (!nodeParent) {
-                nodeParent = self.principalTree.tree;
-            }
-            
-            if (templateName) {
-                
-                // To make a good copy we will pass by the buffer
-                var buffer = self.TreeUtilService
-                    .nodeToBuffer(self.TemplateTreeService.getTemplate(templateName))
-                    .then(function(buffer) {
-                        self.TreeUtilService
-                            .bufferToNode(buffer)
-                            .then(function(node) {
-                                delete node.docName;
-                                node.name = nodeName;
-                                nodeParent.children.push(node);
-                                self.save();
-                            })
-                            .catch(function(err) {
-                                console.error(err);
-                            })
-                    })
-                    .catch(function(err) {
-                        console.error(err);
-                    });
-            } else {
-                var newNode = {
-                    id: uuid.v4(),
-                    name: nodeName,
-                    color: '#000000',
-                    children:[]
-                };
+            return self.$q(function(resolve,reject) {
 
-                nodeParent.children.push(newNode);
-                self.save();
-            }
+                if (!nodeParent) {
+                    nodeParent = self.principalTree.tree;
+                }
+
+                if (templateName) {
+
+                    // To make a good copy we will pass by the buffer
+                    var buffer = self.TreeUtilService
+                        .nodeToBuffer(self.TemplateTreeService.getTemplate(templateName))
+                        .then(function (buffer) {
+                            self.TreeUtilService
+                                .bufferToNode(buffer)
+                                .then(function (node) {
+                                    delete node.docName;
+                                    node.name = nodeName;
+                                    nodeParent.children.push(node);
+                                    self.save();
+                                    resolve(node);
+                                })
+                                .catch(function (err) {
+                                    reject(err);
+                                })
+                        })
+                        .catch(function (err) {
+                            reject(err);
+                        });
+                } else {
+                    var newNode = {
+                        id: uuid.v4(),
+                        name: nodeName,
+                        color: '#000000',
+                        defaultCss: nodeParent.defaultCss,
+                        children: []
+                    };
+
+                    nodeParent.children.push(newNode);
+                    self.save();
+                    resolve(newNode);
+                }
+
+            });
+
+
         };
 
         //delete of a node

@@ -5,7 +5,7 @@ var rename = require("gulp-rename");
 var gutil = require('gulp-util');
 var fs = require('fs-extra');
 
-var version = 'nwjs-sdk-v0.14.0';
+var version = 'nwjs-sdk-v0.14.5';
 
 
 var copyFiles = function (source, destination, callback) {

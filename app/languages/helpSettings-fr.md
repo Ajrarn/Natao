@@ -12,6 +12,10 @@ Les informations demandées, Nom, prénom et classe sont ceux qui pourront appar
 
 La feuille de style fournie par défaut "Contrôle" affiche ces informations.
 
+## Ton thème
+
+Ce n'est pas grand chose, mais pour que cela reste une expérience agréable, tu peux choisir un thème de couleur et en changer à ta convenance.
+
 # Styles
 
 Cette section te permet de modifier ou de créer les feuilles de style.

@@ -5,7 +5,7 @@ var fs = require('fs');
 
 
 var fileBasePath = './downloads/nwjs-v';
-var version = '0.14.0';
+var version = '0.14.5';
 var urlBaseDownload = 'http://dl.nwjs.io/v' + version + '/nwjs-v' + version;
 
 
