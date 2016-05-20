@@ -5,10 +5,10 @@
         
         var request = require('request');
         
-        var fileBasePathNormal = './' + config.downLoadFolder + '/nwjs-v' + config.version;
+        var fileBasePathNormal = './' + config.downloadFolder + '/nwjs-v' + config.version;
         var urlBaseDownloadNormal = 'http://dl.nwjs.io/v' + config.version + '/nwjs-v' + config.version;
 
-        var fileBasePathSDK = './' + config.downLoadFolder + '/nwjs-sdk-v' + config.version;
+        var fileBasePathSDK = './' + config.downloadFolder + '/nwjs-sdk-v' + config.version;
         var urlBaseDownloadSDK = 'http://dl.nwjs.io/v' + config.version + '/nwjs-sdk-v' + config.version;
         
         

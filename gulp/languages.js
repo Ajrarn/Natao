@@ -3,9 +3,21 @@
 
     module.exports = (gulp,gulpSequence,config) => {
 
-        gulp.task('hello:world',function(cb) {
-            console.log('config',config);
-            cb();
+        var versionChromium = '50.0.2661.102';
+        
+        
+        gulp.task('extractResources:OSX',function(cb) {
+            var src = 'cache/nwjs-' + versionSdk + '-osx-x64/nwjs.app/Contents/Resources';
+            var dest = 'cache/osx64/contentSDK/Resources';
+
+            copyFiles(src,dest,cb);
+        });
+
+        gulp.task('extractVersions:OSX',function(cb) {
+            var src = 'cache/nwjs-' + versionSdk + '-osx-x64/nwjs.app/Contents/Versions';
+            var dest = 'cache/osx64/contentSDK/Versions';
+
+            copyFiles(src,dest,cb);
         });
 
 
@@ -76,8 +88,20 @@
             })
 
         });
-        
-        
+
+        gulp.task('correct:Windows',function() {
+            if (!fs.existsSync('cache/nwjs-' + version + '-win-x64/locales/fr.pak')) {
+                return gulp.src(['cache/nwjs-' + versionSdk + '-win-x64/locales/*.*'])
+                    .pipe(gulp.dest('./cache/nwjs-' + version + '-win-x64/locales'));
+            }
+        });
+
+        gulp.task('correct:Linux',function() {
+            if (!fs.existsSync('cache/downloads/nwjs-' + versionSdk + '-linux-x64/locales/fr.pak')) {
+                return gulp.src(['cache/nwjs-' + versionSdk + '-win-x64/locales/*.*'])
+                    .pipe(gulp.dest('./cache/downloads/nwjs-' + version + '-linux-x64/locales'));
+            }
+        });
         
         
         
