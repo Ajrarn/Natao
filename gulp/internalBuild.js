@@ -5,7 +5,8 @@ var rename = require("gulp-rename");
 var gutil = require('gulp-util');
 var fs = require('fs-extra');
 
-var version = 'nwjs-sdk-v0.14.5';
+var versionSDK = 'nwjs-sdk-v0.14.5';
+var version = 'nwjs-v0.14.5';
 
 
 var copyFiles = function (source, destination, callback) {
@@ -20,7 +21,7 @@ var copyFiles = function (source, destination, callback) {
 
 
 gulp.task('copy:Windows',function() {
-    return gulp.src([ 'cache/' + version + '-win-x64/**/**' ]).pipe(gulp.dest('build/win64'));
+    return gulp.src([ 'cache/' + versionSDK + '-win-x64/**/**' ]).pipe(gulp.dest('build/win64'));
 });
 
 gulp.task('copy:OSX',function(cb) {
@@ -33,7 +34,7 @@ gulp.task('copy:OSX',function(cb) {
 
 gulp.task('copy:Linux',function() {
     return gulp.src([
-        'cache/' + version + '-linux-x64/**/**'
+        'cache/' + versionSDK + '-linux-x64/**/**'
     ]).pipe(gulp.dest('build/linux64'));
 });
 

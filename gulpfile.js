@@ -1,14 +1,21 @@
 var gulp = require('gulp');
 var gulpSequence = require('gulp-sequence');
 var run = require('gulp-run');
-var NwBuilder = require('nw-builder');
-var gutil = require('gulp-util');
-var del = require('del');
+var fs = require('fs-extra');
 
-require('./gulp/download');
-require('./gulp/unzip');
-require('./gulp/builds');
-require('./gulp/internalBuild');
+var config = require('./gulp/config.json');
+
+var download = require('./gulp/download')(gulp,gulpSequence,fs,config);
+var unzip = require('./gulp/unzip');
+var builds = require('./gulp/builds');
+var internalBuild = require('./gulp/internalBuild');
+
+var languages = require('./gulp/languages')(gulp,gulpSequence,config);
+
+
+
+
+
 
 gulp.task('default', function() {
     //var cmd = new run.Command('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.14.0-osx-x64/nwjs.app/Contents/MacOS/nwjs --enable-spell-checking /Users/Christophe/Projets/node-webkit/Natao/app');

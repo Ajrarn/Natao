@@ -1,0 +1,17 @@
+{
+  "version":"0.14.5",
+  "downLoadFolder":"downloads",
+  "unzipFolder":"",
+  "buildFolder":"",
+  "languages": [
+    {
+      "language":"fr",
+      "file":""
+    },
+    {
+      "language":"en_GB",
+      "file":""
+    }
+
+  ]
+}
