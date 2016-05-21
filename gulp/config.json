@@ -1,0 +1,20 @@
+{
+  "version":"0.14.5",
+  "downloadFolder":"build/downloads",
+  "unzipFolder":"build/prepareNwjs",
+  "buildFolder":"build/final",
+  "languages": [
+    {
+      "language":"fr",
+      "infoPlistFolder":"mac/fr"
+    },
+    {
+      "language":"en_GB",
+      "infoPlistFolder":"mac/en"
+    }, {
+      "language":"en",
+      "infoPlistFolder":"mac/en"
+    }
+
+  ]
+}
