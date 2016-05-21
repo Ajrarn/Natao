@@ -7,14 +7,6 @@
         var fileBasePathNormal = './'+ config.downloadFolder +'/nwjs-v' + config.version;
         
         
-        var copyFiles = function (source, destination, callback) {
-            fs.copy(source, destination, function (err) {
-                if (err) {
-                    console.error(err);
-                }
-                callback();
-            });
-        };
         
         
         gulp.task('unzip:Windows',function() {

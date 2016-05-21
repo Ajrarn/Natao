@@ -1,102 +1,137 @@
 (function () {
     "use strict";
 
-    module.exports = (gulp,gulpSequence,config) => {
+    module.exports = (gulp,gulpSequence,fs,config) => {
 
-        var versionChromium = '50.0.2661.102';
+        
+
+        var copyFiles = function (source, destination, callback) {
+            fs.copy(source, destination, function (err) {
+                if (err) {
+                    console.error(err);
+                }
+                callback();
+            });
+        };
         
         
-        gulp.task('extractResources:OSX',function(cb) {
-            var src = 'cache/nwjs-' + versionSdk + '-osx-x64/nwjs.app/Contents/Resources';
-            var dest = 'cache/osx64/contentSDK/Resources';
+        // ******************** OSX ********************************
+        
+        gulp.task('languages:extractVersionsOSX64',function(cb) {
+            var src = config.unzipFolder + '/nwjs-sdk-v' + config.version + '-osx-x64/nwjs.app/Contents/Versions';
+            var dest = config.unzipFolder + '/osx64/contentSDK/Versions';
 
             copyFiles(src,dest,cb);
         });
 
-        gulp.task('extractVersions:OSX',function(cb) {
-            var src = 'cache/nwjs-' + versionSdk + '-osx-x64/nwjs.app/Contents/Versions';
-            var dest = 'cache/osx64/contentSDK/Versions';
+        
+        
+        gulp.task('languages:OSXInfoPList64',function(cb) {
+            var nbLanguagesPending = config.languages.length;
+            config.languages.forEach(function(item) {
 
-            copyFiles(src,dest,cb);
-        });
+                var dir = config.unzipFolder + '/nwjs-v' + config.version + '-osx-x64/nwjs.app/Contents/Resources/' + item.language + '.lproj';
+                fs.ensureDir(dir, function (err) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        var src = item.infoPlistFolder + '/InfoPlist.strings';
+                        var dest = dir + '/InfoPlist.strings';
 
+                        copyFiles(src,dest,function() {
+                            nbLanguagesPending--;
+                            
+                            if (nbLanguagesPending === 0) {
+                                cb();
+                            }
+                            
+                        });
+                    }
 
-        gulp.task('copyFR:OSX',function(cb) {
-
-            var dir = 'cache/nwjs-v' + config.version + '-osx-x64/nwjs.app/Contents/Resources/fr.lproj';
-            fs.ensureDir(dir, function (err) {
-                if (err) {
-                    console.log(err)
-                } else {
-                    var src = 'cache/osx64/contentSDK/Resources/fr.lproj/InfoPlist.strings';
-                    var dest = 'cache/nwjs-' + config.version + '-osx-x64/nwjs.app/Contents/Resources/fr.lproj/InfoPlist.strings';
-
-                    copyFiles(src,dest,cb);
-                }
-
+                })
             })
-
         });
+        
+        gulp.task('languages:OSXlocales64',function(cb) {
 
-        gulp.task('copyFRVersions:OSX',function(cb) {
+            var versionChromium;
 
-            var dir = 'cache/nwjs-' + version + '-osx-x64/nwjs.app/Contents/Versions/'+ versionChromium + '/nwjs Framework.framework/Resources/fr.lproj';
-            fs.ensureDir(dir, function (err) {
+            fs.readdir(config.unzipFolder + '/osx64/contentSDK/Versions',function(err,files) {
                 if (err) {
-                    console.log(err)
+                    console.error(err);
+                    cb();
                 } else {
-                    var src = 'cache/osx64/contentSDK/Versions/' + versionChromium + '/nwjs Framework.framework/Resources/fr.lproj/locale.pak';
-                    var dest = 'cache/nwjs-' + version + '-osx-x64/nwjs.app/Contents/Versions/'+ versionChromium + '/nwjs Framework.framework/Resources/fr.lproj/locale.pak';
+                    versionChromium = files[0];
 
-                    copyFiles(src,dest,cb);
+                    var nbLanguagesPending = config.languages.length - 1;
+                    config.languages.forEach(function(item) {
+
+                        if (item.language !== 'en') {
+                            var dir = config.unzipFolder + '/nwjs-v' + config.version + '-osx-x64/nwjs.app/Contents/Versions/'+ versionChromium + '/nwjs Framework.framework/Resources/' + item.language + '.lproj';
+                            fs.ensureDir(dir, function (err) {
+                                if (err) {
+                                    console.error(err);
+                                    cb();
+                                } else {
+                                    var src = config.unzipFolder + '/osx64/contentSDK/Versions/' + versionChromium + '/nwjs Framework.framework/Resources/' + item.language + '.lproj/locale.pak';
+                                    var dest = dir + '/locale.pak';
+
+                                    fs.copy(src,dest,function(err) {
+                                        if (err) {
+                                            console.error(err);
+                                        }
+
+                                        nbLanguagesPending--;
+
+                                        if (nbLanguagesPending === 0) {
+                                            cb();
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    })
                 }
-
-            })
-
+            });
         });
+        
+        
+        gulp.task('languages:OSX64',gulpSequence('languages:extractVersionsOSX64','languages:OSXlocales64','languages:OSXInfoPList64'));
 
-        gulp.task('copyENGB:OSX',function(cb) {
 
-            var dir = 'cache/nwjs-' + config.version + '-osx-x64/nwjs.app/Contents/Resources/en_GB.lproj';
-            fs.ensureDir(dir, function (err) {
-                if (err) {
-                    console.log(err)
-                } else {
-                    var src = 'cache/osx64/contentSDK/Resources/en_GB.lproj/InfoPlist.strings';
-                    var dest = 'cache/nwjs-' + config.version + '-osx-x64/nwjs.app/Contents/Resources/en_GB.lproj/InfoPlist.strings';
+        // ******************** Windows ********************************
+        
+        
 
-                    copyFiles(src,dest,cb);
+        gulp.task('languages:Win64',function(cb) {
+
+            var nbLanguagesPending = config.languages.length - 1;
+            config.languages.forEach(function(item) {
+
+                let src = config.unzipFolder + '/nwjs-sdk-v' + config.version + '-win-x64/locales/' + item.language.replace('_','-') + '.pak';
+                let dest = config.unzipFolder + '/nwjs-v' + config.version + '-win-x64/locales/' + item.language.replace('_','-') + '.pak';
+
+                if (item.language !== 'en') {
+                    fs.copy(src,dest,function(err) {
+                        if (err) {
+                            console.error(err);
+                        }
+
+                        nbLanguagesPending--;
+
+                        if (nbLanguagesPending === 0) {
+                            cb();
+                        }
+                    });
+
                 }
-
-            })
-
-        });
-
-        gulp.task('copyENGBVersions:OSX',function(cb) {
-
-            var dir = 'cache/nwjs-' + version + '-osx-x64/nwjs.app/Contents/Resources/en_GB.lproj';
-            fs.ensureDir(dir, function (err) {
-                if (err) {
-                    console.log(err)
-                } else {
-                    var src = 'cache/osx64/contentSDK/Versions/' + versionChromium + '/nwjs Framework.framework/Resources/en_GB.lproj/locale.pak';
-                    var dest = 'cache/nwjs-' + config.version + '-osx-x64/nwjs.app/Contents/Versions/'+ versionChromium + '/nwjs Framework.framework/Resources/en_GB.lproj/locale.pak';
-
-                    copyFiles(src,dest,cb);
-                }
-
-            })
+            });
 
         });
 
-        gulp.task('correct:Windows',function() {
-            if (!fs.existsSync('cache/nwjs-' + version + '-win-x64/locales/fr.pak')) {
-                return gulp.src(['cache/nwjs-' + versionSdk + '-win-x64/locales/*.*'])
-                    .pipe(gulp.dest('./cache/nwjs-' + version + '-win-x64/locales'));
-            }
-        });
+        // ******************** Linux ********************************
 
-        gulp.task('correct:Linux',function() {
+        gulp.task('languages:Linux',function() {
             if (!fs.existsSync('cache/downloads/nwjs-' + versionSdk + '-linux-x64/locales/fr.pak')) {
                 return gulp.src(['cache/nwjs-' + versionSdk + '-win-x64/locales/*.*'])
                     .pipe(gulp.dest('./cache/downloads/nwjs-' + version + '-linux-x64/locales'));
@@ -105,6 +140,9 @@
         
         
         
+        
+        // ****************** All ********************
+        gulp.task('languages:All', ['languages:Win64','languages:OSX64'])
         
     };
     

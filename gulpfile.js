@@ -8,10 +8,9 @@ var config = require('./gulp/config.json');
 
 var download = require('./gulp/download')(gulp,gulpSequence,fs,config);
 var unzip = require('./gulp/unzip')(gulp,gulpSequence,fs,run,config);
-var builds = require('./gulp/builds');
-var internalBuild = require('./gulp/internalBuild');
+var copy = require('./gulp/copy')(gulp,gulpSequence,fs,config);
 
-var languages = require('./gulp/languages')(gulp,gulpSequence,config);
+var languages = require('./gulp/languages')(gulp,gulpSequence,fs,config);
 
 
 //Start on my computer for tests
@@ -32,12 +31,19 @@ gulp.task('clean:download',function() {
     return del([ config.downloadFolder + '/**/*']);
 });
 
-gulp.task('clean:build',function() {
+gulp.task('clean:final',function() {
     return del([ config.buildFolder + '/**/*']);
 });
 
 
-gulp.task('clean:All',gulpSequence(['clean:download','clean:nwjs','clean:build']));
+gulp.task('clean:All',gulpSequence(['clean:download','clean:nwjs','clean:final']));
+
+
+// ******************** builds ****************
+
+gulp.task('build:fromStart', gulpSequence('clean:All','download:All','unzip:All','languages:All','copy:All'));
+
+gulp.task('build:fromPreviousNwjsVersion',gulpSequence('clean:final','copy:All'));
 
 
 //********* default task ***********$

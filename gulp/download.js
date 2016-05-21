@@ -77,11 +77,11 @@
         
         
         
-        gulp.task('download:Normal64', gulpSequence(['download:Win64','download:Linux64','download:OSX64']));
+        gulp.task('download:Normal64', ['download:Win64','download:Linux64','download:OSX64']);
         
-        gulp.task('download:SDK64', gulpSequence([ 'download:Win64SDK','download:Linux64SDK','download:OSX64SDK']));
+        gulp.task('download:SDK64', ['download:Win64SDK','download:Linux64SDK','download:OSX64SDK']);
         
-        gulp.task('download:All',gulpSequence(['download:Normal64','download:SDK64']));
+        gulp.task('download:All',['download:Normal64','download:SDK64']);
 
     };
 
