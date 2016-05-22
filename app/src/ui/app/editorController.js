@@ -88,13 +88,10 @@
                     }
                 }
             });
-
-
-
+            
         };
 
         
-
         self.refresh = function() {
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
@@ -374,7 +371,7 @@
                         console.error(err);
                     });
                 
-            },'nataoExport.json',['json']);
+            },'nataoExport.json',['*']);
         };
 
         self.pasteFolder = function(hide) {
@@ -457,7 +454,7 @@
                         console.error(err);
                     })
 
-            }, false, ['json']);
+            }, false, ['*']);
         };
 
         self.saveTemplate = function(hide) {

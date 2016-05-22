@@ -262,15 +262,27 @@
                 if (fs.existsSync(fileName)) {
                     fs.unlinkSync(fileName);
                 }
-                fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
-                    self.PendingService.stop();
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve();
-                    }
-                });
-
+                
+                if (fileName.endsWith('.md')) {
+                    // when export to markdown, it's only one document
+                    fs.writeFile(fileName, buffer.documents[0].md, 'utf8', function(err) {
+                        self.PendingService.stop();
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve();
+                        }
+                    });
+                } else {
+                    fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
+                        self.PendingService.stop();
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve();
+                        }
+                    });
+                }
             });
 
         };
