@@ -75,5 +75,6 @@
   "LOCK_BUTTON":"Verrouiller",
   "UNLOCK_BUTTON":"Déverrouiller",
   "LOCK_PASSWORD":"Mot de passe",
-  "LOCK_CONFIRMATION":"Confirmation"
+  "LOCK_CONFIRMATION":"Confirmation",
+  "UNLOCK_FORCE":"Forcer le déverrouillage"
 }
