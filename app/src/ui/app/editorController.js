@@ -572,8 +572,7 @@
                 self.currentMarkdown = markdown;
             },100);
 
-        }
-
+        };
     }
 
 }());

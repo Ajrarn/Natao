@@ -71,5 +71,10 @@
   "HELP_MARKDOWN": "Markdown",
   "HELP_ASCIIMATH": "AsciiMath",
   "HELP_TEX": "TeX",
-  "HELP_SETTINGS": "Réglages"
+  "HELP_SETTINGS": "Réglages",
+  "LOCK_BUTTON":"Verrouiller",
+  "UNLOCK_BUTTON":"Déverrouiller",
+  "LOCK_PASSWORD":"Mot de passe",
+  "LOCK_CONFIRMATION":"Confirmation",
+  "UNLOCK_FORCE":"Forcer le déverrouillage"
 }

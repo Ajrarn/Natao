@@ -7,15 +7,68 @@
         </div>
         <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showDys}" ng-click="appCtrl.toggleDys()" title="{{'DYS' | translate}}"><span class="typcn typcn-lightbulb"></span></button>
         <div layout="row" layput-align="start center">
-            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showMenu}" ng-click="appCtrl.toggleMenu()" title="{{'MENU' | translate}}"><span class="typcn typcn-th-menu-outline"></span></button>
+            <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showMenu}" ng-click="appCtrl.toggleMenu()" title="{{'MENU' | translate}}" ng-disabled="appCtrl.isLocked"><span class="typcn typcn-th-menu-outline"></span></button>
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showEditor}" ng-click="appCtrl.toggleEditor()" title="{{'EDITOR' | translate}}"><span class="typcn typcn-edit"></span></button>
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showViewer}" ng-click="appCtrl.toggleViewer()" title="{{'VISUALIZER' | translate}}"><span class="typcn typcn-eye-outline"></span></button>
         </div>
 
         <div layout="row" layput-align="start center">
+            <script type="text/ng-template" id="popoverLock">
+                <div class="triangle"></div>
+                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                    <form name="lockForm" novalidate layout="column">
+                        <label for="password" layout="row" layout-align="center center" class="allInOne">
+                            <p>{{ 'LOCK_PASSWORD' | translate }}</p>
+                            <input id="password" ng-model="appCtrl.password" focus-on="password" ng-change="appCtrl.validationPassword()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                        </label>
+                        <label for="confirmation" layout="row" layout-align="center center" class="allInOne">
+                            <p>{{ 'LOCK_CONFIRMATION' | translate }}</p>
+                            <input id="confirmation" ng-model="appCtrl.confirmation" focus-on="confirmation" ng-change="appCtrl.validationPassword()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+
+                        </label>
+                        <button type="submit" ng-click="appCtrl.lock(hidePopover)" ng-disabled="!appCtrl.validPassword"><span class="typcn typcn-tick-outline"></span></button>
+                    </form>
+                </div>
+            </script>
+            <script type="text/ng-template" id="popoverUnlock">
+                <div class="triangle"></div>
+                <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                    <form name="unlockForm" novalidate layout="column">
+                        <label for="unlockPassword" layout="row" layout-align="center center" class="allInOne">
+                            <p>{{ 'LOCK_PASSWORD' | translate }}</p>
+                            <input id="unlockPassword" ng-model="appCtrl.unlockPassword" focus-on="password">
+                        </label>
+                        <label for="unlockForce" layout="row">
+                            <p>{{ 'UNLOCK_FORCE' | translate }}</p>
+                            <input type="checkbox" id="unlockForce" name="striped" value="true" ng-model="appCtrl.forceUnlock">
+                        </label>
+                        <button type="submit" ng-click="appCtrl.unlock(hidePopover)"><span class="typcn typcn-tick-outline"></span></button>
+                    </form>
+                </div>
+            </script>
+            <button ns-popover ns-popover-timeout="-1"
+                    ns-popover-template="popoverLock"
+                    ns-popover-trigger="click"
+                    ns-popover-hide-on-click="false"
+                    ns-popover-hide-on-inside-click="false"
+                    ns-popover-placement="bottom|right"
+                    ns-popover-theme="ns-popover-tooltip-theme"
+                    ng-if="!appCtrl.isLocked"
+                    class="transparent"
+                    title="{{ 'LOCK_BUTTON' | translate }}"><span class="typcn typcn-lock-closed-outline"></span></button>
+            <button ns-popover ns-popover-timeout="-1"
+                    ns-popover-template="popoverUnlock"
+                    ns-popover-trigger="click"
+                    ns-popover-hide-on-click="false"
+                    ns-popover-hide-on-inside-click="false"
+                    ns-popover-placement="bottom|right"
+                    ns-popover-theme="ns-popover-tooltip-theme"
+                    ng-if="appCtrl.isLocked"
+                    class="transparent"
+                    title="{{ 'UNLOCK_BUTTON' | translate }}"><span class="typcn typcn-lock-open-outline"></span></button>
             <button ng-click="EditorCtrl.print()" title="{{'PRINT' | translate}}" class="transparent"><span class="typcn typcn-printer"></span></button>
             <button ng-click="appCtrl.help()" title="{{'HELP' | translate}}" class="transparent help">?</button>
-            <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}" class="transparent"><span class="typcn typcn-cog-outline"></span></button>
+            <button ng-click="appCtrl.goSettings()" title="{{'SETTINGS' | translate}}" class="transparent" ng-disabled="appCtrl.isLocked"><span class="typcn typcn-cog-outline"></span></button>
         </div>
     </div>
     <div class="principal" flex layout="row">

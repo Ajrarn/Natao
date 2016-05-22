@@ -3,6 +3,8 @@
 
     var fs = require('fs');
     var nw = require('nw.gui');
+    var uuid = require('node-uuid');
+    var sha512 = require('crypto-js/sha512');
 
     angular
         .module('Natao')
@@ -46,6 +48,9 @@
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.$showdown.setOption('tasklists',true);
+        self.isLocked = false;
+        self.validPassword = false;
+
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
@@ -111,7 +116,82 @@
             self.$location.path( '/editor' );
         };
 
+
+
+
+        // ************************ Lock ********************
+
+        self.checkStorePassword = function() {
+            var hashPassword = localStorage.getItem('password');
+            if (hashPassword) {
+                self.PreferencesService.preferences.showMenu = false;
+                self.isLocked = true;
+            }
+        };
+
+        self.storePassword = function() {
+            var salt = uuid.v4();
+            var hashPassword = sha512(self.password + salt).toString();
+
+            localStorage.setItem('password',hashPassword);
+            localStorage.setItem('salt',salt);
+        };
+
+        self.unstorePassword = function() {
+            localStorage.removeItem('password');
+            localStorage.removeItem('salt');
+        };
+
+        self.checkHashPassword = function() {
+            var salt = localStorage.getItem('salt');
+            var hashPassword = sha512(self.unlockPassword + salt).toString();
+
+            return hashPassword === localStorage.getItem('password');
+        };
+
+
+        self.lock = function(hide) {
+            self.PreferencesService.preferences.previousShowMenu = self.PreferencesService.preferences.showMenu;
+            self.PreferencesService.preferences.showMenu = false;
+            self.PreferencesService.savePreferences();
+            self.isLocked = true;
+            self.storePassword();
+            self.password = null;
+            self.confirmation = null;
+            hide();
+        };
+
+
+
+
+        self.unlock = function(hide) {
+
+            if (self.forceUnlock || self.checkHashPassword()) {
+                if (self.PreferencesService.preferences.previousShowMenu !== null) {
+                    self.PreferencesService.preferences.showMenu = self.PreferencesService.preferences.previousShowMenu;
+                    self.PreferencesService.preferences.previousShowMenu = null;
+                    self.PreferencesService.savePreferences();
+                }
+                self.isLocked = false;
+                self.unstorePassword();
+                self.unlockPassword = null;
+                self.forceUnlock = false;
+            }
+            hide();
+        };
+
+
+        self.validationPassword = function() {
+            if (self.password && self.password.length > 0 && self.confirmation && self.confirmation.length >0) {
+                self.validPassword = self.password === self.confirmation;
+            } else {
+                self.validPassword = false;
+            }
+        };
+
+        /* ************************ init ************************* */
         self.PreferencesService.init();
+        self.checkStorePassword();
 
     }
 
