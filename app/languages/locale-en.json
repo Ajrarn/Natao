@@ -72,5 +72,9 @@
   "HELP_MARKDOWN": "Markdown",
   "HELP_ASCIIMATH": "AsciiMath",
   "HELP_TEX": "TeX",
-  "HELP_SETTINGS": "Settings"
+  "HELP_SETTINGS": "Settings",
+  "LOCK_BUTTON":"Lock",
+  "UNLOCK_BUTTON":"Unlock",
+  "LOCK_PASSWORD":"Password",
+  "LOCK_CONFIRMATION":"Confirmation"
 }

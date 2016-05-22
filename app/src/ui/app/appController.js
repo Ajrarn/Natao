@@ -46,6 +46,8 @@
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.$showdown.setOption('tasklists',true);
+        self.isLocked = false;
+        self.validPassword = false;
 
         self.changeFile = function(){
             console.log('file',self.databaseFile);
@@ -112,6 +114,30 @@
         };
 
         self.PreferencesService.init();
+
+
+        // ************************ Lock ********************
+
+        self.lock = function(hide) {
+            self.PreferencesService.preferences.showMenu = false;
+            self.isLocked = true;
+            hide();
+        };
+
+
+        self.unlock = function(hide) {
+            self.isLocked = false;
+            hide();
+        };
+
+
+        self.validationPassword = function() {
+            if (self.password && self.password.length > 0 && self.confirmation && self.confirmation.length >0) {
+                self.validPassword = self.password === self.confirmation;
+            } else {
+                self.validPassword = false;
+            }
+        }
 
     }
 
