@@ -284,8 +284,30 @@
                     });
                 }
             });
+        };
+
+        self.bufferToMarkdownFile = function(buffer,filename) {
+
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+                if (fs.existsSync(fileName)) {
+                    fs.unlinkSync(fileName);
+                }
+                
+                fs.writeFile(fileName, buffer.documents[0].md, 'utf8', function(err) {
+                    self.PendingService.stop();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                });
+
+            });
 
         };
+
+
 
         self.transformDatesInBuffer = function(buffer) {
             buffer.documents.forEach(function (doc) {

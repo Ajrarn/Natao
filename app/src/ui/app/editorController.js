@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,$translate) {
         console.log('EditorController');
 
         var self = this;
@@ -24,6 +24,7 @@
         self.$rootScope = $rootScope;
         self.fileDialog = fileDialog;
         self.$location = $location;
+        self.$translate = $translate
         self.inPrint = false;
         self.focus = focus;
         self.editorOptions = {
@@ -34,6 +35,7 @@
             mode: 'gfm'
         };
         self.buffer = null;
+        self.buttonText = '';
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -193,11 +195,24 @@
             }
             hide();
         };
+        
+        
 
 
         // -------------------Folder Popover -----------------
 
         // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete','saveTemplate']
+        
+        self.changeButtonText = function(message) {
+            if (message && message.length > 0) {
+                self.$translate(message).then(function (translation) {
+                    self.buttonText = translation;
+                });
+            } else {
+                self.buttonText = '';
+            }
+
+        };
 
         self.openFolderPopover = function(node) {
             self.currentNode = node;

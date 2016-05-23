@@ -109,6 +109,13 @@
       }
     }
   }
+
+  .buttonText {
+    font-size: 1.6em;
+    color: map-get($color_map, DD);
+    min-height: 1.2em;
+    margin-top: 0.5em;
+  }
 }
 
 @mixin color-square($color_map) {
