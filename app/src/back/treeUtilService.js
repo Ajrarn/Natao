@@ -16,12 +16,13 @@
     }
 
     //Service itself
-    function TreeUtilService(DocumentsService,$q,PendingService) {
+    function TreeUtilService(DocumentsService,$q,PendingService,CssService) {
 
         var self = this;
         self.DocumentsService = DocumentsService;
         self.$q = $q;
         self.PendingService = PendingService;
+        self.CssService = CssService;
 
 
         //Give all the ids of subfolder of the node in an array
@@ -235,6 +236,55 @@
 
         self.fileToBuffer = function(fileName) {
 
+            var extensionFile = fileName.split('.')[1];
+
+            switch (extensionFile) {
+                case 'md':
+                    return self.markdownFileToBuffer(fileName);
+                    break;
+                default:
+                    return self.jsonFileToBuffer(fileName);
+            }
+
+        };
+
+        self.markdownFileToBuffer = function(fileName) {
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+                fs.readFile(fileName,'utf8',function(err,data) {
+                    self.PendingService.stop();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        var path = fileName.split('.')[0].split('/');
+                        var nameFile = path[path.length - 1];
+
+                        var buffer = {
+                            node: {
+                                id: nameFile,
+                                name: nameFile,
+                                leaf: true
+                            },
+                            documents: [
+                                {
+                                    _id: nameFile,
+                                    docName: 'markdown',
+                                    title: nameFile,
+                                    created: new Date(),
+                                    css: self.CssService.defaultCss._id,
+                                    md: data
+
+                                }
+                            ]};
+
+                        resolve(buffer);
+                    }
+                });
+            });
+        };
+
+
+        self.jsonFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
                 self.PendingService.start();
                 fs.readFile(fileName,'utf8',function(err,data) {
@@ -257,43 +307,27 @@
 
         self.bufferToFile = function(buffer,fileName) {
 
-            return self.$q(function(resolve,reject) {
-                self.PendingService.start();
-                if (fs.existsSync(fileName)) {
-                    fs.unlinkSync(fileName);
-                }
-                
-                if (fileName.endsWith('.md')) {
-                    // when export to markdown, it's only one document
-                    fs.writeFile(fileName, buffer.documents[0].md, 'utf8', function(err) {
-                        self.PendingService.stop();
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve();
-                        }
-                    });
-                } else {
-                    fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
-                        self.PendingService.stop();
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve();
-                        }
-                    });
-                }
-            });
+            var extensionFile = fileName.split('.')[1];
+
+            switch (extensionFile) {
+                case 'md':
+                    return self.bufferToMarkdownFile(buffer,fileName);
+                    break;
+                default:
+                    return self.bufferToJsonFile(buffer,fileName);
+            }
+
+
         };
 
-        self.bufferToMarkdownFile = function(buffer,filename) {
+        self.bufferToMarkdownFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
                 self.PendingService.start();
                 if (fs.existsSync(fileName)) {
                     fs.unlinkSync(fileName);
                 }
-                
+
                 fs.writeFile(fileName, buffer.documents[0].md, 'utf8', function(err) {
                     self.PendingService.stop();
                     if (err) {
@@ -304,7 +338,26 @@
                 });
 
             });
+        };
 
+        self.bufferToJsonFile = function(buffer,fileName) {
+
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+                if (fs.existsSync(fileName)) {
+                    fs.unlinkSync(fileName);
+                }
+
+                fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
+                    self.PendingService.stop();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                });
+
+            });
         };
 
 
