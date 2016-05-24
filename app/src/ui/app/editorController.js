@@ -434,7 +434,7 @@
                         console.error(err);
                     });
                 hide();
-            },'nataoExport.json',['json']);
+            },'nataoExport.json');
         };
 
         self.importFrom = function(hide) {
@@ -469,7 +469,7 @@
                         console.error(err);
                     })
 
-            }, false, ['*']);
+            }, false);
         };
 
         self.saveTemplate = function(hide) {

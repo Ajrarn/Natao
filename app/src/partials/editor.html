@@ -121,25 +121,25 @@
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
                             <div layout="column" layout-align="center center" ng-show="EditorCtrl.folderPopover === 'buttonBar'">
                                 <div class="buttonBar" layout="row" layout-align="start start">
-                                    <span class="button" ng-click="EditorCtrl.editFolder()" title="{{ 'BTN_EDIT_FOLDER' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.editFolder()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_EDIT_FOLDER')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-edit"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.openAddFolder()" title="{{ 'BTN_ADD_FOLDER' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.openAddFolder()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_ADD_FOLDER')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-folder-add"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.openAddDocument()" title="{{ 'BTN_ADD_MARKDOWN' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.openAddDocument()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_ADD_MARKDOWN')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-document-add"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.copyFolder(hidePopover)" title="{{ 'BTN_COPY' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.copyFolder(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_COPY')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-tabs-outline"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.cutFolder(hidePopover)" title="{{ 'BTN_CUT' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.cutFolder(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_CUT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-scissors-outline"></span></span>
-                                    <span class="button" ng-class="{'disabled':EditorCtrl.pasteButtonDisabled()}" ng-click="EditorCtrl.pasteFolder(hidePopover)" title="{{ 'BTN_PASTE' | translate }}"
+                                    <span class="button" ng-class="{'disabled':EditorCtrl.pasteButtonDisabled()}" ng-click="EditorCtrl.pasteFolder(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_PASTE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-book"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.exportTo(hidePopover)" title="{{ 'BTN_EXPORT' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.exportTo(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_EXPORT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-export-outline"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)" title="{{ 'BTN_IMPORT' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.importFrom(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_IMPORT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-download-outline"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.openSaveTemplate(hidePopover)" title="{{ 'BTN_MAKE_MODEL' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.openSaveTemplate(hidePopover)"
                                           ng-mouseleave="EditorCtrl.changeButtonText('')" ng-mouseover="EditorCtrl.changeButtonText('BTN_MAKE_MODEL')"><span class="typcn typcn-flow-children"></span></span>
-                                    <span class="button" ng-click="EditorCtrl.openDelete()" title="{{ 'BTN_DELETE' | translate }}"
+                                    <span class="button" ng-click="EditorCtrl.openDelete()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></span>
                                 </div>
                                 <div class="buttonText">{{EditorCtrl.buttonText}}</div>
