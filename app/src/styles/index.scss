@@ -114,6 +114,13 @@ button,.button {
   }
 }
 
+
+.buttonText {
+  font-size: 1.6em;
+  min-height: 1.2em;
+  margin-top: 0.5em;
+}
+
 .bandeau {
   background-color: black;
   color:white;
@@ -122,6 +129,13 @@ button,.button {
 
   button {
     font-size: 1.7em;
+  }
+
+  .buttonText {
+    min-width: 500px;
+    width: 500px;
+    margin-top:0;
+    text-align: center;
   }
 }
 

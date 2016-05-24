@@ -315,8 +315,11 @@
         };
 
         self.copyDocument = function() {
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
             self.TreeUtilService
-                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .nodeToBuffer(documentNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
                 })
@@ -339,11 +342,14 @@
         };
 
         self.cutDocument = function() {
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
             self.TreeUtilService
-                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .nodeToBuffer(documentNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
-                    self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                    self.PrincipalTreeService.deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree);
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -351,8 +357,11 @@
         };
 
         self.deleteDocument = function(hide) {
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
             self.PrincipalTreeService
-                .deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree)
+                .deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree)
                 .then(function() {
                     //and check the selected markdown
                     var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
@@ -371,8 +380,10 @@
         self.exportDocument = function() {
             self.fileDialog.saveAs(function(filename) {
 
+                var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
                 self.TreeUtilService
-                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .nodeToBuffer(documentNode)
                     .then(function(buffer) {
                         self.TreeUtilService
                             .bufferToFile(buffer,filename)
