@@ -17,7 +17,7 @@
             <button class="toggle" ng-class="{off: !appCtrl.PreferencesService.preferences.showViewer}" ng-click="appCtrl.toggleViewer()"
                     ng-mouseover="EditorCtrl.changeButtonText('VIEWER')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-eye-outline"></span></button>
         </div>
-        <div class="buttonText">{{EditorCtrl.buttonText}}</div>
+        <div class="buttonText" ng-class="{active:EditorCtrl.buttonTextActive}">{{EditorCtrl.buttonText}}</div>
         <div layout="row" layput-align="start center">
             <script type="text/ng-template" id="popoverLock">
                 <div class="triangle"></div>

@@ -35,7 +35,7 @@
             mode: 'gfm'
         };
         self.buffer = null;
-        self.buttonText = '';
+        self.buttonTextActive = false;
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -205,11 +205,12 @@
         
         self.changeButtonText = function(message) {
             if (message && message.length > 0) {
+                self.buttonTextActive = true;
                 self.$translate(message).then(function (translation) {
                     self.buttonText = translation;
                 });
             } else {
-                self.buttonText = '';
+                self.buttonTextActive = false;
             }
 
         };

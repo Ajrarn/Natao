@@ -2394,6 +2394,11 @@ button, .button {
   button.help, .button.help {
     padding: 1px 15px 5px 15px; }
 
+.buttonText {
+  font-size: 1.6em;
+  min-height: 1.2em;
+  margin-top: 0.5em; }
+
 .bandeau {
   background-color: black;
   color: white;
@@ -2401,6 +2406,18 @@ button, .button {
   min-height: 50px; }
   .bandeau button {
     font-size: 1.7em; }
+  .bandeau .buttonText {
+    min-width: 500px;
+    width: 500px;
+    margin-top: 0;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s; }
+    .bandeau .buttonText.active {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 1s, opacity 1s; }
 
 /* ************************ fields ******************/
 .allInOne input {
@@ -2750,10 +2767,9 @@ treecontrol {
 .purple .anchor .before.over hr, .purple .anchor .after.over hr {
   border-color: #756bb1; }
 .purple .buttonText {
-  font-size: 1.6em;
-  color: #54278f;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #54278f; }
+.purple .bandeau .buttonText {
+  color: #cbc9e2; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2810,10 +2826,9 @@ treecontrol {
 .blue .anchor .before.over hr, .blue .anchor .after.over hr {
   border-color: #3182bd; }
 .blue .buttonText {
-  font-size: 1.6em;
-  color: #08519c;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #08519c; }
+.blue .bandeau .buttonText {
+  color: #bdd7e7; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -2870,10 +2885,9 @@ treecontrol {
 .red .anchor .before.over hr, .red .anchor .after.over hr {
   border-color: #de2d26; }
 .red .buttonText {
-  font-size: 1.6em;
-  color: #a50f15;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #a50f15; }
+.red .bandeau .buttonText {
+  color: #fcae91; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -2930,10 +2944,9 @@ treecontrol {
 .pink .anchor .before.over hr, .pink .anchor .after.over hr {
   border-color: #dd1c77; }
 .pink .buttonText {
-  font-size: 1.6em;
-  color: #980043;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #980043; }
+.pink .bandeau .buttonText {
+  color: #d7b5d8; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -2990,10 +3003,9 @@ treecontrol {
 .orange .anchor .before.over hr, .orange .anchor .after.over hr {
   border-color: #e6550d; }
 .orange .buttonText {
-  font-size: 1.6em;
-  color: #a63603;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #a63603; }
+.orange .bandeau .buttonText {
+  color: #fdbe85; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -3050,10 +3062,9 @@ treecontrol {
 .green .anchor .before.over hr, .green .anchor .after.over hr {
   border-color: #2ca25f; }
 .green .buttonText {
-  font-size: 1.6em;
-  color: #006d2c;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #006d2c; }
+.green .bandeau .buttonText {
+  color: #b2e2e2; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -3110,9 +3121,8 @@ treecontrol {
 .grey .anchor .before.over hr, .grey .anchor .after.over hr {
   border-color: #636363; }
 .grey .buttonText {
-  font-size: 1.6em;
-  color: #252525;
-  min-height: 1.2em;
-  margin-top: 0.5em; }
+  color: #252525; }
+.grey .bandeau .buttonText {
+  color: #cccccc; }
 
 /*# sourceMappingURL=index.css.map */
