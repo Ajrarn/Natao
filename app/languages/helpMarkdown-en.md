@@ -1,11 +1,12 @@
 # The Markdown Language
 
-To write a text with Natao, you are going to have to learn a new language called Markdown. But do not worry as this will be much easier than learning a foreign tongue.
+To write a text with Natao, you are going to have to learn a new language called Markdown. Rest assured: this will be much easier than learning a foreign tongue.
 
-The Markdown language was created in 2004 by John Gruber, with significant help from Aaron Swartz. It was designed to help format text documents with simple, readable signs and characters, like the pound sign ( # ), or the greater-than sign ( > ).
+The Markdown language was created in 2004 by John Gruber, with significant help from Aaron Swartz.
+
+It was designed to help format text documents with simple, readable signs and characters, like the pound sign ( # ) or the greater-than sign ( > ).
 
 Producing a text with Natao consists of including these signs and other characters to your document to instruct Natao on how to format the text you are writing.
-
 Of course, any Markdown document you produce with Natao will be readable and usable in any other Markdown program.
 
 The document you are currently reading was actually written in Markdown, with Natao.
@@ -29,7 +30,7 @@ Thou great star! What would be thy happiness if thou hadst not those for whom th
 ## Titles
 
 You can create a title by adding one or a few pound or hash signs ( # ) at the beginning of your text.
-The number of ( # ) you add determines how important the title is. You may only add up to six (#) signs.
+The number of ( # ) you add determines how important the title is. Note that you may only add up to six (#) signs.
 
 The following example shows you how the titles of this particular document have been designed.
 
@@ -47,18 +48,18 @@ You may create an underlined, numbered, first-level header by inserting at least
     This is the header text.
     =
 
-You may create a second-level header by inserting at least one hyphen-minus sign ( - ) under the header text. Markdown will number these headers automatically.
+You may create a second-level header by inserting at least one hyphen-minus sign ( - ) under the header text. The Markdown language is set up to number these headers automatically.
 
     The is the second-level header text.
     -
 
-Please note that Markdown only permits two header levels. Note also that the titles that use the ( # ) are easier to read. We recommend you use that.
+Please note that Markdown only permits two header levels. Note also that the titles that use the ( # ) signs are easier to read. We recommend that you use them.
 
 ## Highlight Text Elements
 
-You may decide to bring your readers' attention to specific parts or portions of you text. 
+You may decide to bring your readers' attention to specific parts or portions of your text. 
 
-Place a star sign ( * ) before and after the word(s) you would like highlighted, and the text will italicized.
+Place a star sign ( * ) before and after the word(s) you would like highlighted, and the text will become italicized.
 
 *This text will be italicized.*
 
@@ -72,7 +73,7 @@ You may also add an underscore sign ( _ ) in front and after some text to combin
 
 **Everyone _must_ arrive on time today.**
 
-You may choose to strike through a word or words by adding two tilde signs ( ~ ) before and after the word(s) you would like to strike through.
+You may choose to strike-through a word or words by adding two tilde signs ( ~ ) before and after the word(s) you would like to strike-through.
 
     ~~A mistake.~~
 
@@ -111,7 +112,7 @@ If you wish the name of the author to appear in the citation block itself, write
 ### Within a Line
 
 To highlight a few words within a larger section of text, use quotation marks.
-The font of the highlighted words or word will change but the text's overall formatting will remain unchanged. In the example that follows, the star signs ( * ) are added for even more emphasis.
+The font of the highlighted words or word will change, but the text's overall formatting will remain unchanged. In the example that follows, the star signs ( * ) are added to create even more emphasis.
 
     This text is `important` and here, it becomes even `**more**` important.
 
@@ -119,7 +120,7 @@ This text is 'important' and here, it becomes even '**more**' important
 
 ### Over Many Lines
 
-The grayed out blockquotes we've been using in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces, or one use of the TAB-key on your keyboard.
+The grayed out blockquotes we've used in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces, or one use of the TAB-key on your keyboard.
 
     As an example, here's some text:
 
@@ -129,7 +130,7 @@ As an example, here's some text:
 
     An example of text.
 
-You may also three grave accents ( ` ) to indicate the beginning and the end of a block of grayed out text:
+You may also insert three grave accents ( ` ) to indicate the beginning and the end of a block of grayed out text:
 
     Here's my text:
 
@@ -215,7 +216,7 @@ Creating a table consists of drawing your table with symbols as follows:
 | col 2 is      | *centered*    |   $12 |
 | zebra stripes | ~~are neat~~  |    $1 |
 
-Columns are drawn by using vertical bars or pipes ( | ).
+Columns are drawn by using vertical bars or pipe signs ( | ).
 Table headers are separated from rows by using hyphen-minus signs ( - ).
 Colon signs ( : ) are used to align the columns as follows:
 
@@ -224,7 +225,7 @@ Colon signs ( : ) are used to align the columns as follows:
 * If not colons are used, the text becomes left-aligned.
 
 You should note that, although vertical bars or pipes are needed to create columns, they do not need to be aligned for the table appear properly in its final print-ready form. That said, aligning them makes reading the Markdown tables easier.
-Finally, the tables will appear in the center of your document's page.
+Finally, note that the tables will appear in the center of your document's page.
 
 ## Images
 
@@ -234,15 +235,15 @@ You may insert images in your document by directing Natao to the image's URL loc
 
 ![Logo de Natao](./natao.png)
 
-Please, be aware that images are not saved within Natao or any of its databases. If you use your database on more than one computer, you will have to copy your image along side the Natao.db file and modify the image's URL within your document.
+Please, be aware that images are not saved within Natao or any of its databases. If you use your database on more than one computer, you will have to copy your image(s) along side the Natao.db file and modify the images' URL within your document.
 
 ## Links
 
 ### Inline
 
-You can create an inline link by wrapping link text in brackets ( [ ] ), and then wrapping the link in parentheses ( ( ) ).
+You can create an inline link by wrapping link-text in brackets ( [ ] ), and then wrapping the link in parentheses ( ( ) ).
 
-For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a link text that says, Natao is on Github!, you'd write the follwing Markdown:
+For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a link text that says, Natao is on Github!, you'd write the following Markdown code:
 
     [Natao is on Github!](https://github.com/Ajrarn/Natao)
 
@@ -256,11 +257,11 @@ Reference-style links use a second set of square brackets, inside which you plac
 
 Natao should be on [Github][github.natao].
 
-Then, anywhere in the document (usually at the end), you define your link label by putting it in between brackets followed by a colon, followed by the destination between quotations marks:
+Then, anywhere in the document (usually at the end), you define your link-label by putting it in between brackets followed by a colon, and then followed by the destination between quotations marks:
 
     [github.natao]: https://github.com/Ajrarn/Natao  "Natao on Github"
 
-You will note that the link labels you place at the end of your document remain invisible in the document's final, ready-to-print version. The labels only pop up when you drag your mouse's cursor above the link within your document. 
-Creating those link labels allows you to stay organized and to use them more than once in your text.
+You will note that the link-labels you place at the end of your document remain invisible in the document's final, ready-to-print version. The labels only pop up when you drag your mouse's cursor above the link within your document. 
+Creating those link-labels allows you to stay organized and to use them more than once in your text.
 
 [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
