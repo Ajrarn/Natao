@@ -380,6 +380,8 @@
 
         self.exportDocument = function(hide) {
 
+            hide();
+
             var defaultFile;
             var accept;
 
@@ -419,7 +421,6 @@
                 
             },defaultFile,accept);
 
-            hide();
         };
 
         self.pasteFolder = function(hide) {

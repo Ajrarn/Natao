@@ -37,6 +37,7 @@
   "BTN_DELETE":"Delete",
   "BTN_CANCEL":"Cancel",
   "BTN_EXPORT":"Export",
+  "EXPORT_FORMAT":"File's type",
   "BTN_IMPORT":"Import",
   "BTN_MAKE_MODEL":"Save the structure as a template",
   "DOC_TITLE":"Title",
