@@ -20,6 +20,7 @@
   "SETTING_MESSAGE_DATABASE":"Commençons avec ton fichier de travail, si tu en as déjà un, sélectionne le et tu en auras fini avec la phase de configuration. Sinon, il faut en créer un.\n\n Par précaution je te conseille d'ailleurs de le stocker dans un dossier type Dropbox (sauvegardé en ligne).",
   "SETTING_MESSAGE_NAME":" Nous allons maintenant enregistrer ton nom, ton prénom et ta classe.\n\n  Ces informations apparaîtront au début des devoirs que tu rédigeras avec Natao.",
   "SETTING_MESSAGE_THEME":" Enfin, choisis le thème qui te plait",
+  "SETTING_QUIT":"Revenir à l'éditeur",
   "BTN_ADD_CLASS":"Ajouter un dossier",
   "CLASS_NAME": "Nom du dossier",
   "NODE_NAME":"Nom du dossier",

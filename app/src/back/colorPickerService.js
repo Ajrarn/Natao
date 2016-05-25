@@ -14,7 +14,9 @@
 
 
     function ColorPickerService() {
-        console.log('DocumentsService');
+        console.log('ColorPickerService');
+        
+        var self = this;
 
         // options for the color Picker
         self.optionsColumn = {

@@ -11,7 +11,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService,MessageService) {
 
         var self = this;
 
@@ -30,6 +30,8 @@
         self.$timeout = $timeout;
         self.TreeUtilService = TreeUtilService;
         self.PendingService = PendingService;
+        self.MessageService = MessageService;
+        self.MessageService.changeMessage('');
         self.viewer = true;
 
         self.buffer = null;
@@ -435,6 +437,10 @@
 
         self.showAfter = function(node) {
             return !(self.isExpanded(node) && node.children.length > 0);
+        };
+
+        self.changeButtonText = function(message) {
+            self.MessageService.changeMessage(message);
         };
 
 
