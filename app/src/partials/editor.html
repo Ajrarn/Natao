@@ -259,6 +259,19 @@
                             </div>
                         </script>
 
+                        <script type="text/ng-template" id="popoverExportDocument">
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
+                                <label for="fileFormat" layout="row" layout-align="start center">
+                                    <p>{{ 'TEMPLATE' | translate }}</p>
+                                    <select id="fileFormat" ng-model="EditorCtrl.fileFormat" ng-change="EditorCtrl.exportDocument(hidePopover)">
+                                        <option value="json">Natao export (.json)</option>
+                                        <option value="md">Markdown (.md)</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </script>
+
                         <div layout="row" layout-align="space-between center">
                             <label for="title" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_TITLE' | translate }}</p>
@@ -269,7 +282,15 @@
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_COPY')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-tabs-outline"></span></button>
                                 <button ng-click="EditorCtrl.cutDocument()"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_CUT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-scissors-outline"></span></button>
-                                <button ng-click="EditorCtrl.exportDocument()"
+                                <!--button ng-click="EditorCtrl.exportDocument()"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_EXPORT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-export-outline"></span></button-->
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverExportDocument"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="left"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_EXPORT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-export-outline"></span></button>
                                 <button ns-popover ns-popover-timeout="-1"
                                         ns-popover-template="popoverDeleteDocument"
@@ -281,7 +302,6 @@
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></button>
                             </div>
                         </div>
-
                         <div layout="row" layout-align="space-between center">
                             <label for="css" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_CSS' | translate }}</p>

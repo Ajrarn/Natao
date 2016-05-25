@@ -378,7 +378,26 @@
             hide();
         };
 
-        self.exportDocument = function() {
+        self.exportDocument = function(hide) {
+
+            var defaultFile;
+            var accept;
+
+            switch (self.fileFormat) {
+                case 'md':
+                    defaultFile = self.currentMarkdown.title +'.md';
+                    accept = 'text/markdown';
+                    break;
+                // json is the default file format
+                default:
+                    defaultFile = self.currentMarkdown.title +'.json';
+                    accept = 'application/json';
+                    break;
+            }
+
+            self.fileFormat = null;
+
+
             self.fileDialog.saveAs(function(filename) {
 
                 var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
@@ -398,7 +417,9 @@
                         console.error(err);
                     });
                 
-            },'nataoExport.json',['*']);
+            },defaultFile,accept);
+
+            hide();
         };
 
         self.pasteFolder = function(hide) {
@@ -446,7 +467,7 @@
                         console.error(err);
                     });
                 hide();
-            },'nataoExport.json');
+            },'nataoExport.json','application/json');
         };
 
         self.importFrom = function(hide) {
@@ -481,7 +502,7 @@
                         console.error(err);
                     })
 
-            }, false);
+            }, false,['text/markdown','application/json']);
         };
 
         self.saveTemplate = function(hide) {
