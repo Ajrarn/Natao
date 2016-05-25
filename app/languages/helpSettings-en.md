@@ -6,7 +6,7 @@ This is where the file that contains all your Natao documents is stored.
 
 ## Your identity
 
-Here, write your fist and last names, as well as the name of your course (History, Mathematics, etc.). These will appear in your Natao document, but only if you choose to use a document-style that lets you display them.
+Here, write your fist and last names, as well as the name of your course (History, Mathematics, etc.). These will appear in your Natao document, but only if you choose to use a document-style that lets you display that information.
 
 Please note that the default "Test" style-sheet provided by Natao displays that information.
 
