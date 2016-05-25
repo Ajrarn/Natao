@@ -58,6 +58,10 @@ select {
   font-size: $select-font-size;
 }
 
+.ns-popover-tooltip {
+  max-width: 100rem !important;
+}
+
 
 
 
@@ -110,6 +114,13 @@ button,.button {
   }
 }
 
+
+.buttonText {
+  font-size: 1.6em;
+  min-height: 1.2em;
+  margin-top: 0.5em;
+}
+
 .bandeau {
   background-color: black;
   color:white;
@@ -118,6 +129,22 @@ button,.button {
 
   button {
     font-size: 1.7em;
+  }
+
+  .buttonText {
+    min-width: 500px;
+    width: 500px;
+    margin-top: 0;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 1s, opacity 1s;
+    }
   }
 }
 
@@ -537,7 +564,7 @@ treecontrol {
   @include color-theme($greenTheme);
 }
 
-.grey{
+.grey {
   @include color-theme($greyTheme);
 }
 

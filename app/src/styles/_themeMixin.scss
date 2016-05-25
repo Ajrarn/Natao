@@ -109,6 +109,14 @@
       }
     }
   }
+
+  .buttonText {
+    color: map-get($color_map, DD);
+  }
+
+  .bandeau .buttonText {
+    color: map-get($color_map, ML);
+  }
 }
 
 @mixin color-square($color_map) {

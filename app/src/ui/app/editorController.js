@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,$translate) {
         console.log('EditorController');
 
         var self = this;
@@ -24,6 +24,7 @@
         self.$rootScope = $rootScope;
         self.fileDialog = fileDialog;
         self.$location = $location;
+        self.$translate = $translate
         self.inPrint = false;
         self.focus = focus;
         self.editorOptions = {
@@ -34,6 +35,7 @@
             mode: 'gfm'
         };
         self.buffer = null;
+        self.buttonTextActive = false;
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -88,13 +90,10 @@
                     }
                 }
             });
-
-
-
+            
         };
 
         
-
         self.refresh = function() {
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
@@ -196,11 +195,25 @@
             }
             hide();
         };
+        
+        
 
 
         // -------------------Folder Popover -----------------
 
         // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete','saveTemplate']
+        
+        self.changeButtonText = function(message) {
+            if (message && message.length > 0) {
+                self.buttonTextActive = true;
+                self.$translate(message).then(function (translation) {
+                    self.buttonText = translation;
+                });
+            } else {
+                self.buttonTextActive = false;
+            }
+
+        };
 
         self.openFolderPopover = function(node) {
             self.currentNode = node;
@@ -303,8 +316,11 @@
         };
 
         self.copyDocument = function() {
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
             self.TreeUtilService
-                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .nodeToBuffer(documentNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
                 })
@@ -327,11 +343,14 @@
         };
 
         self.cutDocument = function() {
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
             self.TreeUtilService
-                .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                .nodeToBuffer(documentNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
-                    self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                    self.PrincipalTreeService.deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree);
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -339,8 +358,11 @@
         };
 
         self.deleteDocument = function(hide) {
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
             self.PrincipalTreeService
-                .deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree)
+                .deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree)
                 .then(function() {
                     //and check the selected markdown
                     var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
@@ -356,11 +378,34 @@
             hide();
         };
 
-        self.exportDocument = function() {
+        self.exportDocument = function(hide) {
+
+            hide();
+
+            var defaultFile;
+            var accept;
+
+            switch (self.fileFormat) {
+                case 'md':
+                    defaultFile = self.currentMarkdown.title +'.md';
+                    accept = 'text/markdown';
+                    break;
+                // json is the default file format
+                default:
+                    defaultFile = self.currentMarkdown.title +'.json';
+                    accept = 'application/json';
+                    break;
+            }
+
+            self.fileFormat = null;
+
+
             self.fileDialog.saveAs(function(filename) {
 
+                var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
                 self.TreeUtilService
-                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .nodeToBuffer(documentNode)
                     .then(function(buffer) {
                         self.TreeUtilService
                             .bufferToFile(buffer,filename)
@@ -374,7 +419,8 @@
                         console.error(err);
                     });
                 
-            },'nataoExport.json',['json']);
+            },defaultFile,accept);
+
         };
 
         self.pasteFolder = function(hide) {
@@ -422,7 +468,7 @@
                         console.error(err);
                     });
                 hide();
-            },'nataoExport.json',['json']);
+            },'nataoExport.json','application/json');
         };
 
         self.importFrom = function(hide) {
@@ -457,7 +503,7 @@
                         console.error(err);
                     })
 
-            }, false, ['json']);
+            }, false,['text/markdown','application/json']);
         };
 
         self.saveTemplate = function(hide) {
