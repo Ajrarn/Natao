@@ -1,7 +1,9 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
 
-    <div class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
-        <div layout="row" layput-align="start center">
+    <onboarding-popover enabled="EditorCtrl.onboardingEnabled" steps="EditorCtrl.onboardingSteps" step-index='EditorCtrl.onboardingIndex'></onboarding-popover>
+
+    <div id="toolbar" class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
+        <div layout="row" layput-align="start center" id="zoomPart">
             <button ng-click="appCtrl.zoomLower()" class="transparent"
                     ng-mouseover="EditorCtrl.changeButtonText('ZOOM_OUT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-zoom-out-outline"></span></button>
             <button ng-click="appCtrl.zoomHigher()" class="transparent"
@@ -76,6 +78,8 @@
                     ng-mouseover="EditorCtrl.changeButtonText('PRINT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-printer"></span></button>
             <button ng-click="appCtrl.help()" class="transparent help"
                     ng-mouseover="EditorCtrl.changeButtonText('HELP')" ng-mouseleave="EditorCtrl.changeButtonText('')">?</button>
+            <button ng-click="EditorCtrl.startTour()" class="transparent"
+                    ng-mouseover="EditorCtrl.changeButtonText('HELP')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-compass"></span></button>
             <button ng-click="appCtrl.goSettings()" class="transparent" ng-disabled="appCtrl.isLocked"
                     ng-mouseover="EditorCtrl.changeButtonText('SETTINGS')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-cog-outline"></span></button>
         </div>

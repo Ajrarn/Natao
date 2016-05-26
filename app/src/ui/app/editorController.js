@@ -57,7 +57,7 @@
             return self.currentMarkdownCode;
         },function() {
             self.$timeout(function() {
-                $('a').on('click', function(){
+                $('.viewer a').on('click', function(){
                     require('nw.gui').Shell.openExternal( this.href );
                     return false;
                 });
@@ -612,6 +612,35 @@
             },100);
 
         };
+
+
+        /************onBoarding will be in a service ******/
+        self.onboardingSteps = [
+            {
+                title: "Bienvenue!",
+                position: "centered",
+                description: "Bienvenue dans Natao, nous allons explorer ensemble cet écran",
+                width: 300
+            },
+            {
+                title: "Barre d'outils",
+                description: "Ici tu trouveras les outils principaux de Natao",
+                attachTo: "#toolbar",
+                position: "bottom"
+            }
+        ];
+
+        self.onboardingEnabled = true;
+        self.myCallbackFunction = function() {
+            console.log('finishTour');
+        };
+
+        self.startTour = function() {
+            self.onboardingIndex = 0;
+            self.onboardingEnabled = true;
+        }
+
+
     }
 
 }());
