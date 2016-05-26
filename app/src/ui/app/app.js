@@ -52,7 +52,5 @@
         } else {
             $rootScope.nodeWebkitVersion = 'browser';
         }
-
-
     }
 }());

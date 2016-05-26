@@ -638,7 +638,15 @@
         self.startTour = function() {
             self.onboardingIndex = 0;
             self.onboardingEnabled = true;
-        }
+        };
+        
+        self.customOptions = {
+            nextButtonText: 'Suivant &rarr;',
+            previousButtonText: '&larr; Précédent',
+            doneButtonText: 'Fin',
+            actualStepText: 'Etape',
+            totalStepText: 'de'
+        };
 
 
     }
