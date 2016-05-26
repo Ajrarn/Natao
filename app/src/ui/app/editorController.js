@@ -8,7 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService) {
         console.log('EditorController');
 
         var self = this;
@@ -25,6 +25,7 @@
         self.fileDialog = fileDialog;
         self.$location = $location;
         self.MessageService = MessageService;
+        self.OnBoardingService = OnBoardingService;
         self.MessageService.changeMessage('');
         self.inPrint = false;
         self.focus = focus;
@@ -615,20 +616,7 @@
 
 
         /************onBoarding will be in a service ******/
-        self.onboardingSteps = [
-            {
-                title: "Bienvenue!",
-                position: "centered",
-                description: "Bienvenue dans Natao, nous allons explorer ensemble cet écran",
-                width: 300
-            },
-            {
-                title: "Barre d'outils",
-                description: "Ici tu trouveras les outils principaux de Natao",
-                attachTo: "#toolbar",
-                position: "bottom"
-            }
-        ];
+        self.onboardingSteps = self.OnBoardingService.getSteps('Editor');
 
         self.onboardingEnabled = true;
         self.myCallbackFunction = function() {
@@ -639,16 +627,6 @@
             self.onboardingIndex = 0;
             self.onboardingEnabled = true;
         };
-        
-        self.customOptions = {
-            nextButtonText: 'Suivant &rarr;',
-            previousButtonText: '&larr; Précédent',
-            doneButtonText: 'Fin',
-            actualStepText: 'Etape',
-            totalStepText: 'de'
-        };
-
-
     }
 
 }());
