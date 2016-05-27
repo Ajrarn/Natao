@@ -27,7 +27,7 @@
         }]);
 
 
-    function AppController($location,PreferencesService,CssService,$translate,$showdown,tmhDynamicLocale,ColorPickerService,OnBoardingService) {
+    function AppController($location,PreferencesService,CssService,$translate,$showdown,tmhDynamicLocale,ColorPickerService) {
 
         // For a good date translation
         $translate.onReady().then(function() {
@@ -45,7 +45,6 @@
         self.$translate = $translate;
         self.$showdown = $showdown;
         self.ColorPickerService = ColorPickerService;
-        self.OnBoardingService = OnBoardingService;
         self.$showdown.setOption('tables',true);
         self.$showdown.setOption('strikethrough',true);
         self.$showdown.setOption('tasklists',true);

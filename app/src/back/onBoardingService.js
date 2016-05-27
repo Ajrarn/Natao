@@ -1,6 +1,7 @@
-
 (function () {
     "use strict";
+
+    var fs = require('fs');
 
     angular
         .module('Natao')
@@ -14,37 +15,67 @@
 
 
 
-    function OnBoardingService($translate) {
+    function OnBoardingService($translate,$q) {
         console.log('OnBoardingService');
 
         var self = this;
         self.$translate = $translate;
 
-        self.customOptions = {
-            nextButtonText: 'Suivant &rarr;',
-            previousButtonText: '&larr; Précédent',
-            doneButtonText: 'Fin',
-            actualStepText: 'Etape',
-            totalStepText: 'de'
-        };
-        
-        self.getSteps = function(partialName) {
-            return [
-                {
-                    title: "Bienvenue!",
-                    position: "centered",
-                    description: "Bienvenue dans Natao, nous allons explorer ensemble cet écran",
-                    width: 300
-                },
-                {
-                    title: "Barre d'outils",
-                    description: "Ici tu trouveras les outils principaux de Natao",
-                    attachTo: "#toolbar",
-                    position: "bottom"
-                }
-            ];
+        self.init = function() {
+
+            return $q(function(resolve,reject) {
+
+                self.customOptions = {};
+
+                //first we init the options that will be used for Natao
+                var promiseNext = $translate('TOUR_NEXT');
+                var promisePrevious = $translate('TOUR_PREVIOUS');
+                var promiseDone = $translate('TOUR_DONE');
+                var promiseStep = $translate('TOUR_STEP');
+                var promiseOf = $translate('TOUR_OF');
+
+                $q.all(promiseNext,promisePrevious,promiseDone,promiseStep,promiseOf)
+                    .then(function(next,previous,done,step,of) {
+
+                        self.customOptions = {
+                            nextButtonText: next,
+                            previousButtonText: previous,
+                            doneButtonText: done,
+                            actualStepText: step,
+                            totalStepText: of
+                        };
+
+                        // And the we load the tours and steps for onBoarding
+                        var onBoardingFile = fs.readFileSync('./languages/onBoarding-' + self.$translate.use() + '.json','utf8');
+
+                        self.tours = [];
+
+                        if (onBoardingFile) {
+                            try {
+                                self.tours = JSON.parse(onBoardingFile);
+                                resolve();
+                            }
+                            catch (err) {
+                                reject(err);
+                            }
+                        }
+
+
+
+                    }).catch(function(err){
+                        reject(err);
+                    });
+            });
+
+
         };
 
+        
+        self.getSteps = function(tourName) {
+            return self.tours.find(function(item) {
+                return item.tour === tourName;
+            });
+        };
 
         return self;
 

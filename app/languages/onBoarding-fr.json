@@ -1,0 +1,19 @@
+[
+  {
+    "tour": "Editor",
+    "steps": [
+      {
+        "title": "Bienvenue!",
+        "position": "centered",
+        "description": "Bienvenue dans Natao, nous allons explorer ensemble cet écran",
+        "width": 300
+      },
+      {
+        "title": "Barre d'outils",
+        "description": "Ici tu trouveras les outils principaux de Natao",
+        "attachTo": "#toolbar",
+        "position": "bottom"
+      }
+    ]
+  }
+]

@@ -7,7 +7,7 @@
         .controller('LoadingController', LoadingController);
 
 
-    function LoadingController(PreferencesService,CssService,TemplateTreeService,PrincipalTreeService,$location) {
+    function LoadingController(PreferencesService,CssService,TemplateTreeService,PrincipalTreeService,$location,OnBoardingService) {
 
 
         this.PreferencesService = PreferencesService; //The preferences init send us here
@@ -15,6 +15,7 @@
         this.TemplateTreeService = TemplateTreeService;
 
         this.PrincipalTreeService = PrincipalTreeService;
+        this.OnBoardingService = OnBoardingService
         this.$location = $location;
 
         var self = this;
@@ -32,7 +33,12 @@
                 var principalTreePromise = self.PrincipalTreeService.getInitTreeService(defaultCss);
 
                 principalTreePromise.then(function() {
-                    $location.path('/editor');
+                    OnBoardingService
+                        .init()
+                        .then(function() {
+                            $location.path('/editor');
+                        });
+                    
                 })
             });
 

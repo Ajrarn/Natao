@@ -78,5 +78,10 @@
   "UNLOCK_BUTTON":"Déverrouiller",
   "LOCK_PASSWORD":"Mot de passe",
   "LOCK_CONFIRMATION":"Confirmation",
-  "UNLOCK_FORCE":"Forcer le déverrouillage"
+  "UNLOCK_FORCE":"Forcer le déverrouillage",
+  "TOUR_NEXT":"Suivant &rarr;",
+  "TOUR_PREVIOUS":"&larr; Précédent",
+  "TOUR_DONE":"Fin",
+  "TOUR_STEP":"&Eacute;tape",
+  "TOUR_OF":"de"
 }
