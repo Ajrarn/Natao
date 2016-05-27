@@ -25,49 +25,34 @@
 
             return $q(function(resolve,reject) {
 
-                self.customOptions = {};
 
-                //first we init the options that will be used for Natao
-                var promiseNext = $translate('TOUR_NEXT');
-                var promisePrevious = $translate('TOUR_PREVIOUS');
-                var promiseDone = $translate('TOUR_DONE');
-                var promiseStep = $translate('TOUR_STEP');
-                var promiseOf = $translate('TOUR_OF');
+                // And the we load the tours and steps for onBoarding
+                var onBoardingFile = fs.readFileSync('./languages/onBoarding-' + self.$translate.use() + '.json','utf8');
 
-                $q.all(promiseNext,promisePrevious,promiseDone,promiseStep,promiseOf)
-                    .then(function(next,previous,done,step,of) {
+                self.tours = [];
+
+                if (onBoardingFile) {
+                    try {
+                        var onBoarding = JSON.parse(onBoardingFile);
+
+                        self.tours = onBoarding.tours;
 
                         self.customOptions = {
-                            nextButtonText: next,
-                            previousButtonText: previous,
-                            doneButtonText: done,
-                            actualStepText: step,
-                            totalStepText: of
+                            nextButtonText: onBoarding.texts.nextButtonText,
+                            previousButtonText: onBoarding.texts.previousButtonText,
+                            doneButtonText: onBoarding.texts.doneButtonText,
+                            actualStepText: onBoarding.texts.actualStepText,
+                            totalStepText: onBoarding.texts.totalStepText
                         };
 
-                        // And the we load the tours and steps for onBoarding
-                        var onBoardingFile = fs.readFileSync('./languages/onBoarding-' + self.$translate.use() + '.json','utf8');
-
-                        self.tours = [];
-
-                        if (onBoardingFile) {
-                            try {
-                                self.tours = JSON.parse(onBoardingFile);
-                                resolve();
-                            }
-                            catch (err) {
-                                reject(err);
-                            }
-                        }
-
-
-
-                    }).catch(function(err){
+                        resolve();
+                    }
+                    catch (err) {
                         reject(err);
-                    });
+                    }
+                }
+
             });
-
-
         };
 
         

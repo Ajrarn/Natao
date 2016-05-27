@@ -616,7 +616,8 @@
 
 
         /************onBoarding will be in a service ******/
-        self.onboardingSteps = self.OnBoardingService.getSteps('Editor').steps;
+        self.onBoardingSteps = self.OnBoardingService.getSteps('Editor').steps;
+        console.log('onBoardingSteps',self.onBoardingSteps);
 
         self.onboardingEnabled = true;
         self.myCallbackFunction = function() {

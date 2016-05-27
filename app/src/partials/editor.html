@@ -1,6 +1,6 @@
 <div flex layout="column" ng-controller="EditorController as EditorCtrl">
 
-    <onboarding-popover enabled="EditorCtrl.onboardingEnabled" steps="EditorCtrl.onboardingSteps" step-index='EditorCtrl.onboardingIndex' custom-options="appCtrl.OnBoardingService.customOptions"></onboarding-popover>
+    <onboarding-popover enabled="EditorCtrl.onboardingEnabled" steps="EditorCtrl.onBoardingSteps" step-index='EditorCtrl.onboardingIndex' custom-options="EditorCtrl.OnBoardingService.customOptions"></onboarding-popover>
 
     <div id="toolbar" class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
         <div layout="row" layput-align="start center" id="zoomPart">
