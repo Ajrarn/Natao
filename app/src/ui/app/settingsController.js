@@ -11,7 +11,8 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService,MessageService) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,OnBoardingService,
+                                CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService,MessageService) {
 
         var self = this;
 
@@ -31,6 +32,7 @@
         self.TreeUtilService = TreeUtilService;
         self.PendingService = PendingService;
         self.MessageService = MessageService;
+        self.OnBoardingService = OnBoardingService;
         self.MessageService.changeMessage('');
         self.viewer = true;
 
@@ -117,7 +119,6 @@
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
             self.focus('cssEditor');
-            console.log('selectedPane',self.selectedPane);
         };
 
         self.initAddCss= function() {
@@ -230,7 +231,6 @@
             self.newDefaultCss = node.defaultCss;
             self.folderPopover = 'buttonBar';
             self.newColor = node.color;
-            console.log('disabled',self.pasteButtonDisabled());
         };
 
         self.pasteButtonDisabled = function() {
@@ -446,6 +446,38 @@
 
 
         self.settingsValide();
+
+
+
+        /************onBoarding Style******/
+        self.onBoardingStepsStyle = self.OnBoardingService.getSteps('Style').steps;
+
+        self.onboardingEnabledStyle = self.OnBoardingService.startFirstTour('Style');
+
+        self.finishTourStyle = function() {
+            self.OnBoardingService.finishTour('Style');
+            self.onboardingEnabledStyle = false;
+        };
+
+        self.startTourStyle = function() {
+            self.onboardingIndexStyle = 0;
+            self.onboardingEnabledStyle = true;
+        };
+
+        /************onBoarding Template******/
+        self.onBoardingStepsTemplate = self.OnBoardingService.getSteps('Template').steps;
+
+        self.onboardingEnabledTemplate = self.OnBoardingService.startFirstTour('Template');
+
+        self.finishTourTemplate = function() {
+            self.OnBoardingService.finishTour('Template');
+            self.onboardingEnabledTemplate = false;
+        };
+
+        self.startTourTemplate = function() {
+            self.onboardingIndexTemplate = 0;
+            self.onboardingEnabledTemplate = true;
+        };
 
     }
 

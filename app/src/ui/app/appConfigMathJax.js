@@ -7,8 +7,6 @@
 
 
     function AppConfigMathJax() {
-        console.log('AppConfigMathJax');
-
 
         MathJax.Hub.Config({
             asciimath2jax: {

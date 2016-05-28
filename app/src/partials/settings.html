@@ -50,6 +50,15 @@
                         </div>
                     </div>
                     <hr>
+                    <div flex layout="row" layout-align="space-around center">
+                        <h1>{{ 'SETTING_TOUR' | translate }}</h1>
+                        <div layout="row" layout-align="start center">
+                            <switch id="tourEnabled" name="tourEnabled" ng-model="SettingCtrl.PreferencesService.preferences.showTours"
+                                    on="{{ 'SETTING_SHOW_TOUR_ENABLED' | translate }}"
+                                    off="{{ 'SETTING_SHOW_TOUR_DISABLED' | translate }}" class="green wide"></switch>
+                        </div>
+                    </div>
+                    <hr>
                     <div flex layout="row" layout-align="space-around stretch">
                         <h1>{{ 'SETTING_THEME' | translate }}</h1>
                         <div class="horizontal-flow" flex layout="column">
@@ -97,7 +106,7 @@
             </pane>
             <pane title="{{ 'SETTING_STYLE' | translate }}" icon="typcn-brush" class="setting">
                 <div flex layout="row" layout-align="start stretch">
-
+                    <onboarding-popover enabled="SettingCtrl.onboardingEnabledStyle" steps="SettingCtrl.onBoardingStepsStyle" step-index='SettingCtrl.onboardingIndexStyle' on-finish-callback="SettingCtrl.finishTourStyle" custom-options="SettingCtrl.OnBoardingService.customOptions"></onboarding-popover>
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <label for="css" layout="row" layout-align="start center">
@@ -159,6 +168,8 @@
                                         ng-mouseover="SettingCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="SettingCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span>
                                 </button>
                             </div>
+                            <button ng-click="SettingCtrl.startTourStyle()"  ng-if="SettingCtrl.OnBoardingService.showTourButton()"
+                                    ng-mouseover="SettingCtrl.changeButtonText('BTN_TOUR')" ng-mouseleave="SettingCtrl.changeButtonText('')"><span class="typcn typcn-compass"></span></button>
                         </div>
                         <div class="lineField" layout="row" layout-align="space-between center">
                             <label for="cssName" layout="row" layout-align="start center">
@@ -240,7 +251,7 @@
             </pane>
             <pane title="{{ 'SETTING_TEMPLATE' | translate }}" icon="typcn-flow-children" class="setting">
                 <div flex layout="row" layout-align="start stretch">
-
+                    <onboarding-popover enabled="SettingCtrl.onboardingEnabledTemplate" steps="SettingCtrl.onBoardingStepsTemplate" step-index='SettingCtrl.onboardingIndexTemplate' on-finish-callback="SettingCtrl.finishTourTemplate" custom-options="SettingCtrl.OnBoardingService.customOptions"></onboarding-popover>
                     <div flex layout="column" layout-align="start stretch">
                         <div layout="row" layout-align="start center">
                             <label for="template" layout="row" layout-align="start center">
@@ -299,6 +310,8 @@
                                         ng-mouseover="SettingCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="SettingCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span>
                                 </button>
                             </div>
+                            <button ng-click="SettingCtrl.startTourTemplate()"  ng-if="SettingCtrl.OnBoardingService.showTourButton()"
+                                    ng-mouseover="SettingCtrl.changeButtonText('BTN_TOUR')" ng-mouseleave="SettingCtrl.changeButtonText('')"><span class="typcn typcn-compass"></span></button>
                         </div>
 
                         <div class="templateContainer" flex>

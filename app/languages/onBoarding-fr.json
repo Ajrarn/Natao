@@ -1,0 +1,101 @@
+{
+  "texts": {
+    "nextButtonText": "Suivant &rarr;",
+    "previousButtonText": "&larr; Précédent",
+    "doneButtonText": "Fin",
+    "actualStepText": "Étape",
+    "totalStepText": "de"
+  },
+  "tours": [
+    {
+      "tour": "Editor",
+      "steps": [
+        {
+          "title": "Bienvenue!",
+          "position": "centered",
+          "description": "Bienvenue dans Natao ! <br><br> Je t'invite à faire une visite guidée.<br> Tu peux la quitter à tout instant en cliquant sur la croix.",
+          "width": 300
+        },
+        {
+          "title": "La Barre d'outils",
+          "description": "Nous allons détailler celle-ci dans les étapes suivantes de cette visite.<br> Je souhaite juste te faire remarquer le grand espace noir entre les 2 groupes de boutons. Dans celui-ci, tu verras apparâitre ce que fait chaque bouton en survolant (avec la souris) ce dernier.",
+          "attachTo": "#toolbar",
+          "position": "bottom",
+          "xOffset": 500
+        }
+      ,
+        {
+          "title": "Les réglages visuels",
+          "description": "Tu peux ici faire les réglages nécessaires à ton confort visuel. <br> Zoome ou dézoome pour changer la taille des caractères. <br> Actives ou désactives la police Open-dyslexic qui facilite la lecture.",
+          "attachTo": "#zoomPart",
+          "position": "bottom"
+        }
+      ,
+        {
+          "title": "Activation désactivation des panneaux",
+          "description": "Tu peux ici activer ou désactiver les 3 panneaux qui composent Natao. <br> - L'explorateur de documents<br> - L'éditeur <br> - Le panneau de visualisation",
+          "attachTo": "#toggleViews",
+          "position": "bottom"
+        }
+      ,
+        {
+          "title": "Les outils",
+          "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (pour une interrogation par exemple) <br> - Imprimer le document <br> - Afficher l'aide <br> - Lancer la visite guidée <br> - Accéder aux réglages",
+          "attachTo": "#rightButtons",
+          "position": "bottom"
+        }
+      ,
+        {
+          "title": "L'explorateur de documents",
+          "description": "Tu pourras y ranger tous tes documents, dans des dossiers, et les organiser comme bon te semble",
+          "attachTo": "#menu",
+          "position": "right"
+        }
+      ,
+        {
+          "title": "L'éditeur Markdown",
+          "description": "C'est ici que tu rédigeras tes documents en utilisant la syntaxe Markdown.<br>Cette syntaxe qui n'est pas compliquée, tu pourras l'apprendre avec Natao",
+          "attachTo": "#editor",
+          "position": "right"
+        }
+      ,
+        {
+          "title": "Le panneau de visualisation",
+          "description": "Ce dernier panneau est celui où tu peux voir à quoi ressemblera ton document mis en page, avant de l'imprimer.",
+          "attachTo": "#viewer",
+          "position": "left"
+        }
+        ,
+        {
+          "title": "Prèt à continuer ?",
+          "position": "centered",
+          "description": "C'est ici que s'achève la visite guidée, mais ton voyage ne fait que commencer.<br>Je t'invite maintenant à lire le document fourni en exemple. Il est à la fois un mini-guide sur Natao est un exemple de son utilisation.<br>A bientôt.",
+          "width": 300
+        }
+      ]
+    },
+    {
+      "tour": "Style",
+      "steps": [
+        {
+          "title": "Découvrons l'éditeur de style !",
+          "position": "centered",
+          "description": "Nous allons découvrir ensemble l'éditeur de style.",
+          "width": 300
+        }
+      ]
+    },
+    {
+      "tour": "Template",
+      "steps": [
+        {
+          "title": "Découvrons l'éditeur de structure de dossiers !",
+          "position": "centered",
+          "description": "Nous allons découvrir ensemble l'éditeur de structure de dossiers.",
+          "width": 300
+        }
+      ]
+    }
+  ]
+}
+

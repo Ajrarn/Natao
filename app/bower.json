@@ -37,7 +37,8 @@
     "Inlet": "git://github.com/enjalot/Inlet#^0.1.8",
     "angular-translate": "^2.11.0",
     "angular-translate-loader-static-files": "^2.11.0",
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "ngOnboarding": "^0.1.7"
   },
   "resolutions": {
     "angular": "~1.4.8"

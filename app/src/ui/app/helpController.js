@@ -9,7 +9,6 @@
 
 
     function HelpController($location,$showdown,tmhDynamicLocale,$rootScope,$timeout) {
-        console.log('HelpController');
 
         var self = this;
         self.$location = $location;

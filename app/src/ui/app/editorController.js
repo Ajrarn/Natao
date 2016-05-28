@@ -8,8 +8,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService) {
-        console.log('EditorController');
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService) {
 
         var self = this;
         //self.$showdown = $showdown;
@@ -25,6 +24,7 @@
         self.fileDialog = fileDialog;
         self.$location = $location;
         self.MessageService = MessageService;
+        self.OnBoardingService = OnBoardingService;
         self.MessageService.changeMessage('');
         self.inPrint = false;
         self.focus = focus;
@@ -47,8 +47,8 @@
                     self.CssService.initCurrentById(self.currentMarkdown.css);
                     MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
                 }).catch(function(err) {
-                console.log(err);
-            });
+                    console.error(err);
+                });
         }
 
         // to ensure that the <a href> wil open in a browser not in Natao
@@ -57,7 +57,7 @@
             return self.currentMarkdownCode;
         },function() {
             self.$timeout(function() {
-                $('a').on('click', function(){
+                $('.viewer a').on('click', function(){
                     require('nw.gui').Shell.openExternal( this.href );
                     return false;
                 });
@@ -402,11 +402,9 @@
                     .then(function(buffer) {
                         self.TreeUtilService
                             .bufferToFile(buffer,filename)
-                            .then(function() {
-                                console.log('export terminé');
-                            }).catch(function(err) {
-                            console.error(err);
-                        })
+                            .catch(function(err) {
+                                console.error(err);
+                            })
                     })
                     .catch(function(err) {
                         console.error(err);
@@ -451,9 +449,7 @@
                     .then(function(buffer) {
                         self.TreeUtilService
                             .bufferToFile(buffer,filename)
-                            .then(function() {
-                                console.log('export terminé');
-                            }).catch(function(err) {
+                            .catch(function(err) {
                             console.error(err);
                         })
                     })
@@ -611,6 +607,22 @@
                 self.currentMarkdown = markdown;
             },100);
 
+        };
+
+
+        /************onBoarding ******/
+        self.onBoardingSteps = self.OnBoardingService.getSteps('Editor').steps;
+
+        self.onboardingEnabled = self.OnBoardingService.startFirstTour('Editor');
+
+        self.finishTour = function() {
+            self.OnBoardingService.finishTour('Editor');
+            self.onboardingEnabled = false;
+        };
+
+        self.startTour = function() {
+            self.onboardingIndex = 0;
+            self.onboardingEnabled = true;
         };
     }
 

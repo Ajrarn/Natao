@@ -9,7 +9,6 @@
 
 
     function FirstTimeSettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$translate,$sce,fileDialog) {
-        console.log('FirstTimeSettingsController');
         
         var self = this;
 

@@ -13,13 +13,11 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
     //Service itself
     function CssService($translate,$q,PendingService,DatabaseService) {
-        console.log('CssService');
 
         var self = this;
 
@@ -106,9 +104,6 @@
 
             self.DatabaseService
                 .insert(newCss)
-                .then(function(doc) {
-                    console.log(doc);
-                })
                 .catch(function(err) {
                     console.error(err);
                 });
@@ -213,9 +208,6 @@
                 
                 self.DatabaseService
                     .remove(css._id)
-                    .then(function(numRemoved) {
-                        console.log('removed',numRemoved);
-                    })
                     .catch(function(err) {
                         console.error(err);
                     });
@@ -224,7 +216,6 @@
 
         self.safeCss = function(css) {
             var objCss = cssParser.parse(css);
-            console.log('objCss',objCss);
 
             var newRules = objCss.stylesheet.rules.map(function(rule) {
                 var newRule = rule;

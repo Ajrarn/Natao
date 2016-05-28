@@ -9,14 +9,13 @@
 // Get the current window
     var win = gui.Window.get();
 
-    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch','ngjsColorPicker','ui.codemirror'];
+    var modules = ['ngSanitize', 'ng-showdown', 'ngRoute', 'pascalprecht.translate', 'tmh.dynamicLocale', 'treeControl', 'DWand.nw-fileDialog', 'nsPopover', 'uiSwitch','ngjsColorPicker','ui.codemirror','ngOnboarding'];
 
     angular
         .module('Natao', modules)
         .run(run);
 
     function run($rootScope, PendingService) {
-        console.log('run');
 
         //prevent properly close
         win.on('close', function () {
@@ -52,7 +51,5 @@
         } else {
             $rootScope.nodeWebkitVersion = 'browser';
         }
-
-
     }
 }());

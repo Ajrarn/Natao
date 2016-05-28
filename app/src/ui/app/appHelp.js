@@ -10,7 +10,6 @@
         .run(run);
 
     function run() {
-        console.log('run');
     }
 
 }());

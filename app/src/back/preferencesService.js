@@ -19,7 +19,6 @@
 
     //Service itself
     function PreferencesService(DatabaseService,$location,$rootScope,$translate) {
-        console.log('PreferencesService');
 
         var self = this;
         self.DatabaseService = DatabaseService;
@@ -49,7 +48,9 @@
             zoomLevel: 0,
             showMenu: true,
             showEditor: true,
-            showViewer: true
+            showViewer: true,
+            showTours:false,
+            toursSeen:[]
         };
 
        self.saveSettings = function() {
@@ -119,13 +120,12 @@
                                 // and then go to the editor
                                 self.$location.path('/loading');
                                 self.zoomChange();
-                                //self.$rootScope.$digest();
                             } else {
                                 self.$location.path(urlFirstSetting);
                             }
                         })
                         .catch(function() {
-                            console.log('Document not found');
+                            console.error('Document not found');
                             self.$location.path('/settings');
                     });
                     

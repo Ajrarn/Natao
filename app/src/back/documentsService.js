@@ -8,13 +8,11 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
 
     function DocumentsService(DatabaseService,PendingService,$q) {
-        console.log('DocumentsService');
 
         var self = this;
         self.DatabaseService = DatabaseService;

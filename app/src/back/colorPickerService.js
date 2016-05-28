@@ -8,13 +8,11 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
 
     function ColorPickerService() {
-        console.log('ColorPickerService');
         
         var self = this;
 

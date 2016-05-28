@@ -12,7 +12,6 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
@@ -32,7 +31,6 @@
             self.pending--;
 
             if (self.pending <= 0) {
-                console.log('stop pending');
                 //ensure that this affectation will be considerated by the $digest cycle
                 self.$timeout(self.pending = 0);
 
@@ -47,7 +45,6 @@
             self.loading--;
 
             if (self.loading <= 0) {
-                console.log('stop pending');
                 //ensure that this affectation will be considerated by the $digest cycle
                 self.$timeout(self.loading = 0);
 
