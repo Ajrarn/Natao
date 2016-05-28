@@ -12,13 +12,11 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
     //Service itself
     function TemplateTreeService($translate,$q,CssService,DatabaseService,PendingService) {
-        console.log('TemplateTreeService');
         var self = this;
 
         self.$translate = $translate;
@@ -57,7 +55,6 @@
                                                 self.availableTemplates.push(doc);
                                                 nbTemplatesPending--;
                                                 if (nbTemplatesPending === 0) {
-                                                    console.log('templates',self.availableTemplates);
                                                     resolve();
                                                 }
                                             })
@@ -169,7 +166,6 @@
                     .remove(template._id)
                     .then(function(numRemoved) {
                         self.PendingService.stop();
-                        console.log('removed',numRemoved);
                     })
                     .catch(function(err) {
                         self.PendingService.stop();

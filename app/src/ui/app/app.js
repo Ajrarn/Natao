@@ -16,7 +16,6 @@
         .run(run);
 
     function run($rootScope, PendingService) {
-        console.log('run');
 
         //prevent properly close
         win.on('close', function () {

@@ -18,7 +18,6 @@
 
     //Service itself
     function PrincipalTreeService(TreeUtilService,TemplateTreeService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope) {
-        console.log('PrincipalTreeService');
 
         var self = this;
         self.TreeUtilService = TreeUtilService;
@@ -77,7 +76,7 @@
                 self.DatabaseService.find({docName:'PrincipalTree'})
                     .then(function(docs){
                         if (docs.length === 0) {
-                            console.log('Principal Document not found');
+                            console.error('Principal Document not found');
 
                             self.principalTree.tree.defaultCss = defaultCss._id;
 
@@ -85,7 +84,6 @@
                                 .insert(self.principalTree)
                                 .then(function(newDoc) {
                                     self.principalTree = newDoc;
-                                    console.log('principalTree',self.principalTree);
 
                                     //We will create the first document
                                     self.$translate('WELCOME').then(function (translation) {
@@ -131,7 +129,6 @@
 
                         } else {
                             self.principalTree = docs[0];
-                            console.log('principalTree', self.principalTree);
                             resolve();
                         }
                     }).catch(function(err) {

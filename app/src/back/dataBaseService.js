@@ -12,13 +12,11 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
     //Service itself
     function DatabaseService($q) {
-        console.log('DatabaseService');
 
         var self = this;
         self.$q = $q;

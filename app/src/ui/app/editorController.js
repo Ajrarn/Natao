@@ -9,7 +9,6 @@
 
 
     function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService) {
-        console.log('EditorController');
 
         var self = this;
         //self.$showdown = $showdown;
@@ -48,8 +47,8 @@
                     self.CssService.initCurrentById(self.currentMarkdown.css);
                     MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
                 }).catch(function(err) {
-                console.log(err);
-            });
+                    console.error(err);
+                });
         }
 
         // to ensure that the <a href> wil open in a browser not in Natao
@@ -403,11 +402,9 @@
                     .then(function(buffer) {
                         self.TreeUtilService
                             .bufferToFile(buffer,filename)
-                            .then(function() {
-                                console.log('export terminé');
-                            }).catch(function(err) {
-                            console.error(err);
-                        })
+                            .catch(function(err) {
+                                console.error(err);
+                            })
                     })
                     .catch(function(err) {
                         console.error(err);
@@ -452,9 +449,7 @@
                     .then(function(buffer) {
                         self.TreeUtilService
                             .bufferToFile(buffer,filename)
-                            .then(function() {
-                                console.log('export terminé');
-                            }).catch(function(err) {
+                            .catch(function(err) {
                             console.error(err);
                         })
                     })
@@ -615,13 +610,14 @@
         };
 
 
-        /************onBoarding will be in a service ******/
+        /************onBoarding ******/
         self.onBoardingSteps = self.OnBoardingService.getSteps('Editor').steps;
-        console.log('onBoardingSteps',self.onBoardingSteps);
 
-        self.onboardingEnabled = true;
-        self.myCallbackFunction = function() {
-            console.log('finishTour');
+        self.onboardingEnabled = self.OnBoardingService.startFirstTour('Editor');
+
+        self.finishTour = function() {
+            self.OnBoardingService.finishTour('Editor');
+            self.onboardingEnabled = false;
         };
 
         self.startTour = function() {

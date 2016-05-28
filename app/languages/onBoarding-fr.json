@@ -73,6 +73,28 @@
           "width": 300
         }
       ]
+    },
+    {
+      "tour": "Style",
+      "steps": [
+        {
+          "title": "Découvrons l'éditeur de style !",
+          "position": "centered",
+          "description": "Nous allons découvrir ensemble l'éditeur de style.",
+          "width": 300
+        }
+      ]
+    },
+    {
+      "tour": "Template",
+      "steps": [
+        {
+          "title": "Découvrons l'éditeur de structure de dossiers !",
+          "position": "centered",
+          "description": "Nous allons découvrir ensemble l'éditeur de structure de dossiers.",
+          "width": 300
+        }
+      ]
     }
   ]
 }

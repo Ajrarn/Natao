@@ -1,7 +1,8 @@
 (function () {
     "use strict";
 
-    var fs = require('fs');
+    var fs = require('fs'),
+         _ = require('lodash');
 
     angular
         .module('Natao')
@@ -10,16 +11,15 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
 
-    function OnBoardingService($translate,$q) {
-        console.log('OnBoardingService');
+    function OnBoardingService($translate,$q,PreferencesService) {
 
         var self = this;
         self.$translate = $translate;
+        self.PreferencesService = PreferencesService;
 
         self.init = function() {
 
@@ -53,6 +53,21 @@
                 }
 
             });
+        };
+        
+        self.showTourButton = function() {
+            return self.PreferencesService.preferences.showTours;
+        };
+        
+        self.startFirstTour = function(tourName) {
+            return !_.includes(self.PreferencesService.preferences.toursSeen,tourName);
+        };
+        
+        self.finishTour = function(tourName) {
+            if (!_.includes(self.PreferencesService.preferences.toursSeen,tourName)) {
+                self.PreferencesService.preferences.toursSeen.push(tourName);
+                self.PreferencesService.savePreferences();
+            }
         };
 
         

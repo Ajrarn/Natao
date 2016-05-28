@@ -7,7 +7,6 @@
 
 
     function AppRoute($routeProvider) {
-        console.log('RouteConfig');
         $routeProvider.
         when('/firstTimeSettings', {
             templateUrl: 'src/partials/firstTimeSettings.html'

@@ -99,8 +99,6 @@
                             }
                         }
 
-                        console.log('options',options);
-
                         for (k in options) {
                             v = options[k];
                             if (curStep[k] === void 0) {

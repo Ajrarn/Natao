@@ -33,7 +33,7 @@
                 var dir = config.unzipFolder + '/nwjs-v' + config.version + '-osx-x64/nwjs.app/Contents/Resources/' + item.language + '.lproj';
                 fs.ensureDir(dir, function (err) {
                     if (err) {
-                        console.log(err)
+                        console.error(err)
                     } else {
                         var src = item.infoPlistFolder + '/InfoPlist.strings';
                         var dest = dir + '/InfoPlist.strings';

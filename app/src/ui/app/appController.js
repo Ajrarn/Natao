@@ -33,8 +33,6 @@
         $translate.onReady().then(function() {
             tmhDynamicLocale.set($translate.resolveClientLocale());
         });
-        
-        console.log('AppController');
 
         var self = this;
         self.$location = $location;
@@ -52,12 +50,11 @@
         self.validPassword = false;
 
 
-        self.changeFile = function(){
+        /*self.changeFile = function(){
             console.log('file',self.databaseFile);
-        };
+        };*/
 
         self.help = function() {
-            console.log(self.$translate.use());
             nw.Window.open('help.html?language=' + self.$translate.use() +',color=' + self.PreferencesService.preferences.colorTheme, {
                 position: 'center',
                 width: 1366,
