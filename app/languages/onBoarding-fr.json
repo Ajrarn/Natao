@@ -1,6 +1,6 @@
 {
   "texts": {
-    "nextButtonText": "Suivant &rarr;",
+    "nextButtonText": "Suivant <span class=\"typcn typcn-arrow-right-thick\"></span>",
     "previousButtonText": "&larr; Précédent",
     "doneButtonText": "Fin",
     "actualStepText": "Étape",
@@ -20,7 +20,7 @@
           "description": "Nous allons détailler celle-ci dans les étapes suivantes de cette visite.<br> Je souhaite juste te faire remarquer le grand espace noir entre les 2 groupes de boutons. Dans celui-ci, tu verras apparâitre ce que fait chaque bouton en survolant (avec la souris) ce dernier.",
           "attachTo": "#toolbar",
           "position": "bottom",
-          "xOffset": 500
+          "xOffset": 300
         },
         {
           "title": "Les réglages visuels",
