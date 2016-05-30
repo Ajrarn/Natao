@@ -2361,6 +2361,9 @@ input {
 select {
   font-size: 16px; }
 
+.ns-popover-tooltip {
+  max-width: 100rem !important; }
+
 .MathJax {
   font-family: RobotoDraft, Roboto, "Helvetica Neue", sans-serif; }
 
@@ -2391,6 +2394,11 @@ button, .button {
   button.help, .button.help {
     padding: 1px 15px 5px 15px; }
 
+.buttonText {
+  font-size: 1.6em;
+  min-height: 1.2em;
+  margin-top: 0.5em; }
+
 .bandeau {
   background-color: black;
   color: white;
@@ -2398,6 +2406,18 @@ button, .button {
   min-height: 50px; }
   .bandeau button {
     font-size: 1.7em; }
+  .bandeau .buttonText {
+    min-width: 500px;
+    width: 500px;
+    margin-top: 0;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s; }
+    .bandeau .buttonText.active {
+      visibility: visible;
+      opacity: 1;
+      transition: visibility 1s, opacity 1s; }
 
 /* ************************ fields ******************/
 .allInOne input {
@@ -2576,6 +2596,14 @@ hr {
   height: 3em;
   min-height: 3em; }
 
+.templateContainer {
+  position: relative; }
+  .templateContainer treecontrol {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0; }
+
 /***********************TreeView***********************/
 .treeContainer {
   position: relative;
@@ -2586,11 +2614,45 @@ hr {
 treecontrol {
   position: absolute; }
 
-/**********************flags*************************/
-.flag-icon {
-  margin: 5px;
-  font-size: 6em;
-  border: solid black 1px; }
+/***********************DragDrop***********************/
+.drag {
+  opacity: 0.5; }
+
+.over {
+  font-weight: bold; }
+
+.anchor {
+  position: relative; }
+  .anchor .before {
+    position: absolute;
+    top: -0.1em;
+    left: 0;
+    right: 0;
+    min-height: 0.24em;
+    display: inline-block; }
+    .anchor .before hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none; }
+    .anchor .before.over hr {
+      border-bottom: solid 2px; }
+  .anchor .after {
+    position: absolute;
+    top: 1.24em;
+    left: 0;
+    right: 0;
+    min-height: 0.24em;
+    display: inline-block; }
+    .anchor .after hr {
+      border: 0;
+      height: 1px;
+      width: 100%;
+      margin: 0;
+      background-image: none; }
+    .anchor .after.over hr {
+      border-bottom: solid 2px; }
 
 /***********************ColorChooser*****************/
 .chooser-purple {
@@ -2702,6 +2764,12 @@ treecontrol {
   border-color: #756bb1; }
 .purple .border {
   border: solid 1px #756bb1; }
+.purple .anchor .before.over hr, .purple .anchor .after.over hr {
+  border-color: #756bb1; }
+.purple .buttonText {
+  color: #54278f; }
+.purple .bandeau .buttonText {
+  color: #cbc9e2; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2755,6 +2823,12 @@ treecontrol {
   border-color: #3182bd; }
 .blue .border {
   border: solid 1px #3182bd; }
+.blue .anchor .before.over hr, .blue .anchor .after.over hr {
+  border-color: #3182bd; }
+.blue .buttonText {
+  color: #08519c; }
+.blue .bandeau .buttonText {
+  color: #bdd7e7; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -2808,6 +2882,12 @@ treecontrol {
   border-color: #de2d26; }
 .red .border {
   border: solid 1px #de2d26; }
+.red .anchor .before.over hr, .red .anchor .after.over hr {
+  border-color: #de2d26; }
+.red .buttonText {
+  color: #a50f15; }
+.red .bandeau .buttonText {
+  color: #fcae91; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -2861,6 +2941,12 @@ treecontrol {
   border-color: #dd1c77; }
 .pink .border {
   border: solid 1px #dd1c77; }
+.pink .anchor .before.over hr, .pink .anchor .after.over hr {
+  border-color: #dd1c77; }
+.pink .buttonText {
+  color: #980043; }
+.pink .bandeau .buttonText {
+  color: #d7b5d8; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -2914,6 +3000,12 @@ treecontrol {
   border-color: #e6550d; }
 .orange .border {
   border: solid 1px #e6550d; }
+.orange .anchor .before.over hr, .orange .anchor .after.over hr {
+  border-color: #e6550d; }
+.orange .buttonText {
+  color: #a63603; }
+.orange .bandeau .buttonText {
+  color: #fdbe85; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -2967,6 +3059,12 @@ treecontrol {
   border-color: #2ca25f; }
 .green .border {
   border: solid 1px #2ca25f; }
+.green .anchor .before.over hr, .green .anchor .after.over hr {
+  border-color: #2ca25f; }
+.green .buttonText {
+  color: #006d2c; }
+.green .bandeau .buttonText {
+  color: #b2e2e2; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -3020,5 +3118,11 @@ treecontrol {
   border-color: #636363; }
 .grey .border {
   border: solid 1px #636363; }
+.grey .anchor .before.over hr, .grey .anchor .after.over hr {
+  border-color: #636363; }
+.grey .buttonText {
+  color: #252525; }
+.grey .bandeau .buttonText {
+  color: #cccccc; }
 
 /*# sourceMappingURL=index.css.map */

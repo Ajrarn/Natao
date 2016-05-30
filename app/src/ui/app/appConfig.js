@@ -7,7 +7,6 @@
 
 
     function AppConfig($translateProvider,tmhDynamicLocaleProvider) {
-        console.log('AppConfig');
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',

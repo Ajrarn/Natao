@@ -98,6 +98,25 @@
   .border {
     border: solid 1px map-get($color_map,MD);
   }
+
+  // For the drag and drop
+  .anchor {
+    .before,.after {
+      &.over {
+        hr {
+          border-color: map-get($color_map, MD)
+        }
+      }
+    }
+  }
+
+  .buttonText {
+    color: map-get($color_map, DD);
+  }
+
+  .bandeau .buttonText {
+    color: map-get($color_map, ML);
+  }
 }
 
 @mixin color-square($color_map) {
@@ -108,4 +127,3 @@
   background-color: map-get($color_map,MM);
   border: solid 1px map-get($color_map,DD);
 }
-

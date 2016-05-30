@@ -1,287 +1,267 @@
-# Les bases
+# The Markdown Language
 
-Pour rédiger un texte avec Natao, tu vas devoir apprendre un nouveau langage.
-Rassures toi, ce n'est pas comme apprendre une langue étrangère.
-Cela consiste à ajouter certains signes (ou caractères) à ton texte.
-Ce langage permettra à Natao de comprendre comment tu souhaites organiser ton document.
-Tu décris ce que tu souhaites et Natao met en page pour toi.
-Ce langage s'appelle le **Markdown**. Nous allons commencer par les bases de la mise en page, et tu vas voir, c'est un langage très facile.
+To write a text with Natao, you are going to have to learn a new language called Markdown. Rest assured: this will be much easier than learning a foreign tongue.
 
-D'ailleurs, la documentation que tu es en train de lire a été écrite en Markdown, et avec Natao.
+The Markdown language was created in 2004 by John Gruber, with significant help from Aaron Swartz.
 
+It was designed to help format text documents with simple, readable signs and characters, like the pound sign ( # ) or the greater-than sign ( > ).
 
-## Paragraphes
+Producing a text with Natao consists of including these signs and other characters to your document to instruct Natao on how to format the text you are writing.
+Of course, any Markdown document you produce with Natao will be readable and usable in any other Markdown program.
 
-Les paragraphes en Markdown sont simplement composées d'une ou plusieurs lignes consécutives suivies par une ou deux lignes vides.
-Dans le bloc gris que tu vois en dessous, tu peux voir deux paragraphes séparés par une ligne vide, juste en dessous, tu peux voir comment Natao le met en forme :
+The document you are currently reading was actually written in Markdown, with Natao.
 
-    Lorsque Zarathoustra eut atteint sa trentième année, il quitta sa patrie et le lac de sa patrie et s'en alla dans la montagne.
-    Là il jouit de son esprit et de sa solitude et ne s'en lassa point durant dix années.
-    Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s'avança devant le soleil et lui parla ainsi :
+# Basic Syntax
 
-    "O grand astre ! Quel serait ton bonheur, si tu n'avais pas ceux que tu éclaires ?
+## Paragraphs
 
-Lorsque Zarathoustra eut atteint sa trentième année, il quitta sa patrie et le lac de sa patrie et s'en alla dans la montagne.
-Là il jouit de son esprit et de sa solitude et ne s'en lassa point durant dix années.
-Mais enfin son coeur se transforma, - et un matin, se levant avec l'aurore, il s'avança devant le soleil et lui parla ainsi :
+Paragraphs in Markdown are created by inserting a blank line between two portions of text. 
+In the first blockquote that follows, you can see two text excerpts, separated by a blank line space. In the second blockquote, you can see how Natao formats the two paragraphs.
 
-"O grand astre ! Quel serait ton bonheur, si tu n'avais pas ceux que tu éclaires ?
+                When Zarathustra was thirty years old, he left his home and the lake of his home, and went into the mountains.
+        There he enjoyed his spirit and his solitude, and for ten years did not weary of it. But at last his heart changed,- and rising one morning with the rosy dawn, he went before the sun, and spake thus unto it:
+    
+                Thou great star! What would be thy happiness if thou hadst not those for whom thou shinest!
 
-## Titres
+When Zarathustra was thirty years old, he left his home and the lake of his home, and went into the mountains. There he enjoyed his spirit and his solitude, and for ten years did not weary of it. But at last his heart changed,- and rising one morning with the rosy dawn, he went before the sun, and spake thus unto it:
 
-Tu vas aussi avoir besoin d'organiser ton document. Et tu peux le faire grace aux différents titres.
+Thou great star! What would be thy happiness if thou hadst not those for whom thou shinest!
 
-Tu peux créer un titre en ajoutant un ou plusieurs # au début du texte de ton titre. Le nombre de # que tu utilises détermine l'importance du titre. Plus il y en a et moins il est important.
-L'exemple ci-dessous ne sera pas illustré, car il perturberait la présentation de cette aide. Mais les premiers titres que tu vas voir sont ceux de ce document :
+## Titles
 
-    # Les bases
-    ## Paragraphes
-    ## Titres
-    …
-    ###### et tu peux aller jusqu'à 6 niveaux
+You can create a title by adding one or a few pound or hash signs ( # ) at the beginning of your text.
+The number of ( # ) you add determines how important the title is. Note that you may only add up to six (#) signs.
 
-Tu peux aussi souligner le titre.
+The following example shows you how the titles of this particular document have been designed.
 
-    Le niveau le plus important
-    ===========================
+    # Basic Syntax
+    ## Paragraphs
+    ## Titles
+    ### Within a Line
 
-    Le second plus important
-    ------------------------
+We also recommend that you do not go beyond three title levels for readability.
 
-Tu ne disposera alors que de deux niveaux pour tes titres, mais ton Markdown sera plus lisible dans un éditeur Markdown différent de Natao.
-Ici, la première syntaxe, celle avec les # est beaucoup plus lisible, c'est celle que je te recommande.
+## Headers
 
-Si je peux te donner un bon conseil, ne dépasses pas trois niveaux de titre dans tes documents. Cela améliorera grandement sa lisibilité.
+You may create an underlined, numbered, first-level header by inserting at least one equal sign ( = ) under the header's text.
 
-## Mettre en valeur du texte
+    This is the header text.
+    =
 
-Tu peux valoriser du texte, c'est à dire faire ressortir certains mots ou phrases, pour qu'on les remarque.
-Tu as deux niveaux de valorisation qui s'obtiennent en entourant le mot ou le groupe de mots du caractère \*.
-Un seul \* le met en valeur, deux \* signifie qu'il est très important. Par défaut, la première mise en valeur, met le texte en italique, la deuxième, le met en gras.
-Mais tu peux changer les règles (avec les feuilles de style qui sont expliquées dans une autre partie), en souligner un en rouge par exemple.
+You may create a second-level header by inserting at least one hyphen-minus sign ( - ) under the header text. The Markdown language is set up to number these headers automatically.
 
-    *Ce texte sera valorisé*
-    **Ce texte sera très remarqué**
+    The is the second-level header text.
+    -
 
-*Ce texte sera valorisé*
-**Ce texte sera très remarqué**
+Please note that Markdown only permits two header levels. Note also that the titles that use the ( # ) signs are easier to read. We recommend that you use them.
 
-Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisations. Cela te permet de combiner les 2 dans un même texte.
+## Highlight Text Elements
 
-    **Tout le monde _doit_ arriver à l'heure aujourd'hui.**
+You may decide to bring your readers' attention to specific parts or portions of your text. 
 
-**Tout le monde _doit_ arriver à l'heure aujourd'hui.**
+Place a star sign ( * ) before and after the word(s) you would like highlighted, and the text will become italicized.
 
-Enfin, il existe une dernière valorisation de texte qui consiste à signifier qu'il est faut, en le rayant par exemple
+*This text will be italicized.*
 
-    ~~une bêtise~~
+Place two star signs ( * ) before and after the word(s) you would like highlighted, and the text will be put in bold.
 
-~~une bêtise~~
+**This text will be put in bold.**
 
+You may also add an underscore sign ( _ ) in front and after some text to combine the italics and the bold letters.
 
-# Syntaxe avancée
+    **Everyone _must_ arrive on time today.**
 
-La syntaxe de base te permet déjà de rédiger de nombreux documents. Les éléments qui suivent te permettront de faire encore mieux.
-Et c'est toujours aussi simple.
+**Everyone _must_ arrive on time today.**
 
-## Citation
+You may choose to strike-through a word or words by adding two tilde signs ( ~ ) before and after the word(s) you would like to strike-through.
 
-Tu peux indiquer une citation avec un >. Tant que tes lignes commencent par des >, on reste dans le bloc de citation.
+    ~~A mistake.~~
 
-    Abraham Lincoln a dit:
+~~A mistake.~~
 
-    > Pardon my french
+Please note that some of Natao's default style-sheets allow you to underline portions of a text with a red line.
 
-Abraham Lincoln a dit:
+# Advanced Syntax
 
-> Pardon my french
+The basic Markdown syntax allows anyone to write clear documents. The elements of syntax that follow should allow you to go a step further.
 
-Si tu souhaites que l'auteur apparaisse dans le bloc de citation, il te suffit simplement de l'écrire comme ceci:
+## Citations
 
-    > Pardon my french
+You may create a citation by adding a greater-than symbol ( > ) in front of the text you would like to have appear as a quote. As long as your lines start with ( > ), your text will remain a citation.
 
-    > *Abraham Lincoln*
+    Abraham Lincoln wrote:
 
-> Pardon my french
+    > I desire to see the time when education, and by its means, morality, sobriety, enterprise and industry, shall become much more general than at present.
 
-> *Abraham Lincoln*
+Abraham Lincoln wrote:
 
-## Blocs non mis en page
+> I desire to see the time when education, and by its means, morality, sobriety, enterprise and industry, shall become much more general than at present.
 
-### Au sein d'une ligne
+If you wish the name of the author to appear in the citation block itself, write the citation as follows:
 
-Utilise des guillemets obliques \` pour afficher le texte tel quel, sans mise en page, avec une police un peu différente tout de même.
-Dans l'exemple ci-dessous, les \* ne transformeront pas le texte super important, ils seront visibles :
+    > One need not be a chamber to be haunted.
 
-    Et voila un texte `important` mais là, il devient  `**Super**Important`.
+    > **Emily Dickinson*
 
-Et voila un texte `important` mais là, il devient  `**Super**Important`.
+> One need not be a chamber to be haunted.
 
-### Sur plusieurs lignes
+> *Emily Dickinson*
 
-Les blocs gris que tu as vu jusqu'à présent pour te montrer des exemples ont été faits avec cette technique. Tu pourras maintenant facilement la reproduire.
-Pour créer ce genre de blocs, il faut que toutes les lignes le composant commence par 4 espaces ou une tabulation. Ca va te paraître bizarre, mais le premier bloc gris est le code permettant de faire le deuxième bloc :
+## Unformatted Blocks
 
-    Voici un exemple de code
+### Within a Line
 
-        Le code en exemple..
+To highlight a few words within a larger section of text, use quotation marks.
+The font of the highlighted words or word will change, but the text's overall formatting will remain unchanged. In the example that follows, the star signs ( * ) are added to create even more emphasis.
 
-Voici un exemple de code
+    This text is `important` and here, it becomes even `**more**` important.
 
-    Le code en exemple..
+This text is 'important' and here, it becomes even '**more**' important
 
-Tu peux aussi utiliser 3 guillemets obliques \` pour indiquer le début et la fin du bloc :
+### Over Many Lines
 
+The grayed out blockquotes we've used in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces, or one use of the TAB-key on your keyboard.
 
-    Voici mon code:
+    As an example, here's some text:
+
+        An example of text.
+
+As an example, here's some text:
+
+    An example of text.
+
+You may also insert three grave accents ( ` ) to indicate the beginning and the end of a block of grayed out text:
+
+    Here's my text:
 
     ```
     x = 0
     x = 2 + 2
-    what is x
     ```
 
-Voici mon code:
+Here's my text:
 
 ```
 x = 0
 x = 2 + 2
-what is x
 ```
 
+## Lists
 
+### Unnumbered Lists
 
-## Listes
+You may create unnumbered lists by adding a star sign ( * ) or an underscore sign ( _ ) in front of each portion of text.
 
-### listes non ordonnées
+    * This is some text.
+    * Here, some text.
+    * I just wrote some words.
 
-Tu peux créer une liste non ordonnée en mettant devant chaque article un '*' ou un '_'.
+    - This is some text
+    - Here, some text.
+    - I just wrote some words.
 
-    * Article
-    * Article
-    * Article
+- This is some text
+- Here, some text.
+- I just wrote some words.
 
-    - Article
-    - Article
-    - Article
+### Numbered Lists
 
-- Article
-- Article
-- Article
+You may create a numbered list simply and logically by beginning each list item by a number.
 
-### Listes ordonnées
+    1. This is some text
+    2. Here, some text.
+    3. I just wrote some words.
 
-Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
+1. This is some text
+2. Here, some text.
+3. I just wrote some words.
 
-    1. Article 1
-    2. Article 2
-    3. Article 3
+### Indented Lists
 
-1. Article 1
-2. Article 2
-3. Article 3
+You may create tabbed lists by adding one TAB-key space, or four empty character spaces, in front of the text that needs to be indented.
 
+    1. Write some text here:
+        1. And add a detail about that text here.
+        2. And another detail here.
+    2. Write additional text here:
+        * Add details to your text.
+        * Keep writing.
+        * And some last words.
+    3. Start a new indented sentence.
 
-### Listes imbriquées
+1. Write some text here:
+    1. And add a detail about that text here.
+    2. And another detail here.
+2. Write additional text here:
+  * Add details to your text.
+  * Keep writing.
+  * And some last words.
+3. Start a new indented sentence.
 
-Tu peux créer des listes imbriquées en ajoutant 1 tabulation ou 4 espaces avant les articles de la liste 'fille'.
+## Tables
 
-    1. Article 1
-        1. Un point important de l'article 1.
-        2. Un autre point à considérer.
-    2. Article 2
-        * Une règle dont l'ordre nous indifère.
-        * Une autre règle.
-        * Et une dernière.
-    3. Article 3
+Creating tables with the original version of the Markdown syntax is not possible. We can create them by using a variant of Markdown called "GFM", which stands for "Git-Hub Flavored Markdown".
 
-1. Article 1
-    1. Un point important de l'article 1.
-    2. Un autre point à considérer.
-2. Article 2
-  * Une règle dont l'ordre nous indifère.
-  * Une autre règle.
-  * Et une dernière.
-3. Article 3
+Creating a table consists of drawing your table with symbols as follows:
 
+    | Tables        | Are           | Cool  |
+    | ------------- |:-------------:| -----:|
+    | **col 3 is**  | right-aligned | $1600 |
+    | col 2 is      | *centered*    |   $12 |
+    | zebra stripes | ~~are neat~~  |    $1 |
 
-## Tableaux
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| **col 3 is**  | right-aligned | $1600 |
+| col 2 is      | *centered*    |   $12 |
+| zebra stripes | ~~are neat~~  |    $1 |
 
-Les tableaux tels que tu vas les voir ne font pas partie de Markdown. Par contre, ils font partie de GFM qui est la syntaxe Markdown utilisée par Github.
-Et Showdown qui est utilisé par Natao pour l'affichage comprend le GFM. Donc, autant profiter.
-Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères (ou symboles).
+Columns are drawn by using vertical bars or pipe signs ( | ).
+Table headers are separated from rows by using hyphen-minus signs ( - ).
+Colon signs ( : ) are used to align the columns as follows:
 
-    | Les Tables     | Sont             | Cool  |
-    | -------------- |:----------------:| -----:|
-    | **col 3 est**  | alignée à droite | $1600 |
-    | col 2 est      | *centrée*        |   $12 |
-    | zebra stripes  | ~~une bêtise~~   |    $1 |
+* Place a colon on the right, and the text becomes right-aligned.
+* Place colons on both sides of a vertical bar or pipe, and the text is centered.
+* If not colons are used, the text becomes left-aligned.
 
-
-| Les Tables     | Sont             | Cool  |
-| -------------- |:----------------:| -----:|
-| **col 3 est**  | alignée à droite | $1600 |
-| col 2 est      | *centrée*        |   $12 |
-| zebra stripes  | ~~une bêtise~~   |    $1 |
-
-
-On dessine les colonnes avec des pipes ( `| ), et on sépare l'entête des autre lignes avec le -.
-Les : sur la séparation permettent de choisir comment le texte des colonnes est aligné:
-
-* : à droite, le texte s'aligne à droite
-* des 2 côtés et le texte est centré.
-* si l'on ne précise rien, le texte est aligné à gauche.
-
-Les pipes sont obligatoires pour délimiter les colonnes, mais il n'est pas indispensable qu'elles soient alignées.
-Cela dit, quand elles sont alignées, le Markdown est plus lisible.
+You should note that, although vertical bars or pipes are needed to create columns, they do not need to be aligned for the table appear properly in its final print-ready form. That said, aligning them makes reading the Markdown tables easier.
+Finally, note that the tables will appear in the center of your document's page.
 
 ## Images
 
-Tu peux aussi insérer une image, en utilisant son emplacement, dans l'exemple, son URL :
+You may insert images in your document by directing Natao to the image's URL location on your computer:
 
     ![Image of Yaktocat](./src/images/myLessons.png)
 
 ![Logo de Natao](./natao.png)
 
-Attention, pour l'instant, les images ne sont pas sauvegardées dans Natao. Si tu utilises ta base de données sur plusieurs ordinateurs, il se peut que tu doives modifier l'adresse de l'image, mais tu dois surtout penser à la déplacer avec ton fichier Natao.db.
+Please, be aware that images are not saved within Natao or any of its databases. If you use your database on more than one computer, you will have to copy your image(s) along side the Natao.db file and modify the images' URL within your document.
 
+## Links
 
-## Liens
+### Inline
 
-Showdown et donc Natao permet de faire 2 types de liens:
- * *en ligne*
- * *référence*.
+You can create an inline link by wrapping link-text in brackets ( [ ] ), and then wrapping the link in parentheses ( ( ) ).
 
-### En ligne
+For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a link text that says, Natao is on Github!, you'd write the following Markdown code:
 
-Tu peux créer un lien en ligne en mettant le texte sur lequel figure le lien entre crochets ( `[ ]` ) et tout de suite après, entre parenthèse ( `( )` ), là où conduit ce lien :
+    [Natao is on Github!](https://github.com/Ajrarn/Natao)
 
+[Natao is on Github!](https://github.com/Ajrarn/Natao)
 
-    [Natao est sur Github!](https://github.com/Ajrarn/Natao)
+### Reference
 
-[Natao est sur Github!](https://github.com/Ajrarn/Natao)
+Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:
 
-### Référence
+    Natao should be on [Github][github.natao].
 
-Le lien de type référence utilise une deuxième paire de crochets, dans lequel tu lui donnes un nom unique qui est son identifiant:
+Natao should be on [Github][github.natao].
 
-    Natao est sur [Github][github.natao] normalement.
+Then, anywhere in the document (usually at the end), you define your link-label by putting it in between brackets followed by a colon, and then followed by the destination between quotations marks:
 
-Natao est sur [Github][github.natao] normalement.
+    [github.natao]: https://github.com/Ajrarn/Natao  "Natao on Github"
 
-Notes bien que tu n'as pas encore écrit où allait ce lien. Pour ce faire, mais généralement, on les mets à la fin, tu vas pouvoir définir où va ce lien et lui donner un titre (qaund tu survoles le lien).
-
-Donc tu remets l'identifiant entre crochets, suivi de :, de la destination et enfin d'un titre entre guillemets.
-
-    [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
-
-Tu noteras également que cette description ne s'affiche pas. Mais quand tu survoles le lien de ton texte, tu vois apparaître le titre. Mais à quoi cela peut-il servir ?
-A organiser toutes tes références, mais surtout à réutiliser les mêmes à plusieurs endroits. Il te suffit d'utiliser le même identifiant.
-
+You will note that the link-labels you place at the end of your document remain invisible in the document's final, ready-to-print version. The labels only pop up when you drag your mouse's cursor above the link within your document. 
+Creating those link-labels allows you to stay organized and to use them more than once in your text.
 
 [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
-
-
-
-
-

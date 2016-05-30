@@ -1,6 +1,5 @@
 <div layout="column" flex ng-controller="FirstTimeSettingsController as SettingCtrl">
     <div class="bandeau" layout="row" layout-align="space-between center">
-        <button ng-click="SettingCtrl.save()" ng-show="SettingCtrl.valid" title="{{'SAVE' | translate}}"><span class="typcn typcn-input-checked-outline"></span></button>
     </div>
     <div flex layout="column"  layout-align="start stretch" class="setting">
 
@@ -73,9 +72,5 @@
                 <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
             </label>
         </div>
-        <p ng-show="SettingCtrl.showDone()">{{ 'SETTING_MESSAGE_DONE' | translate }}</p>
-
-
-
     </div>
 </div>

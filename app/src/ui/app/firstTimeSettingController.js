@@ -9,7 +9,6 @@
 
 
     function FirstTimeSettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$translate,$sce,fileDialog) {
-        console.log('FirstTimeSettingsController');
         
         var self = this;
 
@@ -36,8 +35,7 @@
         
 
         self.settingsValide = function() {
-            self.valid = self.PreferencesService.isValid();
-            if (self.valid) {
+            if (self.PreferencesService.isValid()) {
                 self.save();
             }
         };
@@ -51,8 +49,15 @@
         };
 
         self.save = function() {
-            self.PreferencesService.save();
-            $location.path( '/loading' );
+            self.PreferencesService
+                .save()
+                .then(function() {
+                    $location.path( '/loading' );
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+            
         };
         
         
@@ -89,10 +94,6 @@
 
         self.showColor = function() {
             return (self.step > 2)
-        };
-
-        self.showDone = function() {
-            return (self.step > 2 && self.valid)
         };
 
         self.settingsValide();

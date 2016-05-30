@@ -8,33 +8,111 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
 
-    function DocumentsService(PreferencesService,$q) {
-        console.log('DocumentsService');
-
-        this.PreferencesService = PreferencesService;
-        this.$q = $q;
+    function DocumentsService(DatabaseService,PendingService,$q) {
 
         var self = this;
-
+        self.DatabaseService = DatabaseService;
+        self.PendingService = PendingService;
+        self.$q = $q;
 
         self.getDocuments = function() {
+            return self.DatabaseService.find({docName:'markdown'});
+        };
+        
+        self.findDocument = function(id) {
+            return self.DatabaseService.find({docName:'markdown',_id: id});
+        };
 
+        
+        //Create new markdown with defaultCss, title and markdown
+        self.addDocument = function(defaultCss,title,markdown) {
+            
             return self.$q(function(resolve,reject) {
-                var db = self.PreferencesService.getDB();
+                
+                var newMarkDown = {
+                    docName: 'markdown',
+                    title: title,
+                    created: new Date(),
+                    css: defaultCss,
+                    md: ''
+                };
 
-                db.find({docName:'markdown'}).limit(10).exec(function (err, docs) {
-                    if (err) {
+                if (markdown) {
+                    newMarkDown.md = markdown;
+                }
+
+                self.PendingService.start();
+                self.DatabaseService
+                    .insert(newMarkDown)
+                    .then(function(newDoc) {
+                        self.PendingService.stop();
+                        resolve(newDoc);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
                         reject(err);
-                    } else {
-                        resolve(docs);
-                    }
-                });
+                    });
             });
+        };
+        
+        self.updateDocument = function(docSource) {
+            return self.$q(function(resolve,reject) {
+                
+                self.PendingService.start();
+                
+                self.DatabaseService
+                    .update(docSource._id,docSource)
+                    .then(function(doc) {
+                        self.PendingService.stop();
+                        resolve(doc);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
+        };
+
+        self.insertDocument = function(docSource) {
+            return self.$q(function(resolve,reject) {
+
+                self.PendingService.start();
+
+                self.DatabaseService
+                    .insert(docSource)
+                    .then(function(doc) {
+                        self.PendingService.stop();
+                        resolve(doc);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
+        };
+
+        //delete of a document
+        self.deleteDocument = function(id) {
+            
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+
+                self.DatabaseService
+                    .remove(id)
+                    .then(function(numRemoved) {
+                        self.PendingService.stop();
+                        resolve(numRemoved);
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
+   
         };
 
         return self;

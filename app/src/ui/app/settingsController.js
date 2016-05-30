@@ -3,13 +3,16 @@
 
     var beautify_html = require('js-beautify').html;
     var fs = require('fs');
+    var uuid = require('node-uuid');
+    var _ = require('lodash');
 
     angular
         .module('Natao')
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout) {
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,OnBoardingService,
+                                CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService,MessageService) {
 
         var self = this;
 
@@ -26,11 +29,15 @@
         self.$showdown = $showdown;
         self.focus = focus;
         self.$timeout = $timeout;
+        self.TreeUtilService = TreeUtilService;
+        self.PendingService = PendingService;
+        self.MessageService = MessageService;
+        self.OnBoardingService = OnBoardingService;
+        self.MessageService.changeMessage('');
         self.viewer = true;
 
-        /*if (self.CssService && self.CssService.availableCss && self.CssService.availableCss.length> 0) {
-                self.currentCss = self.CssService.availableCss[0];
-        }*/
+        self.buffer = null;
+        self.nodesPendingPaste = 0;
 
         //for codeMirror
         self.cssEditorOptions = {
@@ -56,10 +63,6 @@
         self.documentsPromise = self.DocumentsService.getDocuments();
         self.documentsPromise.then(function(docs) {
             self.documents = docs;
-            /*if (self.documents && self.documents.length > 0){
-                self.currentDoc = self.documents[0];
-                self.changeDocument();
-            }*/
         });
         
         self.setCssEditor = function(editor) {
@@ -97,6 +100,9 @@
             }, false, ['db']);
         };
 
+
+        /* *************CSS**************** */
+
         self.saveCss = function(e) {
             if (self.currentCss) {
                 self.CssService.initCurrentByContent(self.currentCss.css);
@@ -108,11 +114,11 @@
             self.currentHTML = self.$showdown.makeHtml(self.currentDoc.md);
             self.allHtml();
         };
+        
 
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
             self.focus('cssEditor');
-            console.log('selectedPane',self.selectedPane);
         };
 
         self.initAddCss= function() {
@@ -187,7 +193,291 @@
         };
 
 
+        /* *************Templates**************** */
+
+        self.saveTemplate = function(e) {
+            if (self.currentTemplate) {
+                self.TemplateTreeService.saveTemplate(self.currentTemplate);
+            }
+        };
+        
+
+        self.initAddTemplate= function() {
+            self.newTemplateName = null;
+            self.focus('addTemplateName');
+        };
+
+        self.addTemplate = function(hide) {
+            self.TemplateTreeService.addTemplate(self.newTemplateName)
+                .then(function(res) {
+                    self.currentTemplate = res;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+            hide();
+        };
+
+        self.deleteTemplate = function(hide) {
+            self.TemplateTreeService.deleteTemplate(self.currentTemplate);
+            self.currentTemplate = null;
+            hide();
+        };
+
+        // the possible values of folderPopover are ['buttonBar','edit','addFolder','delete']
+        self.openFolderPopover = function(node) {
+            self.currentNode = node;
+            self.newNameFolder = node.name;
+            self.newDefaultCss = node.defaultCss;
+            self.folderPopover = 'buttonBar';
+            self.newColor = node.color;
+        };
+
+        self.pasteButtonDisabled = function() {
+            return !(self.buffer);
+        };
+
+        self.editFolder = function() {
+            self.folderPopover = 'edit';
+            self.focus('folderName');
+        };
+
+
+        self.openAddFolder = function() {
+            self.newFolderName = null;
+            self.folderPopover = 'addFolder';
+            self.templateName = null;
+            self.focus('addFolderName');
+        };
+
+
+        self.openDelete = function() {
+            self.folderPopover = 'delete';
+            self.cancel = false;
+        };
+
+        self.openConfirmTemplate = function() {
+            self.folderPopover = 'confirmTemplate';
+            self.cancel = false;
+        };
+
+        self.cancelAction = function(hide) {
+            self.cancel = true;
+            hide();
+        };
+
+        self.submitFolderPopover = function(hide){
+            switch (self.folderPopover) {
+                case 'edit':
+                    self.saveFolder(hide);
+                    break;
+                case 'addFolder':
+                    self.addFolder(hide);
+                    break;
+                case 'delete':
+                    if (!self.cancel) {
+                        self.deleteNode(self.currentNode);
+                    } else {
+                        hide();
+                    }
+                    break;
+                default: break;
+            }
+        };
+
+        self.copyFolder = function(hide) {
+
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+            hide();
+        };
+
+        self.cutFolder = function(hide) {
+
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.currentNode);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+
+            hide();
+        };
+
+
+        self.pasteFolder = function(hide) {
+
+            if (self.buffer) {
+                self.TreeUtilService
+                    .bufferToNode(self.buffer)
+                    .then(function(node) {
+                        if (self.currentNode && self.currentNode.children) {
+                            self.currentNode.children.push(node);
+                            self.buffer = null;
+                            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                        }
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+            }
+            hide();
+
+        };
+
+        self.addFolder = function(hide) {
+            if (self.newFolderName && self.newFolderName.length > 0) {
+                var newNode = {
+                    id: uuid.v4(),
+                    name: self.newFolderName,
+                    color: '#000000',
+                    children:[]
+                };
+
+                newNode.defaultCss = self.currentNode.defaultCss;
+                self.currentNode.children.push(newNode);
+
+                //and we open the node parent
+                self.expandedNodes.push(self.currentNode);
+
+                // if the new folder is the first one
+                if (!self.selectedNode) {
+                    self.selectedNode = newNode;
+                }
+            }
+            //And we save the modifications
+            self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+            hide();
+        };
+
+        self.saveFolder = function(hide) {
+            if (self.newNameFolder && self.newNameFolder.length > 0) {
+                self.currentNode.name = self.newNameFolder;
+                self.currentNode.color = self.newColor;
+                self.currentNode.defaultCss = self.newDefaultCss;
+
+                //And we save the modifications
+                self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+                hide();
+            }
+        };
+
+        self.deleteNode = function(node) {
+
+            // delete the selectednode if it is the current node
+            if (angular.equals(node,self.selectedNode)) {
+                delete self.selectedNode;
+            }
+
+            // In all case we have to delete it from the tree
+            self.TreeUtilService
+                .deleteNode(node,self.currentTemplate)
+                .then(function() {
+                    //And we save the modifications
+                    self.TemplateTreeService.saveTemplate(self.currentTemplate,self.currentTemplate.name);
+
+                    //we have to clean the expandedNodes
+                    var arrayOfNode = self.TreeUtilService.flatFolders(self.currentTemplate);
+                    self.expandedNodes = _.intersectionWith(self.expandedNodes,arrayOfNode,function(object,other) {
+                        return object.id === other.id;
+                    });
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
+
+
+        };
+        
+
+        self.expand = function(node) {
+            if (self.expandedNodes.indexOf(node) < 0) {
+                self.expandedNodes.push(node);
+            }
+        };
+
+
+        /* ***************************** */
+        self.handleDrop = function(item, bin) {
+
+            var nodeDrag = self.TreeUtilService.getNode(item,self.currentTemplate);
+            var nodeDrop = null;
+
+            if (bin.startsWith('before')) {
+                nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.currentTemplate);
+                self.TreeUtilService.moveBefore(nodeDrag,nodeDrop,self.currentTemplate);
+            } else {
+                if (bin.startsWith('after')) {
+                    nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.currentTemplate);
+                    self.TreeUtilService.moveAfter(nodeDrag,nodeDrop,self.currentTemplate);
+                } else {
+                    nodeDrop = self.TreeUtilService.getNode(bin,self.currentTemplate);
+                    self.TreeUtilService.moveIn(nodeDrag,nodeDrop,self.currentTemplate);
+                    self.expand(nodeDrop);
+                }
+            }
+        };
+
+        self.isFirstChild = function(node) {
+            return self.TreeUtilService.isFirstChild(node,self.currentTemplate);
+        };
+        
+        self.isExpanded = function(node) {
+            return self.expandedNodes && self.expandedNodes.indexOf(node) >= 0;
+        };
+
+        self.showAfter = function(node) {
+            return !(self.isExpanded(node) && node.children.length > 0);
+        };
+
+        self.changeButtonText = function(message) {
+            self.MessageService.changeMessage(message);
+        };
+
+
+
         self.settingsValide();
+
+
+
+        /************onBoarding Style******/
+        self.onBoardingStepsStyle = self.OnBoardingService.getSteps('Style').steps;
+
+        self.onboardingEnabledStyle = self.OnBoardingService.startFirstTour('Style');
+
+        self.finishTourStyle = function() {
+            self.OnBoardingService.finishTour('Style');
+            self.onboardingEnabledStyle = false;
+        };
+
+        self.startTourStyle = function() {
+            self.onboardingIndexStyle = 0;
+            self.onboardingEnabledStyle = true;
+        };
+
+        /************onBoarding Template******/
+        self.onBoardingStepsTemplate = self.OnBoardingService.getSteps('Template').steps;
+
+        self.onboardingEnabledTemplate = self.OnBoardingService.startFirstTour('Template');
+
+        self.finishTourTemplate = function() {
+            self.OnBoardingService.finishTour('Template');
+            self.onboardingEnabledTemplate = false;
+        };
+
+        self.startTourTemplate = function() {
+            self.onboardingIndexTemplate = 0;
+            self.onboardingEnabledTemplate = true;
+        };
 
     }
 

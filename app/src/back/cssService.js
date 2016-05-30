@@ -2,7 +2,8 @@
     "use strict";
 
     var _ = require('lodash')
-        ,fs = require('fs');
+        ,fs = require('fs')
+        ,cssParser = require('css');
 
 
     angular
@@ -12,24 +13,22 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
     //Service itself
-    function CssService($translate,$q,PendingService) {
-        console.log('CssService');
+    function CssService($translate,$q,PendingService,DatabaseService) {
 
         var self = this;
 
         self.$translate = $translate;
         self.$q = $q;
         self.PendingService = PendingService;
+        self.DatabaseService = DatabaseService;
 
 
 
-        self.getInitCss = function(db) {
-            self.db = db;
+        self.getInitCss = function() {
 
             return self.$q(function(resolve,reject) {
 
@@ -48,17 +47,16 @@
                 }
 
                 //Then we search for existing css documents
-                self.db.find({docName:'css'},function(err,docs) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                self.DatabaseService
+                    .find({docName:'css'})
+                    .then(function(docs) {
                         if (docs.length === 0) {
 
                             //If there is no document we will add the defaults css
                             var pathCss = './default_css';
                             self.availableCss = [];
 
-                           //We will read the fils in the path and it to the availableCss
+                            //We will read the fils in the path and it to the availableCss
                             var defaultFilesCss = fs.readdirSync(pathCss);
                             var nbfilesPending = defaultFilesCss.length;
 
@@ -74,36 +72,42 @@
                                     css: cssContent
                                 };
 
-                                self.db.insert(docCss,function(err,doc) {
-                                    if (err) {
-                                        reject(err);
-                                    } else {
+                                self.DatabaseService
+                                    .insert(docCss)
+                                    .then(function(doc) {
                                         self.availableCss.push(doc);
                                         nbfilesPending--;
                                         if (nbfilesPending === 0) {
-                                            defaultCss = _.find(self.availableCss,{default:true});
-                                            resolve(defaultCss);
+                                            self.defaultCss = _.find(self.availableCss, {default: true});
+                                            resolve(self.defaultCss);
                                         }
-                                    }
-                                });
+                                    })
+                                    .catch(function(err) {
+                                        reject(err);
+                                    });
+
                             });
 
                         } else {
                             self.availableCss = docs;
-                            defaultCss = _.find(self.availableCss,{default:true});
-                            resolve(defaultCss);
+                            self.defaultCss = _.find(self.availableCss,{default:true});
+                            resolve(self.defaultCss);
                         }
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });
             });
         };
 
         self.addCss = function(newCss) {
-             self.db.insert(newCss, function(err) {
-                if (err) {
+
+            self.DatabaseService
+                .insert(newCss)
+                .catch(function(err) {
                     console.error(err);
-                }
-             });
+                });
+            
         };
 
         self.addCssNamed = function(nameCss) {
@@ -113,27 +117,30 @@
                 default: false,
                 css: null
             };
+            
 
             return self.$q(function(resolve,reject) {
-                self.db.insert(docCss, function(err,doc) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                
+                self.DatabaseService
+                    .insert(docCss)
+                    .then(function(doc) {
                         self.availableCss.push(doc);
                         resolve(doc);
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });
             });
 
         };
 
         self.initCurrentById = function(idCss) {
             var css = _.find(self.availableCss,{_id:idCss});
-            self.currentCss = css.css;
+            self.currentCss = self.safeCss(css.css);
         };
 
         self.initCurrentByContent = function(css) {
-            self.currentCss = css;
+            self.currentCss = self.safeCss(css);
         };
 
         self.findCssId = function(what) {
@@ -166,22 +173,27 @@
                 }
             }
             if (css._id) {
-                var copyCurrent = {};
-                angular.copy(css,copyCurrent);
-                self.db.update({_id: css._id }, copyCurrent, {}, function (err) {
-                    if (err) {
+                
+                self.DatabaseService
+                    .update(css._id, css)
+                    .then(function(doc) {
+                        css = doc;
+                    })
+                    .catch(function(err) {
                         console.error(err);
-                    }
-                });
+                    });
+            
             } else {
-                self.db.insert(css,function(err,doc) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                
+                self.DatabaseService
+                    .insert(css)
+                    .then(function(doc) {
                         self.availableCss.push(doc);
                         css = doc;
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
         };
 
@@ -193,16 +205,39 @@
                 if (indexCss && indexCss >= 0) {
                     self.availableCss.splice(indexCss,1);
                 }
-
-                self.db.remove({ _id: css._id }, {}, function (err, numRemoved) {
-                    self.PendingService.stop();
-                    if (err) {
+                
+                self.DatabaseService
+                    .remove(css._id)
+                    .catch(function(err) {
                         console.error(err);
-                    } else {
-                        console.log('removed',numRemoved);
-                    }
-                });
+                    });
             }
+        };
+
+        self.safeCss = function(css) {
+            var objCss = cssParser.parse(css);
+
+            var newRules = objCss.stylesheet.rules.map(function(rule) {
+                var newRule = rule;
+                if (rule.type === 'rule') {
+
+                    var newSelectors = rule.selectors.map(function(selector) {
+                        if (!selector.startsWith('.viewer')) {
+                            return '.viewer ' + selector;
+                        } else {
+                            return selector;
+                        }
+                    });
+
+                    newRule.selectors = newSelectors;
+                }
+                return newRule
+            });
+
+            objCss.stylesheet.rules = newRules;
+
+            return cssParser.stringify(objCss);
+
         };
 
         return self;

@@ -12,30 +12,28 @@
 
     //Start of the service
     function run() {
-        console.log('run');
     }
 
 
     //Service itself
-    function TemplateTreeService($translate,$q,CssService) {
-        console.log('TemplateTreeService');
-        this.$translate = $translate;
-        this.$q = $q;
-        this.CssService = CssService;
-
+    function TemplateTreeService($translate,$q,CssService,DatabaseService,PendingService) {
         var self = this;
+
+        self.$translate = $translate;
+        self.$q = $q;
+        self.CssService = CssService;
         self.availableTemplates = [];
+        self.DatabaseService = DatabaseService;
+        self.PendingService = PendingService;
 
 
-        self.getInitTemplate = function(db) {
-            self.db = db;
+        self.getInitTemplate = function() {
 
             return self.$q(function (resolve, reject) {
-
-                self.db.find({docName:'template'},function(err,docs) {
-                    if (err) {
-                        reject(err);
-                    } else {
+                
+                self.DatabaseService
+                    .find({docName:'template'})
+                    .then(function(docs) {
                         if (docs.length === 0) {
                             var templateFile = fs.readFileSync('./languages/templates-' + self.$translate.use() + '.json','utf8');
 
@@ -50,18 +48,19 @@
                                     templates.forEach(function(template) {
                                         template.docName = 'template';
                                         self.adaptCssTemplate(template);
-                                        self.db.insert(template, function (err,doc) {
-                                            if (err) {
-                                                reject(err);
-                                            } else {
+
+                                        self.DatabaseService
+                                            .insert(template)
+                                            .then(function(doc) {
                                                 self.availableTemplates.push(doc);
                                                 nbTemplatesPending--;
                                                 if (nbTemplatesPending === 0) {
-                                                    console.log('templates',self.availableTemplates);
                                                     resolve();
                                                 }
-                                            }
-                                        });
+                                            })
+                                            .catch(function(err) {
+                                                reject(err);
+                                            });
                                     });
                                 }
                                 catch (err) {
@@ -73,8 +72,10 @@
                             self.availableTemplates = docs;
                             resolve();
                         }
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });    
             });
         };
 
@@ -90,13 +91,16 @@
 
         self.deleteDocReference = function(node) {
             if (node.children && node.children.length > 0) {
-                node.children.forEach(function(item) {
-                    if (item.leaf) {
-                        node.children.splice(_.findIndex(node.children,{id:item.id}),1);
-                    } else {
-                        self.deleteDocReference(item);
-                    }
+
+                _.remove(node.children,function(item) {
+                    return item.leaf;
                 });
+
+                if (node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        self.deleteDocReference(item);
+                    });
+                }
             }
         };
 
@@ -105,19 +109,23 @@
             //first we copy the node
             angular.copy(node,template);
             //then delete the document reference from the copy
-            self.deleteDocReference(node);
-
+            self.deleteDocReference(template);
+            delete template._id;
+            
             //we search if the template already exist
             var oldTemplate = self.getTemplate(nameTemplate);
             if (oldTemplate) {
 
                 oldTemplate.children = template.children;
 
-                self.db.update({_id: oldTemplate._id }, oldTemplate, {}, function (err) {
-                    if (err){
+                self.DatabaseService
+                    .update(oldTemplate._id, oldTemplate)
+                    .then(function(doc) {
+                        oldTemplate = doc;
+                    })
+                    .catch(function(err) {
                         console.error(err);
-                    }
-                });
+                    });
 
             } else {
                 //We insert the new template
@@ -127,19 +135,43 @@
                 delete template.id;
 
                 //and finally save it in the database
-                self.db.insert(template, function (err,doc) {
-                    if (err) {
-                        console.error(err);
-                    } else {
+
+                self.DatabaseService
+                    .insert(template)
+                    .then(function(doc) {
                         self.availableTemplates.push(doc);
-                    }
-                });
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                
             }
 
         };
 
         self.getTemplate = function(name) {
             return _.find(self.availableTemplates,{name:name});
+        };
+
+        self.deleteTemplate = function(template) {
+            if (template._id) {
+                self.PendingService.start();
+                var indexTemplate = _.findIndex(self.availableTemplates,{_id:template._id});
+
+                if (indexTemplate && indexTemplate >= 0) {
+                    self.availableTemplates.splice(indexTemplate,1);
+                }
+
+                self.DatabaseService
+                    .remove(template._id)
+                    .then(function(numRemoved) {
+                        self.PendingService.stop();
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        console.error(err);
+                    });
+            }
         };
 
         return self;

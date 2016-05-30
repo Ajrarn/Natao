@@ -1,6 +1,6 @@
 **Bonjour, et Bienvenue dans Natao.**
 
-Pour ton confort, avant de poursuivre, règles la taille des caractères avec les petites loupes en haut à gauche, et eventuellement avec le bouton engrenage situé juste au dessus de l'éditeur (pas celui qui est tout en haut à droite).
+Pour ton confort, avant de poursuivre, règles la taille des caractères avec les petites loupes en haut à gauche (dans la grande barre noire), et eventuellement avec le bouton engrenage situé juste au dessus de l'éditeur (pas celui qui est tout en haut à droite).
 
 Tu dois te demander ce que tu peux faire avec ce logigiel, et comment l'utiliser.
 Ce premier document est à la fois un mini-guide et un exemple de son utilisation.

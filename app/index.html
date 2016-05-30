@@ -11,11 +11,13 @@
     <link rel="stylesheet" type="text/css" href="bower_components/codemirror/addon/hint/show-hint.css">
     <link rel="stylesheet" type="text/css" href="bower_components/codemirror/addon/fold/foldgutter.css">
     <link rel="stylesheet" type="text/css" href="bower_components/Inlet/inlet.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/ngOnboarding/dist/ng-onboarding.css">
     <link rel="stylesheet" type="text/css" href="src/styles/index.css"/>
     <style ng-bind="appCtrl.CssService.currentCss"></style>
 </head>
 <body layout="column" ng-class="{dyslexic : appCtrl.PreferencesService.preferences.showDys}">
     <div flex layout="row" ng-view ng-class="appCtrl.PreferencesService.preferences.colorTheme"></div>
+    <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="./bower_components/showdown/dist/showdown.js"></script>
     <script type="text/javascript" src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -30,7 +32,7 @@
     <script type="text/javascript" src="./bower_components/angular-ui-switch/angular-ui-switch.js"></script>
     <script type="text/javascript" src="./bower_components/nsPopover/src/nsPopover.js"></script>
     <script type="text/javascript" src="./bower_components/ng-showdown/dist/ng-showdown.js"></script>
-    <script type="text/javascript" src="./bower_components/MathJax/MathJax.js?config=AM_HTMLorMML"></script>
+    <script type="text/javascript" src="./bower_components/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
     <script type="text/javascript" src="./bower_components/ngjs-color-picker/js/ngjs-color-picker.js"></script>
     <script type="text/javascript" src="./bower_components/codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="./bower_components/codemirror/mode/markdown/markdown.js"></script>
@@ -54,10 +56,14 @@
     <script type="text/javascript" src="./bower_components/Inlet/src/Color.Space.js"></script>
     <script type="text/javascript" src="./bower_components/Inlet/src/inlet.js"></script>
     <script type="text/javascript" src="./bower_components/angular-ui-codemirror/ui-codemirror.min.js"></script>
+    <script type="text/javascript" src="src/utils/ngOnBoarding/ng-onboarding.js"></script>
     <script type="text/javascript" src="src/ui/app/app.js"></script>
     <script type="text/javascript" src="src/utils/focus.js"></script>
     <script type="text/javascript" src="src/utils/tabs.js"></script>
     <script type="text/javascript" src="src/utils/loader.js"></script>
+    <script type="text/javascript" src="src/utils/dragDrop.js"></script>
+    <script type="text/javascript" src="src/utils/combineScroll.js"></script>
+    <script type="text/javascript" src="src/utils/messageComponent.js"></script>
     <script type="text/javascript" src="src/ui/app/appConfig.js"></script>
     <script type="text/javascript" src="src/ui/app/appConfigMathJax.js"></script>
     <script type="text/javascript" src="src/ui/app/appRoute.js"></script>
@@ -68,6 +74,9 @@
     <script type="text/javascript" src="src/back/cssService.js"></script>
     <script type="text/javascript" src="src/back/pendingService.js"></script>
     <script type="text/javascript" src="src/back/templateTreeService.js"></script>
+    <script type="text/javascript" src="src/back/treeUtilService.js"></script>
+    <script type="text/javascript" src="src/back/colorPickerService.js"></script>
+    <script type="text/javascript" src="src/back/onBoardingService.js"></script>
     <script type="text/javascript" src="src/ui/app/appController.js"></script>
     <script type="text/javascript" src="src/ui/app/firstTimeSettingController.js"></script>
     <script type="text/javascript" src="src/ui/app/settingsController.js"></script>

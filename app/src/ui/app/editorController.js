@@ -8,19 +8,24 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService) {
-        console.log('EditorController');
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService) {
 
         var self = this;
         //self.$showdown = $showdown;
         self.$timeout = $timeout;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
+        self.DocumentsService = DocumentsService;
+        self.$rootScope = $rootScope;
         self.fileDialog = fileDialog;
         self.$location = $location;
+        self.MessageService = MessageService;
+        self.OnBoardingService = OnBoardingService;
+        self.MessageService.changeMessage('');
         self.inPrint = false;
         self.focus = focus;
         self.editorOptions = {
@@ -30,42 +35,145 @@
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             mode: 'gfm'
         };
+        self.buffer = null;
+        self.buttonTextActive = false;
 
-        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        //Init of the current Markdown
+        if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
+            self.DocumentsService
+                .findDocument(self.PrincipalTreeService.principalTree.currentMarkdownId)
+                .then(function(docs) {
+                    self.currentMarkdown = docs[0];
+                    self.CssService.initCurrentById(self.currentMarkdown.css);
+                    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                }).catch(function(err) {
+                    console.error(err);
+                });
+        }
 
-        // options for the color Picker
-        self.optionsColumn = {
-            columns: 4,
-            roundCorners: true
+        // to ensure that the <a href> wil open in a browser not in Natao
+        // We have to watch the current markdown and force the behavior of all <a href>
+        self.$rootScope.$watch(function(){
+            return self.currentMarkdownCode;
+        },function() {
+            self.$timeout(function() {
+                $('.viewer a').on('click', function(){
+                    require('nw.gui').Shell.openExternal( this.href );
+                    return false;
+                });
+            },0,false);
+        });
+
+
+        //catch after editor loaded
+        self.codeMirrorLoaded = function(editor) {
+            self.codeMirror = editor;
+
+            //This will synchronize the 2 scrollbar
+            var elements = $('.CodeMirror-vscrollbar');
+            //var avgScroll = 0;
+            var ratioTop = 0;
+            elements.on('scroll', function(e){
+
+                if (self.PreferencesService.preferences.syncScroll) {
+                    if (e.isTrigger){
+                        //e.target.scrollTop = Math.round(avgScroll * e.target.scrollHeight - e.target.clientHeight / 2);
+                        e.target.scrollTop = Math.round((e.target.scrollHeight - e.target.clientHeight) * ratioTop);
+                    }else {
+                        //avgScroll = (e.target.scrollTop + e.target.clientHeight / 2) / e.target.scrollHeight;
+                        ratioTop = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight);
+
+                        elements.each(function (element) {
+                            if( !this.isSameNode(e.target) ){
+                                $(this).trigger('scroll');
+                            }
+                        });
+                    }
+                }
+            });
+            
         };
 
-        self.customColors = ['#7bd148', '#5484ed', '#a4bdfc', '#46d6db', '#7ae7bf', '#51b749', '#fbd75b', '#ffb878', '#ff887c', '#dc2127', '#dbadff', '#000000' ];
         
-
         self.refresh = function() {
-
-            // to avoid save (which is blocking for the user) at each change, we use a timeout at 1s.
+            // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
             if (self.refreshTimeout) {
                 clearTimeout(self.refreshTimeout);
             }
             self.refreshTimeout = setTimeout(function() {
                 self.refreshTimeout = null;
-                self.PrincipalTreeService.saveCurrent();
+                self.saveCurrentMarkdown();
+                //this one is for the watcher of <a href>
+                self.currentMarkdownCode = self.currentMarkdown.md;
             },1000);
 
         };
+
+        self.refreshMath = function() {
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        };
+
+
+        self.saveCurrentMarkdown = function() {
+
+            if (self.currentMarkdown) {
+                self.CssService.initCurrentById(self.currentMarkdown.css);
+
+                self.DocumentsService
+                    .updateDocument(self.currentMarkdown)
+                    .then(function(doc) {
+                        self.PrincipalTreeService.principalTree.selectedNode.name = doc.title;
+
+                        self.PrincipalTreeService.save();
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+            }
+        };
+
+        self.selectNode = function(node) {
+            if (node.leaf) {
+                if ( !self.PrincipalTreeService.principalTree.currentMarkdownId || (self.PrincipalTreeService.principalTree.currentMarkdownId && node.id !== self.currentMarkdownId)) {
+
+                    self.DocumentsService
+                        .findDocument(node.id)
+                        .then(function(docs){
+                            if (docs && docs.length > 0){
+                                self.currentMarkdown = docs[0];
+                                //this one is for the watcher of <a href>
+                                self.currentMarkdownCode = self.currentMarkdown.md;
+                                self.CssService.initCurrentById(self.currentMarkdown.css);
+                                self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
+                                self.PrincipalTreeService.save();
+
+                                setTimeout(self.refreshMath, 100);  //without angular $digest
+                            }
+                        })
+                        .catch(function(err){
+                            console.error(err);
+                        });
+                }
+            }
+        };
+
+        //select current selected node if necessary
+        if(self.PrincipalTreeService && self.PrincipalTreeService.principalTree && self.PrincipalTreeService.principalTree.selectedNode) {
+            self.selectNode(self.PrincipalTreeService.principalTree.selectedNode);
+        }
 
         self.offPrint = function() {
             self.inPrint = false;
         };
 
         self.showViewer = function() {
-            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showViewer;
+            return self.currentMarkdown && self.PreferencesService.preferences.showViewer;
         };
 
         self.showEditor = function() {
-            return self.PrincipalTreeService.currentMarkdown && self.PreferencesService.preferences.showEditor;
+            return self.currentMarkdown && self.PreferencesService.preferences.showEditor;
         };
 
         self.print = function() {
@@ -84,15 +192,21 @@
 
         self.addClassPopover = function(hide){
             if (self.newClass && self.newClass !== '') {
-                self.PrincipalTreeService.addClass(self.newClass,self.templateName);
+                self.PrincipalTreeService.addFolder(self.newClass,null,self.templateName);
             }
             hide();
         };
+        
+        
 
 
         // -------------------Folder Popover -----------------
 
         // the possible values of folderPopover are ['buttonBar','edit','addFolder','addDocument','delete','saveTemplate']
+        
+        self.changeButtonText = function(message) {
+            self.MessageService.changeMessage(message);
+        };
 
         self.openFolderPopover = function(node) {
             self.currentNode = node;
@@ -100,11 +214,10 @@
             self.newDefaultCss = node.defaultCss;
             self.folderPopover = 'buttonBar';
             self.newColor = node.color;
-            console.log('disabled',self.pasteButtonDisabled());
         };
 
         self.pasteButtonDisabled = function() {
-            return !(self.PrincipalTreeService && self.PrincipalTreeService.principalTree && self.PrincipalTreeService.principalTree.buffer && self.PrincipalTreeService.principalTree.buffer.tree  && self.PrincipalTreeService.docsPendingForBuffer === 0);
+            return !(self.buffer);
         };
 
         self.editFolder = function() {
@@ -171,93 +284,241 @@
                     break;
                 case 'delete':
                     if (!self.cancel) {
-                        self.PrincipalTreeService.deleteNode(self.currentNode);
-                    } else {
-                        hide();
+                        self.PrincipalTreeService
+                            .deleteNode(self.currentNode)
+                            .catch(function(err) {
+                                console.error(err);
+                            });
                     }
+                    hide();
                     break;
                 default: break;
             }
         };
 
         self.copyFolder = function(hide) {
-            self.PrincipalTreeService.copyNodeFolder(self.currentNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.copyDocument = function() {
-            self.PrincipalTreeService.copyNodeFolder(self.PrincipalTreeService.principalTree.selectedNode);
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
+            self.TreeUtilService
+                .nodeToBuffer(documentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
         };
 
         self.cutFolder = function(hide) {
-            self.PrincipalTreeService.cutNodefolder(self.currentNode);
+            self.TreeUtilService
+                .nodeToBuffer(self.currentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
         self.cutDocument = function() {
-            self.PrincipalTreeService.cutNodefolder(self.PrincipalTreeService.principalTree.selectedNode);
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
+            self.TreeUtilService
+                .nodeToBuffer(documentNode)
+                .then(function(buffer) {
+                    self.buffer = buffer;
+                    self.PrincipalTreeService.deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
         };
 
         self.deleteDocument = function(hide) {
-            self.PrincipalTreeService.deleteNode(self.PrincipalTreeService.principalTree.selectedNode);
+
+            var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
+            self.PrincipalTreeService
+                .deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree)
+                .then(function() {
+                    //and check the selected markdown
+                    var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
+                    if (!selNode) {
+                        self.PrincipalTreeService.principalTree.currentMarkdownId = null;
+                        self.PrincipalTreeService.save();
+                        self.currentMarkdown = null;
+                    }
+                })
+                .catch(function(err) {
+                    console.error(err);
+                });
             hide();
         };
 
-        self.exportDocument = function() {
+        self.exportDocument = function(hide) {
+
+            hide();
+
+            var defaultFile;
+            var accept;
+
+            switch (self.fileFormat) {
+                case 'md':
+                    defaultFile = self.currentMarkdown.title +'.md';
+                    accept = 'text/markdown';
+                    break;
+                // json is the default file format
+                default:
+                    defaultFile = self.currentMarkdown.title +'.json';
+                    accept = 'application/json';
+                    break;
+            }
+
+            self.fileFormat = null;
+
+
             self.fileDialog.saveAs(function(filename) {
-                self.PrincipalTreeService.exportTo(self.PrincipalTreeService.principalTree.selectedNode,filename);
-            },'nataoExport.json',['json']);
+
+                var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
+
+                self.TreeUtilService
+                    .nodeToBuffer(documentNode)
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToFile(buffer,filename)
+                            .catch(function(err) {
+                                console.error(err);
+                            })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                
+            },defaultFile,accept);
+
         };
 
         self.pasteFolder = function(hide) {
-            if (hide) {
-                self.PrincipalTreeService.pasteBufferToNode(self.currentNode);
-                hide();
-            } else {
-                //it's done without selecting a node so the node will be the tree himself
-                self.PrincipalTreeService.pasteBufferToNode(self.PrincipalTreeService.principalTree.tree);
+
+            if (self.buffer) {
+                self.TreeUtilService
+                    .bufferToNode(self.buffer)
+                    .then(function(node) {
+                        if (hide) {
+                            // then the paste command is past from the tree
+                            if (self.currentNode && self.currentNode.children) {
+                                self.currentNode.children.push(node);
+                            }
+                            hide();
+                        } else {
+                            //the command was past by the toolbar
+                            self.PrincipalTreeService.principalTree.tree.children.push(node);
+                        }
+                        self.buffer = null;
+                        self.PrincipalTreeService.save();
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
         };
 
 
         self.exportTo = function(hide) {
             self.fileDialog.saveAs(function(filename) {
-                self.PrincipalTreeService.exportTo(self.currentNode,filename);
+
+                self.TreeUtilService
+                    .nodeToBuffer(self.PrincipalTreeService.principalTree.selectedNode)
+                    .then(function(buffer) {
+                        self.TreeUtilService
+                            .bufferToFile(buffer,filename)
+                            .catch(function(err) {
+                            console.error(err);
+                        })
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
                 hide();
-            },'nataoExport.json',['json']);
+            },'nataoExport.json','application/json');
         };
 
         self.importFrom = function(hide) {
+
+            var nodeIn;
+
+            if (hide) {
+                nodeIn = self.currentNode;
+                hide();
+            } else {
+                nodeIn = self.PrincipalTreeService.principalTree.tree;
+            }
+
             self.fileDialog.openFile(function(filename) {
-                if (hide) {
-                    self.PrincipalTreeService.importFrom(self.currentNode,filename);
-                    hide();
-                } else {
-                    self.PrincipalTreeService.importFrom(self.PrincipalTreeService.principalTree.tree,filename);
-                }
-            }, false, ['json']);
+
+                self.TreeUtilService
+                    .fileToBuffer(filename)
+                    .then(function(buffer) {
+
+                        self.TreeUtilService
+                            .bufferToNode(buffer)
+                            .then(function(nodeToInsert) {
+                                nodeIn.children.push(nodeToInsert);
+                                self.expand(nodeIn);
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            })
+
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    })
+
+            }, false,['text/markdown','application/json']);
         };
 
         self.saveTemplate = function(hide) {
             if (self.templateName && self.templateName.length > 0) {
-                if (self.PrincipalTreeService.TemplateTreeService.getTemplate(self.templateName)) {
+                if (self.TemplateTreeService.getTemplate(self.templateName)) {
                     self.openConfirmTemplate();
                 } else {
-                    self.PrincipalTreeService.saveTemplate(self.currentNode,self.templateName);
+                    self.TemplateTreeService.saveTemplate(self.currentNode,self.templateName);
                     hide();
                 }
             }
         };
 
         self.saveForceTemplate = function(hide) {
-            self.PrincipalTreeService.saveTemplate(self.currentNode,self.templateName);
+            self.TemplateTreeService.saveTemplate(self.currentNode,self.templateName);
             hide();
         };
 
 
         self.addFolder = function(hide) {
             if (self.newFolderName && self.newFolderName.length > 0) {
-                self.PrincipalTreeService.addFolder(self.newFolderName, self.currentNode, self.templateName);
+                self.PrincipalTreeService
+                    .addFolder(self.newFolderName, self.currentNode, self.templateName)
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
             hide();
         };
@@ -274,11 +535,95 @@
 
         self.addDocument = function(hide) {
             if (self.newDocumentName && self.newDocumentName.length > 0) {
-                self.PrincipalTreeService.addMarkdown(self.currentNode,self.newDocumentName);
+
+                self.DocumentsService
+                    .addDocument(self.currentNode.defaultCss,self.newDocumentName)
+                    .then(function(newDoc) {
+                        var newNode = {
+                            id: newDoc._id,
+                            name: newDoc.title,
+                            leaf: true
+                        };
+
+                        self.currentNode.children.push(newNode);
+                        self.PrincipalTreeService.principalTree.selectedNode = newNode;
+                        self.selectNode(newNode);
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
             }
             hide();
         };
 
+
+        /* ************* Drag Drop ********/
+        self.handleDrop = function(item, bin) {
+
+            var nodeDrag = self.TreeUtilService.getNode(item,self.PrincipalTreeService.principalTree.tree);
+            var nodeDrop = null;
+
+            if (bin.startsWith('before')) {
+                nodeDrop = self.TreeUtilService.getNode(bin.replace('before',''),self.PrincipalTreeService.principalTree.tree);
+                self.TreeUtilService.moveBefore(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+            } else {
+                if (bin.startsWith('after')) {
+                    nodeDrop = self.TreeUtilService.getNode(bin.replace('after',''),self.PrincipalTreeService.principalTree.tree);
+                    self.TreeUtilService.moveAfter(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                } else {
+                    nodeDrop = self.TreeUtilService.getNode(bin,self.PrincipalTreeService.principalTree.tree);
+                    self.TreeUtilService.moveIn(nodeDrag,nodeDrop,self.PrincipalTreeService.principalTree.tree);
+                    self.expand(nodeDrop);
+                }
+            }
+        };
+
+
+        self.expand = function(node) {
+            if (self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) < 0) {
+                self.PrincipalTreeService.principalTree.expandedNodes.push(node);
+            }
+        };
+
+        self.isFirstChild = function(node) {
+            return self.TreeUtilService.isFirstChild(node,self.PrincipalTreeService.principalTree.tree);
+        };
+
+        self.isExpanded = function(node) {
+            return self.PrincipalTreeService.principalTree.expandedNodes && self.PrincipalTreeService.principalTree.expandedNodes.indexOf(node) >= 0;
+        };
+
+        self.showAfter = function(node) {
+            return !(self.isExpanded(node) && node.children.length > 0);
+        };
+
+        /* *********** Editor Setting *************/
+        self.changeSpace = function () {
+            self.PreferencesService.savePreferences();
+            var markdown = self.currentMarkdown;
+            self.currentMarkdown = null;
+
+            self.$timeout(function() {
+                self.currentMarkdown = markdown;
+            },100);
+
+        };
+
+
+        /************onBoarding ******/
+        self.onBoardingSteps = self.OnBoardingService.getSteps('Editor').steps;
+
+        self.onboardingEnabled = self.OnBoardingService.startFirstTour('Editor');
+
+        self.finishTour = function() {
+            self.OnBoardingService.finishTour('Editor');
+            self.onboardingEnabled = false;
+        };
+
+        self.startTour = function() {
+            self.onboardingIndex = 0;
+            self.onboardingEnabled = true;
+        };
     }
 
 }());

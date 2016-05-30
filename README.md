@@ -1,2 +1,2 @@
 # Natao
-a Markdown, AsciiMath for student
+a Markdown, AsciiMath Editor for Dys student
