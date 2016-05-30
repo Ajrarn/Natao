@@ -1,6 +1,6 @@
 {
   "name": "Natao",
-  "version": "1.0.0-alpha2",
+  "version": "1.0.0-beta.1",
   "description": "A Markdown, AsciiMath Editor for school",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
