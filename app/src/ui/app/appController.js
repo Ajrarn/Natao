@@ -31,7 +31,7 @@
 
         // For a good date translation
         $translate.onReady().then(function() {
-            tmhDynamicLocale.set($translate.resolveClientLocale());
+            tmhDynamicLocale.set($translate.resolveClientLocale().replace('_','-').toLowerCase());
         });
 
         var self = this;
