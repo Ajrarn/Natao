@@ -1,0 +1,103 @@
+{
+  "texts": {
+    "nextButtonText": "Next <span class=\"typcn typcn-arrow-right-thick\"></span>",
+    "previousButtonText": "&larr; Previous",
+    "doneButtonText": "End",
+    "actualStepText": "Step",
+    "totalStepText": "of"
+  },
+  "tours": [
+    {
+      "tour": "Editor",
+      "steps": [
+        {
+          "title": "Bienvenue!",
+          "position": "centered",
+          "description": "Bienvenue dans Natao ! <br><br> Je t'invite à faire une visite guidée.<br> Tu peux la quitter à tout instant en cliquant sur la croix."
+        },
+        {
+          "title": "La Barre d'outils",
+          "description": "Nous allons détailler celle-ci dans les étapes suivantes de cette visite.<br> Je souhaite juste te faire remarquer le grand espace noir entre les 2 groupes de boutons. Dans celui-ci, tu verras apparâitre ce que fait chaque bouton en survolant (avec la souris) ce dernier.",
+          "attachTo": "#toolbar",
+          "position": "bottom",
+          "xOffset": 300
+        },
+        {
+          "title": "Les réglages visuels",
+          "description": "Tu peux ici faire les réglages nécessaires à ton confort visuel. <br> Zoome ou dézoome pour changer la taille des caractères. <br> Actives ou désactives la police Open-dyslexic qui facilite la lecture.",
+          "attachTo": "#zoomPart",
+          "position": "bottom"
+        },
+        {
+          "title": "Activation désactivation des panneaux",
+          "description": "Tu peux ici activer ou désactiver les 3 panneaux qui composent Natao. <br> - L'explorateur de documents<br> - L'éditeur <br> - Le panneau de visualisation",
+          "attachTo": "#toggleViews",
+          "position": "bottom"
+        },
+        {
+          "title": "Les outils",
+          "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (pour une interrogation par exemple) <br> - Imprimer le document <br> - Afficher l'aide <br> - Lancer la visite guidée (si tu souhaites les revoir, il faut les activer dans les réglages) <br> - Accéder aux réglages",
+          "attachTo": "#rightButtons",
+          "position": "bottom"
+        },
+        {
+          "title": "L'explorateur de documents",
+          "description": "Tu pourras y ranger tous tes documents, dans des dossiers, et les organiser comme bon te semble",
+          "attachTo": "#menu",
+          "position": "right"
+        },
+        {
+          "title": "L'éditeur Markdown",
+          "description": "C'est ici que tu rédigeras tes documents en utilisant la syntaxe Markdown.<br>Cette syntaxe qui n'est pas compliquée, tu pourras l'apprendre avec Natao",
+          "attachTo": "#editor",
+          "position": "right"
+        },
+        {
+          "title": "Le panneau de visualisation",
+          "description": "Ce dernier panneau est celui où tu peux voir à quoi ressemblera ton document mis en page, avant de l'imprimer.",
+          "attachTo": "#viewer",
+          "position": "left"
+        },
+        {
+          "title": "Prèt à continuer ?",
+          "position": "centered",
+          "description": "C'est ici que s'achève la visite guidée, mais ton voyage ne fait que commencer.<br>Je t'invite maintenant à lire le document fourni en exemple. Il est à la fois un mini-guide sur Natao est un exemple de son utilisation.<br>A bientôt."
+        }
+      ]
+    },
+    {
+      "tour": "Style",
+      "steps": [
+        {
+          "title": "Découvrons l'éditeur de style !",
+          "position": "centered",
+          "description": "Nous allons découvrir ensemble l'éditeur de style."
+        },
+        {
+          "title": "L'éditeur css",
+          "description": "Cet éditeur te permet d'éditer les feuilles de style en Css.<br> Le seul petit ajout à l'éditeur est un outil qui permet de sélectionner les couleurs, à condition d'avoir déjà écrit un code couleur (par exemple #213421).",
+          "attachTo": "#styleEditor",
+          "position": "right"
+        },
+        {
+          "title": "Le panneau de visualisation",
+          "description": "Ce panneau permet de sélectionner un document exemple parmi une petite liste de tes propres documents Markdown.<br> Tu peux basculer l'affichage en mode visualisation, ou voir le code HTML généré par Natao. Ce code HTML est essentiel pour écrire du Css.",
+          "attachTo": "#styleViewer",
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "tour": "Template",
+      "steps": [
+        {
+          "title": "Découvrons l'éditeur de structure de dossiers !",
+          "position": "centered",
+          "description": "Ce panneau ressemble à l'explorateur de documents.<br> Mais ici tu ne pourras manipuler que des dossiers ou sous dossiers, te permettant de créer un modèle de classement : une structure.",
+          "attachTo": "#templateExplorer"
+        }
+      ]
+    }
+  ]
+}
+
