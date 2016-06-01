@@ -1,58 +1,64 @@
 # MathJax
 
-La possibilité d'écrire des formules mathématiques n'est pas incluse dans le langage Markdown.
-Par contre, il existe un produit, appelé MathJax qui permet de le faire. Natao l'inclut donc également.
-MathJax permet de lire plusieurs syntaxe différentes :
+One cannot write mathematical formulae with the Markdown language. Another markup language, MathJax, permits it, which is why it's been included in Natao.
 
-* MathML
-* TeX
-* AsciiMath
+Although MathJax supports three different syntaxes (MathML, TeX, and AsciiMath), Natao's current version can only accommodate TeX and AsciiMath.
 
-Actuellement, Natao te permet d'utiliser TeX et AsciiMath. Pour cela, tu vas devoir entourer tes formules de caractères destinés à MathJax. Ces caractères lui permettront de savoir ce qu'il doit transformer en formules.
+To let Natao know that part of your text is a mathematical formula, simply surround it with MathJax characters.
 
-## Comment signaler les formules TeX
-Pour TeX, il existe 2 signalétiques, la première permet d'utiliser des formules dans la ligne courante et utilise 2 $.
+## Writing formuale in TeX
 
-	>Le partage du butin a été établi comme suit $$\frac{1}{2}$$ pour le capitaine, $$\frac{1}{4}$$ pour le navigateur, et l'équipage se partage le reste.
+In TeX, math formulae can appear in two forms.
 
-Ce qui donne :
->Le partage du butin a été établi comme suit $$\frac{1}{2}$$ pour le capitaine, $$\frac{1}{4}$$ pour le navigateur, et l'équipage se partage le reste.
+### Inline Formulae:
 
-La seconde signalétique permet d'écrire la formule à la ligne et centrée. On utilise pour cela 3$.
+The formula appears within a line of text. Simply start and end your formula with two dollar signs [$$]:
 
-	>Voici du texte suivi d'une formule $$$ \sqrt{\frac{1}{3}} $$$ et la formule et sa suite apparaissent séparés.
+	>The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
 
-ce qui donne :
+Which gives:
 
->Voici du texte suivi d'une formule $$$ \sqrt{\frac{1}{3}} $$$ et la formule et sa suite apparaissent séparés.
+>The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
 
-Comme tu le verras par la suite, je n'ai pas documenté cette syntaxe ici. J'ai choisi de présenter uniquement AsciiMath, car c'est la syntaxe la plus simple et la plus courte, d'une part et également car TeX, étant la référence, est particulièrement bien documentée sur internet.
+### Centered Formulae
 
-## Comment signaler les formules AsciiMath
-Pour AsciiMath, il n'existe qu'une seule formule magique, entourer ta formule de maths de 2 @.
-Cela correspond à une formule dans la ligne courante. A toi de changer de paragraphe si tu souhaites la séparer du texte qui l'entoure.
+The formula appears after the line of text, in the center of the document's page. Start and end your formula with three dollar signs [$$$]:
 
-	>Le partage du butin a été établi comme suit @@1/2@@ pour le capitaine, @@1/4@@ pour le navigateur, et l'équipage se partage le reste.
+	>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
 
-ce qui donne :
+Which gives:
 
->Le partage du butin a été établi comme suit @@1/2@@ pour le capitaine, @@1/4@@ pour le navigateur, et l'équipage se partage le reste.
+>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
 
-# Les bases d'AsciiMath
+##Writing formuale in AsciiMath
 
-## Poser des opérations
-Tout d'abord, tu dois savoir que Natao ne te permet pas de poser des opérations, tu pourras seulement les écrire en ligne.
-Je vais te donner de quoi commencer à l'utiliser:
+With AsciiMath, you only need to surround your mathematical formula with two at-signs [@@]. The math will then appear as an inline formula, within the rest of the text.
 
-| Caractère souhaité | Syntaxe | Caractère souhaité | Syntaxe |
-|:------------------:|:-------:|:------------------:|:-------:|
-| @@=@@              | =       | @@!=@@             | !=      |
-| @@+@@              | +       | @@<@@              | <       |
-| @@-@@              | -       | @@<=@@             | <=      |
-| @@xx@@             | xx      | @@>@@              | >       |
-| @@-:@@             | -:      | @@>=@@             | >=      |
+	>The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
 
-Ainsi tu peux écrire :
+Which gives:
+
+>The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
+
+To have the formula appear on its own in the center of the page, simply create a new paragraph using the Makdown syntax, as follows:
+
+>Here is some text followed by a formula @@1/3@@. The formula appear separate from the text.
+
+# Basic AsciiMath
+
+## Basic Operations
+
+Natao can only allow you to write in-line operations. Here are some examples:
+
+|  Syntax  | Character |  Syntax  | Character |
+|:--------:|:---------:|:--------:|:---------:|
+| @@=@@    | =         | @@!=@@   | !=        |
+| @@+@@    | +         | @@<@@    | <         |
+| @@-@@    | -         | @@<=@@   | <=        |
+| @@xx@@   | xx        | @@>@@    | >         |
+| @@-:@@   | -:        | @@>=@@   | >=        |
+
+You may thus write:
 
 	>@@4 xx 3 = 12@@
 
@@ -60,7 +66,7 @@ Ainsi tu peux écrire :
 
     >@@200mm < 25cm <= 3dm@@
 
-pour obtenir :
+to obtain :
 
 >@@4 xx 3 = 12@@
 
@@ -68,41 +74,43 @@ pour obtenir :
 
 >@@200mm < 25cm <= 3dm@@
 
-Penses toujours à mettre des espaces autour des symboles < et > pour éviter qu'il y ait une confusion avec le html.
+Remember to leave spaces before and after the less-than ( < ) and greater-than signs ( > ) to avoid any confusion with HTML.
 
-## Les fractions
-Il est très simple d'écrire des fractions, il suffit d'utiliser le symbole "/" pour séparer les deux parties de celle-ci:
-Tu peux donc ecrire ceci:
+## Fractions
+
+Use the slash sign ( / ) to separate two portion of a single formula, as follows:
 
 	>@@1/2 + 1/4 = 3/4@@
 
-Pour obtenir cela:
+You should get the following:
 
 >@@1/2 + 1/4 = 3/4@@
 
-
 ## pi
-On va rajouter @@pi@@ pour ceux qui ont commencé les périmètres des cercles, et te voila déjà outillé pour les premières classes:
 
-| Caractère souhaité | Syntaxe |
-|:------------------:|:-------:|
-| @@pi@@              | pi     |
+f you have started calculating circle perimeters, you may use the Pi sign by surrounding it with two at signs ( @ ), as follows:
 
-Ainsi, tu pourras écrire:
+|  Syntax  | Charcater |
+|:--------:|:---------:|
+| @@pi@@   | pi        |
 
-@@périmètre = 2 xx pi xx rayon @@
+You may thus write:
 
-# Concepts un peu plus avancés
+@@perimeter = 2 xx pi xx radius @@
 
-## Indice et exposant
-Tu peux utiliser le symbole "\_" pour mettre du texte en indice, et le symbole "^" pour mettre du texte en exposant.
+# Advanced Operations
+
+## Indexes & Exponents
+
+You may use the underscore sign ( _ ) after a plain text number or expression to indicate that an index follows. When a caret sign ( ^ ) is written after a plain text number or expression, an exponent appears.
 
 	>@@x_1@@
 
     >@@x^2@@
 
     >@@x_1^2@@
-donne :
+
+Gives:
 
 >@@x_1@@
 
@@ -110,9 +118,9 @@ donne :
 
 >@@x_1^2@@
 
-Il est important de noter que quand tu as besoin des deux, tu dois toujours utiliser l'indice avant l'exposant.
+You should note that when you need to have the two of them at the same time, you should always use the index sign first.
 
-Ces 2 syntaxes ont d'autres effets sur les éléments de formule qui ont besoin d'indice et/ou d'exposant :
+These two types of symbols can also be used to changed the elements of a mathematical expression formula.
 
 	>@@sum_(n=1)^(n=5) 4^n@@
 
@@ -122,153 +130,153 @@ Ces 2 syntaxes ont d'autres effets sur les éléments de formule qui ont besoin 
 
 >@@int_0^1 f(x)dx@@
 
-## Les matrices et vecteurs
+## Matrices & Vectors
 
-Il te suffit d'écrire ceci:
+The ASCIIMath notation for matrices is as follows:
 
 	>@@[[a,b],[c,d]]@@
 
-Pour obtenir une matrice:
+You will then get obtain following matrix:
 
 >@@[[a,b],[c,d]]@@
 
-Et ceci:
+The ASCIIMath notation for vectors is as follows:
 
 	>@@((a,b),(c,d))@@
 
-Pour obtenir un vecteur:
+You will then obtain the following vector:
 
 >@@((a,b),(c,d))@@
 
-## Portée des symboles et fonctions
+## Symbols and Functions
 
-La plupart du temps, la portée des symboles s'applique au prochain caractère.
+Usually, symbols are applied to the characters that follow.
+By writing the following exemple:
 
 	>@@sqrt 1/3@@
 
-donne :
+You obtain:
 
 >@@sqrt 1/3@@
 
-Si tu souhaites appliquer le symbole ou la fonction sur plusieurs caractères, il suffit de mettre des parenthèses autour de l'expression pour laquelle ceka va s'appliquer.
+If you wish to apply the symbol or the functions to a group of characters, simply write parenthses around the group of characters, as follows:
 
 	>@@sqrt(1/3)@@
 
-donne :
+You will then obtain:
 
 >@@sqrt(1/3)@@
 
-On voit qu'ici, les parenthèses ne sont pas affichées, mais le symbole racine carrée s'applique à 1/3.
-# Listes de symboles et fonctions
+In the exemples above, you will notice that the parentheses do not appear, and that the square root symbol is applied to 1/3.
 
-## Pour les opérations
+# List of Symbols and Functions
 
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@+@@              | +          |
-| @@-@@              | -          |
-| @@\*@@             | \*         |
-| @@\*\*@@           | \*\*       |
-| @@\*\*\*@@         | \*\*\*     |
-| @@//@@             | //         |
-| @@\\\\@@           | \\\\       |
-| @@xx@@             | xx         |
-| @@-:@@             | -:         |
-| @@ @ @@            | @          |
-| @@o+@@             | o+         |
-| @@ox@@             | ox         |
-| @@o.@@             | o.         |
-| @@sqrt@@           | sqrt       |
-| @@sum@@            | sum        |
-| @@prod@@           | prod       |
-| @@^^@@             | ^^         |
-| @@^^^@@            | ^^^        |
-| @@vv@@             | vv         |
-| @@vvv@@            | vvv        |
-| @@nn@@             | nn         |
-| @@nnn@@            | nnn        |
-| @@uu@@             | uu         |
-| @@uuu@@            | uuu        |
+## Operations
 
-## Pour les ensembles
+| AsciiMath Syntax | Character  |
+|:----------------:|:----------:|
+| @@+@@            | +          |
+| @@-@@            | -          |
+| @@\*@@           | \*         |
+| @@\*\*@@         | \*\*       |
+| @@\*\*\*@@       | \*\*\*     |
+| @@//@@           | //         |
+| @@\\\\@@         | \\\\       |
+| @@xx@@           | xx         |
+| @@-:@@           | -:         |
+| @@ @ @@          | @          |
+| @@o+@@           | o+         |
+| @@ox@@           | ox         |
+| @@o.@@           | o.         |
+| @@sqrt@@         | sqrt       |
+| @@sum@@          | sum        |
+| @@prod@@         | prod       |
+| @@^^@@           | ^^         |
+| @@^^^@@          | ^^^        |
+| @@vv@@           | vv         |
+| @@vvv@@          | vvv        |
+| @@nn@@           | nn         |
+| @@nnn@@          | nnn        |
+| @@uu@@           | uu         |
+| @@uuu@@          | uuu        |
 
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@=@@              | =          |
-| @@!=@@             | !=         |
-| @@<@@              | <          |
-| @@>@@              | >          |
-| @@<=@@             | <=         |
-| @@>=@@             | >=         |
-| @@-<@@             | -<         |
-| @@>-@@             | >-         |
-| @@in@@             | in         |
-| @@!in@@            | !in        |
-| @@sub@@            | sub        |
-| @@sup@@            | sup        |
-| @@sube@@           | sube       |
-| @@supe@@           | supe       |
-| @@-=@@             | -=         |
-| @@~=@@             | ~=         |
-| @@\~~@@            | ~~         |
-| @@prop@@           | prop       |
+## Ensembles
 
+| AsciiMath Syntax | Character  |
+|:----------------:|:----------:|
+| @@=@@            | =          |
+| @@!=@@           | !=         |
+| @@<@@            | <          |
+| @@>@@            | >          |
+| @@<=@@           | <=         |
+| @@>=@@           | >=         |
+| @@-<@@           | -<         |
+| @@>-@@           | >-         |
+| @@in@@           | in         |
+| @@!in@@          | !in        |
+| @@sub@@          | sub        |
+| @@sup@@          | sup        |
+| @@sube@@         | sube       |
+| @@supe@@         | supe       |
+| @@-=@@           | -=         |
+| @@~=@@           | ~=         |
+| @@\~~@@          | ~~         |
+| @@prop@@         | prop       |
 
-## Symboles logiques
+## Logic symbols
 
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@and@@            | and        |
-| @@or@@             | or         |
-| @@=>@@             | =>         |
-| @@if@@             | if         |
-| @@iff@@            | iff        |
-| @@AA@@             | AA         |
-| @@EE@@             | EE         |
-| @@TT@@             | TT         |
+| AsciiMath Syntax | Character  |
+|:----------------:|:----------:|
+| @@and@@          | and        |
+| @@or@@           | or         |
+| @@=>@@           | =>         |
+| @@if@@           | if         |
+| @@iff@@          | iff        |
+| @@AA@@           | AA         |
+| @@EE@@           | EE         |
+| @@TT@@           | TT         |
 
-
-Il reste 3 symboles que l'on ne peut pas écrire en markdown dans un tableau (à cause des |) :
+Three symbols that one may write in the Makdrown language remain:
 
 	>@@ \_|_ @@
  	>@@ |-- @@
  	>@@ |== @@
 
-
  >@@ \_|_ @@
  >@@ |-- @@
  >@@ |== @@
 
+## Grouping
 
-## Groupements
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@(@@              | (          |
-| @@)@@              | )          |
-| @@[@@              | [          |
-| @@]@@              | ]          |
-| @@{@@              | {          |
-| @@}@@              | }          |
-| @@(:@@             | (:         |
-| @@:)@@             | :)         |
-| @@{:@@             | {:         |
-| @@:}@@             | :}         |
+| AsciiMath Syntax | Character  |
+|:----------------:|:----------:|
+| @@(@@            | (          |
+| @@)@@            | )          |
+| @@[@@            | [          |
+| @@]@@            | ]          |
+| @@{@@            | {          |
+| @@}@@            | }          |
+| @@(:@@           | (:         |
+| @@:)@@           | :)         |
+| @@{:@@           | {:         |
+| @@:}@@           | :}         |
 
 
-## Flèches
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@uarr@@           | uarr       |
-| @@darr@@           | darr       |
-| @@rarr@@           | rarr       |
-| @@->@@             | ->         |
-| @@larr@@           | larr       |
-| @@harr@@           | harr       |
-| @@rArr@@           | rArr       |
-| @@lArr@@           | lArr       |
-| @@hArr@@           | hArr       |
+## Arrows
 
-Et celle-ci qui ne fonctionne pas dans un tableau markdown :
+| AsciiMath Syntax | Character  |
+|:----------------:|:----------:|
+| @@uarr@@         | uarr       |
+| @@darr@@         | darr       |
+| @@rarr@@         | rarr       |
+| @@->@@           | ->         |
+| @@larr@@         | larr       |
+| @@harr@@         | harr       |
+| @@rArr@@         | rArr       |
+| @@lArr@@         | lArr       |
+| @@hArr@@         | hArr       |
+
+And the following arrow which does not work in a Markdown table:
 
 	> @@|->@@
 
@@ -276,62 +284,60 @@ Et celle-ci qui ne fonctionne pas dans un tableau markdown :
 
 ## Accents
 
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@hat x@@           | hat x     |
-| @@bar x@@           | bar x     |
-| @@ul x@@            | ul x      |
-| @@vec x@@           | vec x     |
-| @@dot x@@           | dot x     |
-| @@ddot x@@          | ddot x    |
+| AsciiMath Syntax | Character |
+|:----------------:|:---------:|
+| @@hat x@@        | hat x     |
+| @@bar x@@        | bar x     |
+| @@ul x@@         | ul x      |
+| @@vec x@@        | vec x     |
+| @@dot x@@        | dot x     |
+| @@ddot x@@       | ddot x    |
 
-## Autres symboles
+## Other Symbols
 
-| Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|
-| @@sqrt@@           | sqrt       |
-| @@int@@            | int        |
-| @@oint@@           | oint       |
-| @@del@@            | del        |
-| @@grad@@           | grad       |
-| @@+-@@             | +-         |
-| @@O/@@             | O/         |
-| @@oo@@             | oo         |
-| @@aleph@@          | aleph      |
-| @@/_@@             | /_         |
-| @@:.@@             | :.         |
-| @@cdots@@          | cdots      |
-| @@vdots@@          | vdots      |
-| @@ddots@@          | ddots      |
-| @@diamond@@        | diamond    |
-| @@square@@         | square     |
-| @@CC@@             | CC         |
-| @@NN@@             | NN         |
-| @@QQ@@             | QQ         |
-| @@RR@@             | RR         |
-| @@ZZ@@             | ZZ         |
+| AsciiMath Syntax | Character  |
+|:----------------:|:----------:|
+| @@sqrt@@         | sqrt       |
+| @@int@@          | int        |
+| @@oint@@         | oint       |
+| @@del@@          | del        |
+| @@grad@@         | grad       |
+| @@+-@@           | +-         |
+| @@O/@@           | O/         |
+| @@oo@@           | oo         |
+| @@aleph@@        | aleph      |
+| @@/_@@           | /_         |
+| @@:.@@           | :.         |
+| @@cdots@@        | cdots      |
+| @@vdots@@        | vdots      |
+| @@ddots@@        | ddots      |
+| @@diamond@@      | diamond    |
+| @@square@@       | square     |
+| @@CC@@           | CC         |
+| @@NN@@           | NN         |
+| @@QQ@@           | QQ         |
+| @@RR@@           | RR         |
+| @@ZZ@@           | ZZ         |
 
-## Les lettres grecques
+## Greek Letters
 
-
-| Caractère souhaité | Syntaxe    | Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|:------------------:|:----------:|
-| @@alpha@@          | alpha      | @@phi@@            | phi        |
-| @@beta@@           | beta       | @@Phi@@            | Phi        |
-| @@chi@@            | chi        | @@varphi@@         | varphi     |
-| @@delta@@          | delta      | @@pi@@             | pi         |
-| @@Delta@@          | Delta      | @@Pi@@             | Pi         |
-| @@epsilon@@        | epsilon    | @@psi@@            | psi        |
-| @@varepsilon@@     | varepsilon | @@Psi@@            | Psi        |
-| @@eta@@            | eta        | @@rho@@            | rho        |
-| @@gamma@@          | gamma      | @@sigma@@          | sigma      |
-| @@Gamma@@          | Gamma      | @@Sigma@@          | Sigma      |
-| @@iota@@           | iota       | @@tau@@            | tau        |
-| @@kappa@@          | kappa      | @@theta@@          | theta      |
-| @@lambda@@         | lambda     | @@Theta@@          | Theta      |
-| @@Lambda@@         | Lambda     | @@vartheta@@       | vartheta   |
-| @@mu@@             | mu         | @@upsilon@@        | upsilon    |
-| @@nu@@             | nu         | @@xi@@             | xi         |
-| @@omega@@          | omega      | @@Xi@@             | Xi         |
-| @@Omega@@          | Omega      | @@zeta@@           | zeta       |
-
+| AsciiMath Syntax | Character  | AsciiMath Syntax   | Character  |
+|:----------------:|:----------:|:------------------:|:----------:|
+| @@alpha@@        | alpha      | @@phi@@            | phi        |
+| @@beta@@         | beta       | @@Phi@@            | Phi        |
+| @@chi@@          | chi        | @@varphi@@         | varphi     |
+| @@delta@@        | delta      | @@pi@@             | pi         |
+| @@Delta@@        | Delta      | @@Pi@@             | Pi         |
+| @@epsilon@@      | epsilon    | @@psi@@            | psi        |
+| @@varepsilon@@   | varepsilon | @@Psi@@            | Psi        |
+| @@eta@@          | eta        | @@rho@@            | rho        |
+| @@gamma@@        | gamma      | @@sigma@@          | sigma      |
+| @@Gamma@@        | Gamma      | @@Sigma@@          | Sigma      |
+| @@iota@@         | iota       | @@tau@@            | tau        |
+| @@kappa@@        | kappa      | @@theta@@          | theta      |
+| @@lambda@@       | lambda     | @@Theta@@          | Theta      |
+| @@Lambda@@       | Lambda     | @@vartheta@@       | vartheta   |
+| @@mu@@           | mu         | @@upsilon@@        | upsilon    |
+| @@nu@@           | nu         | @@xi@@             | xi         |
+| @@omega@@        | omega      | @@Xi@@             | Xi         |
+| @@Omega@@        | Omega      | @@zeta@@           | zeta       |
