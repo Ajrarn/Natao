@@ -1,4 +1,4 @@
-##Hello and welcome to Natao.##
+# Hello and welcome to Natao.##
 
 Before we go any further, know that you may adjust the size of the interface's characters by clicking on the small looking-glass icon visible within the black bar located at the top-left of the screen. 
 You may also adjust the look of Natao's user-interface by clicking on the gears icon located right above the central panel.
