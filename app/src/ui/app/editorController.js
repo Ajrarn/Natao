@@ -621,8 +621,13 @@
         };
 
         self.startTour = function() {
-            self.onboardingIndex = 0;
-            self.onboardingEnabled = true;
+            if (self.currentMarkdown) {
+                self.PreferencesService.preferences.showMenu = true;
+                self.PreferencesService.preferences.showViewer = true;
+                self.PreferencesService.preferences.showEditor = true;
+                self.onboardingIndex = 0;
+                self.onboardingEnabled = true;
+            }
         };
     }
 

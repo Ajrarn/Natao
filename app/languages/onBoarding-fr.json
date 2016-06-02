@@ -24,13 +24,13 @@
         },
         {
           "title": "Les réglages visuels",
-          "description": "Tu peux ici faire les réglages nécessaires à ton confort visuel. <br> Zoome ou dézoome pour changer la taille des caractères. <br> Actives ou désactives la police Open-dyslexic qui facilite la lecture.",
+          "description": "Tu peux ici faire les réglages nécessaires à ton confort visuel:<br> - Zoome (<span class=\"typcn typcn-zoom-in-outline\"></span>) ou dézoome (<span class=\"typcn typcn-zoom-out-outline\"></span>) pour changer la taille des caractères. <br> - Actives ou désactives la police Open-dyslexic (<span class=\"typcn typcn-lightbulb\"></span>) qui facilite la lecture.",
           "attachTo": "#zoomPart",
           "position": "bottom"
         },
         {
           "title": "Activation désactivation des panneaux",
-          "description": "Tu peux ici activer ou désactiver les 3 panneaux qui composent Natao. <br> - L'explorateur de documents<br> - L'éditeur <br> - Le panneau de visualisation",
+          "description": "Tu peux ici activer ou désactiver les 3 panneaux qui composent Natao. <br> - L'explorateur de documents (<span class=\"typcn typcn-th-menu-outline\"></span>)<br> - L'éditeur (<span class=\"typcn typcn-edit\"></span>)<br> - Le panneau de visualisation (<span class=\"typcn typcn-eye-outline\"></span>)",
           "attachTo": "#toggleViews",
           "position": "bottom"
         },
@@ -38,7 +38,8 @@
           "title": "Les outils",
           "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (pour une interrogation par exemple) <br> - Imprimer le document <br> - Afficher l'aide <br> - Lancer la visite guidée (si tu souhaites les revoir, il faut les activer dans les réglages) <br> - Accéder aux réglages",
           "attachTo": "#rightButtons",
-          "position": "bottom"
+          "position": "bottom",
+          "xOffset": -300
         },
         {
           "title": "L'explorateur de documents",
