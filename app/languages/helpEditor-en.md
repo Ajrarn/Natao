@@ -6,7 +6,7 @@ This bar, located at the top of the Editor panel, lets you access the core funct
 
 ## Zoom-In and Zoom-Out
 
-These buttons let you respectively:
+These buttons let you:
 
  - <span class="typcn typcn-zoom-in-outline"></span> Increase the size of all the characters used in Natao's user interface.
  - <span class="typcn typcn-zoom-out-outline"></span> Decrease the size of all the characters used in Natao's user interface.
