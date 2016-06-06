@@ -327,7 +327,11 @@
                 .nodeToBuffer(self.currentNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
-                    self.deleteNode(self.PrincipalTreeService.principalTree.selectedNode,self.PrincipalTreeService.principalTree.tree);
+                    self.PrincipalTreeService
+                        .deleteNode(self.currentNode)
+                        .catch(function(err) {
+                            console.error(err);
+                        });
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -343,7 +347,11 @@
                 .nodeToBuffer(documentNode)
                 .then(function(buffer) {
                     self.buffer = buffer;
-                    self.PrincipalTreeService.deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree);
+                    self.PrincipalTreeService
+                        .deleteNode(documentNode)
+                        .catch(function(err) {
+                            console.error(err);
+                        });
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -355,7 +363,7 @@
             var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
 
             self.PrincipalTreeService
-                .deleteNode(documentNode,self.PrincipalTreeService.principalTree.tree)
+                .deleteNode(documentNode)
                 .then(function() {
                     //and check the selected markdown
                     var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);

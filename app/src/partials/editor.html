@@ -158,7 +158,7 @@
                                     <span class="button" ng-click="EditorCtrl.openDelete()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></span>
                                 </div>
-                                <!--div class="buttonText">{{EditorCtrl.buttonText}}</div-->
+                                <message id="message"></message>
                             </div>
 
                             <form name="EditFolder" novalidate ng-submit="EditorCtrl.submitFolderPopover(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.folderPopover === 'edit'">
