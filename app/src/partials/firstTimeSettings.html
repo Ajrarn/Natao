@@ -1,5 +1,6 @@
 <div layout="column" flex ng-controller="FirstTimeSettingsController as SettingCtrl" class="firstTimeSetting">
-    <div flex layout="column"  layout-align="start stretch" class="setting">
+    <div id="background"></div>
+    <div id="content" flex layout="column"  layout-align="start stretch" class="setting">
 
         <div flex ng-show="SettingCtrl.showFile()" layout="column" layout-align="start center">
             <div markdown-to-html="SettingCtrl.databaseMessage"></div>
@@ -9,26 +10,36 @@
             </div>
         </div>
 
-        <div ng-show="!SettingCtrl.showFile()">
-            <div flex layout="row" layout-align="start center" ng-show="SettingCtrl.showId()">
+        <div ng-show="!SettingCtrl.showFile()" flex layout="column" layout-align="start center">
+            <div id="crumbs">
+                <ul layout="row" layout-align="center center">
+                    <li><p>Identité</p></li>
+                    <li class="active"><p>Couleurs</p></li>
+                </ul>
+            </div>
+            <div flex layout="column" layout-align="start center" ng-show="SettingCtrl.showId()">
                 <div flex markdown-to-html="SettingCtrl.identityMessage"></div>
-                <label for="firstName" layout="column" layout-align="center center">
-                    <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
-                    <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                </label>
+                <div flex layout="row" layout-align="start center">
+                    <label for="firstName" layout="column" layout-align="center center">
+                        <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
+                        <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </label>
 
-                <label for="name" layout="column" layout-align="center center">
-                    <p>{{ 'PROFILE_NAME' | translate }}</p>
-                    <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                </label>
+                    <label for="name" layout="column" layout-align="center center">
+                        <p>{{ 'PROFILE_NAME' | translate }}</p>
+                        <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </label>
 
-                <label for="className" layout="column" layout-align="center center">
-                    <p>{{ 'PROFILE_CLASSNAME' | translate }}</p>
-                    <input type="text" id="className"
-                           ng-model="SettingCtrl.PreferencesService.preferences.className"
-                           ng-change="SettingCtrl.changeName()"
-                           ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                </label>
+                    <label for="className" layout="column" layout-align="center center">
+                        <p>{{ 'PROFILE_CLASSNAME' | translate }}</p>
+                        <input type="text" id="className"
+                               ng-model="SettingCtrl.PreferencesService.preferences.className"
+                               ng-change="SettingCtrl.changeName()"
+                               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                    </label>
+                </div>
+                <button>{{ 'NEXT' | translate }}<span class="typcn typcn-arrow-right-thick"></span></button>
+
             </div>
 
             <div flex layout="row" layout-align="start center" ng-show="SettingCtrl.showColor()">

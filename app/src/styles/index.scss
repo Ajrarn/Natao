@@ -443,14 +443,117 @@ hr {
     left: 0;
   }
 }
+
 /********************** First Times Setting ***********/
 .firstTimeSetting {
-  background-image: url("../../natao.png");
-  background-repeat: no-repeat;
-  background-position:center center;
-  background-color: map-get($blueTheme, ML);;
+  font-size: 1.2em;
+
+  position: relative;
+  background-color: map-get($blueTheme, ML);
+
+  #background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.6;
+    background-image: url("../../natao.png");
+    background-repeat: no-repeat;
+    background-position:center center;
+  }
+
+  #content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
 }
 
+#crumbs{
+  ul {
+    li {
+      display: inline;
+
+      p {
+        display: block;
+        float: left;
+        background: map-get($blueTheme, MD);
+        text-align: center;
+        padding: 10px 40px 10px 60px;
+        position: relative;
+        margin: 0 10px 0 0;
+
+        font-size: 20px;
+        text-decoration: none;
+        color: #fff;
+
+        &:after {
+          content: "";
+          border-top: 22px solid transparent;
+          border-bottom: 22px solid transparent;
+          border-left: 22px solid map-get($blueTheme, MD);
+          position: absolute;
+          right: -22px;
+          top: 0;
+          z-index: 1;
+        }
+
+        &:before {
+          content: "";
+          border-top: 22px solid transparent;
+          border-bottom: 22px solid transparent;
+          border-left: 22px solid map-get($blueTheme, ML);
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+
+      &:first-child {
+        p {
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+
+          &:before {
+            display: none;
+          }
+        }
+      }
+
+      &:last-child {
+        p {
+          padding-right: 60px;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+
+          &:after {
+            display: none;
+          }
+
+        }
+      }
+
+      &.active {
+        p {
+          background: map-get($blueTheme, DD);
+          &:after {
+            border-left-color: map-get($blueTheme, DD);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+#crumbs ul li:last-child a:after {
+  display: none;
+}
 
 /***********************TreeView***********************/
 
