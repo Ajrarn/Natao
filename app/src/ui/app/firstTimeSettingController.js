@@ -85,15 +85,15 @@
         };
 
         self.showFile = function() {
-            return (self.step > 0)
+            return (self.step === 1)
         };
 
         self.showId = function() {
-            return (self.step > 1)
+            return (self.step === 2)
         };
 
         self.showColor = function() {
-            return (self.step > 2)
+            return (self.step === 3)
         };
 
         self.settingsValide();

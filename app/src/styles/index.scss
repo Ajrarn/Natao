@@ -87,6 +87,13 @@ button,.button {
   border: none;
   color:white;
 
+  background-color: map-get($blueTheme, DD);
+
+
+  &:hover {
+    background-color: map-get($blueTheme, MD);
+  }
+
   cursor: pointer;
 
   &.small {
@@ -436,6 +443,14 @@ hr {
     left: 0;
   }
 }
+/********************** First Times Setting ***********/
+.firstTimeSetting {
+  background-image: url("../../natao.png");
+  background-repeat: no-repeat;
+  background-position:center center;
+  background-color: map-get($blueTheme, ML);;
+}
+
 
 /***********************TreeView***********************/
 

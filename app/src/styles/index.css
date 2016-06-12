@@ -2378,7 +2378,10 @@ button, .button {
   border-radius: 5px;
   border: none;
   color: white;
+  background-color: #08519c;
   cursor: pointer; }
+  button:hover, .button:hover {
+    background-color: #3182bd; }
   button.small, .button.small {
     padding: 1px 3px;
     margin: 2px;
@@ -2408,16 +2411,18 @@ button, .button {
     font-size: 1.7em; }
   .bandeau .buttonText {
     min-width: 500px;
-    width: 500px;
-    margin-top: 0;
-    text-align: center;
-    visibility: hidden;
-    opacity: 0;
+    width: 500px; }
+
+.buttonText {
+  margin-top: 0;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s; }
+  .buttonText.active {
+    visibility: visible;
+    opacity: 1;
     transition: visibility 1s, opacity 1s; }
-    .bandeau .buttonText.active {
-      visibility: visible;
-      opacity: 1;
-      transition: visibility 1s, opacity 1s; }
 
 /* ************************ fields ******************/
 .allInOne input {
@@ -2603,6 +2608,13 @@ hr {
     bottom: 0;
     right: 0;
     left: 0; }
+
+/********************** First Times Setting ***********/
+.firstTimeSetting {
+  background-image: url("../../natao.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #bdd7e7; }
 
 /***********************TreeView***********************/
 .treeContainer {
