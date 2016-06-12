@@ -20,6 +20,9 @@
         self.fileDialog = fileDialog;
         
         self.step = 1;
+        self.nameValid = false;
+
+        self.PreferencesService.preferences.colorTheme = 'blue';
 
         $translate('SETTING_MESSAGE').then(function (translation) {
             self.welcomeMessage = translation;
@@ -34,19 +37,27 @@
         });
         
 
-        self.settingsValide = function() {
+        self.settingsValid = function() {
             if (self.PreferencesService.isValid()) {
                 self.save();
             }
         };
 
         self.changeName = function() {
-            self.settingsValide();
             if (self.PreferencesService.preferences.name && self.PreferencesService.preferences.firstName && self.PreferencesService.preferences.className
                 && self.PreferencesService.preferences.name !== '' && self.PreferencesService.preferences.firstName !== '' && self.PreferencesService.preferences.className !== '') {
-                self.step = 3;
+                self.nameValid = true;
             }
         };
+        
+        self.nextName = function() {
+            self.step = 3;
+        };
+
+        self.previousColor = function() {
+            self.step = 2;
+        };
+        
 
         self.save = function() {
             self.PreferencesService
@@ -95,8 +106,7 @@
         self.showColor = function() {
             return (self.step === 3)
         };
-
-        self.settingsValide();
+        
 
     }
 

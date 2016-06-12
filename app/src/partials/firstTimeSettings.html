@@ -38,47 +38,53 @@
                                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                     </label>
                 </div>
-                <button>{{ 'NEXT' | translate }}<span class="typcn typcn-arrow-right-thick"></span></button>
+                <button ng-click="SettingCtrl.nextName()" ng-disabled="!SettingCtrl.nameValid">{{ 'NEXT' | translate }} <span class="typcn typcn-arrow-right-thick"></span></button>
 
             </div>
 
-            <div flex layout="row" layout-align="start center" ng-show="SettingCtrl.showColor()">
-                <p>{{ 'SETTING_MESSAGE_THEME' | translate }}</p>
+            <div flex layout="column" layout-align="start center" ng-show="SettingCtrl.showColor()">
+                <div flex layout="row" layout-align="start center">
+                    <p>{{ 'SETTING_MESSAGE_THEME' | translate }}</p>
 
-                <label for="purple" layout="column" layout-align="center center">
-                    <span class="chooser chooser-purple"></span>
-                    <input type="radio" name="colorTheme" value="purple" id="purple" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="purple" layout="column" layout-align="center center">
+                        <span class="chooser chooser-purple"></span>
+                        <input type="radio" name="colorTheme" value="purple" id="purple" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
 
-                <label for="blue" layout="column" layout-align="center center">
-                    <span class="chooser chooser-blue"></span>
-                    <input type="radio" name="colorTheme" value="blue" id="blue" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="blue" layout="column" layout-align="center center">
+                        <span class="chooser chooser-blue"></span>
+                        <input type="radio" name="colorTheme" value="blue" id="blue" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
 
-                <label for="green" layout="column" layout-align="center center">
-                    <span class="chooser chooser-green"></span>
-                    <input type="radio" name="colorTheme" value="green" id="green" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="green" layout="column" layout-align="center center">
+                        <span class="chooser chooser-green"></span>
+                        <input type="radio" name="colorTheme" value="green" id="green" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
 
-                <label for="orange" layout="column" layout-align="center center">
-                    <span class="chooser chooser-orange"></span>
-                    <input type="radio" name="colorTheme" value="orange" id="orange" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="orange" layout="column" layout-align="center center">
+                        <span class="chooser chooser-orange"></span>
+                        <input type="radio" name="colorTheme" value="orange" id="orange" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
 
-                <label for="red" layout="column" layout-align="center center">
-                    <span class="chooser chooser-red"></span>
-                    <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="red" layout="column" layout-align="center center">
+                        <span class="chooser chooser-red"></span>
+                        <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
 
-                <label for="pink" layout="column" layout-align="center center">
-                    <span class="chooser chooser-pink"></span>
-                    <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="pink" layout="column" layout-align="center center">
+                        <span class="chooser chooser-pink"></span>
+                        <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
 
-                <label for="grey" layout="column" layout-align="center center">
-                    <span class="chooser chooser-grey"></span>
-                    <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme" ng-click="SettingCtrl.settingsValide()">
-                </label>
+                    <label for="grey" layout="column" layout-align="center center">
+                        <span class="chooser chooser-grey"></span>
+                        <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                    </label>
+                </div>
+                <div flex layout="row" layout-align="start center">
+                    <button ng-click="SettingCtrl.previousColor()"><span class="typcn typcn-arrow-left-thick"></span> {{ 'PREVIOUS' | translate }}</button>
+                    <button ng-click="SettingCtrl.settingsValid()">{{ 'END' | translate }}</button>
+                </div>
             </div>
         </div>
     </div>

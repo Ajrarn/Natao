@@ -23,6 +23,8 @@
   "SCHOOLBAG":"My Lessons",
   "WELCOME": "Welcome",
   "NEXT":"Next",
+  "PREVIOUS":"Previous",
+  "END":"End",
   "BTN_ADD_CLASS":"Add a folder",
   "CLASS_NAME": "Folder's name",
   "NODE_NAME":"Folder's name",
