@@ -117,6 +117,39 @@
   .bandeau .buttonText {
     color: map-get($color_map, ML);
   }
+
+
+  .firstTimeSetting {
+    background-color: map-get($color_map, ML);
+  }
+
+  #crumbs{
+    ul {
+      li {
+        p {
+
+          background: map-get($color_map, MD);
+
+          &:after {
+            border-left: 22px solid map-get($color_map, MD);
+          }
+
+          &:before {
+            border-left: 22px solid map-get($color_map, ML);
+          }
+        }
+
+        &.active {
+          p {
+            background: map-get($color_map, DD);
+            &:after {
+              border-left-color: map-get($color_map, DD);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @mixin color-square($color_map) {

@@ -481,7 +481,6 @@ hr {
       p {
         display: block;
         float: left;
-        background: map-get($blueTheme, MD);
         text-align: center;
         padding: 10px 40px 10px 60px;
         position: relative;
@@ -495,7 +494,6 @@ hr {
           content: "";
           border-top: 22px solid transparent;
           border-bottom: 22px solid transparent;
-          border-left: 22px solid map-get($blueTheme, MD);
           position: absolute;
           right: -22px;
           top: 0;
@@ -506,7 +504,6 @@ hr {
           content: "";
           border-top: 22px solid transparent;
           border-bottom: 22px solid transparent;
-          border-left: 22px solid map-get($blueTheme, ML);
           position: absolute;
           left: 0;
           top: 0;
@@ -534,15 +531,6 @@ hr {
             display: none;
           }
 
-        }
-      }
-
-      &.active {
-        p {
-          background: map-get($blueTheme, DD);
-          &:after {
-            border-left-color: map-get($blueTheme, DD);
-          }
         }
       }
     }

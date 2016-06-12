@@ -13,8 +13,8 @@
         <div ng-show="!SettingCtrl.showFile()" flex layout="column" layout-align="start center">
             <div id="crumbs">
                 <ul layout="row" layout-align="center center">
-                    <li><p>Identité</p></li>
-                    <li class="active"><p>Couleurs</p></li>
+                    <li ng-class="{active:SettingCtrl.step === 2}"><p>Identité</p></li>
+                    <li ng-class="{active:SettingCtrl.step === 3}"><p>Couleurs</p></li>
                 </ul>
             </div>
             <div flex layout="column" layout-align="start center" ng-show="SettingCtrl.showId()">
