@@ -2633,7 +2633,6 @@ hr {
   #crumbs ul li p {
     display: block;
     float: left;
-    background: #3182bd;
     text-align: center;
     padding: 10px 40px 10px 60px;
     position: relative;
@@ -2645,7 +2644,6 @@ hr {
       content: "";
       border-top: 22px solid transparent;
       border-bottom: 22px solid transparent;
-      border-left: 22px solid #3182bd;
       position: absolute;
       right: -22px;
       top: 0;
@@ -2654,7 +2652,6 @@ hr {
       content: "";
       border-top: 22px solid transparent;
       border-bottom: 22px solid transparent;
-      border-left: 22px solid #bdd7e7;
       position: absolute;
       left: 0;
       top: 0; }
@@ -2669,10 +2666,6 @@ hr {
     border-bottom-right-radius: 10px; }
     #crumbs ul li:last-child p:after {
       display: none; }
-  #crumbs ul li.active p {
-    background: #08519c; }
-    #crumbs ul li.active p:after {
-      border-left-color: #08519c; }
 
 #crumbs ul li:last-child a:after {
   display: none; }
@@ -2843,6 +2836,18 @@ treecontrol {
   color: #54278f; }
 .purple .bandeau .buttonText {
   color: #cbc9e2; }
+.purple .firstTimeSetting {
+  background-color: #cbc9e2; }
+.purple #crumbs ul li p {
+  background: #756bb1; }
+  .purple #crumbs ul li p:after {
+    border-left: 22px solid #756bb1; }
+  .purple #crumbs ul li p:before {
+    border-left: 22px solid #cbc9e2; }
+.purple #crumbs ul li.active p {
+  background: #54278f; }
+  .purple #crumbs ul li.active p:after {
+    border-left-color: #54278f; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2902,6 +2907,18 @@ treecontrol {
   color: #08519c; }
 .blue .bandeau .buttonText {
   color: #bdd7e7; }
+.blue .firstTimeSetting {
+  background-color: #bdd7e7; }
+.blue #crumbs ul li p {
+  background: #3182bd; }
+  .blue #crumbs ul li p:after {
+    border-left: 22px solid #3182bd; }
+  .blue #crumbs ul li p:before {
+    border-left: 22px solid #bdd7e7; }
+.blue #crumbs ul li.active p {
+  background: #08519c; }
+  .blue #crumbs ul li.active p:after {
+    border-left-color: #08519c; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -2961,6 +2978,18 @@ treecontrol {
   color: #a50f15; }
 .red .bandeau .buttonText {
   color: #fcae91; }
+.red .firstTimeSetting {
+  background-color: #fcae91; }
+.red #crumbs ul li p {
+  background: #de2d26; }
+  .red #crumbs ul li p:after {
+    border-left: 22px solid #de2d26; }
+  .red #crumbs ul li p:before {
+    border-left: 22px solid #fcae91; }
+.red #crumbs ul li.active p {
+  background: #a50f15; }
+  .red #crumbs ul li.active p:after {
+    border-left-color: #a50f15; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -3020,6 +3049,18 @@ treecontrol {
   color: #980043; }
 .pink .bandeau .buttonText {
   color: #d7b5d8; }
+.pink .firstTimeSetting {
+  background-color: #d7b5d8; }
+.pink #crumbs ul li p {
+  background: #dd1c77; }
+  .pink #crumbs ul li p:after {
+    border-left: 22px solid #dd1c77; }
+  .pink #crumbs ul li p:before {
+    border-left: 22px solid #d7b5d8; }
+.pink #crumbs ul li.active p {
+  background: #980043; }
+  .pink #crumbs ul li.active p:after {
+    border-left-color: #980043; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -3079,6 +3120,18 @@ treecontrol {
   color: #a63603; }
 .orange .bandeau .buttonText {
   color: #fdbe85; }
+.orange .firstTimeSetting {
+  background-color: #fdbe85; }
+.orange #crumbs ul li p {
+  background: #e6550d; }
+  .orange #crumbs ul li p:after {
+    border-left: 22px solid #e6550d; }
+  .orange #crumbs ul li p:before {
+    border-left: 22px solid #fdbe85; }
+.orange #crumbs ul li.active p {
+  background: #a63603; }
+  .orange #crumbs ul li.active p:after {
+    border-left-color: #a63603; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -3138,6 +3191,18 @@ treecontrol {
   color: #006d2c; }
 .green .bandeau .buttonText {
   color: #b2e2e2; }
+.green .firstTimeSetting {
+  background-color: #b2e2e2; }
+.green #crumbs ul li p {
+  background: #2ca25f; }
+  .green #crumbs ul li p:after {
+    border-left: 22px solid #2ca25f; }
+  .green #crumbs ul li p:before {
+    border-left: 22px solid #b2e2e2; }
+.green #crumbs ul li.active p {
+  background: #006d2c; }
+  .green #crumbs ul li.active p:after {
+    border-left-color: #006d2c; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -3197,5 +3262,17 @@ treecontrol {
   color: #252525; }
 .grey .bandeau .buttonText {
   color: #cccccc; }
+.grey .firstTimeSetting {
+  background-color: #cccccc; }
+.grey #crumbs ul li p {
+  background: #636363; }
+  .grey #crumbs ul li p:after {
+    border-left: 22px solid #636363; }
+  .grey #crumbs ul li p:before {
+    border-left: 22px solid #cccccc; }
+.grey #crumbs ul li.active p {
+  background: #252525; }
+  .grey #crumbs ul li.active p:after {
+    border-left-color: #252525; }
 
 /*# sourceMappingURL=index.css.map */
