@@ -121,27 +121,32 @@
 
   .firstTimeSetting {
     background-color: map-get($color_map, ML);
+    transition: background-color 1s;
   }
 
   #crumbs{
     ul {
       li {
         p {
-
-          background: map-get($color_map, MD);
+          background-color: map-get($color_map, MM);
+          color: map-get($color_map, LL);
+          transition: background-color 1s, color 1s;
 
           &:after {
-            border-left: 22px solid map-get($color_map, MD);
+            border-left: 22px solid map-get($color_map, MM);
+            transition: background-color 1s, border-color 1s;
           }
 
           &:before {
             border-left: 22px solid map-get($color_map, ML);
+            transition: background-color 1s, border-color 1s;
           }
         }
 
         &.active {
           p {
             background: map-get($color_map, DD);
+            color: white;
             &:after {
               border-left-color: map-get($color_map, DD);
             }

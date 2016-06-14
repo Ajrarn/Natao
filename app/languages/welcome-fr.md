@@ -5,7 +5,7 @@ Tu as du voir dans la visite guidée, les boutons te permettant de rêgler Natao
 Si cela n'est pas suffisant, on a encore quelques petits réglages qui peuvent aider. Dans **L'éditeur**, il y a un bouton de réglages (de léditeur). Tu peux ajouter des rayures pour mieux différencier les lignes et augmenter l'écart entre  les lignes.
 
 # Oui, mais à quoi ça sert ?
-Je sais que tu te demandes en quoi Natao pourrait d'aider.
+Je sais que tu te demandes en quoi Natao pourrait t'aider.
 
 Il devrait t'aider à rédiger rapidement des documents élégants.
 

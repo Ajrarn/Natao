@@ -86,7 +86,7 @@
                                     self.principalTree = newDoc;
 
                                     //We will create the first document
-                                    self.$translate('WELCOME').then(function (translation) {
+                                    self.$translate('FIRST_DOC').then(function (translation) {
                                         self.addFolder(translation)
                                             .then(function(node) {
 

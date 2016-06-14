@@ -1,10 +1,10 @@
 {
   "texts": {
-    "nextButtonText": "Next <span class=\"typcn typcn-arrow-right-thick\"></span>",
-    "previousButtonText": "&larr; Previous",
-    "doneButtonText": "End",
-    "actualStepText": "Step",
-    "totalStepText": "of"
+    "nextButtonText": "Suivant <span class=\"typcn typcn-arrow-right-thick\"></span>",
+    "previousButtonText": "&larr; Précédent",
+    "doneButtonText": "Fin",
+    "actualStepText": "Étape",
+    "totalStepText": "de"
   },
   "tours": [
     {
@@ -13,47 +13,48 @@
         {
           "title": "Bienvenue!",
           "position": "centered",
-          "description": "Bienvenue dans Natao ! <br><br> Je t'invite à faire une visite guidée.<br> Tu peux la quitter à tout instant en cliquant sur la croix."
+          "description": "Bienvenue dans Natao ! <br><br> Je t'invite à faire une visite guidée pour découvrir cet éditeur.<br>Si cette visite t'ennuie tu peux la fermer à tout moment en cliquant sur X.<br> Mais ça serait dommage de se quitter si tôt."
         },
         {
           "title": "La Barre d'outils",
-          "description": "Nous allons détailler celle-ci dans les étapes suivantes de cette visite.<br> Je souhaite juste te faire remarquer le grand espace noir entre les 2 groupes de boutons. Dans celui-ci, tu verras apparâitre ce que fait chaque bouton en survolant (avec la souris) ce dernier.",
+          "description": "Nous allons détailler celle-ci dans les étapes suivantes de cette visite.<br> Je souhaite juste te faire remarquer le grand espace noir entre les 2 groupes de boutons. Dans celui-ci, tu verras apparaître ce que fait chaque bouton en survolant (avec la souris) ce dernier.",
           "attachTo": "#toolbar",
           "position": "bottom",
           "xOffset": 300
         },
         {
           "title": "Les réglages visuels",
-          "description": "Tu peux ici faire les réglages nécessaires à ton confort visuel. <br> Zoome ou dézoome pour changer la taille des caractères. <br> Actives ou désactives la police Open-dyslexic qui facilite la lecture.",
+          "description": "Tu peux ici faire les réglages nécessaires à ton confort visuel:<br> - Zoome (<span class=\"typcn typcn-zoom-in-outline\"></span>) ou dézoome (<span class=\"typcn typcn-zoom-out-outline\"></span>) pour changer la taille des caractères. <br> - Actives ou désactives la police Open-dyslexic (<span class=\"typcn typcn-lightbulb\"></span>) qui facilite la lecture.",
           "attachTo": "#zoomPart",
           "position": "bottom"
         },
         {
           "title": "Activation désactivation des panneaux",
-          "description": "Tu peux ici activer ou désactiver les 3 panneaux qui composent Natao. <br> - L'explorateur de documents<br> - L'éditeur <br> - Le panneau de visualisation",
+          "description": "Tu peux ici activer ou désactiver les 3 panneaux qui composent Natao. <br> - L'Explorateur de documents (<span class=\"typcn typcn-th-menu-outline\"></span>)<br> - L'Editeur (<span class=\"typcn typcn-edit\"></span>)<br> - Le Panneau de Visualisation (<span class=\"typcn typcn-eye-outline\"></span>)",
           "attachTo": "#toggleViews",
           "position": "bottom"
         },
         {
           "title": "Les outils",
-          "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (pour une interrogation par exemple) <br> - Imprimer le document <br> - Afficher l'aide <br> - Lancer la visite guidée (si tu souhaites les revoir, il faut les activer dans les réglages) <br> - Accéder aux réglages",
+          "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (<span class=\"typcn typcn-lock-closed-outline\"></span>),pour une évaluation par exemple. <br> - Imprimer le document (<span class=\"typcn typcn-printer\"></span>)<br> - Afficher l'aide (?) <br> - Accéder aux réglages(<span class=\"typcn typcn-cog-outline\"></span>)",
           "attachTo": "#rightButtons",
-          "position": "bottom"
+          "position": "bottom",
+          "xOffset": -300
         },
         {
-          "title": "L'explorateur de documents",
+          "title": "L'explorateur de documents (<span class=\"typcn typcn-th-menu-outline\"></span>)",
           "description": "Tu pourras y ranger tous tes documents, dans des dossiers, et les organiser comme bon te semble",
           "attachTo": "#menu",
           "position": "right"
         },
         {
-          "title": "L'éditeur Markdown",
-          "description": "C'est ici que tu rédigeras tes documents en utilisant la syntaxe Markdown.<br>Cette syntaxe qui n'est pas compliquée, tu pourras l'apprendre avec Natao",
+          "title": "L'éditeur (<span class=\"typcn typcn-edit\"></span>)",
+          "description": "C'est ici que tu rédigeras tes documents en utilisant la syntaxe Markdown.<br>Tu pourras l'apprendre facilement avec Natao",
           "attachTo": "#editor",
           "position": "right"
         },
         {
-          "title": "Le panneau de visualisation",
+          "title": "Le panneau de visualisation (<span class=\"typcn typcn-eye-outline\"></span>)",
           "description": "Ce dernier panneau est celui où tu peux voir à quoi ressemblera ton document mis en page, avant de l'imprimer.",
           "attachTo": "#viewer",
           "position": "left"
@@ -61,7 +62,7 @@
         {
           "title": "Prèt à continuer ?",
           "position": "centered",
-          "description": "C'est ici que s'achève la visite guidée, mais ton voyage ne fait que commencer.<br>Je t'invite maintenant à lire le document fourni en exemple. Il est à la fois un mini-guide sur Natao est un exemple de son utilisation.<br>A bientôt."
+          "description": "Et voila ! Nous avons fait le tour de l'interface.<br>Je t'invite maintenant à lire le document \"Premiers Pas\". Il est à la fois un mini-guide sur Natao est un exemple de son utilisation.<br>A bientôt."
         }
       ]
     },

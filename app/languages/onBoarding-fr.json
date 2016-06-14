@@ -36,7 +36,7 @@
         },
         {
           "title": "Les outils",
-          "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (<span class=\"typcn typcn-lock-closed-outline\"></span>),pour une interrogation par exemple. <br> - Imprimer le document (<span class=\"typcn typcn-printer\"></span>)<br> - Afficher l'aide (?) <br> - Accéder aux réglages(<span class=\"typcn typcn-cog-outline\"></span>)",
+          "description": "Ces boutons permettent certaines actions: <br> - Verrouiller l'explorateur (<span class=\"typcn typcn-lock-closed-outline\"></span>),pour une évaluation par exemple. <br> - Imprimer le document (<span class=\"typcn typcn-printer\"></span>)<br> - Afficher l'aide (?) <br> - Accéder aux réglages(<span class=\"typcn typcn-cog-outline\"></span>)",
           "attachTo": "#rightButtons",
           "position": "bottom",
           "xOffset": -300
