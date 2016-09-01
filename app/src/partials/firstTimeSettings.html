@@ -1,8 +1,8 @@
 <div layout="column" flex ng-controller="FirstTimeSettingsController as SettingCtrl" class="firstTimeSetting">
     <div id="background"></div>
-    <div id="content" flex layout="column" layout-align="start stretch" class="setting" ng-class="{flip:SettingCtrl.step > 1}">
+    <div id="content" flex layout="column" layout-align="start stretch" ng-class="{flip:SettingCtrl.step > 1}">
         <div class="flip-card">
-            <div flex layout="column" layout-align="start center" class="front face">
+            <div flex layout="column" layout-align="start center" class="front face setting">
                 <div markdown-to-html="SettingCtrl.databaseMessage"></div>
                 <div layout="row" layout-align="start center">
                     <button ng-click="SettingCtrl.chooseDatabase()">{{ 'FILE_LOAD_FIRST_TIME' | translate }}</button>
@@ -17,73 +17,77 @@
                         <li ng-class="{active:SettingCtrl.step === 3}"><p>Couleurs</p></li>
                     </ul>
                 </div>
-                <div flex layout="column" layout-align="start center">
-                    <div flex markdown-to-html="SettingCtrl.identityMessage"></div>
-                    <div flex layout="row" layout-align="start center">
-                        <label for="firstName" layout="column" layout-align="center center">
-                            <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
-                            <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </label>
+                <div class="slideContainer" flex layout="column" layout-align="center center">
+                    <div flex layout="row" class="slideContent" ng-class="{step1:SettingCtrl.step === 3}">
+                        <div layout="column" layout-align="center center" class="slide">
+                            <div flex markdown-to-html="SettingCtrl.identityMessage"></div>
+                            <div flex layout="row" layout-align="start center">
+                                <label for="firstName" layout="column" layout-align="center center">
+                                    <p>{{ 'PROFILE_FIRSTNAME' | translate }}</p>
+                                    <input type="text" id="firstName" ng-model="SettingCtrl.PreferencesService.preferences.firstName" ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                </label>
 
-                        <label for="name" layout="column" layout-align="center center">
-                            <p>{{ 'PROFILE_NAME' | translate }}</p>
-                            <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </label>
+                                <label for="name" layout="column" layout-align="center center">
+                                    <p>{{ 'PROFILE_NAME' | translate }}</p>
+                                    <input type="text" id="name" ng-model="SettingCtrl.PreferencesService.preferences.name"  ng-change="SettingCtrl.changeName()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                </label>
 
-                        <label for="className" layout="column" layout-align="center center">
-                            <p>{{ 'PROFILE_CLASSNAME' | translate }}</p>
-                            <input type="text" id="className"
-                                   ng-model="SettingCtrl.PreferencesService.preferences.className"
-                                   ng-change="SettingCtrl.changeName()"
-                                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-                        </label>
-                    </div>
-                    <button ng-click="SettingCtrl.nextName()" ng-disabled="!SettingCtrl.nameValid">{{ 'NEXT' | translate }} <span class="typcn typcn-arrow-right-thick"></span></button>
+                                <label for="className" layout="column" layout-align="center center">
+                                    <p>{{ 'PROFILE_CLASSNAME' | translate }}</p>
+                                    <input type="text" id="className"
+                                           ng-model="SettingCtrl.PreferencesService.preferences.className"
+                                           ng-change="SettingCtrl.changeName()"
+                                           ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                </label>
+                            </div>
+                            <button ng-click="SettingCtrl.nextName()" ng-disabled="!SettingCtrl.nameValid">{{ 'NEXT' | translate }} <span class="typcn typcn-arrow-right-thick"></span></button>
 
-                </div>
+                        </div>
 
-                <div flex layout="column" layout-align="start center" ng-show="SettingCtrl.showColor()">
-                    <div flex layout="row" layout-align="start center">
-                        <p>{{ 'SETTING_MESSAGE_THEME' | translate }}</p>
+                        <div layout="column" layout-align="center center" class="slide" ng-show="SettingCtrl.nameValid">
+                            <div flex layout="row" layout-align="start center">
+                                <p>{{ 'SETTING_MESSAGE_THEME' | translate }}</p>
 
-                        <label for="purple" layout="column" layout-align="center center">
-                            <span class="chooser chooser-purple"></span>
-                            <input type="radio" name="colorTheme" value="purple" id="purple" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
+                                <label for="purple" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-purple"></span>
+                                    <input type="radio" name="colorTheme" value="purple" id="purple" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
 
-                        <label for="blue" layout="column" layout-align="center center">
-                            <span class="chooser chooser-blue"></span>
-                            <input type="radio" name="colorTheme" value="blue" id="blue" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
+                                <label for="blue" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-blue"></span>
+                                    <input type="radio" name="colorTheme" value="blue" id="blue" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
 
-                        <label for="green" layout="column" layout-align="center center">
-                            <span class="chooser chooser-green"></span>
-                            <input type="radio" name="colorTheme" value="green" id="green" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
+                                <label for="green" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-green"></span>
+                                    <input type="radio" name="colorTheme" value="green" id="green" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
 
-                        <label for="orange" layout="column" layout-align="center center">
-                            <span class="chooser chooser-orange"></span>
-                            <input type="radio" name="colorTheme" value="orange" id="orange" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
+                                <label for="orange" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-orange"></span>
+                                    <input type="radio" name="colorTheme" value="orange" id="orange" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
 
-                        <label for="red" layout="column" layout-align="center center">
-                            <span class="chooser chooser-red"></span>
-                            <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
+                                <label for="red" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-red"></span>
+                                    <input type="radio" name="colorTheme" value="red" id="red" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
 
-                        <label for="pink" layout="column" layout-align="center center">
-                            <span class="chooser chooser-pink"></span>
-                            <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
+                                <label for="pink" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-pink"></span>
+                                    <input type="radio" name="colorTheme" value="pink" id="pink" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
 
-                        <label for="grey" layout="column" layout-align="center center">
-                            <span class="chooser chooser-grey"></span>
-                            <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
-                        </label>
-                    </div>
-                    <div flex layout="row" layout-align="start center">
-                        <button ng-click="SettingCtrl.previousColor()"><span class="typcn typcn-arrow-left-thick"></span> {{ 'PREVIOUS' | translate }}</button>
-                        <button ng-click="SettingCtrl.settingsValid()">{{ 'END' | translate }}</button>
+                                <label for="grey" layout="column" layout-align="center center">
+                                    <span class="chooser chooser-grey"></span>
+                                    <input type="radio" name="colorTheme" value="grey" id="grey" ng-model="SettingCtrl.PreferencesService.preferences.colorTheme">
+                                </label>
+                            </div>
+                            <div flex layout="row" layout-align="start center">
+                                <button ng-click="SettingCtrl.previousColor()"><span class="typcn typcn-arrow-left-thick"></span> {{ 'PREVIOUS' | translate }}</button>
+                                <button ng-click="SettingCtrl.settingsValid()">{{ 'END' | translate }}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

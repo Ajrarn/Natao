@@ -12,7 +12,7 @@
 
 
     function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,OnBoardingService,
-                                CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService,MessageService) {
+                                CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,PendingService,MessageService, PrincipalTreeService) {
 
         var self = this;
 
@@ -33,6 +33,7 @@
         self.PendingService = PendingService;
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
+        self.PrincipalTreeService = PrincipalTreeService;
         self.MessageService.changeMessage('');
         self.viewer = true;
 

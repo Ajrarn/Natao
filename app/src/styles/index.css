@@ -2617,7 +2617,7 @@ hr {
     bottom: 0;
     right: 0;
     left: 0;
-    opacity: 0.6;
+    opacity: 0.1;
     background-image: url("../../natao.png");
     background-repeat: no-repeat;
     background-position: center center; }
@@ -2644,6 +2644,18 @@ hr {
           transform: rotateY(180deg); }
     .firstTimeSetting #content.flip .flip-card {
       transform: rotateY(180deg); }
+
+.slideContainer {
+  position: relative;
+  height: 60vh; }
+  .slideContainer .slideContent {
+    position: absolute;
+    transition: all 1.0s ease-in-out; }
+    .slideContainer .slideContent .slide {
+      width: 100vw; }
+    .slideContainer .slideContent.step1 {
+      transform: translateX(-100vw);
+      transition: all 1.0s ease-in-out; }
 
 #crumbs ul li {
   display: inline; }

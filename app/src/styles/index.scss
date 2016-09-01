@@ -457,7 +457,7 @@ hr {
     bottom: 0;
     right: 0;
     left: 0;
-    opacity: 0.6;
+    opacity: 0.1;
     background-image: url("../../natao.png");
     background-repeat: no-repeat;
     background-position:center center;
@@ -496,6 +496,32 @@ hr {
     }
   }
 }
+
+.slideContainer {
+
+  position: relative;
+  height: 60vh;
+
+  .slideContent {
+    position: absolute;
+
+    transition:all 1.0s ease-in-out;
+
+    .slide {
+      width: 100vw;
+    }
+
+    &.step1 {
+      transform: translateX(-100vw);
+      transition:all 1.0s ease-in-out;
+    }
+  }
+
+
+
+
+}
+
 
 #crumbs{
   ul {

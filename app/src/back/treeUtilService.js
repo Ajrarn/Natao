@@ -89,7 +89,7 @@
             } else {
                 if (!nodeParent.leaf && nodeParent.children && nodeParent.children.length > 0) {
                     nodeParent.children.forEach(function(item) {
-                        var nodeInSearch = self.getNode(nodeId,item,nodeFound);
+                        var nodeInSearch = self.getNode(nodeId,item);
                         if (nodeInSearch) {
                             nodeFound = nodeInSearch;
                         }
@@ -552,6 +552,23 @@
                 }
             });
 
+        };
+
+        self.findNodeByName = function(node, name) {
+            var nodeFound = null;
+            if (node.name === name) {
+                nodeFound = node;
+            } else {
+                if (node.children && node.children.length > 0) {
+                    node.children.forEach(function(item) {
+                        var nodeInSearch = self.findNodeByName(item, name);
+                        if (nodeInSearch) {
+                            nodeFound = nodeInSearch;
+                        }
+                    });
+                }
+            }
+            return nodeFound;
         };
 
 

@@ -58,6 +58,7 @@
                                     off="{{ 'SETTING_SHOW_TOUR_DISABLED' | translate }}" class="green wide"
                                 ng-change="SettingCtrl.PreferencesService.savePreferences()"></switch>
                         </div>
+                        <button ng-click="SettingCtrl.PrincipalTreeService.addHelpFiles()">Import Help</button>
                     </div>
                     <hr>
                     <div flex layout="row" layout-align="space-around stretch">

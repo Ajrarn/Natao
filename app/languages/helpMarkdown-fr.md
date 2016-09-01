@@ -207,9 +207,119 @@ Tu peux créer des listes imbriquées en ajoutant 1 tabulation ou 4 espaces avan
 
 ## Tableaux
 
-Les tableaux tels que tu vas les voir ne font pas partie de Markdown. Par contre, ils font partie de GFM qui est la syntaxe Markdown utilisée par Github.
-Et Showdown qui est utilisé par Natao pour l'affichage comprend le GFM. Donc, autant profiter.
-Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères (ou symboles).
+Pour faire un tableau présentable, il va falloir le dessiner avec les caractères *pipe* (|), *tiret*(-) et *deux-points*(:).
+
+### Mon premier tableau
+
+Commençons par le plus simple des tableaux.
+
+	|A|
+	|-|
+	|b|
+    |c|
+    |d|
+    
+Ce qui donne ceci:
+
+|A|
+|-|
+|b|
+|c|
+|d|
+
+Nous avons tout simplement représenté une colonne en entourant le contenu par les pipes (|).
+
+Nous avons également séparé l'entête du tableau, du reste des données par une ligne avec un tiret (-).
+
+L'entête est valorisé et se différencie du contenu du tableau.
+
+### Aspect dans l'éditeur
+
+Examinons le tableau suivant:
+
+	|Un joli entête|
+	|----|
+	|b                       |
+    |c'est bizarre|
+    |d|
+
+Ce qui donne ceci:
+    
+|Un joli entête|
+|-|
+|b                       |
+|c'est bizarre|
+|d|
+
+Notez que le résultat est un tableau correct, alors que le texte dans l'éditeur est difficile à associer à un tableau.
+
+Mais regardons de plus près:
+- le nombre de tirets entre 2 pipes n'a pas d'importance et sépare bien l'entête du reste des valeurs.
+- le nombre d'espaces n'impacte pas non plus l'aspect du tableau
+- Ce qui compte c'est que les contenus des colonnes soient entourés par des pipes.
+
+Notre tableau est syntaxiquement correct, mais n'est pas très lisible dans l'éditeur. Essayons de rendre ce tableau lisible dans l'éditeur.
+
+	|Un joli entête|
+	|--------------|
+	|b             |
+	|c'est bizarre |
+	|d             |
+    
+Ce tableau qui nous donne le même résultat est plus facile à lire.
+
+|Un joli entête|
+|--------------|
+|b             |
+|c'est bizarre |
+|d             |
+
+
+### Une colonne supplémentaire
+Il me suffit de l'entourer de pipe et de séparer la ligne d'entête par une ligen avec des tirets
+	|Un joli entête|Un joli entête bis  |
+	|--------------|--------------------|
+	|b             |b                   |
+	|c'est bizarre |c'est pas si bizarre|
+	|d             |d                   |
+    
+Ce qui donne ceci:
+
+|Un joli entête|Un joli entête bis  |
+|--------------|--------------------|
+|b             |b                   |
+|c'est bizarre |c'est pas si bizarre|
+|d             |d                   |
+
+
+### Alignement
+Nous allons maintenant préciser pour chaque colonne comment aligner les colonnes de données. Le tableau suivant:
+	|Un joli entête|Un joli entête bis  |
+	|:------------:|-------------------:|
+	|b             |b                   |
+	|c'est bizarre |c'est pas si bizarre|
+	|d             |d                   |
+    
+ donne ceci:
+    
+|Un joli entête|Un joli entête bis  |
+|:------------:|-------------------:|
+|b             |b                   |
+|c'est bizarre |c'est pas si bizarre|
+|d             |d                   |
+
+La ligne qui sert de séparateur entre l'enête et les données a été agrémenté de nouveaux symboles: les deux-points(:).
+
+- Si l'on entoure la ligne de deux-points(:), l'alignement est centré.
+- Si l'on met les deux-points(:) à la fin, l'alignement est à droite.
+- Inutile de les mettre à gauche, car l'alignement par défaut est à gauche.
+
+
+
+
+### Un tableau avec plusieurs exemple
+
+Le tableau ci-dessous utilise à la fois des propriétés d'alignement, et des propriétés de valorisation de texte.
 
     | Les Tables     | Sont             | Cool  |
     | -------------- |:----------------:| -----:|
@@ -217,6 +327,7 @@ Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères 
     | col 2 est      | *centrée*        |   $12 |
     | zebra stripes  | ~~une bêtise~~   |    $1 |
 
+Ce qui donne ceci:
 
 | Les Tables     | Sont             | Cool  |
 | -------------- |:----------------:| -----:|
@@ -225,15 +336,7 @@ Ecrire un tableau consiste pratiquement à le dessiner à l'aide de caractères 
 | zebra stripes  | ~~une bêtise~~   |    $1 |
 
 
-On dessine les colonnes avec des pipes ( | ), et on sépare l'entête des autre lignes avec le -.
-Les : sur la séparation permettent de choisir comment le texte des colonnes est aligné:
-
-* : à droite, le texte s'aligne à droite
-* des 2 côtés et le texte est centré.
-* si l'on ne précise rien, le texte est aligné à gauche.
-
-Les pipes sont obligatoires pour délimiter les colonnes, mais il n'est pas indispensable qu'elles soient alignées.
-Cela dit, quand elles sont alignées, le Markdown est plus lisible.
+Enfin, n'hésitez pas à copier/coller des lignes entières pour vous faciliter la création de tableaux.
 
 ## Images
 

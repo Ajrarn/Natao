@@ -2,45 +2,54 @@
 
 Tu as du voir dans la visite guidée, les boutons te permettant de rêgler Natao pour ton confort visuel. Alors commences par cela. Joues avec les loupes et la police open-dyslexic pour te sentir à l'aise.
 
-Si cela n'est pas suffisant, on a encore quelques petits réglages qui peuvent aider. Dans **L'éditeur**, il y a un bouton de réglages (de léditeur). Tu peux ajouter des rayures pour mieux différencier les lignes et augmenter l'écart entre  les lignes.
+Si cela n'est pas suffisant, on a encore quelques petits réglages qui peuvent aider. Dans **L'éditeur**, il y a un bouton de réglages. Tu peux ajouter des rayures pour mieux différencier les lignes et augmenter l'écart entre  les lignes.
 
 # Oui, mais à quoi ça sert ?
 Je sais que tu te demandes en quoi Natao pourrait t'aider.
 
-Il devrait t'aider à rédiger rapidement des documents élégants.
+Il devrait t'aider à rédiger rapidement des documents élégants. Mais comment ?
 
-Si tu es un peu observateur, tu dois te rendre compte que le texte de l'éditeur et celui du panneau de visualisation sont les mêmes, à ceci près que les #(en début de ligne) ont disparu et ont été remplacés par des chiffres romains. Les ## ont aussi été remplacés par des numéros, d'ailleurs les lignes des # sont différentes.
+Si tu es un peu observateur, tu dois te rendre compte que le texte de l'éditeur et celui du panneau de visualisation sont les mêmes, à ceci près que les #(en début de ligne) ont disparu et ont été remplacés par des chiffres romains. Les ## ont aussi été remplacés par des numéros, d'ailleurs les lignes commençant par des # sont différentes des autres lignes .
 
 # Des titres
 Oui, les # en début de ligne ont une signification. Ils disent à Natao:
 
-> Fais attention à ligne après le #, c'est un titre important
+> Fais attention à la ligne après le #, c'est un titre important.
 
 ## Et des sous-titres
-> Et cette ligne avec ## et un sous-titre du précédent titre
+> Et cette ligne avec ## est un sous-titre du précédent titre
 
 ## Et encore un sous-titre
 
-# Et le Markdown
+### Et on peut encore descendre
 
+# Et c'est tout ?
 
+Non, ce n'est pas tout. Il y a encore d'autres options de mise en page à l'aide de caractères spéciaux.
 
-Et c'est là qu'intervient le Markdown.
+Il y a par exemple les \* qui permettent de valoriser des portions de texte, voici 2 exemples d'utilisation :
+- un *bout de texte en italique*.
+- un autre en **gras souligne**
 
-*Mais qu'est-ce donc ?*
+Et il y a encore 2 ou 3 petites choses que tu découvriras un peu plus loin.
 
-Le Markdown est langage de balisage léger créé par John Gruber en 2004. Ce langage va te permettre d'augmenter un simple texte avec quelques caractères ayant une signification structurelle.
-Par exemple:
-- un texte commençant par un # est un titre important. Avec 2 #, c'est un titre un peu moins important.
-- un texte entouré par des * est mis en valeur, encore plus s'il est entouré de 2 *.
+Bon par contre, cette syntaxe qui permet de mettre en page les documents n'est pas une invention propre à *Natao*.
+Cela s'appelle du **Markdown**. Cette syntaxe est très utilisée sur internet pour rédiger des wikis notamment.
+Donc, apprendre cette syntaxe pourra être utile en dehors de *Natao*.
 
-*Et pour la mise en forme, on fait quoi ?*
+## oui mais moi, je préfèrerais que ce qui est en gras souligné soit en rouge !
+Et je peux te comprendre. Tu voudrais personnaliser la mise en forme de tes documents.
 
-Pour la mise en forme, Natao utilise des feuilles de style. Il t'en fournit quelques une au départ à titre d'exemple, mais tu peux les modifier à ta guise, et en créer de nouvelles selon tes besoins.
+Première chose, tout en haut de l'éditeur, tu as un champs *Style*, qui te propose une liste déroulante de feuilles de style. En changeant de feuille de style, tu changeras l'apparence de tes documents.
+*Natao* en fournit un certain nombre par défaut qui devraient te dépanner.
+
+Si tu choisis par exemple la feuille de style *Contrôle*, tu devrais voir apparaître tes noms et prénom, la date et des marges permettant de présenter un devoir à rendre.
+
+Et ces feuilles de style sont modifiables, et tu peux en créer de nouvelles qui s'appliqueront automatiquement à tout ton document.
 
 # Aller plus loin
 Voila, tu connais les grandes lignes de cette application. Si tu souhaites aller plus loin, je t'invite à cliquer sur le point d'interrogation en haut à droite. Cela ouvrira une fenêtre avec l'aide qui te permettra de mieux découvrir Natao et tout ce que tu peux faire avec.
 
-J'espère que tu trouveras cet outil utile et qu'il t'apportera une aide efficace.
+Si au contraire, tu n'y trouves rien d'intéressant, tant pis. J'espère que tu trouveras ce que tu cherches.
 
-A bientôt.
+Dans tous les cas, à bientôt.
