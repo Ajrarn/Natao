@@ -50,17 +50,6 @@
                         </div>
                     </div>
                     <hr>
-                    <div flex layout="row" layout-align="space-around center">
-                        <h1>{{ 'SETTING_TOUR' | translate }}</h1>
-                        <div layout="row" layout-align="start center">
-                            <switch id="tourEnabled" name="tourEnabled" ng-model="SettingCtrl.PreferencesService.preferences.showTours"
-                                    on="{{ 'SETTING_SHOW_TOUR_ENABLED' | translate }}"
-                                    off="{{ 'SETTING_SHOW_TOUR_DISABLED' | translate }}" class="green wide"
-                                ng-change="SettingCtrl.PreferencesService.savePreferences()"></switch>
-                        </div>
-                        <button ng-click="SettingCtrl.PrincipalTreeService.addHelpFiles()">Import Help</button>
-                    </div>
-                    <hr>
                     <div flex layout="row" layout-align="space-around stretch">
                         <h1>{{ 'SETTING_THEME' | translate }}</h1>
                         <div class="horizontal-flow" flex layout="column">
@@ -102,7 +91,25 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div flex layout="row" layout-align="space-around stretch">
+                        <h1>{{ 'SETTING_PLUS' | translate }}</h1>
+                        <div flex layout="row" layout-align="space-around center">
+                            <div layout="column" layout-align="start center">
+                                <h2>{{ 'SETTING_TOUR' | translate }}</h2>
+                                <switch id="tourEnabled" name="tourEnabled" ng-model="SettingCtrl.PreferencesService.preferences.showTours"
+                                        on="{{ 'SETTING_SHOW_TOUR_ENABLED' | translate }}"
+                                        off="{{ 'SETTING_SHOW_TOUR_DISABLED' | translate }}" class="green wide"
+                                        ng-change="SettingCtrl.PreferencesService.savePreferences()"></switch>
+                            </div>
+                            <div layout="column" layout-align="start center">
+                                <p>{{ 'SETTING_HELP_LABEL' | translate }}</p>
+                                <button ng-click="SettingCtrl.PrincipalTreeService.addHelpFiles()">{{ 'SETTING_HELP_IMPORT' | translate }}</button>
+                            </div>
 
+                        </div>
+
+                    </div>
 
                 </div>
             </pane>

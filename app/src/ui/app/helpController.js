@@ -32,7 +32,8 @@
         self.currentHelpEditor = fs.readFileSync(process.cwd() + '/languages/helpEditor-' + self.lang + '.md','utf8');
         self.currentHelpAsciiMath = fs.readFileSync(process.cwd() + '/languages/helpAsciiMath-' + self.lang + '.md','utf8');
         self.currentHelpSettings = fs.readFileSync(process.cwd() + '/languages/helpSettings-' + self.lang + '.md','utf8');
-        self.currentHelpBehind = fs.readFileSync(process.cwd() + '/languages/behindTheScenes-' + self.lang + '.md','utf8');
+        self.currentHelpBehind = fs.readFileSync(process.cwd() + '/languages/helpBehindTheScenes-' + self.lang + '.md','utf8');
+        self.currentHelpCss = fs.readFileSync(process.cwd() + '/languages/helpCss-' + self.lang + '.md','utf8');
 
         
         // watch the last help file  to avoid open in Natao the <a href>
