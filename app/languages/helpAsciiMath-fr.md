@@ -1,40 +1,10 @@
-# MathJax
-
-La possibilité d'écrire des formules mathématiques n'est pas incluse dans le langage Markdown.
-Par contre, il existe un produit, appelé MathJax qui permet de le faire. Natao l'inclut donc également.
-MathJax permet de lire plusieurs syntaxe différentes :
-
-* MathML
-* TeX
-* AsciiMath
-
-Actuellement, Natao te permet d'utiliser TeX et AsciiMath. Pour cela, tu vas devoir entourer tes formules de caractères destinés à MathJax. Ces caractères lui permettront de savoir ce qu'il doit transformer en formules.
-
-## Comment signaler les formules TeX
-Pour TeX, il existe 2 signalétiques, la première permet d'utiliser des formules dans la ligne courante et utilise 2 $.
-
-	>Le partage du butin a été établi comme suit $$\frac{1}{2}$$ pour le capitaine, $$\frac{1}{4}$$ pour le navigateur, et l'équipage se partage le reste.
-
-Ce qui donne :
->Le partage du butin a été établi comme suit $$\frac{1}{2}$$ pour le capitaine, $$\frac{1}{4}$$ pour le navigateur, et l'équipage se partage le reste.
-
-La seconde signalétique permet d'écrire la formule à la ligne et centrée. On utilise pour cela 3$.
-
-	>Voici du texte suivi d'une formule $$$ \sqrt{\frac{1}{3}} $$$ et la formule et sa suite apparaissent séparés.
-
-ce qui donne :
-
->Voici du texte suivi d'une formule $$$ \sqrt{\frac{1}{3}} $$$ et la formule et sa suite apparaissent séparés.
-
-Comme tu le verras par la suite, je n'ai pas documenté cette syntaxe ici. J'ai choisi de présenter uniquement AsciiMath, car c'est la syntaxe la plus simple et la plus courte, d'une part et également car TeX, étant la référence, est particulièrement bien documentée sur internet.
-
-## Comment signaler les formules AsciiMath
-Pour AsciiMath, il n'existe qu'une seule formule magique, entourer ta formule de maths de 2 @.
+# Comment signaler les formules AsciiMath
+Pour signaler une formule mathématique, il suffit de l'entourer de 2 @.
 Cela correspond à une formule dans la ligne courante. A toi de changer de paragraphe si tu souhaites la séparer du texte qui l'entoure.
 
 	>Le partage du butin a été établi comme suit @@1/2@@ pour le capitaine, @@1/4@@ pour le navigateur, et l'équipage se partage le reste.
 
-ce qui donne :
+**donne ceci**:
 
 >Le partage du butin a été établi comme suit @@1/2@@ pour le capitaine, @@1/4@@ pour le navigateur, et l'équipage se partage le reste.
 
@@ -44,13 +14,18 @@ ce qui donne :
 Tout d'abord, tu dois savoir que Natao ne te permet pas de poser des opérations, tu pourras seulement les écrire en ligne.
 Je vais te donner de quoi commencer à l'utiliser:
 
-| Caractère souhaité | Syntaxe | Caractère souhaité | Syntaxe |
-|:------------------:|:-------:|:------------------:|:-------:|
-| @@=@@              | =       | @@!=@@             | !=      |
-| @@+@@              | +       | @@<@@              | <       |
-| @@-@@              | -       | @@<=@@             | <=      |
-| @@xx@@             | xx      | @@>@@              | >       |
-| @@-:@@             | -:      | @@>=@@             | >=      |
+| Caractère souhaité | Syntaxe |
+|:------------------:|:-------:|
+| @@=@@              | =       |
+| @@+@@              | +       |
+| @@-@@              | -       |
+| @@xx@@             | xx      |
+| @@-:@@             | -:      |
+| @@!=@@             | !=      |
+| @@<@@              | <       |
+| @@<=@@             | <=      |
+| @@>@@              | >       |
+| @@>=@@             | >=      |
 
 Ainsi tu peux écrire :
 
@@ -102,7 +77,8 @@ Tu peux utiliser le symbole "\_" pour mettre du texte en indice, et le symbole "
     >@@x^2@@
 
     >@@x_1^2@@
-donne :
+
+**donne ceci**:
 
 >@@x_1@@
 
@@ -146,7 +122,7 @@ La plupart du temps, la portée des symboles s'applique au prochain caractère.
 
 	>@@sqrt 1/3@@
 
-donne :
+**donne ceci**:
 
 >@@sqrt 1/3@@
 
@@ -154,11 +130,12 @@ Si tu souhaites appliquer le symbole ou la fonction sur plusieurs caractères, i
 
 	>@@sqrt(1/3)@@
 
-donne :
+**donne ceci**:
 
 >@@sqrt(1/3)@@
 
 On voit qu'ici, les parenthèses ne sont pas affichées, mais le symbole racine carrée s'applique à 1/3.
+
 # Listes de symboles et fonctions
 
 ## Pour les opérations
@@ -226,18 +203,9 @@ On voit qu'ici, les parenthèses ne sont pas affichées, mais le symbole racine 
 | @@AA@@             | AA         |
 | @@EE@@             | EE         |
 | @@TT@@             | TT         |
-
-
-Il reste 3 symboles que l'on ne peut pas écrire en markdown dans un tableau (à cause des |) :
-
-	>@@ \_|_ @@
- 	>@@ |-- @@
- 	>@@ |== @@
-
-
- >@@ \_|_ @@
- >@@ |-- @@
- >@@ |== @@
+| @@ \_&#124;_ @@    | \_&#124;\_ |
+| @@ &#124;-- @@     | &#124;--   |
+| @@ &#124;== @@     | &#124;==   |
 
 
 ## Groupements
@@ -267,12 +235,9 @@ Il reste 3 symboles que l'on ne peut pas écrire en markdown dans un tableau (à
 | @@rArr@@           | rArr       |
 | @@lArr@@           | lArr       |
 | @@hArr@@           | hArr       |
+| @@&#124;->@@       | &#124;->   |
 
-Et celle-ci qui ne fonctionne pas dans un tableau markdown :
 
-	> @@|->@@
-
-> @@|->@@
 
 ## Accents
 
@@ -314,24 +279,62 @@ Et celle-ci qui ne fonctionne pas dans un tableau markdown :
 ## Les lettres grecques
 
 
-| Caractère souhaité | Syntaxe    | Caractère souhaité | Syntaxe    |
-|:------------------:|:----------:|:------------------:|:----------:|
-| @@alpha@@          | alpha      | @@phi@@            | phi        |
-| @@beta@@           | beta       | @@Phi@@            | Phi        |
-| @@chi@@            | chi        | @@varphi@@         | varphi     |
-| @@delta@@          | delta      | @@pi@@             | pi         |
-| @@Delta@@          | Delta      | @@Pi@@             | Pi         |
-| @@epsilon@@        | epsilon    | @@psi@@            | psi        |
-| @@varepsilon@@     | varepsilon | @@Psi@@            | Psi        |
-| @@eta@@            | eta        | @@rho@@            | rho        |
-| @@gamma@@          | gamma      | @@sigma@@          | sigma      |
-| @@Gamma@@          | Gamma      | @@Sigma@@          | Sigma      |
-| @@iota@@           | iota       | @@tau@@            | tau        |
-| @@kappa@@          | kappa      | @@theta@@          | theta      |
-| @@lambda@@         | lambda     | @@Theta@@          | Theta      |
-| @@Lambda@@         | Lambda     | @@vartheta@@       | vartheta   |
-| @@mu@@             | mu         | @@upsilon@@        | upsilon    |
-| @@nu@@             | nu         | @@xi@@             | xi         |
-| @@omega@@          | omega      | @@Xi@@             | Xi         |
-| @@Omega@@          | Omega      | @@zeta@@           | zeta       |
+| Caractère souhaité | Syntaxe    |
+|:------------------:|:----------:|
+| @@alpha@@          | alpha      |
+| @@beta@@           | beta       |
+| @@chi@@            | chi        |
+| @@delta@@          | delta      |
+| @@Delta@@          | Delta      |
+| @@epsilon@@        | epsilon    |
+| @@varepsilon@@     | varepsilon |
+| @@eta@@            | eta        |
+| @@gamma@@          | gamma      |
+| @@Gamma@@          | Gamma      |
+| @@iota@@           | iota       |
+| @@kappa@@          | kappa      |
+| @@lambda@@         | lambda     |
+| @@Lambda@@         | Lambda     |
+| @@mu@@             | mu         |
+| @@nu@@             | nu         |
+| @@omega@@          | omega      |
+| @@Omega@@          | Omega      |
+| @@phi@@            | phi        |
+| @@Phi@@            | Phi        |
+| @@varphi@@         | varphi     |
+| @@pi@@             | pi         |
+| @@Pi@@             | Pi         |
+| @@psi@@            | psi        |
+| @@Psi@@            | Psi        |
+| @@rho@@            | rho        |
+| @@sigma@@          | sigma      |
+| @@Sigma@@          | Sigma      |
+| @@tau@@            | tau        |
+| @@theta@@          | theta      |
+| @@Theta@@          | Theta      |
+| @@vartheta@@       | vartheta   |
+| @@upsilon@@        | upsilon    |
+| @@xi@@             | xi         |
+| @@Xi@@             | Xi         |
+| @@zeta@@           | zeta       |
 
+# Tex
+
+Il existe d'autres syntaxes pour écrire des formules mathématiques, la plus connue est TeX, et pour les utilisateurs qui connaisse déjà cette syntaxe, elle a été incluse dans Natao.
+
+## Comment signaler les formules TeX
+Pour TeX, il existe 2 signalétiques, la première permet d'utiliser des formules dans la ligne courante et utilise 2 $.
+
+	>Le partage du butin a été établi comme suit $$\frac{1}{2}$$ pour le capitaine, $$\frac{1}{4}$$ pour le navigateur, et l'équipage se partage le reste.
+
+**donne ceci**:
+
+>Le partage du butin a été établi comme suit $$\frac{1}{2}$$ pour le capitaine, $$\frac{1}{4}$$ pour le navigateur, et l'équipage se partage le reste.
+
+La seconde signalétique permet d'écrire la formule à la ligne et centrée. On utilise pour cela 3$.
+
+	>Voici du texte suivi d'une formule $$$ \sqrt{\frac{1}{3}} $$$ et la formule et sa suite apparaissent séparés.
+
+**donne ceci**:
+
+>Voici du texte suivi d'une formule $$$ \sqrt{\frac{1}{3}} $$$ et la formule et sa suite apparaissent séparés.

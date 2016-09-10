@@ -16,8 +16,8 @@ var languages = require('./gulp/languages')(gulp,gulpSequence,fs,config);
 
 //Start on my computer for tests
 gulp.task('start:myOSX', function() {
-    //exec('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.14.0-osx-x64/nwjs.app/Contents/MacOS/nwjs --enable-spell-checking /Users/Christophe/Projets/node-webkit/Natao/app',function(err) {
-    exec('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.14.5-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/app',function(err) {
+    //exec('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.17.1-osx-x64/nwjs.app/Contents/MacOS/nwjs --enable-spell-checking /Users/Christophe/Projets/node-webkit/Natao/app',function(err) {
+    exec('/Users/Christophe/Projets/node-webkit/nwjs-sdk-v0.17.1-osx-x64/nwjs.app/Contents/MacOS/nwjs /Users/Christophe/Projets/node-webkit/Natao/app',function(err) {
         if (err) {
             console.error(err);
         }

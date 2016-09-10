@@ -1,36 +1,4 @@
-# MathJax
-
-One cannot write mathematical formulae with the Markdown language. That is why Natao has incorporated another markup language, MathJax.
-
-Although MathJax supports three different syntaxes (TeX, MathML, and AsciiMath), Natao's current version can only accommodate TeX and AsciiMath.
-
-Whether you use the TeX or the AsciiMath syntaxes, the same principle behind writing mathematical formulae within Natao applies: simply surround the portion of your text that is a mathematical formula with MathJax characters.
-
-## Writing formuale in TeX
-
-In TeX, math formulae come in two forms.
-
-### Inline Formulae:
-
-The formula appears within a line of text. Simply start and end your formula with two dollar signs ( $$ ):
-
-	>The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
-
-Which gives:
-
->The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
-
-### Centered Formulae:
-
-The formula appears after the line of text, in the center of the document's page. Simply start and end your formula with three dollar signs ( $$$ ):
-
-	>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
-
-Which gives:
-
->Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
-
-## Writing formuale in AsciiMath
+# Writing formulae in AsciiMath
 
 When you use the AsciiMath syntax, you only need to surround your mathematical formula with two at-signs ( @@ ). The math portion of your text will then appear as an inline formula, within the rest of the text.
 
@@ -50,13 +18,18 @@ Please, note that to have the formula appear on its own in the center of the pag
 
 Natao can only allow you to write in-line operations. Here are some examples:
 
-| AsciiMath Syntax | Character | AsciiMath Syntax | Character |
-|:----------------:|:---------:|:----------------:|:---------:|
-| @@=@@            | =         | @@!=@@           | !=        |
-| @@+@@            | +         | @@<@@            | <         |
-| @@-@@            | -         | @@<=@@           | <=        |
-| @@xx@@           | xx        | @@>@@            | >         |
-| @@-:@@           | -:        | @@>=@@           | >=        |
+| AsciiMath Syntax | Character |
+|:----------------:|:---------:|
+| @@=@@              | =       |
+| @@+@@              | +       |
+| @@-@@              | -       |
+| @@xx@@             | xx      |
+| @@-:@@             | -:      |
+| @@!=@@             | !=      |
+| @@<@@              | <       |
+| @@<=@@             | <=      |
+| @@>@@              | >       |
+| @@>=@@             | >=      |
 
 You may thus write:
 
@@ -236,16 +209,10 @@ In the examples above, you will notice that the parentheses do not appear, and t
 | @@AA@@           | AA        |
 | @@EE@@           | EE        |
 | @@TT@@           | TT        |
+| @@ \_&#124;_ @@  | \_&#124;\_ |
+| @@ &#124;-- @@   | &#124;--   |
+| @@ &#124;== @@   | &#124;==   |
 
-Three symbols that one may write in the Markdown language remain:
-
-	>@@ \_|_ @@
- 	>@@ |-- @@
- 	>@@ |== @@
-
- >@@ \_|_ @@
- >@@ |-- @@
- >@@ |== @@
 
 ## Grouping
 
@@ -275,12 +242,8 @@ Three symbols that one may write in the Markdown language remain:
 | @@rArr@@         | rArr      |
 | @@lArr@@         | lArr      |
 | @@hArr@@         | hArr      |
+| @@&#124;->@@       | &#124;->   |
 
-And the following arrow which does not work in a Markdown table:
-
-	> @@|->@@
-
-> @@|->@@
 
 ## Accents
 
@@ -321,23 +284,72 @@ And the following arrow which does not work in a Markdown table:
 
 ## Greek Letters
 
-| AsciiMath Syntax | Character  | AsciiMath Syntax | Character |
-|:----------------:|:----------:|:----------------:|:---------:|
-| @@alpha@@        | alpha      | @@phi@@          | phi       |
-| @@beta@@         | beta       | @@Phi@@          | Phi       |
-| @@chi@@          | chi        | @@varphi@@       | varphi    |
-| @@delta@@        | delta      | @@pi@@           | pi        |
-| @@Delta@@        | Delta      | @@Pi@@           | Pi        |
-| @@epsilon@@      | epsilon    | @@psi@@          | psi       |
-| @@varepsilon@@   | varepsilon | @@Psi@@          | Psi       |
-| @@eta@@          | eta        | @@rho@@          | rho       |
-| @@gamma@@        | gamma      | @@sigma@@        | sigma     |
-| @@Gamma@@        | Gamma      | @@Sigma@@        | Sigma     |
-| @@iota@@         | iota       | @@tau@@          | tau       |
-| @@kappa@@        | kappa      | @@theta@@        | theta     |
-| @@lambda@@       | lambda     | @@Theta@@        | Theta     |
-| @@Lambda@@       | Lambda     | @@vartheta@@     | vartheta  |
-| @@mu@@           | mu         | @@upsilon@@      | upsilon   |
-| @@nu@@           | nu         | @@xi@@           | xi        |
-| @@omega@@        | omega      | @@Xi@@           | Xi        |
-| @@Omega@@        | Omega      | @@zeta@@         | zeta      |
+| AsciiMath Syntax   | Character  | 
+|:------------------:|:----------:|
+| @@alpha@@          | alpha      |
+| @@beta@@           | beta       |
+| @@chi@@            | chi        |
+| @@delta@@          | delta      |
+| @@Delta@@          | Delta      |
+| @@epsilon@@        | epsilon    |
+| @@varepsilon@@     | varepsilon |
+| @@eta@@            | eta        |
+| @@gamma@@          | gamma      |
+| @@Gamma@@          | Gamma      |
+| @@iota@@           | iota       |
+| @@kappa@@          | kappa      |
+| @@lambda@@         | lambda     |
+| @@Lambda@@         | Lambda     |
+| @@mu@@             | mu         |
+| @@nu@@             | nu         |
+| @@omega@@          | omega      |
+| @@Omega@@          | Omega      |
+| @@phi@@            | phi        |
+| @@Phi@@            | Phi        |
+| @@varphi@@         | varphi     |
+| @@pi@@             | pi         |
+| @@Pi@@             | Pi         |
+| @@psi@@            | psi        |
+| @@Psi@@            | Psi        |
+| @@rho@@            | rho        |
+| @@sigma@@          | sigma      |
+| @@Sigma@@          | Sigma      |
+| @@tau@@            | tau        |
+| @@theta@@          | theta      |
+| @@Theta@@          | Theta      |
+| @@vartheta@@       | vartheta   |
+| @@upsilon@@        | upsilon    |
+| @@xi@@             | xi         |
+| @@Xi@@             | Xi         |
+| @@zeta@@           | zeta       |
+
+# TeX
+
+Il existe d'autres syntaxes pour écrire des formules mathématiques, la plus connue est TeX, et pour les utilisateurs qui connaisse déjà cette syntaxe, elle a été incluse dans Natao.
+
+There is other syntax to write math formulae. The most known is TeX, and for those who are familiar with TeX, it is included in Natao.
+
+## Writing formulae in TeX
+
+In TeX, math formulae come in two forms.
+
+### Inline Formulae:
+
+The formula appears within a line of text. Simply start and end your formula with two dollar signs ( $$ ):
+
+	>The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
+
+Which gives:
+
+>The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
+
+### Centered Formulae:
+
+The formula appears after the line of text, in the center of the document's page. Simply start and end your formula with three dollar signs ( $$$ ):
+
+	>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
+
+Which gives:
+
+>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
+
