@@ -1,21 +1,21 @@
-.notation {
+#separator {
     display: none;
 }
 
-.identity {
+#identity {
     display: none;
     width: 0px;
 }
 
-.marge {
+#margin {
     display: none;
 }
 
-.rendu {
+#made {
     padding:20px;
 }
 
-.title-zone > h1 {
+#titleZone > h1 {
     text-align: center;
     font-size: 2em;
     color: red;
@@ -25,32 +25,32 @@
     display: none;
 }
 
-.rendu p {
+#made p {
     text-align:justify;
 }
 
 
 /* Table */
-.rendu table {
+#made table {
     border-collapse: collapse;
     margin-left:auto;
     margin-right:auto;
 }
 
-.rendu table thead, .rendu table tr {
+#made table thead, .made table tr {
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: rgb(214,221,202);
 }
 
-.rendu table {
+#made table {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgb(211, 202, 221);
 }
 
 /* Padding and font style */
-.rendu table td, .rendu table th {
+#made table td, .made table th {
     padding: 5px 10px;
     font-size: 12px;
     font-family: Verdana;
@@ -58,21 +58,21 @@
 }
 
 /* Alternating background colors */
-.rendu table tr:nth-child(even) {
+#made table tr:nth-child(even) {
     background: rgb(218,232,216)
 }
-.rendu table tr:nth-child(odd) {
+#made table tr:nth-child(odd) {
     background: #FFF
 }
 
-.rendu blockquote {
+#made blockquote {
     background: #f9f9f9;
     border-left: 10px solid #ccc;
     margin: 1.5em 1em 1.5em 0.5em;
     padding: 0.5em 10px;
     quotes: "\201C""\201D""\2018""\2019";
 }
-.rendu blockquote:before {
+#made blockquote:before {
     color: #ccc;
     content: open-quote;
     font-size: 4em;
@@ -80,60 +80,60 @@
     margin-right: 0.25em;
     vertical-align: -0.4em;
 }
-.rendu blockquote p {
+#made blockquote p {
     display: block;
     margin-left:50px;
 }
 
-.rendu {counter-reset: h1 h2 h3;}
+#made {counter-reset: h1 h2 h3;}
 
-.rendu  h1 {
+#made  h1 {
     font-family: "Courier New", Courier, monospace;
     margin-bottom: 20px;
     margin-top: 50px;
     font-size: 1.5em;
 }
 
-.rendu  h1:before {
+#made  h1:before {
     content: counter(h1,upper-roman) " - ";
     counter-increment: h1;
 }
 
-.rendu h1:after {
+#made h1:after {
     content:' ';
     display:block;
     border:1px solid lightgrey;
 }
 
-.rendu h2 {
+#made h2 {
     font-size: 1.2em;
 }
 
-.rendu h2:before {
+#made h2:before {
     content: counter(h1) "." counter(h2) "  ";
     counter-increment: h2;
 }
-.rendu  h3:before {
+#made  h3:before {
     content: counter(h1) "." counter(h2) "." counter(h3) "  ";
     counter-increment: h3;
 }
-.rendu  h1 {
+#made  h1 {
     counter-reset: h2;
 }
-.rendu  h2 {
+#made  h2 {
     counter-reset: h3;
 }
-.rendu  h1.unnumbered, h2.unnumbered {
+#made  h1.unnumbered, h2.unnumbered {
     counter-reset: none;
 }
-.rendu  h1.unnumbered:before,
-.rendu  h2.unnumbered:before,
-.rendu  h3.unnumbered:before{
+#made  h1.unnumbered:before,
+#made  h2.unnumbered:before,
+#made  h3.unnumbered:before{
     content: none;
     counter-increment: none;
 }
 
-.rendu pre {
+#made pre {
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
@@ -146,12 +146,12 @@
     padding: 0.125rem 0.3125rem 0.0625rem;
 }
 
-.rendu pre code {
+#made pre code {
     background-color: transparent;
     border: 0;
     padding: 0;
 }
 
-.rendu strong {
+#made strong {
     text-decoration: underline;
 }

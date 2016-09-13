@@ -1,21 +1,21 @@
-.notation {
+#separator {
     display: none;
 }
 
-.identity {
+#identity {
     display: none;
     width: 0px;
 }
 
-.marge {
+#margin {
     display: none;
 }
 
-.rendu {
+#made {
     padding:20px;
 }
 
-.title-zone > h1 {
+#titleZone > h1 {
     text-align: center;
 }
 
@@ -23,12 +23,12 @@
     display: none;
 }
 
-.rendu p {
+#made p {
     text-align: center;
 }
 
 
-.rendu h2 {
+#made h2 {
     margin-top: 50px;
     text-align:right;
     font-size:1.4em;
