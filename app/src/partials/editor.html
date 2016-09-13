@@ -356,21 +356,21 @@
                 <div id="viewer" class="viewer CodeMirror-vscrollbar" flex ng-class="[{hidden: !EditorCtrl.showViewer()},{inprint: EditorCtrl.inPrint}]"
                      layout="column">
                     <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer()">
-                        <div class="haut" layout="row" layout-align="start stretch">
-                            <div class="identity" layout="column" layout-align="center stretch">
+                        <div id="header" layout="row" layout-align="start stretch">
+                            <div id="identity" layout="column" layout-align="center stretch">
                                 <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
                                 <p>{{EditorCtrl.PreferencesService.preferences.firstName}}</p>
                                 <p>{{EditorCtrl.PreferencesService.preferences.className}}</p>
                             </div>
-                            <div class="title-zone" flex layout="column" layout-align="center stretch">
+                            <div id="title-zone" flex layout="column" layout-align="center stretch">
                                 <h1>{{EditorCtrl.currentMarkdown.title}}</h1>
                                 <p id="dateCreated">{{EditorCtrl.currentMarkdown.created | date : 'longDate'}}</p>
                             </div>
                         </div>
-                        <div class="notation"></div>
-                        <div class="devoir" flex layout="row" layout-align="start stretch">
-                            <div class="marge"></div>
-                            <div class="rendu" markdown-to-html="EditorCtrl.currentMarkdown.md" flex></div>
+                        <div id="separator"></div>
+                        <div id="content" flex layout="row" layout-align="start stretch">
+                            <div id="margin"></div>
+                            <div id="made" markdown-to-html="EditorCtrl.currentMarkdown.md" flex></div>
                         </div>
                     </div>
                 </div>

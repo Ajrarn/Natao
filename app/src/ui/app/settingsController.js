@@ -155,21 +155,21 @@
         self.allHtml = function() {
 
             var completeHtml = '<div flex layout="column" layout-align="start stretch">' +
-                '<div class="haut" layout="row" layout-align="start stretch">' +
-                '<div class="identity" layout="column" layout-align="center center">' +
+                '<div id="header" layout="row" layout-align="start stretch">' +
+                '<div id="identity" layout="column" layout-align="center center">' +
                 '<p>' + self.PreferencesService.preferences.name +'</p>' +
                 '<p>' + self.PreferencesService.preferences.firstName +'</p>' +
                 '<p>' + self.PreferencesService.preferences.className + '</p>' +
                 '</div>' +
-                '<div class="title-zone" flex layout="column" layout-align="center center">' +
+                '<div id="titleZone" flex layout="column" layout-align="center center">' +
                 '<h1>' + self.currentDoc.title +'</h1>' +
                 '<p id="dateCreated">' + self.currentDoc.created + '</p>' +
                 '</div>' +
                 '</div>' +
-                '<div class="notation"></div>' +
-                '<div class="devoir" flex layout="row" layout-align="start stretch">' +
-                '<div class="marge"></div>' +
-                '<div id="rendu" flex>'+ self.currentHTML +'</div>' +
+                '<div id="separator"></div>' +
+                '<div id="content" flex layout="row" layout-align="start stretch">' +
+                '<div id="margin"></div>' +
+                '<div id="made" flex>'+ self.currentHTML +'</div>' +
                 '</div></div>';
 
             self.currentHtmlAll = beautify_html(completeHtml);

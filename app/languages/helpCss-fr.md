@@ -10,21 +10,36 @@ Avant de découvrir comment personnaliser les documents avec CSS, il faut compre
 
 ## XML
 
-Le XML est un langage de balisage qui permet de décrire n'importe quel document avec des balises personnalisées.
+### Les balises
 
-Une balise, c'est un nom entouré des signes < et >, par exemple:
+Le XML est un langage de balisage qui permet de décrire n'importe quel document avec des balises personnalisées.
+Ces balises marchent en général par paire ouvrante et fermante.
+
+Une balise ouvrante, c'est un nom entouré des signes < et >, par exemple:
 
 	<paragraphe>
 
-Mais ce n'est pas tout, un type de balise va permettre de spécifier un ensemble de caratères en son sein. Pour cela, nous utilisons une balise ouvrante et une balise fermante qui s'écrit comme suit:
+
+Une balise fermante comporte le même nom mais commence par </
 
 	</paragraphe>
     
-Donc, si je souhaite définir un paragraphe à l'aide cette balise, je vais l'écrire comme suit:
+Cette paire de balise définit un ***bloc**.
+    
+**Attention** le nom d'une balise ne contient qu'un seul mot (c'est à dire sans espace), l'exemple suivant ne sera pas valide :
+
+	<en tete></en tete>
+    
+mais le suivant si:
+
+	<en-tete></en-tete>
+
+    
+Donc, si je souhaite définir un bloc paragraphe à l'aide de ma balise paragraphe, je vais l'écrire comme suit:
 
 	<paragraphe>Et voici la première phrase de mon paragraphe. Et maintenant, la deuixème.</paragraphe>
     
-On peut également mettre à l'intérieur d'un paire de balises ouvrante et fermante d'autres balises:
+On peut également mettre à l'intérieur d'un bloc d'autres blocs:
 
 	<document>
     	<titre>Mon titre</titre>
@@ -34,15 +49,39 @@ On peut également mettre à l'intérieur d'un paire de balises ouvrante et ferm
     
 Ici, j'ai un ensemble appelé document contenant un titre et deux paragraphes.
 
+Enfin, il existe un dernier type de balises qui sont ouvrantes et fermantes à la fois, car on ne peut rien mettre dedans. Par exemple:
+
+	<saut-de-page/>
+    
+Notes que le caractère / apparait juste avant le >.
+
+### Les attributs
+
+Examinons l'exemple suivant:
+
+	<paragraphe alignement="centré">Un petit paragraphe.</paragraphe>
+    <paragraphe alignement="gauche">Un moins petit paragraphe.</paragraphe>
+    <paragraphe invisible>Et un autre.</paragraphe>
+
+Nous pouvons voir ici qu'à chaque balise *paragraphe*, nous avons ajouté des attributs avant de fermer la balise ouvrante.
+
+Nous avons 2 attributs:
+- l'attribut *alignement* qui a pour valeur 'centré' au premier paragraphe et 'gauche' au deuxième.
+- l'attribut *invisible* qui n'a pas de valeur.
+
+Chaque attribut ajoute une information exploitable à nos balises.
+
+### Standards
+
 Maintenant, j'ai arbitrairement choisi le nom de mes balises pour qu'elles m'aident à expliquer le concept. Tout le monde peut imaginer les balises qu'il souhaite utiliser et la manière de les agencer en XML. Mais ça deviendrait vite le bazard si on se mettait tous à écrire des documents chacun à notre manière.
 
 Il existe donc des modèles standards utilisés dans l'industrie, DocBook par exemple pour rédiger des livres, ou le HTML pour les sites webs.
 
 ## HTML
 
-Le HTML est donc un ensemble de balises permettant de décrire une page web ou un document. Le plus important à savoir, c'est que l'interpréteur Markdown génère du HTML et que c'est ce dernier que nous allons pouvoir habiller avec du CSS.
+Le HTML est donc un ensemble de balises permettant de décrire une page web. Le plus important à savoir, c'est que l'interpréteur Markdown génère du HTML et que c'est ce dernier que nous allons pouvoir habiller avec du CSS.
 
-Donc, tu apprendras ici quelles balises sont générées et avec cela, tu pourras modifier l'apparence ton document.
+Donc, tu apprendras ici quelles balises sont générées et avec cela, tu pourras modifier l'apparence de ton document.
 
 On ne va pas voir tout de suite les différentes balises, mais je vais te montrer l'exemple précédent en HTML.
 
@@ -57,29 +96,84 @@ On ne va pas voir tout de suite les différentes balises, mais je vais te montre
       </body>
      </html>
      
+une page web est en fait une page HTML, d'où les balises *html*.
+Il y a une partie *header* qui ne s'affiche pas et que l'on ne détaillera donc pas ici.
+Et enfin une partie *body* qui contient ce qui s'affiche, avec un titre de niveau 1 (les plus importants) *h1* et des paragraphes *p*.
+     
 # Structure d'un document Natao
 
-	<div id="viewer" class="viewer" layout="column">
+
+
+	<div id="viewer" layout="column">
     	<div flex layout="column" layout-align="start stretch">
-        	<div class="haut" layout="row" layout-align="start stretch">
-            	<div class="identity" layout="column" layout-align="center stretch">
+        	<div id="haut" layout="row" layout-align="start stretch">
+            	<div id="identity" layout="column" layout-align="center stretch">
                 	<p>Ton nom</p>
                     <p>Ton prénom</p>
                     <p>Ta classe</p>
                 </div>
-                <div class="title-zone" flex layout="column" layout-align="center stretch">
+                <div id="title-zone" flex layout="column" layout-align="center stretch">
                     <h1>Titre</h1>
                     <p id="dateCreated">Date de création</p>
                 </div>
             </div>
-            <div class="notation"></div>
-            <div class="devoir" flex layout="row" layout-align="start stretch">
-                <div class="marge"></div>
-                <div class="rendu">
+            <div id="notation"></div>
+            <div id="devoir" flex layout="row" layout-align="start stretch">
+                <div id="marge"></div>
+                <div id="rendu">
                 	...Et ici le contenu de ce que tu as rédigé en Markdown
                 </div>
             </div>
         </div>
     </div>
     
-Ca fait beaucoup de texte, et on n'a pas encore vu le Markdown transformé
+Ca fait beaucoup de texte, et on n'a pas encore vu le Markdown transformé. Mais cette connaissance est indispensable à l'habillage d'un document.
+
+Commençons par analyser la première balise :
+
+	<div id="viewer" layout="column">
+    </div>
+  
+J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu puisses voir que le nom de la balise utilisée est *div* (qui est un bloc sans signification particulière). Le plus important ici, ce sont les attributs :
+
+	id="viewer" layout="column"
+    
+- **id** qui signifie identifiant.
+- **layout** qui n'est pas un attribut standard, mais qui signifie disposition dans Natao.
+
+
+Donc, nous pouvons voir ici que notre élément **div** a pour identifiant *viewer*, pour classe *viewer* et une disposition en colonne.
+
+A l'intérieur de notre premier bloc, nous en avons un autre qui s'étire et prends toute la place disponible :
+
+	<div flex layout="column" layout-align="start stretch"></div>
+    
+Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressants :
+
+	<div flex layout="column" layout-align="start stretch">
+    	<div id="haut" layout="row" layout-align="start stretch"></div>
+    	<div id="notation"></div>
+    	<div id="devoir" flex layout="row" layout-align="start stretch"></div>
+	</div>
+    
+- un bloc *div* avec la classe *haut*
+- un bloc *div* avec la classe *notation*
+- un bloc *div* avec la classe *devoir*
+
+## le bloc *haut*
+
+	<div id="header" layout="row" layout-align="start stretch">
+    	<div id="identity" layout="column" layout-align="center stretch">
+    		<p>Ton nom</p>
+    		<p>Ton prénom</p>
+    		<p>Ta classe</p>
+    	</div>
+    	<div id="titleZone" flex layout="column" layout-align="center stretch">
+    		<h1>Titre</h1>
+    		<p id="dateCreated">Date de création</p>
+    	</div>
+    </div>
+    
+Ce dernier est composé de 
+
+	
