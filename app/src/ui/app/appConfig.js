@@ -12,10 +12,16 @@
             prefix: './languages/locale-',
             suffix: '.json'
         }).registerAvailableLanguageKeys(['en', 'fr'], {
-            'en_US': 'en',
-            'en_GB': 'en',
-            'fr_FR': 'fr'
-        }).determinePreferredLanguage().fallbackLanguage(['en']);
+            'en*': 'en',
+            'fr*': 'fr'
+        }).determinePreferredLanguage(function() {
+            if (!window.navigator.languages[0].startsWith(window.navigator.language)) {
+                return window.navigator.language;
+            } else {
+                return window.navigator.languages[0];
+            }
+            }).fallbackLanguage(['en']);
+
 
         //$translateProvider.useSanitizeValueStrategy('sanitize');
         $translateProvider.useSanitizeValueStrategy('escape');
