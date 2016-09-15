@@ -233,24 +233,24 @@
                         <ui-codemirror flex ui-codemirror-opts="SettingCtrl.htmlEditorOptions" ng-model="SettingCtrl.currentHtmlAll" ng-if="!SettingCtrl.viewer"
                                        ng-class="{space:SettingCtrl.PreferencesService.preferences.space, striped: SettingCtrl.PreferencesService.preferences.striped}"></ui-codemirror>
 
-                        <div ng-if="SettingCtrl.viewer" class="viewer" flex
+                        <div ng-if="SettingCtrl.viewer" id="viewer" class="viewer" flex
                              layout="column" layout-align="start stretch">
                             <div flex layout="column" layout-align="start stretch">
-                                <div class="haut" layout="row" layout-align="start stretch">
-                                    <div class="identity" layout="column" layout-align="center stretch">
+                                <div id="header" layout="row" layout-align="start stretch">
+                                    <div id="identity" layout="column" layout-align="center stretch">
                                         <p>{{SettingCtrl.PreferencesService.preferences.name}}</p>
                                         <p>{{SettingCtrl.PreferencesService.preferences.firstName}}</p>
                                         <p>{{SettingCtrl.PreferencesService.preferences.className}}</p>
                                     </div>
-                                    <div class="title-zone" flex layout="column" layout-align="center stretch">
+                                    <div id="title-zone" flex layout="column" layout-align="center stretch">
                                         <h1>{{SettingCtrl.currentDoc.title}}</h1>
                                         <p id="dateCreated">{{SettingCtrl.currentDoc.created | date : 'longDate'}}</p>
                                     </div>
                                 </div>
-                                <div class="notation"></div>
-                                <div class="devoir" flex layout="row" layout-align="start stretch">
-                                    <div class="marge"></div>
-                                    <div class="rendu" ng-bind-html="SettingCtrl.currentHTML" flex></div>
+                                <div id="separator"></div>
+                                <div id="content" flex layout="row" layout-align="start stretch">
+                                    <div id="margin"></div>
+                                    <div id="made" markdown-to-html="SettingCtrl.currentDoc.md" flex></div>
                                 </div>
                             </div>
                         </div>

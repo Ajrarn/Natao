@@ -59,6 +59,32 @@
             readOnly: 'nocursor'
         };
 
+        // to ensure that the <a href> wil open in a browser not in Natao
+        // We have to watch the current markdown and force the behavior of all <a href>
+        self.$rootScope.$watch(function(){
+            return self.currentDoc.md;
+        },function() {
+            self.$timeout(function() {
+                $('.viewer a').on('click', function(){
+                    require('nw.gui').Shell.openExternal( this.href );
+                    return false;
+                });
+
+                // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
+                $('pre code').each(function(i, block) {
+                    if (block.textContent.startsWith('::')) {
+                        var classe = block.textContent.split('::')[1];
+                        block.textContent = block.textContent.replace('::' + classe + '::\n', '');
+                        block.classList.add(classe);
+                    } else {
+                        // by default we add th class nohighlight
+                        block.classList.add('nohighlight');
+                    }
+                    hljs.highlightBlock(block);
+                });
+            },0,false);
+        });
+
 
 
         self.documentsPromise = self.DocumentsService.getDocuments();

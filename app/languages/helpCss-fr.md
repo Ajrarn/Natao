@@ -17,30 +17,36 @@ Ces balises marchent en général par paire ouvrante et fermante.
 
 Une balise ouvrante, c'est un nom entouré des signes < et >, par exemple:
 
+	::xml::
 	<paragraphe>
 
 
 Une balise fermante comporte le même nom mais commence par </
 
+	::xml::
 	</paragraphe>
     
-Cette paire de balise définit un ***bloc**.
+Cette paire de balise définit un **bloc**.
     
 **Attention** le nom d'une balise ne contient qu'un seul mot (c'est à dire sans espace), l'exemple suivant ne sera pas valide :
 
+	::xml::
 	<en tete></en tete>
     
 mais le suivant si:
 
+	::xml::
 	<en-tete></en-tete>
 
     
 Donc, si je souhaite définir un bloc paragraphe à l'aide de ma balise paragraphe, je vais l'écrire comme suit:
 
+	::xml::
 	<paragraphe>Et voici la première phrase de mon paragraphe. Et maintenant, la deuixème.</paragraphe>
     
 On peut également mettre à l'intérieur d'un bloc d'autres blocs:
 
+	::xml::
 	<document>
     	<titre>Mon titre</titre>
     	<paragraphe>Un petit paragraphe.</paragraphe>
@@ -51,6 +57,7 @@ Ici, j'ai un ensemble appelé document contenant un titre et deux paragraphes.
 
 Enfin, il existe un dernier type de balises qui sont ouvrantes et fermantes à la fois, car on ne peut rien mettre dedans. Par exemple:
 
+	::xml::
 	<saut-de-page/>
     
 Notes que le caractère / apparait juste avant le >.
@@ -59,6 +66,7 @@ Notes que le caractère / apparait juste avant le >.
 
 Examinons l'exemple suivant:
 
+	::xml::
 	<paragraphe alignement="centré">Un petit paragraphe.</paragraphe>
     <paragraphe alignement="gauche">Un moins petit paragraphe.</paragraphe>
     <paragraphe invisible>Et un autre.</paragraphe>
@@ -85,6 +93,7 @@ Donc, tu apprendras ici quelles balises sont générées et avec cela, tu pourra
 
 On ne va pas voir tout de suite les différentes balises, mais je vais te montrer l'exemple précédent en HTML.
 
+	::html::
 	<html>
     	<header>
         	...
@@ -103,7 +112,7 @@ Et enfin une partie *body* qui contient ce qui s'affiche, avec un titre de nivea
 # Structure d'un document Natao
 
 
-
+	::html::
 	<div id="viewer" layout="column">
     	<div flex layout="column" layout-align="start stretch">
         	<div id="haut" layout="row" layout-align="start stretch">
@@ -131,11 +140,13 @@ Ca fait beaucoup de texte, et on n'a pas encore vu le Markdown transformé. Mais
 
 Commençons par analyser la première balise :
 
+	::html::
 	<div id="viewer" layout="column">
     </div>
   
 J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu puisses voir que le nom de la balise utilisée est *div* (qui est un bloc sans signification particulière). Le plus important ici, ce sont les attributs :
 
+	::string::
 	id="viewer" layout="column"
     
 - **id** qui signifie identifiant.
@@ -146,10 +157,12 @@ Donc, nous pouvons voir ici que notre élément **div** a pour identifiant *view
 
 A l'intérieur de notre premier bloc, nous en avons un autre qui s'étire et prends toute la place disponible :
 
+	::html::
 	<div flex layout="column" layout-align="start stretch"></div>
     
 Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressants :
 
+	::html::
 	<div flex layout="column" layout-align="start stretch">
     	<div id="haut" layout="row" layout-align="start stretch"></div>
     	<div id="notation"></div>
@@ -161,19 +174,23 @@ Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressan
 - un bloc *div* avec la classe *devoir*
 
 ## le bloc *haut*
-
-	<div id="header" layout="row" layout-align="start stretch">
-    	<div id="identity" layout="column" layout-align="center stretch">
-    		<p>Ton nom</p>
-    		<p>Ton prénom</p>
-    		<p>Ta classe</p>
-    	</div>
-    	<div id="titleZone" flex layout="column" layout-align="center stretch">
-    		<h1>Titre</h1>
-    		<p id="dateCreated">Date de création</p>
-    	</div>
+```
+::html::
+<div id="header" layout="row" layout-align="start stretch">
+    <div id="identity" layout="column" layout-align="center stretch">
+    	<p>Ton nom</p>
+    	<p>Ton prénom</p>
+    	<p>Ta classe</p>
     </div>
+    <div id="titleZone" flex layout="column" layout-align="center stretch">
+    	<h1>Titre</h1>
+    	<p id="dateCreated">Date de création</p>
+    </div>
+</div>
+```
     
-Ce dernier est composé de 
+Ce dernier est composé de
 
-	
+
+    
+    
