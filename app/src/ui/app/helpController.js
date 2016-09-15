@@ -45,6 +45,10 @@
                     require('nw.gui').Shell.openExternal( this.href );
                     return false;
                 });
+
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });
             },0,false);
         });
         

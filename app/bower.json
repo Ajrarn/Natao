@@ -38,7 +38,8 @@
     "angular-translate": "^2.12.0",
     "angular-translate-loader-static-files": "^2.12.0",
     "jquery": "^2.2.3",
-    "ngOnboarding": "^0.1.7"
+    "ngOnboarding": "^0.1.7",
+    "highlightjs": "^9.6.0"
   },
   "resolutions": {
     "angular": "~1.4.8"
