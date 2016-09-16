@@ -28,7 +28,7 @@ Alors si espacer davantage les mots dans ton éditeur te permet de mieux les dis
 
 Par défaut, tant que tu ne sépares pas tes phrases par des lignes vides, Natao considère qu'elles font partie d'un même paragraphe. Il ne va donc pas à la ligne et toutes tes phrases font partie d'un même bloc de phrases: c'est un paragraphe !
 
-	j'écris une phrase courte. J'en écris une autre sur la même ligne.
+    j'écris une phrase courte. J'en écris une autre sur la même ligne.
     
     J'écris une autre phrase.
     Mais cette fois-ci, je vais à la ligne
@@ -51,6 +51,7 @@ Tu vas aussi avoir besoin d'organiser ton document. Et tu peux le faire grace au
 Tu peux créer un titre en ajoutant un ou plusieurs # au début du texte de ton titre. Le nombre de # que tu utilises détermine l'importance du titre. Plus il y en a et moins il est important.
 L'exemple ci-dessous ne sera pas illustré, car il perturberait la présentation de cette aide. Mais les premiers titres que tu vas voir sont ceux de ce document :
 
+    ::markdown::
     # Les bases
     ## Séparer des mots
     ## Séparer des paragraphes
@@ -67,11 +68,13 @@ Un seul \* le met en valeur, deux \* signifient qu'il est très important. Par d
 Mais tu peux changer les règles (avec les feuilles de style qui sont expliquées dans une autre partie), en souligner un en rouge par exemple.
 
     *Ce texte sera valorisé*
+    
     **Ce texte sera très remarqué**
     
 **donne ceci**:
 
 *Ce texte sera valorisé*
+
 **Ce texte sera très remarqué**
 
 Tu peux également utiliser le caractère '_' au lieu de '*', pour les valorisations. Cela te permet de combiner les 2 dans un même texte.
@@ -157,13 +160,13 @@ Pour créer ce genre d'encart, il faut que toutes les lignes le composant commen
 **donne ceci**:
 
 Voici un exemple de code
-
+	
     Le code en exemple...
     ...à la ligne
 
 Tu peux aussi utiliser 3 guillemets obliques \` pour indiquer le début et la fin du bloc :
 
-
+	::gfm::
     Voici mon code:
 
     ```
@@ -194,6 +197,7 @@ Comme le contenu n'est pas mis en page, tu peux constater 3 choses:
 
 Tu peux créer une liste non ordonnée en mettant devant chaque article un \* ou un -, tous deux suivis d'un espace.
 
+    ::markdown::
     * Article
     * Article
     * Article
@@ -214,6 +218,7 @@ Préfères l'usage des tirets pour ne pas faire de confusion avec la valorisatio
 
 Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
 
+    ::markdown::
     1. Article 1
     2. Article 2
     3. Article 3
@@ -229,6 +234,7 @@ Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
 
 Tu peux créer des listes imbriquées en ajoutant 1 tabulation ou 4 espaces avant les articles de la liste 'fille'.
 
+    ::markdown::
     1. Article 1
         1. Un point important de l'article 1.
         2. Un autre point à considérer.
@@ -258,7 +264,8 @@ Pour faire un tableau présentable, il va falloir le dessiner avec les caractèr
 
 Commençons par le plus simple des tableaux.
 
-	|A|B|
+	::gfm::
+    |A|B|
 	|-|-|
 	|z|w|
     |y|v|
@@ -282,7 +289,8 @@ L'entête est valorisé et se différencie du contenu du tableau.
 
 Examinons le tableau suivant:
 
-	|Un joli entête|
+	::gfm::
+    |Un joli entête|
 	|----|
 	|b                       |
     |c'est bizarre|
@@ -305,7 +313,8 @@ Mais regardons de plus près:
 
 Notre tableau est syntaxiquement correct, mais n'est pas très lisible dans l'éditeur. Essayons de le rendre lisible.
 
-	|Un joli entête|
+	::gfm::
+    |Un joli entête|
 	|--------------|
 	|b             |
 	|c'est bizarre |
@@ -323,6 +332,7 @@ Ce tableau qui nous donne le même résultat est plus facile à lire.
 ### Alignement
 Nous allons maintenant préciser pour chaque colonne comment aligner les colonnes de données. Le tableau suivant:
 
+	::gfm::
 	|Un joli entête|Un joli entête bis  |
 	|:------------:|-------------------:|
 	|b             |b                   |
@@ -350,6 +360,7 @@ La ligne qui sert de séparateur entre l'entête et les données a été agréme
 
 Le tableau ci-dessous utilise à la fois des propriétés d'alignement, et des propriétés de valorisation de texte.
 
+	::gfm::
     | Les Tables     | Sont             | Cool  |
     | -------------- |:----------------:| -----:|
     | **col 3 est**  | alignée à droite | $1600 |
@@ -371,6 +382,7 @@ Enfin, n'hésitez pas à copier/coller des lignes entières pour vous faciliter 
 
 Tu peux aussi insérer une image, en utilisant son emplacement, dans l'exemple, son URL :
 
+    ::gfm::
     ![Logo de Natao](./natao.png)
 
 ![Logo de Natao](./natao.png)
@@ -385,7 +397,7 @@ Attention, pour l'instant, les images ne sont pas sauvegardées dans Natao. Si t
 
 Tu peux créer un lien en ligne en mettant le texte sur lequel figure le lien entre crochets ( `[ ]` ) et tout de suite après, entre parenthèse ( `( )` ), là où conduit ce lien :
 
-
+	::gfm::
     [Natao est sur Github!](https://github.com/Ajrarn/Natao)
 
 **donne ceci**:
@@ -396,6 +408,7 @@ Tu peux créer un lien en ligne en mettant le texte sur lequel figure le lien en
 
 Le lien de type référence utilise une deuxième paire de crochets, dans lequel tu lui donnes un nom unique qui est son identifiant:
 
+    ::gfm::
     Natao est sur [Github][github.natao] normalement.
 
 **donne ceci**:
@@ -406,6 +419,7 @@ Notes bien que tu n'as pas encore écrit où allait ce lien. Pour ce faire, mais
 
 Donc tu remets l'identifiant entre crochets, suivi de :, de la destination et enfin d'un titre entre guillemets.
 
+    ::gfm::
     [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
 
 Tu noteras également que cette description ne s'affiche pas. Mais quand tu survoles le lien de ton texte, tu vois apparaître le titre. Mais à quoi cela peut-il servir ?
