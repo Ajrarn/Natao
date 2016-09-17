@@ -59,7 +59,9 @@
         };*/
 
         self.help = function() {
-            nw.Window.open('help.html?language=' + self.$translate.use() +'&color=' + self.PreferencesService.preferences.colorTheme, {
+            nw.Window.open('help.html?language=' + self.$translate.use()
+                + '&theme=' + self.PreferencesService.preferences.colorTheme
+                + '&showDys=' + self.PreferencesService.preferences.showDys, {
                 position: 'center',
                 width: 1366,
                 height: 768

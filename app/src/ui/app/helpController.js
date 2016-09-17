@@ -19,10 +19,10 @@
         self.$rootScope = $rootScope;
         self.$timeout = $timeout;
 
-
-        self.urlArray = $location.absUrl().split('?');
-        self.lang = self.urlArray[1].split('=')[1].split(',')[0];
-        self.theme = self.urlArray[1].split('=')[2];
+        // language and document from the url
+        self.lang = $location.search().language;
+        self.theme = $location.search().theme;
+        self.showDys = $location.search().showDys;
 
         //Set the language of the help
         tmhDynamicLocale.set(self.lang.toLowerCase().replace('_','-'));
