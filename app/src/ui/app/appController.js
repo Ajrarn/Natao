@@ -66,6 +66,14 @@
             });
         };
 
+        self.print = function(docId) {
+            nw.Window.open('print.html?language=' + self.$translate.use() +',docId=' + docId, {
+                position: 'center',
+                width: 1366,
+                height: 768
+            });
+        };
+
 
         self.toggleDys = function() {
             self.PreferencesService.preferences.showDys = !self.PreferencesService.preferences.showDys;
