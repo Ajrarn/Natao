@@ -9,27 +9,27 @@
     <style ng-bind="printCtrl.CssService.currentCss"></style>
 </head>
 <body>
-    <div id="viewer" class="viewer"
-         layout="column">
-        <div layout="column" layout-align="start stretch">
-            <div id="header" layout="row" layout-align="start stretch">
-                <div id="identity" layout="column" layout-align="center stretch">
-                    <p>{{printCtrl.PreferencesService.preferences.name}}</p>
-                    <p>{{printCtrl.PreferencesService.preferences.firstName}}</p>
-                    <p>{{printCtrl.PreferencesService.preferences.className}}</p>
-                </div>
-                <div id="title-zone" layout="column" layout-align="center stretch">
-                    <h1>{{printCtrl.currentMarkdown.title}}</h1>
-                    <p id="dateCreated">{{printCtrl.currentMarkdown.created | date : 'longDate'}}</p>
-                </div>
+<div id="viewer" class="viewer" flex
+     layout="column">
+    <div flex layout="column" layout-align="start stretch">
+        <div id="header" layout="row" layout-align="start stretch">
+            <div id="identity" layout="column" layout-align="center stretch">
+                <p>{{printCtrl.PreferencesService.preferences.name}}</p>
+                <p>{{printCtrl.PreferencesService.preferences.firstName}}</p>
+                <p>{{printCtrl.PreferencesService.preferences.className}}</p>
             </div>
-            <div id="separator"></div>
-            <div id="content" layout="row" layout-align="start stretch">
-                <div id="margin"></div>
-                <div id="made" markdown-to-html="printCtrl.currentMarkdown.md"></div>
+            <div id="title-zone" flex layout="column" layout-align="center stretch">
+                <h1>{{printCtrl.currentMarkdown.title}}</h1>
+                <p id="dateCreated">{{printCtrl.currentMarkdown.created | date : 'longDate'}}</p>
             </div>
         </div>
+        <div id="separator"></div>
+        <div id="content" flex layout="row" layout-align="start stretch">
+            <div id="margin"></div>
+            <div id="made" markdown-to-html="printCtrl.currentMarkdown.md" flex></div>
+        </div>
     </div>
+</div>
 
 
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>

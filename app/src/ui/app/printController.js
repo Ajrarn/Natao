@@ -74,6 +74,8 @@
                                             });
                                         },0,false);
 
+                                        self.print();
+
 
 
                                     }).catch(function(err) {
@@ -89,6 +91,16 @@
 
 
             });
+
+
+
+        self.print = function() {
+            setTimeout((function() {
+                window.print();
+                window.close();
+            }), 1050);
+        };
+
 
 
     }
