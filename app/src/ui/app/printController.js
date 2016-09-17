@@ -38,6 +38,15 @@
         //set the db
         self.DatabaseService.setDB(localStorage.getItem('nataoFileDatabase'));
 
+        self.DatabaseService
+            .find({docName:'Preferences'})
+            .then(function(docs) {
+                self.preferences = docs[0];
+            })
+            .catch(function() {
+                console.error('Document not found');
+            });
+
         $translate.onReady()
             .then(function() {
                 // Don't know why but language is not set here so we force it
@@ -97,7 +106,7 @@
         self.print = function() {
             setTimeout((function() {
                 window.print();
-                window.close();
+                //window.close();
             }), 1050);
         };
 

@@ -5,31 +5,31 @@
     <title>Print</title>
     <link rel='stylesheet' href='bower_components/typicons/src/font/typicons.min.css'/>
     <link rel="stylesheet" href="bower_components/highlightjs/styles/atom-one-light.css">
-    <!--link rel="stylesheet" href="src/styles/help.css"/-->
+    <link rel="stylesheet" href="src/styles/print.css"/>
     <style ng-bind="printCtrl.CssService.currentCss"></style>
 </head>
 <body>
-<div id="viewer" class="viewer" flex
-     layout="column">
-    <div flex layout="column" layout-align="start stretch">
-        <div id="header" layout="row" layout-align="start stretch">
-            <div id="identity" layout="column" layout-align="center stretch">
-                <p>{{printCtrl.PreferencesService.preferences.name}}</p>
-                <p>{{printCtrl.PreferencesService.preferences.firstName}}</p>
-                <p>{{printCtrl.PreferencesService.preferences.className}}</p>
+    <div id="viewer" class="viewer" flex
+         layout="column">
+        <div flex layout="column" layout-align="start stretch">
+            <div id="header" layout="row" layout-align="start stretch">
+                <div id="identity" layout="column" layout-align="center stretch">
+                    <p>{{printCtrl.preferences.name}}</p>
+                    <p>{{printCtrl.preferences.firstName}}</p>
+                    <p>{{printCtrl.preferences.className}}</p>
+                </div>
+                <div id="title-zone" flex layout="column" layout-align="center stretch">
+                    <h1>{{printCtrl.currentMarkdown.title}}</h1>
+                    <p id="dateCreated">{{printCtrl.currentMarkdown.created | date : 'longDate'}}</p>
+                </div>
             </div>
-            <div id="title-zone" flex layout="column" layout-align="center stretch">
-                <h1>{{printCtrl.currentMarkdown.title}}</h1>
-                <p id="dateCreated">{{printCtrl.currentMarkdown.created | date : 'longDate'}}</p>
+            <div id="separator"></div>
+            <div id="content" flex layout="row" layout-align="start stretch">
+                <div id="margin"></div>
+                <div id="made" markdown-to-html="printCtrl.currentMarkdown.md" flex></div>
             </div>
-        </div>
-        <div id="separator"></div>
-        <div id="content" flex layout="row" layout-align="start stretch">
-            <div id="margin"></div>
-            <div id="made" markdown-to-html="printCtrl.currentMarkdown.md" flex></div>
         </div>
     </div>
-</div>
 
 
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
@@ -47,6 +47,7 @@
     <script type="text/javascript" src="src/ui/app/appPrint.js"></script>
     <script type="text/javascript" src="src/ui/app/appConfig.js"></script>
     <script type="text/javascript" src="src/ui/app/appConfigMathJax.js"></script>
+    <script type="text/javascript" src="src/back/preferencesService.js"></script>
     <script type="text/javascript" src="src/back/dataBaseService.js"></script>
     <script type="text/javascript" src="src/back/documentsService.js"></script>
     <script type="text/javascript" src="src/back/principalTreeService.js"></script>
