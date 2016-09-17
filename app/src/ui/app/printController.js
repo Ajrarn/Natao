@@ -23,9 +23,9 @@
         self.DatabaseService = DatabaseService;
 
         // language and document from the url
-        self.urlArray = $location.absUrl().split('?');
-        self.lang = self.urlArray[1].split('=')[1].split(',')[0];
-        self.docId = self.urlArray[1].split('=')[2];
+        self.lang = $location.search().language;
+        self.docId = $location.search().docId;
+        self.showDys = $location.search().showDys;
 
         //Set the language of the help
         var locale = self.lang.replace('_','-').toLowerCase();

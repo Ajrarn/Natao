@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="src/styles/print.css"/>
     <style ng-bind="printCtrl.CssService.currentCss"></style>
 </head>
-<body>
+<body ng-class="{dyslexic : printCtrl.showDys}">
     <div id="viewer" class="viewer" flex
          layout="column">
         <div flex layout="column" layout-align="start stretch">

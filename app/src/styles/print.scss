@@ -1,3 +1,7 @@
 @import 'variables';
 @import 'layout';
 @import 'opendyslexic';
+
+.dyslexic {
+  font-family: opendyslexic !important;
+}

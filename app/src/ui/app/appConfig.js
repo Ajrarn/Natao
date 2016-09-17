@@ -6,7 +6,12 @@
         .config(AppConfig);
 
 
-    function AppConfig($translateProvider,tmhDynamicLocaleProvider) {
+    function AppConfig($translateProvider,tmhDynamicLocaleProvider, $locationProvider) {
+
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',
