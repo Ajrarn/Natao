@@ -25,7 +25,7 @@
         // language and document from the url
         self.lang = $location.search().language;
         self.docId = $location.search().docId;
-        self.showDys = $location.search().showDys;
+        self.showDys = ($location.search().showDys === 'true');
 
         //Set the language of the help
         var locale = self.lang.replace('_','-').toLowerCase();
@@ -61,7 +61,6 @@
                                         self.currentMarkdown = docs[0];
                                         console.log(self.currentMarkdown.css);
                                         self.CssService.initCurrentById(self.currentMarkdown.css);
-                                        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 
                                         self.$timeout(function() {
                                             $('a').on('click', function(){
@@ -72,8 +71,8 @@
                                             // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
                                             $('pre code').each(function(i, block) {
                                                 if (block.textContent.startsWith('::')) {
-                                                    var classe = block.textContent.split('::')[1];
-                                                    block.textContent = block.textContent.replace('::' + classe + '::\n', '');
+                                                    var classe = block.textContent.split('\n')[0].replace('::','');
+                                                    block.textContent = block.textContent.replace('::' + classe + '\n', '');
                                                     block.classList.add(classe);
                                                 } else {
                                                     // by default we add th class nohighlight
@@ -82,11 +81,8 @@
                                                 hljs.highlightBlock(block);
                                             });
                                         },0,false);
-
-                                        self.print();
-
-
-
+                                        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+                                        MathJax.Hub.Queue(["Delay",MathJax.Callback,2000],self.print);
                                     }).catch(function(err) {
                                     console.error(err);
                                 });
@@ -104,10 +100,11 @@
 
 
         self.print = function() {
-            setTimeout((function() {
+            //setTimeout(function() {
                 window.print();
-                //window.close();
-            }), 1050);
+                window.close();
+            //}, 1500);
+
         };
 
 

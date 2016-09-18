@@ -37,6 +37,11 @@
         self.MessageService.changeMessage('');
         self.viewer = true;
 
+        //init currentDoc
+        self.currentDoc = {
+            md:''
+        };
+
         self.buffer = null;
         self.nodesPendingPaste = 0;
 
