@@ -82,7 +82,7 @@
                                             });
                                         },0,false);
                                         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-                                        MathJax.Hub.Queue(["Delay",MathJax.Callback,2000],self.print);
+                                        MathJax.Hub.Queue(self.print);
                                     }).catch(function(err) {
                                     console.error(err);
                                 });

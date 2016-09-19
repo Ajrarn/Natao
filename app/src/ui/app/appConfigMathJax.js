@@ -9,6 +9,7 @@
     function AppConfigMathJax() {
 
         MathJax.Hub.Config({
+            messageStyle: 'none',
             asciimath2jax: {
                 delimiters: [['@@','@@']],
                 ignoreClass: ['customEditor']

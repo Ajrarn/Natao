@@ -278,7 +278,7 @@
                         </script>
 
                         <div layout="row" layout-align="space-between center">
-                            <label for="title" layout="row" layout-align="start center">
+                            <label flex for="title" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_TITLE' | translate }}</p>
                                 <input flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
