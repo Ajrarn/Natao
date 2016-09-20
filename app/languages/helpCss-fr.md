@@ -284,4 +284,15 @@ peut être sélectionné, grace au sélecteur de classe(avec un . devant) comme 
 	}
 
 Et hop! Encore quelque chose d'intéressant qu'on passe à la trappe.
+
+### Utiliser plusieurs sélecteurs en même temps
+
+Tu peux aussi appliquer une règle à plusieurs sélecteurs:
+
+	::css
+    h1, #header {
+    	display: none;
+    }
+
+Ainsi, la règle s'applique à tous les éléments *h1* et au bloc *header*
     
