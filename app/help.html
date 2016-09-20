@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="src/styles/help.css"/>
     </head>
     <body layout="column" ng-class="helpCtrl.theme">
-        <div flex layout="row"  layout-align="start stretch">
+        <div flex layout="row"  layout-align="start stretch" ng-class="{dyslexic : helpCtrl.showDys}">
             <tabs panel-selected="helpCtrl.panelSelected">
                 <pane title="{{ 'HELP_INTERFACE' | translate }}" icon="typcn-device-desktop" class="setting">
                     <div flex layout="column" layout-align="start stretch" class="visualiser">

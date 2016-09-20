@@ -65,8 +65,8 @@
                 // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
                 $('pre code').each(function(i, block) {
                     if (block.textContent.startsWith('::')) {
-                        var classe = block.textContent.split('::')[1];
-                        block.textContent = block.textContent.replace('::' + classe + '::\n', '');
+                        var classe = block.textContent.split('\n')[0].replace('::','');
+                        block.textContent = block.textContent.replace('::' + classe + '\n', '');
                         block.classList.add(classe);
                     } else {
                         // by default we add th class nohighlight

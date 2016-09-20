@@ -19,10 +19,10 @@
         self.$rootScope = $rootScope;
         self.$timeout = $timeout;
 
-
-        self.urlArray = $location.absUrl().split('?');
-        self.lang = self.urlArray[1].split('=')[1].split(',')[0];
-        self.theme = self.urlArray[1].split('=')[2];
+        // language and document from the url
+        self.lang = $location.search().language;
+        self.theme = $location.search().theme;
+        self.showDys = ($location.search().showDys === 'true');
 
         //Set the language of the help
         tmhDynamicLocale.set(self.lang.toLowerCase().replace('_','-'));
@@ -49,8 +49,8 @@
                 // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
                 $('pre code').each(function(i, block) {
                     if (block.textContent.startsWith('::')) {
-                        var classe = block.textContent.split('::')[1];
-                        block.textContent = block.textContent.replace('::' + classe + '::\n', '');
+                        var classe = block.textContent.split('\n')[0].replace('::','');
+                        block.textContent = block.textContent.replace('::' + classe + '\n', '');
                         block.classList.add(classe);
                     } else {
                         // by default we add th class nohighlight

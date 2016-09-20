@@ -74,7 +74,8 @@
                     ng-if="appCtrl.isLocked"
                     class="transparent"
                     ng-mouseover="EditorCtrl.changeButtonText('UNLOCK_BUTTON')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-lock-open-outline"></span></button>
-            <button ng-click="EditorCtrl.print()" class="transparent"
+            <!-- button ng-click="EditorCtrl.print()" class="transparent" -->
+            <button ng-click="appCtrl.print(EditorCtrl.currentMarkdown._id)" class="transparent"
                     ng-mouseover="EditorCtrl.changeButtonText('PRINT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-printer"></span></button>
             <button ng-click="appCtrl.help()" class="transparent help"
                     ng-mouseover="EditorCtrl.changeButtonText('HELP')" ng-mouseleave="EditorCtrl.changeButtonText('')">?</button>
@@ -277,7 +278,7 @@
                         </script>
 
                         <div layout="row" layout-align="space-between center">
-                            <label for="title" layout="row" layout-align="start center">
+                            <label flex for="title" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_TITLE' | translate }}</p>
                                 <input flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
