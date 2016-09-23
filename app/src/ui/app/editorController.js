@@ -2,6 +2,8 @@
     "use strict";
 
     var uuid = require('node-uuid');
+    var fse = require('fs-extra');
+    var path = require('path');
 
     angular
         .module('Natao')
@@ -107,7 +109,69 @@
             
         };
 
-        
+        /**
+         * add some data at cursor position
+         * @param data
+         */
+        self.updateCodeMirror = function(data){
+
+            var doc = self.codeMirror.getDoc();
+            var cursor = doc.getCursor(); // gets the line number in the cursor position
+            var line = doc.getLine(cursor.line); // get the line contents
+            var pos = { // create a new object to avoid mutation of the original selection
+                line: cursor.line,
+                ch: line.length - 1 // set the character position to the end of the line
+            }
+            doc.replaceRange('\n'+data+'\n', pos); // adds a new line
+        };
+
+        /**
+         * add image in Natao_images folder
+         * and write the markdown for it
+         */
+        self.addImage = function() {
+
+            var dbLocation = path.dirname(self.PreferencesService.settings.fileDatabase);
+            var imagePath = path.join(dbLocation, 'Natao_images');
+
+            self.fileDialog.openFile(function(filePath) {
+
+                fse.ensureDir(imagePath, function (err) {
+
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        var fileNameSource = path.basename(filePath);
+                        var filePathDest = '';
+
+                        var imgDirContent = fse.readdirSync(imagePath);
+
+                        if (imgDirContent.indexOf(fileNameSource) >= 0) {
+                            //the file already exist so we give the dest a new name
+                            var fileExtension = path.extname(filePath);
+                            var fileName = path.basename(filePath, fileExtension).substring(0,50);
+
+                            filePathDest = path.join(imagePath, fileName + uuid.v4() + fileExtension);
+
+                        } else {
+                            filePathDest = path.join(imagePath, path.basename(filePath));
+                        }
+
+                        fse.copy(filePath, filePathDest, function(err) {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                // finally when image imported we ca add it to the doc
+                                self.updateCodeMirror('![maNouvelleImage](file:' + filePathDest.replace(/ /g,'%20') +')')
+                            }
+                        });
+                    }
+                });
+            }, false,['image/jpeg','image/png']);
+        };
+
+
+
         self.refresh = function() {
             // to avoid save too frequent with autosave at each change, we use a timeout at 1s.
             //each time this function is called, the timeout restart
