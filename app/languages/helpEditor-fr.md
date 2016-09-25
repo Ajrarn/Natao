@@ -86,6 +86,10 @@ Dans ce dernier apparaissent tes dossiers et documents, selon l'organisation qui
 - <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier le document courant.
 - <span class="typcn typcn-trash"></span> permet de supprimer le document courant.
 
+## Insérer une image
+
+- <span class="typcn typcn-image-outline"></span> te permet d'insérer une image dans ton document. Tu trouveras une explication détaillée de ce qu'il fait dans l'aide sur le Markdown dans le chapitre *Images*.
+
 ## Réglages de l'éditeur
 Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présentation de l'éditeur avec 2 options très pratiques notamment en cas de troubles visuo-spatiaux:
 - la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro à gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.

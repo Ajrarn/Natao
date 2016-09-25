@@ -338,7 +338,10 @@
                                 </div>
                             </script>
                             <div class="buttonBar" layout="row" layout-align="end center">
-                                <button ng-click="EditorCtrl.addImage()"><span class="typcn typcn-image-outline"></span></button>
+                                <button ng-click="EditorCtrl.addImage()"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-image-outline"></span>
+                                </button>
                                 <button ns-popover
                                         ns-popover-template="popoverEditorSetting"
                                         ns-popover-trigger="click"

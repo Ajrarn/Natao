@@ -43,6 +43,7 @@
   "BTN_CANCEL":"Cancel",
   "BTN_EXPORT":"Export",
   "BTN_TOUR":"Guided tour",
+  "BTN_INSERT_IMAGE":"Insert an image",
   "EXPORT_FORMAT":"File's type",
   "BTN_IMPORT":"Import",
   "BTN_MAKE_MODEL":"Save the structure as a template",

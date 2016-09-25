@@ -40,7 +40,7 @@ j'écris une phrase courte. J'en écris une autre sur la même ligne.
 J'écris une autre phrase.
 Mais cette fois-ci, je vais à la ligne
 
-Notes que Natao n'est allé à la ligne que quand nous avons sauté une ligne. Sachant cela, tu peux aller à la ligne aussi souvent que tu le souhaites, tant que tu ne sautes de ligne, c'est le même paragraphe.
+Notes que Natao n'est allé à la ligne que quand nous avons sauté une ligne. Sachant cela, tu peux aller à la ligne aussi souvent que tu le souhaites, tant que tu ne sautes pas de ligne, c'est le même paragraphe.
 
 
 
@@ -105,12 +105,13 @@ Nous allons utiliser ce qu'on appelle un caractère d'échappement. En mettant u
 
 \# en début de texte, avec un \* sans valoriser ce qui suit.
 
-# Syntaxe avancée
+## Conclusion
 
 La syntaxe de base te permet déjà de rédiger de nombreux documents. Les éléments qui suivent te permettront de faire encore mieux.
 Et c'est toujours aussi simple.
 
-## Citation
+
+# Citation
 
 Tu peux indiquer une citation avec un >. Tant que tes lignes commencent par des >, on reste dans le bloc de citation.
 
@@ -132,9 +133,9 @@ Si tu souhaites que l'auteur apparaisse dans le bloc de citation, il te suffit s
 
 > *Abraham Lincoln*
 
-## Blocs non mis en page
+# Blocs non mis en page
 
-### Au sein d'une ligne
+## Au sein d'une ligne
 
 Utilise des guillemets obliques \` pour afficher le texte tel quel, sans mise en page.
 
@@ -147,9 +148,9 @@ Dans l'exemple ci-dessous, les \* ne transformeront pas le texte super important
 Et voila un texte `important` mais là, il devient  `**Super**Important`.
 
 
-### Sur plusieurs lignes
+## Sur plusieurs lignes
 
-Les encarts gris que tu as vu jusqu'à présent pour te montrer des exemples ont été faits avec cette technique. Tu pourras maintenant facilement la reproduire.
+Les encarts beiges que tu as vu jusqu'à présent pour te montrer des exemples ont été faits avec cette technique. Tu pourras maintenant facilement la reproduire.
 Pour créer ce genre d'encart, il faut que toutes les lignes le composant commencent par 4 espaces ou une tabulation. Ca va te paraître bizarre, mais le premier encart gris est le code permettant de faire le deuxième bloc :
 
     Voici un exemple de code
@@ -166,7 +167,7 @@ Voici un exemple de code
 
 Tu peux aussi utiliser 3 guillemets obliques \` pour indiquer le début et la fin du bloc :
 
-	::gfm::
+	::gfm
     Voici mon code:
 
     ```
@@ -191,13 +192,48 @@ Comme le contenu n'est pas mis en page, tu peux constater 3 choses:
 - Chaque ligne est à sa place, elles ne sont pas redisposées pour faire des paragraphes.
 - chaque espace est conservé.
 
-## Listes
+## Valoriser du code
 
-### listes non ordonnées
+Les blocs non mis en page sont très souvent utilisés pour illustrer du code dans un langage de programmation.
+
+Natao n'a pas été conçu spécialement pour des développeurs, la mise en valeur du code est donc par défaut désactivée.
+Mais il n'y a pas de raison pour que tu ne puisses pas t'en servir si tu as des cours d'informatique.
+
+Pour activer la mise en valeur du code, il te suffit de commencer la première ligne par :: suivi du langage à valoriser.
+
+    ```
+	::typescript
+    class MyClass extends MyfirstClass {
+    	
+        constructor(private message: string){}
+        
+        public sayHello() {
+        	console.log ('hello ' + message);
+        }
+    }
+    ```
+    
+**donne ceci**
+
+```
+::typescript
+class MyClass extends MyfirstClass {
+
+	constructor(private message: string){}
+
+	public sayHello() {
+		console.log ('hello ' + message);
+	}
+}
+```
+
+# Listes
+
+## listes non ordonnées
 
 Tu peux créer une liste non ordonnée en mettant devant chaque article un \* ou un -, tous deux suivis d'un espace.
 
-    ::markdown::
+    ::markdown
     * Article
     * Article
     * Article
@@ -214,11 +250,11 @@ Tu peux créer une liste non ordonnée en mettant devant chaque article un \* ou
 
 Préfères l'usage des tirets pour ne pas faire de confusion avec la valorisation. Mais il est bon de savoir que les \* peuvent faire la même chose.
 
-### Listes ordonnées
+## Listes ordonnées
 
 Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
 
-    ::markdown::
+    ::markdown
     1. Article 1
     2. Article 2
     3. Article 3
@@ -230,11 +266,11 @@ Tu peux créer une liste ordonnée en précédant chaque article par un nombre.
 3. Article 3
 
 
-### Listes imbriquées
+## Listes imbriquées
 
 Tu peux créer des listes imbriquées en ajoutant 1 tabulation ou 4 espaces avant les articles de la liste 'fille'.
 
-    ::markdown::
+    ::markdown
     1. Article 1
         1. Un point important de l'article 1.
         2. Un autre point à considérer.
@@ -256,15 +292,15 @@ Tu peux créer des listes imbriquées en ajoutant 1 tabulation ou 4 espaces avan
 3. Article 3
 
 
-## Tableaux
+# Tableaux
 
 Pour faire un tableau présentable, il va falloir le dessiner avec les caractères *pipe* (|), *tiret*(-) et *deux-points*(:).
 
-### Mon premier tableau
+## Mon premier tableau
 
 Commençons par le plus simple des tableaux.
 
-	::gfm::
+	::gfm
     |A|B|
 	|-|-|
 	|z|w|
@@ -285,11 +321,11 @@ Nous avons également séparé l'entête du tableau, du reste des données par u
 
 L'entête est valorisé et se différencie du contenu du tableau.
 
-### Aspect dans l'éditeur
+## Aspect dans l'éditeur
 
 Examinons le tableau suivant:
 
-	::gfm::
+	::gfm
     |Un joli entête|
 	|----|
 	|b                       |
@@ -313,7 +349,7 @@ Mais regardons de plus près:
 
 Notre tableau est syntaxiquement correct, mais n'est pas très lisible dans l'éditeur. Essayons de le rendre lisible.
 
-	::gfm::
+	::gfm
     |Un joli entête|
 	|--------------|
 	|b             |
@@ -329,10 +365,10 @@ Ce tableau qui nous donne le même résultat est plus facile à lire.
 |d             |
 
 
-### Alignement
+## Alignement
 Nous allons maintenant préciser pour chaque colonne comment aligner les colonnes de données. Le tableau suivant:
 
-	::gfm::
+	::gfm
 	|Un joli entête|Un joli entête bis  |
 	|:------------:|-------------------:|
 	|b             |b                   |
@@ -356,11 +392,11 @@ La ligne qui sert de séparateur entre l'entête et les données a été agréme
 
 
 
-### Un tableau avec plusieurs exemple
+## Un tableau avec plusieurs exemple
 
 Le tableau ci-dessous utilise à la fois des propriétés d'alignement, et des propriétés de valorisation de texte.
 
-	::gfm::
+	::gfm
     | Les Tables     | Sont             | Cool  |
     | -------------- |:----------------:| -----:|
     | **col 3 est**  | alignée à droite | $1600 |
@@ -378,37 +414,69 @@ Le tableau ci-dessous utilise à la fois des propriétés d'alignement, et des p
 
 Enfin, n'hésitez pas à copier/coller des lignes entières pour vous faciliter la création de tableaux.
 
-## Images
+# Images
 
-Tu peux aussi insérer une image, en utilisant son emplacement, dans l'exemple, son URL :
+Tu peux aussi insérer une image, dans l'exemple suivant, tu peux voir le logo de Natao qui est inclu dans le logiciel.
 
-    ::gfm::
+    ::gfm
     ![Logo de Natao](./natao.png)
+    
+**donne ceci**:
 
 ![Logo de Natao](./natao.png)
 
-Attention, pour l'instant, les images ne sont pas sauvegardées dans Natao. Si tu utilises ta base de données sur plusieurs ordinateurs, il se peut que tu doives modifier l'adresse de l'image, mais tu dois surtout penser à la déplacer avec ton fichier Natao.db.
+Avant de décortiquer le Markdown, nous allons voir la méthode super facile.
+
+## Insérer une image super facilement.
+
+Pour insérer une image dans ton document, positionnes le curseur dans l'éditeur à l'endroit où tu souhaites l'insérer.
+Puis cliques sur le bouton <span class="typcn typcn-image-outline"></span>, choisis une image et Natao va s'éxécuter.
+
+En fait, il va faire 3 choses:
+
+- créer un dossier *Natao_images* (s'il n'existe pas déjà) dans le même dossier que ton fichier de base de données.
+- copier l'image que tu lui auras fourni dans ce dossier et éventuellement la renommer si une image du même nom y existe déjà.
+- créer pour toi le Markdown nécessaire à l'emplacement de ton curseur.
+
+## voyons maintenant le Markdown
+
+Le Markdown qu'il aura généré ressemblera à quelque chose comme ça:
+
+	::gfm
+	![newImage](file:/Mon%20chemin%20de%20fichier/mon%20image.png)
+
+Tout d'abord, j'attire ton attention sur les *%20*. Les URL sur internet n'aiment pas les espaces. Ben c'est pareil pour les URL dans le MarkDown, du coup *%20* veut dire espace.
+
+Maintenant, comme tu peux le voir la syntaxe en 3 parties:
+- ! (qui annonce le début de l'image
+- un texte entre crochets ([]), c'est un texte qui s'affiche quand on ne voit pas l'image.
+- l'URL ou le chemin menant à l'image entre parenthèses.
+
+Cette URL peut commencer par:
+- *http:* ou *https:* si cette image est sur internet.
+- *file:* si cette image est sur ton ordinateur (et c'est le cas quand on utilise le bouton d'insertion).
+- rien du tout...Uniquement pour mes exemples car ces images sont livrées avec Natao.
 
 
-## Liens
+# Liens
 
 
-### En ligne
+## En ligne
 
 Tu peux créer un lien en ligne en mettant le texte sur lequel figure le lien entre crochets ( `[ ]` ) et tout de suite après, entre parenthèse ( `( )` ), là où conduit ce lien :
 
-	::gfm::
+	::gfm
     [Natao est sur Github!](https://github.com/Ajrarn/Natao)
 
 **donne ceci**:
 
 [Natao est sur Github!](https://github.com/Ajrarn/Natao)
 
-### Référence
+## Référence
 
 Le lien de type référence utilise une deuxième paire de crochets, dans lequel tu lui donnes un nom unique qui est son identifiant:
 
-    ::gfm::
+    ::gfm
     Natao est sur [Github][github.natao] normalement.
 
 **donne ceci**:
@@ -419,7 +487,7 @@ Notes bien que tu n'as pas encore écrit où allait ce lien. Pour ce faire, mais
 
 Donc tu remets l'identifiant entre crochets, suivi de :, de la destination et enfin d'un titre entre guillemets.
 
-    ::gfm::
+    ::gfm
     [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
 
 Tu noteras également que cette description ne s'affiche pas. Mais quand tu survoles le lien de ton texte, tu vois apparaître le titre. Mais à quoi cela peut-il servir ?

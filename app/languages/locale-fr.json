@@ -44,6 +44,7 @@
   "BTN_CANCEL":"Annuler",
   "BTN_EXPORT":"Exporter vers un fichier",
   "BTN_TOUR":"Visite guidée",
+  "BTN_INSERT_IMAGE":"Insérer une image",
   "EXPORT_FORMAT":"Format d'exportation",
   "BTN_IMPORT":"Importer depuis un fichier",
   "BTN_MAKE_MODEL":"Sauver la structure",

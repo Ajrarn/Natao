@@ -162,7 +162,7 @@
                                 console.error(err);
                             } else {
                                 // finally when image imported we ca add it to the doc
-                                self.updateCodeMirror('![maNouvelleImage](file:' + filePathDest.replace(/ /g,'%20') +')')
+                                self.updateCodeMirror('![newImage](file:' + filePathDest.replace(/ /g,'%20') +')')
                             }
                         });
                     }

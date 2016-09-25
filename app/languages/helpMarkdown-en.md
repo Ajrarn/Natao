@@ -81,11 +81,11 @@ You may choose to strike-through a word or words by adding two tilde signs ( ~ )
 
 Please note that some of Natao's default style-sheets allow you to underline portions of a text with a red line.
 
-# Advanced Syntax
+## Conclusion
 
 The basic Markdown syntax allows anyone to write clear documents. The elements of syntax that follow should allow you to go a step further.
 
-## Citations
+# Citations
 
 You may create a citation by adding a greater-than symbol ( > ) in front of the text you would like to have appear as a quote. As long as your lines start with ( > ), your text will remain a citation.
 
@@ -107,9 +107,9 @@ If you wish the name of the author to appear in the citation block itself, write
 
 > *Emily Dickinson*
 
-## Unformatted Blocks
+# Unformatted Blocks
 
-### Within a Line
+## Within a Line
 
 To highlight a few words within a larger section of text, use quotation marks.
 The font of the highlighted words or word will change, but the text's overall formatting will remain unchanged. In the example that follows, the star signs ( * ) are added to create even more emphasis.
@@ -118,7 +118,7 @@ The font of the highlighted words or word will change, but the text's overall fo
 
 This text is 'important' and here, it becomes even '**more**' important
 
-### Over Many Lines
+## Over Many Lines
 
 The grayed out blockquotes we've used in this guide were created as follows: start the lines of text that need to be part of the box with four empty character spaces, or one use of the TAB-key on your keyboard.
 
@@ -146,9 +146,9 @@ x = 0
 x = 2 + 2
 ```
 
-## Lists
+# Lists
 
-### Unnumbered Lists
+## Unnumbered Lists
 
 You may create unnumbered lists by adding a star sign ( * ) or an underscore sign ( _ ) in front of each portion of text.
 
@@ -164,7 +164,7 @@ You may create unnumbered lists by adding a star sign ( * ) or an underscore sig
 - Here, some text.
 - I just wrote some words.
 
-### Numbered Lists
+## Numbered Lists
 
 You may create a numbered list simply and logically by beginning each list item by a number.
 
@@ -176,7 +176,7 @@ You may create a numbered list simply and logically by beginning each list item 
 2. Here, some text.
 3. I just wrote some words.
 
-### Indented Lists
+## Indented Lists
 
 You may create tabbed lists by adding one TAB-key space, or four empty character spaces, in front of the text that needs to be indented.
 
@@ -198,7 +198,7 @@ You may create tabbed lists by adding one TAB-key space, or four empty character
   * And some last words.
 3. Start a new indented sentence.
 
-## Tables
+# Tables
 
 Creating tables with the original version of the Markdown syntax is not possible. We can create them by using a variant of Markdown called "GFM", which stands for "Git-Hub Flavored Markdown".
 
@@ -227,7 +227,7 @@ Colon signs ( : ) are used to align the columns as follows:
 You should note that, although vertical bars or pipes are needed to create columns, they do not need to be aligned for the table appear properly in its final print-ready form. That said, aligning them makes reading the Markdown tables easier.
 Finally, note that the tables will appear in the center of your document's page.
 
-## Images
+# Images
 
 You may insert images in your document by directing Natao to the image's URL location on your computer:
 
@@ -237,9 +237,9 @@ You may insert images in your document by directing Natao to the image's URL loc
 
 Please, be aware that images are not saved within Natao or any of its databases. If you use your database on more than one computer, you will have to copy your image(s) along side the Natao.db file and modify the images' URL within your document.
 
-## Links
+# Links
 
-### Inline
+## Inline
 
 You can create an inline link by wrapping link-text in brackets ( [ ] ), and then wrapping the link in parentheses ( ( ) ).
 
@@ -249,7 +249,7 @@ For example, to create a hyperlink to https://github.com/Ajrarn/Natao, with a li
 
 [Natao is on Github!](https://github.com/Ajrarn/Natao)
 
-### Reference
+## Reference
 
 Reference-style links use a second set of square brackets, inside which you place a label of your choosing to identify the link:
 
