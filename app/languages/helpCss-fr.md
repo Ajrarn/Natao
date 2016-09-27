@@ -26,7 +26,7 @@ Une balise fermante comporte le même nom mais commence par `</`
 	::xml
 	</paragraphe>
     
-Cette paire de balise définit un **bloc**.
+Cette paire de balise définit un *bloc*.
     
 **Attention** le nom d'une balise ne contient qu'un seul mot (c'est à dire sans espace), l'exemple suivant ne sera pas valide :
 
@@ -150,15 +150,15 @@ J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu pu
 	::string
 	id="viewer" layout="column"
     
-- **id** qui signifie identifiant.
-- **layout** qui n'est pas un attribut standard, mais qui signifie la disposition au sein de cet élément dans Natao:
+- *id* qui signifie identifiant.
+- *layout* qui n'est pas un attribut standard, mais qui signifie la disposition au sein de cet élément dans Natao:
 	- *column* signifie en colonne
     - *row* signifie en ligne
 
 
-Donc, nous pouvons voir ici que notre élément **div** a pour identifiant *viewer* et une disposition en colonne. Les blocs qui sont à l'intérieur se disposent en colonne.
+Donc, nous pouvons voir ici que notre élément *div* a pour identifiant *viewer* et une disposition en colonne. Les blocs qui sont à l'intérieur se disposent en colonne.
 
-Pour simplifier la compréhension, nous utiliserons l'identifiant des blocs pour les désigner (car les div sont utilisés partout). Ainsi, au lieu de parler de blocs **div**, nous parlerons du bloc **viewer**.
+Pour simplifier la compréhension, nous utiliserons l'identifiant des blocs pour les désigner (car les div sont utilisés partout). Ainsi, au lieu de parler de blocs *div*, nous parlerons du bloc *viewer*.
 
 A l'intérieur de notre premier bloc, nous en avons un autre qui s'étire(*layout-align="start stretch"*) et prend toute la place disponible(*flex*) :
 
@@ -197,17 +197,17 @@ Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressan
 ```
     
 Ce dernier est composé de 2 blocs:
-- **identity**
-- **title-zone**
+- *identity*
+- *title-zone*
 
 Ces 2 blocs sont disposés sur la même ligne et vont s'étirer dans cette ligne en commençant à gauche:
 
 	::html
 	<div id="header" layout="row" layout-align="start stretch">
     
-Au sein de **identity**, ton nom, ton prénom et ta classe vont se disposer en colonne.
+Au sein de *identity*, ton nom, ton prénom et ta classe vont se disposer en colonne.
 
-Au sein de **title-zone**, le titre du document et sa date de création apparaîtront en colonne.
+Au sein de *title-zone*, le titre du document et sa date de création apparaîtront en colonne.
 
 ## le bloc *separator*
 
@@ -224,8 +224,8 @@ C'est un bloc vide, qui servira à créer un espace de notation entre le titre e
    	</div>
 
 Ce dernier est lui même composé de 2 blocs qu'il va disposer en ligne:
-- **margin** qui est une marge à gauche permettant à ton enseignant de corriger ton devoir
-- **made** qui est la zone de rendu de ton document Markdown
+- *margin* qui est une marge à gauche permettant à ton enseignant de corriger ton devoir
+- *made* qui est la zone de rendu de ton document Markdown
 
     
 # Une règle CSS
@@ -507,7 +507,7 @@ On peut modifier la police utilisée grace à la propriété *font-family* comme
     
 La signification de cette ligne est la suivante : Prends la police *RobotoDraft*, si tu ne la trouve pas *Roboto*, si tu ne la trouve pas *Helvetica Neue* et si tu ne la trouves toujours pas prends la première police de type *sans-serif* que tu as.
 
-Les polices disponibles dépendent du système d'exploitation sur lequel Natao tourne. Soit Windwos, soit MacOs, soit Linux. Il faut donc lui donner plusieurs pistes à explorer et à la fin une piste infaillible.
+Les polices disponibles dépendent du système d'exploitation sur lequel Natao tourne. Soit Windwos, soit MacOs, soit Linux. Il faut donc lui donner plusieurs pistes à explorer et à la fin une piste infaillible(la famille).
 
 Voici quelques exemple courants de définition de *font-family*:
 
@@ -525,16 +525,124 @@ Voici quelques exemple courants de définition de *font-family*:
 | Sans-Serif | "Trebuchet MS", Helvetica, sans-serif               |
 | Sans-Serif | Verdana, Geneva, sans-serif                         |   
 | Monospace  | "Courier New", Courier, monospace                   |   
-| Monospace  | "Lucida Console", Monaco, monospace                 |   
+| Monospace  | "Lucida Console", Monaco, monospace                 | 
 
-# Agir sur les paragraphes
+## Souligner du texte
 
-Avant toute chose, les paragraphes sont des blocs comme les autres:
+Soulignons tout le texte:
+
+	::css
+    #made {
+    	text-decoration: underline;
+    }
+    
+## l'épaisseur du texte
+
+La propriété *font-weight* permet de régler l'épaisseur du texte:
+- *lighter* pour un texte plus fin que d'habitude
+- *normal* pour un texte normal.
+- *bold* pour un texte gras.
+- *bolder* pour un texte très gras.
+
+Mettons tout le texte en gras comme ceci:
+
+	::css
+    #made {
+    	font-weight: bold;
+    }
+
+## Le style de texte
+
+La propriété *font-style* permet de déterminer si un texte est:
+- *normal*: avec des caractères verticaux.
+- *italic*: avec des caractères penchés.
+
+Mettons tout notre texte en italique comme ceci:
+
+	::css
+	#made {
+    	font-style: italic;
+    }
+    
+## L'alignement du texte
+
+La propriété *text-align* permet de choisir l'alignement du texte. Elle peut avoir les valeurs suivantes:
+- *left*, pour coller le texte à gauche.
+- *right*, pour coller le texte à droite.
+- *center*, pour centrer le texte.
+- *justify*, pour que le texte se colle à la fois à gauche et à droite, qu'il prenne toute la place.
+
+	::css
+    #made p {
+    	text-align: center;
+    }
+    
+Pour les vers d'une poésie par exemple.
+
+## Indenter la première ligne
+
+La propriété *text-indent* permet d'indenter la première ligne d'un bloc de texte:
+
+	::css
+    #made p {
+    	text-indent: 1.5em;
+    }
+
+# Agir sur les blocs de texte individuellement
+
+Voici un exemple de document Markdown avec des paragraphes, des titres, et du texte valorisé:
+
+	::markdown
+    # Titre 1
+    ## Titre 1.1
+    ### Titre 1.1.1
+    ...
+    ###### Titre 1.1.1.1.1.1
+    
+    Voici mon premier paragraphe, avec sa première ligne simple.
+    Suivie d'une deuxième ligne.
+    
+    Et maintenant le *paragraphe* suivant avec des mots **valorisés** voire ~~barrés~~
+    
+Ce texte en Markdown devrait donner ce code HTML:
 
 	::html
-    <p>Voici mon paragraphe</p>
+    <h1>Titre 1</h1>
+    <h2>Titre 1.1</h2>
+    <h3>Titre 1.1.1</h3>
+    ...
+    <h6>Titre 1.1.1.1.1.1</h6>
+    
+    <p>Voici mon premier paragraphe, avec sa première ligne simple.Suivie d'une deuxième ligne.</p>
+    <p>Et maintenant le <em>paragraphe</em> suivant avec des mots <strong>valorisés</strong> voire <del>barrés</del></p>
+    
+Nous pouvons voir que le nombre de # d'un titre correspond au numéro qui suit le h du bloc de titre. Ainsi # devient un bloc *h1* et ainsi de suite.
 
+Les paragraphes sont dans des blocs *p*.
 
+Le mot *paragraphe* qui était entouré de 1 `*` est dans un bloc *em*.
+
+Le mot *valorisés* qui était entouré de 2 `*`est dans un bloc *strong*.
+
+Enfin, le mot *barrés* qui était entouré de 2 `~`est dans un bloc *del*.
+
+Tous ces blocs sont des blocs comme les autres. Par conséquent, tout ce que nous avons vu jusqu'à présent peut être appliqué à un de ceux-ci:
+- les couleurs de fond et de texte
+- le changement de police
+- le changement de taille de police
+- le soulignement
+- l'épaisseur du texte
+- son style
+
+Ces blocs ont déjà une apparence par défaut. Ainsi un bloc *em* est par défaut en italique, un bloc *strong* est par défaut en gras, un bloc *del* est par défaut barré et les titres ont également des tailles par défaut. Ne modifiez que ce qui est utile.
+
+Si vous avez besoin qu'en plus d'être en gras, le texte très valorisé soit en rouge et souligné ecrivez ceci:
+
+	::css
+    strong {
+    	color: red;
+        text-decoration: underline;
+    }
 
 
 

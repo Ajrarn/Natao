@@ -29,6 +29,9 @@
     text-align:justify;
 }
 
+#made .typcn {
+     font-size: 1.7em;
+}
 
 /* Table */
 #made table {
