@@ -16,7 +16,15 @@
     }
 
 
-    //Service itself
+    /**
+     * Create the CssService
+     * @param $translate
+     * @param $q
+     * @param PendingService
+     * @param DatabaseService
+     * @returns {CssService}
+     * @constructor
+     */
     function CssService($translate,$q,PendingService,DatabaseService) {
 
         var self = this;
@@ -27,7 +35,10 @@
         self.DatabaseService = DatabaseService;
 
 
-
+        /**
+         * Initialization of the service
+         * @returns {*} return a promise
+         */
         self.getInitCss = function() {
 
             return self.$q(function(resolve,reject) {
@@ -100,6 +111,10 @@
             });
         };
 
+        /**
+         * insert the new Css document in the database
+         * @param newCss
+         */
         self.addCss = function(newCss) {
 
             self.DatabaseService
@@ -110,6 +125,12 @@
             
         };
 
+        /**
+         * create a new css document with its name
+         * and insert it in the database
+         * @param nameCss
+         * @returns {*} a promise
+         */
         self.addCssNamed = function(nameCss) {
             var docCss = {
                 docName:'css',
@@ -134,11 +155,21 @@
 
         };
 
+        /**
+         * init the current css by finding it
+         * in the database with its id
+         * @param idCss
+         */
         self.initCurrentById = function(idCss) {
             var css = _.find(self.availableCss,{_id:idCss});
             self.currentCss = self.safeCss(css.css);
         };
 
+        /**
+         * init the current css with a css document
+         * already loaded
+         * @param css
+         */
         self.initCurrentByContent = function(css) {
             self.currentCss = self.safeCss(css);
         };
@@ -159,6 +190,10 @@
             return result._id;
         };
 
+        /**
+         * save a css document in the database
+         * @param css
+         */
         self.saveCss = function(css) {
 
             //default
@@ -197,6 +232,10 @@
             }
         };
 
+        /**
+         * delete a css document from the database
+         * @param css
+         */
         self.deleteCss = function(css) {
             if (css._id) {
                 self.PendingService.start();
@@ -214,6 +253,11 @@
             }
         };
 
+        /**
+         * to avoid css disease add #viewer to each rule
+         * @param css
+         * @returns {*}
+         */
         self.safeCss = function(css) {
             var objCss = cssParser.parse(css);
 
@@ -222,8 +266,8 @@
                 if (rule.type === 'rule') {
 
                     var newSelectors = rule.selectors.map(function(selector) {
-                        if (!selector.startsWith('.viewer')) {
-                            return '.viewer ' + selector;
+                        if (!selector.startsWith('#viewer')) {
+                            return '#viewer ' + selector;
                         } else {
                             return selector;
                         }

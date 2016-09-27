@@ -228,31 +228,29 @@ Ce dernier est lui même composé de 2 blocs qu'il va disposer en ligne:
 - **made** qui est la zone de rendu de ton document Markdown
 
     
-# Le CSS
+# Une règle CSS
 
 On y arrive enfin, tu vas pouvoir personnaliser ton document grace à ce qui suit. En CSS, on écrit des règles qui vont être appliquées au HTML. Voici un exemple de règle:
 
 	::css
     #identity {
     	display: none;
-    	width: 0px;
 	}
     
 Parlons tout d'abord de *#identity*. Cette partie de la règle se situe avant les accolades ({ }), c'est ce que l'on appelle un sélecteur. Il va nous permettre de savoir à quel élément s'applique la règle.
 
 Ici la règle s'applique à l'élément dont l'identifiant est *identity*.
 
-Ensuite, on peut voir 2 propriétés qui sont appliquées à cet élément.
+Ensuite, on peut voir 1 propriété qui est appliquée à cet élément.
 - *display: none;* lui dit de ne pas s'afficher.
-- *width: 0px;* lui dit d'avoir une largeur nulle.
 
 Dans le cas d'une leçon, je n'ai pas besoin de voir s'afficher le bloc avec mon nom et mon prénom, voila comment lui dire de ne pas s'afficher et de ne pas prendre de place.
 
 Je vais maintenant te donner les éléments qui te permettront de bien choisir les éléments que tu vas relooker et les propriétés les plus utiles.
 
-## les sélecteurs
+# les sélecteurs utiles
 
-### Le sélecteur de bloc
+## Le sélecteur de bloc
 
 Pour sélectionner tous les blocs identiques, il me suffit d'utiliser comme sélecteur le nom de la balise:
 
@@ -263,11 +261,11 @@ Pour sélectionner tous les blocs identiques, il me suffit d'utiliser comme sél
     
 Ce mauvais exemple va dissimuler tous les blocs *div*, autrement dit, tout ton document...
 
-### Le sélecteur d'identifiant
+## Le sélecteur d'identifiant
 
 Pour sélectionner un bloc quel qu'il soit sur son identifiant je vais utiliser un # devant l'identifiant, comme l'exemple vu en tout premier lieu.
 
-### Le sélecteur de classe
+## Le sélecteur de classe
 
 un bloc possédant une propriété class comme par exemple:
 
@@ -285,14 +283,258 @@ peut être sélectionné, grace au sélecteur de classe(avec un . devant) comme 
 
 Et hop! Encore quelque chose d'intéressant qu'on passe à la trappe.
 
-### Utiliser plusieurs sélecteurs en même temps
+## Utiliser plusieurs sélecteurs en même temps
 
-Tu peux aussi appliquer une règle à plusieurs sélecteurs:
+Tu peux aussi appliquer une règle à plusieurs sélecteurs, en les séparant par une virgule:
 
 	::css
     h1, #header {
     	display: none;
     }
 
-Ainsi, la règle s'applique à tous les éléments *h1* et au bloc *header*
+Ainsi, la règle s'applique à tous les éléments *h1* et au bloc *header*.
+
+## Sélectionner les descendants de
+
+Tu peux sélectionner les descendants d'éléments en mettant un espace entre le parent et le descendant :
+
+	::css
+    #title-zone h1 {
+    	color: red
+    }
     
+Cet exemple modifie la couleur du titre de niveau 1 dans le bloc #title-zone, mais n'impacte pas les autres titres dans d'autres blocs.
+
+# Agir sur les grands blocs d'un document Natao
+
+La première chose que l'on doit faire, c'est de décider les blocs qui s'affiche dans notre feuille de style, leur taille et éventuellement les décorer.
+
+## Les faire disparaître
+
+Je te remets le premier exemple sur le CSS:
+
+	::css
+    #identity {
+    	display: none;
+	}
+    
+
+*display* permet de modifier la disposition des éléments enfants. Dans la mesure où cette disposition est pilotée d'une autre manière dans Natao, la seule valeur à connaître est *none* qui permet de masquer l'élément.
+
+A appliquer sur les éléments suivants qui ne sont utiles que pour les devoirs:
+- *identity*
+- *separator*
+- *margin*
+
+## Modifier leur taille
+
+### Hauteur et Largeur
+	
+    ::css
+	#identity {
+    	width: 200px;
+	}
+    
+    #separator {
+    	height: 200px;
+    }
+
+
+Dans l'exemple précédent, j'ai fixé la largeur(*width*) du bloc *identity* à 200 pixels, et la hauteur(*height*) de l'élément *separator* également à 200 pixels.
+
+En effet *identity* est dans un bloc où les éléments sont disposés en ligne. Il prendra la largeur indiquée et les autres éléments du même bloc prendront la place restante.
+
+Dans le cas de *separator*, il est dans un bloc disposé en colonne. En fixant sa taille, le bloc suivant prendra la hauteur qui reste.
+
+### Unités
+
+Dans l'exemple précédent, j'ai utilisé comme unité des pixels(px). Il y en a de nombreuses autres. Je vais t'en citer quelques unes intéressantes:
+
+- *px* pour pixels(ce sont des points à l'écran)
+- *pt* pour points(à l'impression)
+- *%* qui comme son nom l'indique est une proportion de l'espace disponible. 50% siginifie qu'il occupe la moitité de l'espace.
+- *em* qui est pour moi l'unité la plus intéressante. 1em = la taille de police du document. Tu vas donc pouvoir définir plusieurs en éléments qui seront proportionnels à cette taille de police.
+
+## Modifier leur couleur
+
+### en écrivant les propriétés
+	::css
+    #identity {
+    	background-color: red;
+        color: #af2356;
+    }
+    
+Voici 2 nouvelles propriétés permettant de modifier des couleurs:
+- *color* permet de modifier la couleur du texte.
+- *background-color* permet de modifier la couleur du fond.
+
+Comme tu peux le voir, la propriété *background-color* contient un nom de couleur en anglais. La liste de couleurs disponibles est trop grande pour figurer dans ce document. Je t'invite à la consulter [ici](http://www.colors.commutercreative.com/grid/).
+
+La propriété *color* contient un #, suivi d'une valeur de 6 caractères en hexadécimal. Je ne vais pas t'expliquer l'héxadécimal ici, mais ces 6 caractères sont en fait 3 fois 2 caractères. La première paire est pour la composante Rouge, la deuxième pour la composante Verte, et la dernière pour la composante Bleue. Soit RVB ou RGB en anglais. Cette façon d'écrire te permet de choisir très précisément la couleur que tu souhaites contrairement aux noms.
+
+### en utilisant l'outil de choix de couleur
+
+Natao intègre un outil pour t'aider à choisir les couleurs. Celui-ci s'active quand il voit un code couleur valide comme par exemple:
+
+	::css
+    color: #111111;
+    
+c'est à dire commençant par un # suivi de 6 chiffres.
+
+Une fois que tu as tapé ce texte, cliques dessus pour le voir apparaître.
+
+![Chois de couleur](./src/images/thistle.png)
+
+Tu peux y voir 3 composants:
+
+- la barre d'aperçu, celle qui est toute en bas.
+- la barre de luminosité, à droite.
+- le cercle de teintes.
+
+Tu peux agir sur le diamètre du cercle, en le rapprochant du centre (couleurs fades), ou l'éloignant (couleurs vives). Puis tu peux choisir la couleur en déplaçant le curseur dans le cercle. Enfin, la luminiusité avec le curseur présent dans la barre de droite.
+
+## Modifier les bordures
+
+
+### 2 syntaxes
+
+Tu peux mettre sur chaque bloc des bordures, comme ceci:
+
+	::css
+    #identity {
+    	border-width: thin;
+        border-style: solid;
+        border-color: red;
+    }
+    
+    #separator {
+    	border: thin solid red;
+    }
+    
+Dans cet exemple, nous avons appliqué la même bordure aux 2 blocs *identity* et *separator*. Commençons par la syntaxe utilisée pour *identity*.
+
+Tu peux voir 3 propriétés:
+- *border-width* qui est l'épaisseur de la bordure, ici elle fine(thin).
+- *border-style* qui est le style de la bordure, ici c'est un trait plein (solid).
+- *border-color* qui est la couleur de la bordure, ici rouge (red).
+
+Pour *separator* tu peux voir une syntaxe abrégée. Le mot clé *border* est suivi des 3 valeurs associées à la largeur, au style et à la couleur.
+
+### L'épaisseur (width)
+
+Pour cette propriété, il existe 3 valeurs standards:
+
+- *thin* : pour une bordure fine.
+- *medium* : pour une bordure moyenne.
+- *thick* : pour une bordure épaisse.
+
+Tu peux aussi y mettre des valeurs en pixels(px), en points(pt), etc...
+
+### Le style
+
+Voici 4 valeurs à connaître:
+
+- *dotted* : pour obtenir un trait en pointillés.
+- *dashed* : pour obtenir un trait en tirets.
+- *solid* : pour obtenir un trait plein.
+- *double* : pour obtenir un double-trait(visible à partir de medium).
+
+### Des bordures partielles
+
+Les propriétés que l'on a vu permettent de faire une bordure qui entoure complètement le bloc. On peut avoir besoin de n'avoir qu'une bordure sur un ou 2 côtés. Chaque côté a un mot clé associé:
+
+- *top* : pour la bordure supérieure.
+- *bottom* : pour la bordure inférieure.
+- *left* : pour la bordure gauche.
+- *right* : pour la bordure droite.
+
+Il suffit d'ajouter ce mot-clé après border comme suit:
+
+	::css
+    #separator {
+    	border-top: thin solid blue;
+        border-bottom: thin solid blue;
+    }
+    
+    #margin {
+    	border-right-width: thin;
+        border-right-style: solid;
+        border-right-color: red;
+    }
+
+Comme tu peux le voir, cela fonctionne aussi pour la forme abrégée.
+
+# Agir globalement sur le texte
+
+## Modifier la taille de référence du texte
+
+Je te fais un petit rappel sur les unités de mesure:
+
+- *px* pour pixels(ce sont des points à l'écran)
+- *pt* pour points(à l'impression)
+- *em* qui est pour moi l'unité la plus intéressante. 1em = la taille de police du document.
+
+On peut fixer pour le contenu du document une taille de police de base. Par exemple:
+
+	::css
+    #made {
+    	font-size: 16px;
+    }
+    
+Cet exemple donne une taille de police de 16px, c'est la taille par défaut. C'est à partir de cette taille par défaut que je vais pouvoir ajuster celle des titres, par exemple.
+
+	::css
+    #made h1 {
+    	font-size: 2em;
+    }
+    
+    #made h2 {
+    	font-size: 1.5em;
+    }
+    
+Ainsi mon titre de niveau 1 (qui correspond à un seul #) fera 2 fois la taille de base, et le titre de niveau 2 (qui correspond à ##) fera 1,5 fois cette taille.
+
+Si je change la taille de base à 20px, les titres resteront proportionnels.
+
+## Modifier la police
+
+On peut modifier la police utilisée grace à la propriété *font-family* comme ceci:
+
+	::css
+    #made {
+    	font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+    }
+    
+La signification de cette ligne est la suivante : Prends la police *RobotoDraft*, si tu ne la trouve pas *Roboto*, si tu ne la trouve pas *Helvetica Neue* et si tu ne la trouves toujours pas prends la première police de type *sans-serif* que tu as.
+
+Les polices disponibles dépendent du système d'exploitation sur lequel Natao tourne. Soit Windwos, soit MacOs, soit Linux. Il faut donc lui donner plusieurs pistes à explorer et à la fin une piste infaillible.
+
+Voici quelques exemple courants de définition de *font-family*:
+
+| famille    | définition                                          |
+|------------|-----------------------------------------------------|
+| Serif      | Georgia, serif                                      |
+| Serif      | "Palatino Linotype", "Book Antiqua", Palatino, serif|
+| Serif      | "Times New Roman", Times, serif                     |
+| Sans-Serif | Arial, Helvetica, sans-serif                        |
+| Sans-Serif | "Arial Black", Gadget, sans-serif                   |
+| Sans-Serif | "Comic Sans MS", cursive, sans-serif                |
+| Sans-Serif | Impact, Charcoal, sans-serif                        |
+| Sans-Serif | "Lucida Sans Unicode", "Lucida Grande", sans-serif  |
+| Sans-Serif | Tahoma, Geneva, sans-serif                          |
+| Sans-Serif | "Trebuchet MS", Helvetica, sans-serif               |
+| Sans-Serif | Verdana, Geneva, sans-serif                         |   
+| Monospace  | "Courier New", Courier, monospace                   |   
+| Monospace  | "Lucida Console", Monaco, monospace                 |   
+
+# Agir sur les paragraphes
+
+Avant toute chose, les paragraphes sont des blocs comme les autres:
+
+	::html
+    <p>Voici mon paragraphe</p>
+
+
+
+
+
