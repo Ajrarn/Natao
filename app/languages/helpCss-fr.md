@@ -26,7 +26,7 @@ Une balise fermante comporte le même nom mais commence par `</`
 	::xml
 	</paragraphe>
     
-Cette paire de balise définit un *bloc*.
+Cette paire de balise définit une *boite* (tout simplement car elle contient quelque chose).
     
 **Attention** le nom d'une balise ne contient qu'un seul mot (c'est à dire sans espace), l'exemple suivant ne sera pas valide :
 
@@ -39,13 +39,13 @@ mais le suivant si:
 	<en-tete></en-tete>
 
     
-Donc, si je souhaite définir un bloc paragraphe à l'aide de ma balise paragraphe, je vais l'écrire comme suit:
+Donc, si je souhaite définir une boite paragraphe à l'aide de ma balise *paragraphe*, je vais l'écrire comme suit:
 
 	::xml
 	<paragraphe>Et voici la première phrase de mon paragraphe.
     Et maintenant, la deuxième.</paragraphe>
     
-On peut également mettre à l'intérieur d'un bloc d'autres blocs:
+On peut également mettre à l'intérieur d'une boite d'autres boites:
 
 	::xml
 	<document>
@@ -145,7 +145,7 @@ Commençons par analyser la première balise :
 	<div id="viewer" layout="column">
     </div>
   
-J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu puisses voir que le nom de la balise utilisée est *div* (qui est un bloc sans signification particulière). Le plus important ici, ce sont les attributs :
+J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu puisses voir que le nom de la balise utilisée est *div* (qui est une boite sans signification particulière). Le plus important ici, ce sont les attributs :
 
 	::string
 	id="viewer" layout="column"
@@ -156,16 +156,16 @@ J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu pu
     - *row* signifie en ligne
 
 
-Donc, nous pouvons voir ici que notre élément *div* a pour identifiant *viewer* et une disposition en colonne. Les blocs qui sont à l'intérieur se disposent en colonne.
+Donc, nous pouvons voir ici que notre élément *div* a pour identifiant *viewer* et une disposition en colonne. Les boites qui sont à l'intérieur se disposent en colonne.
 
-Pour simplifier la compréhension, nous utiliserons l'identifiant des blocs pour les désigner (car les div sont utilisés partout). Ainsi, au lieu de parler de blocs *div*, nous parlerons du bloc *viewer*.
+Pour simplifier la compréhension, nous utiliserons l'identifiant des boites pour les désigner (car les div sont utilisés partout). Ainsi, au lieu de parler de boites *div*, nous parlerons de la boite *viewer*.
 
-A l'intérieur de notre premier bloc, nous en avons un autre qui s'étire(*layout-align="start stretch"*) et prend toute la place disponible(*flex*) :
+A l'intérieur de notre première boite, nous en avons une autre qui s'étire(*layout-align="start stretch"*) et prend toute la place disponible(*flex*) :
 
 	::html
 	<div flex layout="column" layout-align="start stretch"></div>
     
-Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressants :
+Sa disposition est en colonne et on peut voir qu'elle contient 3 boites intéressantes :
 
 	::html
 	<div flex layout="column" layout-align="start stretch">
@@ -176,11 +176,11 @@ Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressan
     
 
     
-- un bloc *header*
-- un bloc *separator*
-- un bloc *content*
+- une boite *header*
+- une boite *separator*
+- une boite *content*
 
-## le bloc *header*
+## la boite *header*
 ```
 ::html
 <div id="header" layout="row" layout-align="start stretch">
@@ -196,11 +196,11 @@ Sa disposition est en colonne et on peut voir qu'il contient 3 blocs intéressan
 </div>
 ```
     
-Ce dernier est composé de 2 blocs:
+Ce dernier est composé de 2 boites:
 - *identity*
 - *title-zone*
 
-Ces 2 blocs sont disposés sur la même ligne et vont s'étirer dans cette ligne en commençant à gauche:
+Ces 2 boites sont disposées sur la même ligne et vont s'étirer dans cette ligne en commençant à gauche:
 
 	::html
 	<div id="header" layout="row" layout-align="start stretch">
@@ -209,11 +209,11 @@ Au sein de *identity*, ton nom, ton prénom et ta classe vont se disposer en col
 
 Au sein de *title-zone*, le titre du document et sa date de création apparaîtront en colonne.
 
-## le bloc *separator*
+## la boite *separator*
 
-C'est un bloc vide, qui servira à créer un espace de notation entre le titre et le contenu de ton devoir.
+C'est une boite vide, qui servira à créer un espace de notation entre le titre et le contenu de ton devoir.
 
-## le bloc *content*
+## la boite *content*
 	
     ::html
 	<div id="content" flex layout="row" layout-align="start stretch">
@@ -223,9 +223,9 @@ C'est un bloc vide, qui servira à créer un espace de notation entre le titre e
         </div>
    	</div>
 
-Ce dernier est lui même composé de 2 blocs qu'il va disposer en ligne:
-- *margin* qui est une marge à gauche permettant à ton enseignant de corriger ton devoir
-- *made* qui est la zone de rendu de ton document Markdown
+Ce dernier est lui même composé de 2 boites qu'il va disposer en ligne:
+- *margin* qui est une marge à gauche permettant à ton enseignant de corriger ton devoir.
+- *made* qui est la zone de rendu de ton document Markdown.
 
     
 # Une règle CSS
@@ -237,44 +237,44 @@ On y arrive enfin, tu vas pouvoir personnaliser ton document grace à ce qui sui
     	display: none;
 	}
     
-Parlons tout d'abord de *#identity*. Cette partie de la règle se situe avant les accolades ({ }), c'est ce que l'on appelle un sélecteur. Il va nous permettre de savoir à quel élément s'applique la règle.
+Parlons tout d'abord de *#identity*. Cette partie de la règle se situe avant les accolades ({ }), c'est ce que l'on appelle un sélecteur. Il va nous permettre de savoir à quella boite s'applique la règle.
 
-Ici la règle s'applique à l'élément dont l'identifiant est *identity*.
+Ici la règle s'applique à la boite dont l'identifiant est *identity*.
 
-Ensuite, on peut voir 1 propriété qui est appliquée à cet élément.
+Ensuite, on peut voir 1 propriété qui est appliquée à cette boite.
 - *display: none;* lui dit de ne pas s'afficher.
 
-Dans le cas d'une leçon, je n'ai pas besoin de voir s'afficher le bloc avec mon nom et mon prénom, voila comment lui dire de ne pas s'afficher et de ne pas prendre de place.
+Dans le cas d'une leçon, je n'ai pas besoin de voir s'afficher la boite avec mon nom et mon prénom, voila comment lui dire de ne pas s'afficher et de ne pas prendre de place.
 
-Je vais maintenant te donner les éléments qui te permettront de bien choisir les éléments que tu vas relooker et les propriétés les plus utiles.
+Je vais maintenant te donner les éléments qui te permettront de bien choisir les boites que tu vas relooker et les propriétés les plus utiles.
 
 # les sélecteurs utiles
 
-## Le sélecteur de bloc
+## Le sélecteur de boite
 
-Pour sélectionner tous les blocs identiques, il me suffit d'utiliser comme sélecteur le nom de la balise:
+Pour sélectionner toutes les boites identiques, il me suffit d'utiliser comme sélecteur le nom de la balise:
 
 	::css
     div {
     	display: none;
 	}
     
-Ce mauvais exemple va dissimuler tous les blocs *div*, autrement dit, tout ton document...
+Ce mauvais exemple va dissimuler toutes les boites *div*, autrement dit, tout ton document...
 
 ## Le sélecteur d'identifiant
 
-Pour sélectionner un bloc quel qu'il soit sur son identifiant je vais utiliser un # devant l'identifiant, comme l'exemple vu en tout premier lieu.
+Pour sélectionner une boite quel qu'elle soit sur son identifiant je vais utiliser un # devant l'identifiant, comme l'exemple vu en tout premier lieu.
 
 ## Le sélecteur de classe
 
-un bloc possédant une propriété class comme par exemple:
+Une boite possédant une propriété class comme par exemple:
 
 	::html
     <pre class="java">
     	<code>du code </code>
     </pre>
 
-peut être sélectionné, grace au sélecteur de classe(avec un . devant) comme suit:
+peut être sélectionnée, grace au sélecteur de classe(avec un . devant) comme suit:
 
 	::css
     .java {
@@ -292,22 +292,22 @@ Tu peux aussi appliquer une règle à plusieurs sélecteurs, en les séparant pa
     	display: none;
     }
 
-Ainsi, la règle s'applique à tous les éléments *h1* et au bloc *header*.
+Ainsi, la règle s'applique à tous les éléments *h1* et à la boite *header*.
 
 ## Sélectionner les descendants de
 
-Tu peux sélectionner les descendants d'éléments en mettant un espace entre le parent et le descendant :
+Tu peux sélectionner les descendants de boites en mettant un espace entre le parent et le descendant :
 
 	::css
     #title-zone h1 {
     	color: red
     }
     
-Cet exemple modifie la couleur du titre de niveau 1 dans le bloc #title-zone, mais n'impacte pas les autres titres dans d'autres blocs.
+Cet exemple modifie la couleur du titre de niveau 1 dans la boite #title-zone, mais n'impacte pas les autres titres dans d'autres boites.
 
-# Agir sur les grands blocs d'un document Natao
+# Agir sur les grands boites d'un document Natao
 
-La première chose que l'on doit faire, c'est de décider les blocs qui s'affiche dans notre feuille de style, leur taille et éventuellement les décorer.
+La première chose que l'on doit faire, c'est de décider les boites qui s'affiche dans notre feuille de style, leur taille et éventuellement les décorer.
 
 ## Les faire disparaître
 
@@ -340,11 +340,11 @@ A appliquer sur les éléments suivants qui ne sont utiles que pour les devoirs:
     }
 
 
-Dans l'exemple précédent, j'ai fixé la largeur(*width*) du bloc *identity* à 200 pixels, et la hauteur(*height*) de l'élément *separator* également à 200 pixels.
+Dans l'exemple précédent, j'ai fixé la largeur(*width*) de la boite *identity* à 200 pixels, et la hauteur(*height*) de la boite *separator* également à 200 pixels.
 
-En effet *identity* est dans un bloc où les éléments sont disposés en ligne. Il prendra la largeur indiquée et les autres éléments du même bloc prendront la place restante.
+En effet *identity* est dans une boite où les éléments sont disposés en ligne. Il prendra la largeur indiquée et les autres éléments de la même boite prendront la place restante.
 
-Dans le cas de *separator*, il est dans un bloc disposé en colonne. En fixant sa taille, le bloc suivant prendra la hauteur qui reste.
+Dans le cas de *separator*, il est dans une boite disposée en colonne. En fixant sa taille, la boite suivante prendra la hauteur qui reste.
 
 ### Unités
 
@@ -353,7 +353,7 @@ Dans l'exemple précédent, j'ai utilisé comme unité des pixels(px). Il y en a
 - *px* pour pixels(ce sont des points à l'écran)
 - *pt* pour points(à l'impression)
 - *%* qui comme son nom l'indique est une proportion de l'espace disponible. 50% siginifie qu'il occupe la moitité de l'espace.
-- *em* qui est pour moi l'unité la plus intéressante. 1em = la taille de police du document. Tu vas donc pouvoir définir plusieurs en éléments qui seront proportionnels à cette taille de police.
+- *em* qui est pour moi l'unité la plus intéressante. 1em = la taille de police du document. Tu vas donc pouvoir définir plusieurs éléments qui seront proportionnels à cette taille de police.
 
 ## Modifier leur couleur
 
@@ -381,7 +381,7 @@ Natao intègre un outil pour t'aider à choisir les couleurs. Celui-ci s'active 
     
 c'est à dire commençant par un # suivi de 6 chiffres.
 
-Une fois que tu as tapé ce texte, cliques dessus pour le voir apparaître.
+Une fois que tu as tapé ce texte (#111111;), cliques dessus pour le voir apparaître.
 
 ![Chois de couleur](./src/images/thistle.png)
 
@@ -398,7 +398,7 @@ Tu peux agir sur le diamètre du cercle, en le rapprochant du centre (couleurs f
 
 ### 2 syntaxes
 
-Tu peux mettre sur chaque bloc des bordures, comme ceci:
+Tu peux mettre sur chaque boite des bordures, comme ceci:
 
 	::css
     #identity {
@@ -411,7 +411,7 @@ Tu peux mettre sur chaque bloc des bordures, comme ceci:
     	border: thin solid red;
     }
     
-Dans cet exemple, nous avons appliqué la même bordure aux 2 blocs *identity* et *separator*. Commençons par la syntaxe utilisée pour *identity*.
+Dans cet exemple, nous avons appliqué la même bordure aux 2 boites *identity* et *separator*. Commençons par la syntaxe utilisée pour *identity*.
 
 Tu peux voir 3 propriétés:
 - *border-width* qui est l'épaisseur de la bordure, ici elle fine(thin).
@@ -441,7 +441,7 @@ Voici 4 valeurs à connaître:
 
 ### Des bordures partielles
 
-Les propriétés que l'on a vu permettent de faire une bordure qui entoure complètement le bloc. On peut avoir besoin de n'avoir qu'une bordure sur un ou 2 côtés. Chaque côté a un mot clé associé:
+Les propriétés que l'on a vu permettent de faire une bordure qui entoure complètement la boite. On peut avoir besoin de n'avoir qu'une bordure sur un ou 2 côtés. Chaque côté a un mot clé associé:
 
 - *top* : pour la bordure supérieure.
 - *bottom* : pour la bordure inférieure.
@@ -463,6 +463,30 @@ Il suffit d'ajouter ce mot-clé après border comme suit:
     }
 
 Comme tu peux le voir, cela fonctionne aussi pour la forme abrégée.
+
+## Modifier les marges
+
+Chaque boite possède 2 types de marge:
+- une marge extérieure (propriété *margin* qui n'est pas notre boite du même nom), qui permet de définir à quelle distance minimale d'une autre boite se situe la notre.
+- une marge intérieur (mot-clé *padding*), qui permet de définir à quelle distance minimale d'un bord de notre boite apparaitra la première boite interne.
+
+De la même manière que les bordures, les mots-clés peuvent être suffixés de *top*, *bottom*, *left* et *right* :
+
+````
+::css
+#made {
+	margin: 10px;
+    padding: 20px;
+}
+
+#made h1 {
+	margin-top: 30px;
+}
+```
+
+Ici nous voyons que la boite *made* sera éloignée de la boite *separator* d'au moins 10pixels, et que les boites qu'elle contient seront à 20 pixels de ses bords.
+
+Nous voyons également que les titres de niveau 1(*h1*), s'écarten de la boite précédente de 30 pixels.
 
 # Agir globalement sur le texte
 
@@ -572,23 +596,25 @@ La propriété *text-align* permet de choisir l'alignement du texte. Elle peut a
 - *center*, pour centrer le texte.
 - *justify*, pour que le texte se colle à la fois à gauche et à droite, qu'il prenne toute la place.
 
-	::css
-    #made p {
-    	text-align: center;
-    }
+```
+::css
+#made p {
+	text-align: center;
+}
+```
     
 Pour les vers d'une poésie par exemple.
 
 ## Indenter la première ligne
 
-La propriété *text-indent* permet d'indenter la première ligne d'un bloc de texte:
+La propriété *text-indent* permet d'indenter la première ligne d'une boite de texte:
 
 	::css
     #made p {
     	text-indent: 1.5em;
     }
 
-# Agir sur les blocs de texte individuellement
+# Agir sur les boites de texte individuellement
 
 Voici un exemple de document Markdown avec des paragraphes, des titres, et du texte valorisé:
 
@@ -616,17 +642,17 @@ Ce texte en Markdown devrait donner ce code HTML:
     <p>Voici mon premier paragraphe, avec sa première ligne simple.Suivie d'une deuxième ligne.</p>
     <p>Et maintenant le <em>paragraphe</em> suivant avec des mots <strong>valorisés</strong> voire <del>barrés</del></p>
     
-Nous pouvons voir que le nombre de # d'un titre correspond au numéro qui suit le h du bloc de titre. Ainsi # devient un bloc *h1* et ainsi de suite.
+Nous pouvons voir que le nombre de # d'un titre correspond au numéro qui suit le h de la boite de titre. Ainsi # devient une boite *h1* et ainsi de suite.
 
-Les paragraphes sont dans des blocs *p*.
+Les paragraphes sont dans des boites *p*.
 
-Le mot *paragraphe* qui était entouré de 1 `*` est dans un bloc *em*.
+Le mot *paragraphe* qui était entouré de 1 `*` est dans une boite *em*.
 
-Le mot *valorisés* qui était entouré de 2 `*`est dans un bloc *strong*.
+Le mot *valorisés* qui était entouré de 2 `*`est dans une boite *strong*.
 
-Enfin, le mot *barrés* qui était entouré de 2 `~`est dans un bloc *del*.
+Enfin, le mot *barrés* qui était entouré de 2 `~`est dans une boite *del*.
 
-Tous ces blocs sont des blocs comme les autres. Par conséquent, tout ce que nous avons vu jusqu'à présent peut être appliqué à un de ceux-ci:
+Tous ces boites sont des boites comme les autres. Par conséquent, tout ce que nous avons vu jusqu'à présent peut être appliqué à un de ceux-ci:
 - les couleurs de fond et de texte
 - le changement de police
 - le changement de taille de police
@@ -634,9 +660,9 @@ Tous ces blocs sont des blocs comme les autres. Par conséquent, tout ce que nou
 - l'épaisseur du texte
 - son style
 
-Ces blocs ont déjà une apparence par défaut. Ainsi un bloc *em* est par défaut en italique, un bloc *strong* est par défaut en gras, un bloc *del* est par défaut barré et les titres ont également des tailles par défaut. Ne modifiez que ce qui est utile.
+Ces boites ont déjà une apparence par défaut. Ainsi une boite *em* est par défaut en italique, une boite *strong* est par défaut en gras, une boite *del* est par défaut barré et les titres ont également des tailles par défaut. Ne modifiez que ce qui est utile.
 
-Si vous avez besoin qu'en plus d'être en gras, le texte très valorisé soit en rouge et souligné ecrivez ceci:
+Si tu as besoin qu'en plus d'être en gras, le texte très valorisé soit en rouge et souligné ecris ceci:
 
 	::css
     strong {
@@ -644,5 +670,133 @@ Si vous avez besoin qu'en plus d'être en gras, le texte très valorisé soit en
         text-decoration: underline;
     }
 
+# La numérotation automatique
 
+Voici le code que j'ai utilisé pour le style des leçons:
+
+```
+::css
+#made {counter-reset: chapitre section sous-section;}
+
+#made  h1 {
+    font-family: "Courier New", Courier, monospace;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    font-size: 1.5em;
+    counter-reset: section;
+}
+
+#made  h1:before {
+	counter-increment: chapitre;
+    content: counter(chapitre,upper-roman) " - ";  
+}
+
+#made h1:after {
+    content:' ';
+    display:boitek;
+    border:1px solid lightgrey;
+}
+
+#made h2 {
+    font-size: 1.2em;
+    counter-reset: sous-section;
+}
+
+#made h2:before {
+    counter-increment: section;
+    content: counter(chapitre) "." counter(section) "  ";
+}
+#made  h3:before {
+    counter-increment: sous-section;
+    content: counter(chapitre) "." counter(section) "." counter(sous-section) "  ";
+}
+```
+
+Tout d'abord je voudrais te montrer 2 nouveaux sélecteurs:
+- *h1:before*
+- *h1:after*
+
+J'ai ajouté *:before* et *:after* au sélecteur de boite *h1*. Ce sont des pseudo-classes, il y en a d'autres, mais celle-ci vont nous permettre de rajouter du contenu avant et après la boite choisi.
+
+Et maintenant, nous allons parler des compteurs. Pour générer une numérotation automatique, j'utilise des compteurs. Je commence par initialiser leur valeur, les remettre à 1:
+
+	::css
+	#made {counter-reset: chapitre section sous-section;}
+    
+*counter-reset* remet tous les compteurs spécifiés à 0. Ici, les compteurs que l'on a nommé *chapitre*, *section* et *sous-section* prennent une valeur à 0.
+
+Les compteurs sont chacun associés à un type de boite (de niveau de titre donc):
+- *chapitre* pour *h1*.
+- *section* pour *h2*.
+- *sous-section* pour *h3*.
+
+A chaque nouveau *h1*(chapitre), je remets à 0 le compteur de *h2*, *section*.
+
+A chaque nouveau *h2*(section), je remets à 0 le compteur de *h3*, *sous-section*.
+
+Ce qui se traduit par le css suivant.
+
+````
+::css
+#made  h1 {
+    counter-reset: section;
+}
+
+#made h2 {
+    counter-reset: sous-section;
+}
+```
+
+Examinons maintenant les *before* des boites h1 et h2:
+
+```
+::css
+#made  h1:before {
+    counter-increment: chapitre;
+    content: counter(chapitre,upper-roman) " - ";
+}
+
+#made h2:before {
+    counter-increment: section;
+    content: counter(chapitre) "." counter(section) "  ";
+}
+
+```
+
+La première chose à voir est l'utilisation de la propriété *counter-increment* associée au compteur *chapitre* pour *h1:before* et au compteur *section* pour *h2:before*. Cette instruction ajoute 1 au compteur sélectionné.
+
+Ensuite, il y a la propriété *content*. Cette propriété permet de modifier le contenu d'une boite. Ici, nous nous situons avant(*before*) la boite *h1* ou avant la boite *h2*.
+
+En commençant par la boite *h2*, tu peux voir que la propriété *content* contient *counter(chapitre) "." counter(section) "  "*. Cela veut dire:
+
+- la valeur du compteur *chapitre* (*counter(chapitre)*),
+- suivi d'un point,
+- suivi de la valeur du compteur *section* (*counter(section)*),
+- suivi d'un espace,
+- et enfin suivi de notre boite *h2* donc notre titre, car tout ce l'on a vu avant s'écrit avant *h2*.
+
+Maintenant si l'on regarde la boite *h1*, tu peux voir que la propriété *content* contient *counter(chapitre,upper-roman) " - "*. Cela veut dire:
+
+- la valeur du compteur *chapitre*, mais en chiffre romains, en majuscule (*counter(chapitre,upper-roman)*),
+- suivi d'un espace, d'un tiret, un nouvel espace,
+- et enfin, suivi de notre boite *h1*.
+
+Comme tu as du le remarquer, pour *h2* j'utilise *counter(section)* et pour *h1* j'utilise *counter(chapitre,upper-roman)*. Dans le deuxième cas, je spécifie l'écriture en chiffre romain, et dans le premier, je ne mets que le compteur.
+C'est parce qu'il écrit par défaut en *decimal*. Je pourrais écrire *counter(section,decimal)*, mais il ferait exactement la même chose.
+
+Voici les différentes valeurs possibles, et quand je le sais à quoi ça correspond:
+
+- *decimal* pour l'affichage en chiffres arabes (ceux qu'on utilise d'habitude),
+- *decimal-leading-zero* pour afficher en chiffres arabes, mais en rajoutant un 0 dans les dizaines,
+- *lower-roman* en chiffre romains, mais en minuscules,
+- *upper-roman* en chiffres romains et en majuscule,
+- *lower-greek* en chiffres grecs,
+- *lower-latin*, 
+- *upper-latin*,
+- *armenian*,
+- *georgian*, 
+- *lower-alpha* en lettres en minuscule,
+- *upper-alpha* en lettre en majuscule.
+
+    
 
