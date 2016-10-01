@@ -116,8 +116,16 @@
                 console.log('editor',self.codeMirror);
 
                 self.CodeMirrorSearchService.startSearch('boite');
+                self.CodeMirrorSearchService.findNext();
+                self.CodeMirrorSearchService.findNext();
+                self.CodeMirrorSearchService.findNext(true);
             };
             
+        };
+
+        self.searchCodeMirror = function() {
+            self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
+            self.CodeMirrorSearchService.findNext();
         };
 
         /**

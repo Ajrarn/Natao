@@ -82,7 +82,7 @@
 
 
         /**
-         *
+         * start the search by setting an overlay on words found
          * @param query
          */
         self.startSearch = function(query) {
@@ -95,14 +95,25 @@
             self.editor.addOverlay(state.overlay);
         };
 
+
+        /**
+         * read the string
+         * @param string
+         * @returns {*|void|XML}
+         */
         self.parseString = function(string) {
             return string.replace(/\\(.)/g, function(_, ch) {
-                if (ch == "n") return "\n"
-                if (ch == "r") return "\r"
-                return ch
+                if (ch == "n") return "\n";
+                if (ch == "r") return "\r";
+                return ch;
             })
         };
 
+        /**
+         * read the query
+         * @param query
+         * @returns {*}
+         */
         self.parseQuery = function(query) {
             var isRE = query.match(/^\/(.*)\/([a-z]*)$/);
             if (isRE) {
@@ -115,6 +126,25 @@
                 query = /x^/;
             return query;
         };
+
+
+        /**
+         * got to the next word
+         * @param reverse
+         * @param callback
+         */
+        self.findNext = function(reverse, callback) {self.editor.operation(function() {
+            var state = self.getSearchState();
+            var cursor = self.getSearchCursor(state.query, reverse ? state.posFrom : state.posTo);
+            if (!cursor.find(reverse)) {
+                cursor = self.getSearchCursor(state.query, reverse ? CodeMirror.Pos(self.editor.lastLine()) : CodeMirror.Pos(self.editor.firstLine(), 0));
+                if (!cursor.find(reverse)) return;
+            }
+            self.editor.setSelection(cursor.from(), cursor.to());
+            self.editor.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
+            state.posFrom = cursor.from(); state.posTo = cursor.to();
+            if (callback) callback(cursor.from(), cursor.to())
+        });};
 
 
         return self;

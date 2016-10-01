@@ -353,6 +353,12 @@
                             </div>
 
                         </div>
+                        <div>
+                            <label for="searchEditor" layout="row">
+                                <p>Rechercher</p>
+                                <input type="text" id="searchEditor" name="searchEditor" value="true" ng-model="EditorCtrl.searchEditorWord" ng-change="EditorCtrl.searchCodeMirror()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                            </label>
+                        </div>
                         <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
                              ng-if="EditorCtrl.currentMarkdown"
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
