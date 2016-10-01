@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
 
         var self = this;
         //self.$showdown = $showdown;
@@ -27,6 +27,7 @@
         self.$location = $location;
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
+        self.CodeMirrorSearchService = CodeMirrorSearchService;
         self.MessageService.changeMessage('');
         self.inPrint = false;
         self.focus = focus;
@@ -106,6 +107,16 @@
                     }
                 }
             });
+
+            self.CodeMirrorSearchService.init(self.codeMirror);
+
+
+            CodeMirror.commands.find = function(editor) {
+
+                console.log('editor',self.codeMirror);
+
+                self.CodeMirrorSearchService.startSearch('boite');
+            };
             
         };
 
