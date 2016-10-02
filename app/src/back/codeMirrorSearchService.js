@@ -147,9 +147,10 @@
          * @param text
          */
         self.replace = function(text) {
+
             var state = self.getSearchState();
-            var cursor = state.cursor;
-            cursor.replace(text);
+            state.cursor.replace(text);
+            self.findNext();
         };
 
         return self;

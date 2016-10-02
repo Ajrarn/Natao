@@ -127,10 +127,26 @@
         };
 
 
-
+        /**
+         * execute search of searchEditorWord
+         */
         self.searchCodeMirror = function() {
             self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
             self.CodeMirrorSearchService.findNext();
+        };
+
+        /**
+         * execute replace with replaceEditorWord
+         */
+        self.replace = function() {
+            self.CodeMirrorSearchService.replace(self.replaceEditorWord);
+        };
+
+        /**
+         * execute replaceAll with replaceEditorWord
+         */
+        self.replaceAll = function() {
+            self.CodeMirrorSearchService.replaceAll(self.replaceEditorWord);
         };
 
         /**
