@@ -2841,6 +2841,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .purple button.toggle-square.on, .purple .button.toggle-square.on {
+    background-color: #9e9ac8; }
 .purple .principal {
   background-color: #cbc9e2; }
 .purple .menu {
@@ -2868,6 +2870,11 @@ treecontrol {
 .purple .firstTimeSetting {
   background-color: #cbc9e2;
   transition: background-color 1s; }
+.purple .search-panel {
+  background-color: #f2f0f7;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .purple #crumbs ul li p {
   background-color: #9e9ac8;
   color: #f2f0f7;
@@ -2918,6 +2925,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .blue button.toggle-square.on, .blue .button.toggle-square.on {
+    background-color: #6baed6; }
 .blue .principal {
   background-color: #bdd7e7; }
 .blue .menu {
@@ -2945,6 +2954,11 @@ treecontrol {
 .blue .firstTimeSetting {
   background-color: #bdd7e7;
   transition: background-color 1s; }
+.blue .search-panel {
+  background-color: #eff3ff;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .blue #crumbs ul li p {
   background-color: #6baed6;
   color: #eff3ff;
@@ -2995,6 +3009,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .red button.toggle-square.on, .red .button.toggle-square.on {
+    background-color: #fb6a4a; }
 .red .principal {
   background-color: #fcae91; }
 .red .menu {
@@ -3022,6 +3038,11 @@ treecontrol {
 .red .firstTimeSetting {
   background-color: #fcae91;
   transition: background-color 1s; }
+.red .search-panel {
+  background-color: #fee5d9;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .red #crumbs ul li p {
   background-color: #fb6a4a;
   color: #fee5d9;
@@ -3072,6 +3093,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .pink button.toggle-square.on, .pink .button.toggle-square.on {
+    background-color: #df65b0; }
 .pink .principal {
   background-color: #d7b5d8; }
 .pink .menu {
@@ -3099,6 +3122,11 @@ treecontrol {
 .pink .firstTimeSetting {
   background-color: #d7b5d8;
   transition: background-color 1s; }
+.pink .search-panel {
+  background-color: #f1eef6;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .pink #crumbs ul li p {
   background-color: #df65b0;
   color: #f1eef6;
@@ -3149,6 +3177,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .orange button.toggle-square.on, .orange .button.toggle-square.on {
+    background-color: #fd8d3c; }
 .orange .principal {
   background-color: #fdbe85; }
 .orange .menu {
@@ -3176,6 +3206,11 @@ treecontrol {
 .orange .firstTimeSetting {
   background-color: #fdbe85;
   transition: background-color 1s; }
+.orange .search-panel {
+  background-color: #feedde;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .orange #crumbs ul li p {
   background-color: #fd8d3c;
   color: #feedde;
@@ -3226,6 +3261,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .green button.toggle-square.on, .green .button.toggle-square.on {
+    background-color: #66c2a4; }
 .green .principal {
   background-color: #b2e2e2; }
 .green .menu {
@@ -3253,6 +3290,11 @@ treecontrol {
 .green .firstTimeSetting {
   background-color: #b2e2e2;
   transition: background-color 1s; }
+.green .search-panel {
+  background-color: #edf8fb;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .green #crumbs ul li p {
   background-color: #66c2a4;
   color: #edf8fb;
@@ -3303,6 +3345,8 @@ treecontrol {
       color: black;
       text-shadow: none;
       border-color: black; }
+  .grey button.toggle-square.on, .grey .button.toggle-square.on {
+    background-color: #969696; }
 .grey .principal {
   background-color: #cccccc; }
 .grey .menu {
@@ -3330,6 +3374,11 @@ treecontrol {
 .grey .firstTimeSetting {
   background-color: #cccccc;
   transition: background-color 1s; }
+.grey .search-panel {
+  background-color: #f7f7f7;
+  border-right: 1px solid silver;
+  border-left: 1px solid silver;
+  border-top: 1px solid silver; }
 .grey #crumbs ul li p {
   background-color: #969696;
   color: #f7f7f7;
