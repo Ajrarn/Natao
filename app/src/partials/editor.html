@@ -350,6 +350,41 @@
                                         ns-popover-placement="left"
                                         ns-popover-theme="ns-popover-tooltip-theme"
                                         ng-mouseover="EditorCtrl.changeButtonText('SETTING_EDITOR')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-cog"></span></button>
+                                <button ng-click="EditorCtrl.switchSearch()" class="toggle-square" ng-class="{on:EditorCtrl.searchPanelOpen}"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_SEARCH')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-zoom-outline"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div ng-if="EditorCtrl.searchPanelOpen" class="search-panel">
+                            <div layout="row" space-between center>
+                                <label flex for="searchEditor" layout="row">
+                                    <p>{{ 'SEARCH' | translate }}</p>
+                                    <input flex type="text" id="searchEditor" name="searchEditor" value="true" ng-model="EditorCtrl.searchEditorWord" ng-change="EditorCtrl.searchCodeMirror()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                </label>
+                                <button ng-click="EditorCtrl.CodeMirrorSearchService.findNext(true)"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_SEARCH_PREVIOUS')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-arrow-left-outline"></span>
+                                </button>
+                                <button ng-click="EditorCtrl.CodeMirrorSearchService.findNext()"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_SEARCH_NEXT')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-arrow-right-outline"></span>
+                                </button>
+                            </div>
+                            <div layout="row" space-between center>
+                                <label flex for="replaceEditor" layout="row">
+                                    <p>{{ 'REPLACE' | translate }}</p>
+                                    <input flex type="text" id="replaceEditor" name="replaceEditor" value="true" ng-model="EditorCtrl.replaceEditorWord">
+                                </label>
+                                <button ng-click="EditorCtrl.replace()"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_REPLACE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-arrow-repeat"></span>
+                                </button>
+                                <button ng-click="EditorCtrl.replaceAll()"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_REPLACE_ALL')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-arrow-repeat-outline"></span>
+                                </button>
                             </div>
 
                         </div>

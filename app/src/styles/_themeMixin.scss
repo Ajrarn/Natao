@@ -62,6 +62,12 @@
         border-color: black;
       }
     }
+
+    &.toggle-square {
+      &.on {
+        background-color: map-get($color_map, MM);
+      }
+    }
   }
 
   .principal {
@@ -122,6 +128,13 @@
   .firstTimeSetting {
     background-color: map-get($color_map, ML);
     transition: background-color 1s;
+  }
+
+  .search-panel {
+    background-color: map-get($color_map, LL);
+    border-right: 1px solid silver;
+    border-left: 1px solid silver;
+    border-top: 1px solid silver;
   }
 
   #crumbs{

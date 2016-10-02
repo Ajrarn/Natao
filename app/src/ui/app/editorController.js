@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService) {
+    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
 
         var self = this;
         //self.$showdown = $showdown;
@@ -27,6 +27,7 @@
         self.$location = $location;
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
+        self.CodeMirrorSearchService = CodeMirrorSearchService;
         self.MessageService.changeMessage('');
         self.inPrint = false;
         self.focus = focus;
@@ -39,6 +40,7 @@
         };
         self.buffer = null;
         self.buttonTextActive = false;
+        self.searchPanelOpen = false;
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -79,6 +81,16 @@
             },0,false);
         });
 
+        /**
+         * switch visibility of search panel
+         */
+        self.switchSearch = function() {
+            self.$timeout(function() {
+                self.searchPanelOpen = !self.searchPanelOpen;
+            },0);  //with angular $digest sometimes it will be called by codemirror
+
+        };
+
 
         //catch after editor loaded
         self.codeMirrorLoaded = function(editor) {
@@ -106,7 +118,35 @@
                     }
                 }
             });
+
+            self.CodeMirrorSearchService.init(self.codeMirror);
+
+
+            CodeMirror.commands.find = self.switchSearch;
             
+        };
+
+
+        /**
+         * execute search of searchEditorWord
+         */
+        self.searchCodeMirror = function() {
+            self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
+            self.CodeMirrorSearchService.findNext();
+        };
+
+        /**
+         * execute replace with replaceEditorWord
+         */
+        self.replace = function() {
+            self.CodeMirrorSearchService.replace(self.replaceEditorWord);
+        };
+
+        /**
+         * execute replaceAll with replaceEditorWord
+         */
+        self.replaceAll = function() {
+            self.CodeMirrorSearchService.replaceAll(self.replaceEditorWord);
         };
 
         /**
