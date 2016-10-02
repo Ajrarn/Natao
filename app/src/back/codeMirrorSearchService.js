@@ -89,7 +89,7 @@
             var state = self.getSearchState();
 
             state.queryText = query;
-            state.query = self.parseQuery(query);
+            state.query = self.parseString(query);
             self.editor.removeOverlay(state.overlay, self.queryCaseInsensitive(state.query));
             state.overlay = self.searchOverlay(state.query, self.queryCaseInsensitive(state.query));
             self.editor.addOverlay(state.overlay);
@@ -110,25 +110,6 @@
         };
 
         /**
-         * read the query
-         * @param query
-         * @returns {*}
-         */
-        self.parseQuery = function(query) {
-            var isRE = query.match(/^\/(.*)\/([a-z]*)$/);
-            if (isRE) {
-                try { query = new RegExp(isRE[1], isRE[2].indexOf("i") == -1 ? "" : "i"); }
-                catch(e) {} // Not a regular expression after all, do a string search
-            } else {
-                query = self.parseString(query)
-            }
-            if (typeof query == "string" ? query == "" : query.test(""))
-                query = /x^/;
-            return query;
-        };
-
-
-        /**
          * got to the next word
          * @param reverse
          * @param callback
@@ -143,9 +124,33 @@
             self.editor.setSelection(cursor.from(), cursor.to());
             self.editor.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
             state.posFrom = cursor.from(); state.posTo = cursor.to();
+            state.cursor = cursor;
             if (callback) callback(cursor.from(), cursor.to())
         });};
 
+
+        /**
+         * replace all items found by text
+         * @param text
+         */
+        self.replaceAll = function(text) {
+            var state = self.getSearchState();
+            self.editor.operation(function() {
+                for (var cursor = self.getSearchCursor(state.query); cursor.findNext();) {
+                    cursor.replace(text);
+                }
+            });
+        };
+
+        /**
+         * replace current found item with text
+         * @param text
+         */
+        self.replace = function(text) {
+            var state = self.getSearchState();
+            var cursor = state.cursor;
+            cursor.replace(text);
+        };
 
         return self;
 

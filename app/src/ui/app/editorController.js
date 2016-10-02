@@ -40,6 +40,7 @@
         };
         self.buffer = null;
         self.buttonTextActive = false;
+        self.searchPanelOpen = false;
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -80,6 +81,16 @@
             },0,false);
         });
 
+        /**
+         * switch visibility of search panel
+         */
+        self.switchSearch = function() {
+            self.$timeout(function() {
+                self.searchPanelOpen = !self.searchPanelOpen;
+            },0);  //with angular $digest sometimes it will be called by codemirror
+
+        };
+
 
         //catch after editor loaded
         self.codeMirrorLoaded = function(editor) {
@@ -111,17 +122,11 @@
             self.CodeMirrorSearchService.init(self.codeMirror);
 
 
-            CodeMirror.commands.find = function(editor) {
-
-                console.log('editor',self.codeMirror);
-
-                self.CodeMirrorSearchService.startSearch('boite');
-                self.CodeMirrorSearchService.findNext();
-                self.CodeMirrorSearchService.findNext();
-                self.CodeMirrorSearchService.findNext(true);
-            };
+            CodeMirror.commands.find = self.switchSearch;
             
         };
+
+
 
         self.searchCodeMirror = function() {
             self.CodeMirrorSearchService.startSearch(self.searchEditorWord);

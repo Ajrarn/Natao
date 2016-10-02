@@ -350,14 +350,30 @@
                                         ns-popover-placement="left"
                                         ns-popover-theme="ns-popover-tooltip-theme"
                                         ng-mouseover="EditorCtrl.changeButtonText('SETTING_EDITOR')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-cog"></span></button>
+                                <button ng-click="EditorCtrl.switchSearch()"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                    <span class="typcn typcn-zoom-outline"></span>
+                                </button>
                             </div>
 
                         </div>
-                        <div>
+                        <div ng-if="EditorCtrl.searchPanelOpen">
                             <label for="searchEditor" layout="row">
                                 <p>Rechercher</p>
                                 <input type="text" id="searchEditor" name="searchEditor" value="true" ng-model="EditorCtrl.searchEditorWord" ng-change="EditorCtrl.searchCodeMirror()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
+                            <button ng-click="EditorCtrl.CodeMirrorSearchService.findNext(true)"
+                                    ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                <span class="typcn typcn-arrow-left-outline"></span>
+                            </button>
+                            <button ng-click="EditorCtrl.CodeMirrorSearchService.findNext()"
+                                    ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                <span class="typcn typcn-arrow-right-outline"></span>
+                            </button>
+                            <button ng-click="EditorCtrl.CodeMirrorSearchService.replaceAll('boite')"
+                                    ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                                <span class="typcn typcn-arrow-repeat-outline"></span>
+                            </button>
                         </div>
                         <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
                              ng-if="EditorCtrl.currentMarkdown"
