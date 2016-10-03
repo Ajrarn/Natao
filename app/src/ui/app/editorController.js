@@ -93,6 +93,8 @@
                 if (!self.searchPanelOpen) {
                     self.occurrencesFound = 0;
                     self.searchEditorWord = '';
+                    self.replaceEditorWord = '';
+                    self.CodeMirrorSearchService.clearSearch();
                 }
             },0);  //with angular $digest sometimes it will be called by codemirror
 

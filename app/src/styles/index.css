@@ -2842,7 +2842,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .purple button.toggle-square.on, .purple .button.toggle-square.on {
-    background-color: #9e9ac8; }
+    background-color: #756bb1; }
 .purple .principal {
   background-color: #cbc9e2; }
 .purple .menu {
@@ -2890,6 +2890,8 @@ treecontrol {
   color: white; }
   .purple #crumbs ul li.active p:after {
     border-left-color: #54278f; }
+.purple .cm-searching {
+  background-color: rgba(117, 107, 177, 0.3); }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2926,7 +2928,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .blue button.toggle-square.on, .blue .button.toggle-square.on {
-    background-color: #6baed6; }
+    background-color: #3182bd; }
 .blue .principal {
   background-color: #bdd7e7; }
 .blue .menu {
@@ -2974,6 +2976,8 @@ treecontrol {
   color: white; }
   .blue #crumbs ul li.active p:after {
     border-left-color: #08519c; }
+.blue .cm-searching {
+  background-color: rgba(49, 130, 189, 0.3); }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -3010,7 +3014,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .red button.toggle-square.on, .red .button.toggle-square.on {
-    background-color: #fb6a4a; }
+    background-color: #de2d26; }
 .red .principal {
   background-color: #fcae91; }
 .red .menu {
@@ -3058,6 +3062,8 @@ treecontrol {
   color: white; }
   .red #crumbs ul li.active p:after {
     border-left-color: #a50f15; }
+.red .cm-searching {
+  background-color: rgba(222, 45, 38, 0.3); }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -3094,7 +3100,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .pink button.toggle-square.on, .pink .button.toggle-square.on {
-    background-color: #df65b0; }
+    background-color: #dd1c77; }
 .pink .principal {
   background-color: #d7b5d8; }
 .pink .menu {
@@ -3142,6 +3148,8 @@ treecontrol {
   color: white; }
   .pink #crumbs ul li.active p:after {
     border-left-color: #980043; }
+.pink .cm-searching {
+  background-color: rgba(221, 28, 119, 0.3); }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -3178,7 +3186,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .orange button.toggle-square.on, .orange .button.toggle-square.on {
-    background-color: #fd8d3c; }
+    background-color: #e6550d; }
 .orange .principal {
   background-color: #fdbe85; }
 .orange .menu {
@@ -3226,6 +3234,8 @@ treecontrol {
   color: white; }
   .orange #crumbs ul li.active p:after {
     border-left-color: #a63603; }
+.orange .cm-searching {
+  background-color: rgba(230, 85, 13, 0.3); }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -3262,7 +3272,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .green button.toggle-square.on, .green .button.toggle-square.on {
-    background-color: #66c2a4; }
+    background-color: #2ca25f; }
 .green .principal {
   background-color: #b2e2e2; }
 .green .menu {
@@ -3310,6 +3320,8 @@ treecontrol {
   color: white; }
   .green #crumbs ul li.active p:after {
     border-left-color: #006d2c; }
+.green .cm-searching {
+  background-color: rgba(44, 162, 95, 0.3); }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -3346,7 +3358,7 @@ treecontrol {
       text-shadow: none;
       border-color: black; }
   .grey button.toggle-square.on, .grey .button.toggle-square.on {
-    background-color: #969696; }
+    background-color: #636363; }
 .grey .principal {
   background-color: #cccccc; }
 .grey .menu {
@@ -3394,5 +3406,7 @@ treecontrol {
   color: white; }
   .grey #crumbs ul li.active p:after {
     border-left-color: #252525; }
+.grey .cm-searching {
+  background-color: rgba(99, 99, 99, 0.3); }
 
 /*# sourceMappingURL=index.css.map */

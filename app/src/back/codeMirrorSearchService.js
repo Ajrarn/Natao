@@ -154,6 +154,21 @@
         };
 
 
+        /**
+         * clear the search effects on codeMirror
+         */
+        self.clearSearch = function() {
+            self.editor.operation(function() {
+                var state = self.getSearchState();
+                state.lastQuery = state.query;
+                if (!state.query) return;
+                state.query = state.queryText = null;
+                self.editor.removeOverlay(state.overlay);
+                if (state.annotate) { state.annotate.clear(); state.annotate = null; }
+            });
+        };
+
+
 
         /** Function that count occurrences of a substring in a string;
          * @param {String} string               The string

@@ -168,6 +168,10 @@
       }
     }
   }
+
+  .cm-searching {
+    background-color: map-get($color_map, TR);
+  }
 }
 
 @mixin color-square($color_map) {
