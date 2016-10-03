@@ -52,6 +52,7 @@
   "BTN_REPLACE_ALL":"Remplace tous",
   "SEARCH":"Recherche",
   "REPLACE":"Remplace par",
+  "FOUND_NUMBER": "Nombre d'occurrences trouvées:",
   "EXPORT_FORMAT":"Format d'exportation",
   "BTN_IMPORT":"Importer depuis un fichier",
   "BTN_MAKE_MODEL":"Sauver la structure",

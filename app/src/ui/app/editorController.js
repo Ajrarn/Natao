@@ -41,6 +41,9 @@
         self.buffer = null;
         self.buttonTextActive = false;
         self.searchPanelOpen = false;
+        self.occurrencesFound = 0;
+        self.searchEditorWord = '';
+        self.replaceEditorWord = '';
 
         //Init of the current Markdown
         if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
@@ -87,6 +90,10 @@
         self.switchSearch = function() {
             self.$timeout(function() {
                 self.searchPanelOpen = !self.searchPanelOpen;
+                if (!self.searchPanelOpen) {
+                    self.occurrencesFound = 0;
+                    self.searchEditorWord = '';
+                }
             },0);  //with angular $digest sometimes it will be called by codemirror
 
         };
@@ -133,12 +140,15 @@
         self.searchCodeMirror = function() {
             self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
             self.CodeMirrorSearchService.findNext();
+
+            self.occurrencesFound = self.CodeMirrorSearchService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
         };
 
         /**
          * execute replace with replaceEditorWord
          */
         self.replace = function() {
+            self.occurrencesFound--;
             self.CodeMirrorSearchService.replace(self.replaceEditorWord);
         };
 
@@ -147,6 +157,7 @@
          */
         self.replaceAll = function() {
             self.CodeMirrorSearchService.replaceAll(self.replaceEditorWord);
+            self.occurrencesFound = 0;
         };
 
         /**

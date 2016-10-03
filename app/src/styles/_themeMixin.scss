@@ -65,7 +65,7 @@
 
     &.toggle-square {
       &.on {
-        background-color: map-get($color_map, MM);
+        background-color: map-get($color_map, MD);
       }
     }
   }
