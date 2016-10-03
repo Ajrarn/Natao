@@ -140,10 +140,16 @@
          * execute search of searchEditorWord
          */
         self.searchCodeMirror = function() {
-            self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
-            self.CodeMirrorSearchService.findNext();
+            if (self.searchEditorWord.length > 0) {
+                self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
+                self.CodeMirrorSearchService.findNext();
 
-            self.occurrencesFound = self.CodeMirrorSearchService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
+                self.occurrencesFound = self.CodeMirrorSearchService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
+            } else {
+                self.occurrencesFound = 0;
+                self.CodeMirrorSearchService.clearSearch();
+            }
+
         };
 
         /**
