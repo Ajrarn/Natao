@@ -355,7 +355,7 @@
                             </div>
 
                         </div>
-                        <div ng-if="EditorCtrl.searchPanelOpen" class="search-panel">
+                        <div class="search-panel" ng-class="{show:EditorCtrl.searchPanelOpen}">
                             <div layout="row" layout-align="space-between center">
                                 <label flex for="searchEditor" layout="row">
                                     <p>{{ 'SEARCH' | translate }}</p>
