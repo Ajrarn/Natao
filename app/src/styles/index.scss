@@ -77,13 +77,6 @@ button,.button {
   border: none;
   color:white;
 
-  //background-color: map-get($blueTheme, DD);
-
-
-  //&:hover {
-  //  background-color: map-get($blueTheme, MD);
-  //}
-
   cursor: pointer;
 
   &.small {
@@ -109,6 +102,11 @@ button,.button {
   &.help {
     padding: 1px 15px 5px 15px;
   }
+
+  &.text {
+    font-size: 1.2em;
+  }
+
 }
 
 

@@ -10,11 +10,12 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
 
         var self = this;
         //self.$showdown = $showdown;
         self.$timeout = $timeout;
+        self.$translate = $translate;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
         self.TreeUtilService = TreeUtilService;
@@ -40,6 +41,7 @@
         };
         self.buffer = null;
         self.buttonTextActive = false;
+        self.showTrash = false;
         self.searchPanelOpen = false;
         self.occurrencesFound = 0;
         self.searchEditorWord = '';
@@ -83,6 +85,13 @@
                 });
             },0,false);
         });
+
+        /**
+         * switch trash/schoolbag
+         */
+        self.switchTrash = function() {
+            self.showTrash = !self.showTrash;
+        };
 
         /**
          * switch visibility of search panel

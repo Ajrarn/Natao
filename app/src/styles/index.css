@@ -2346,15 +2346,6 @@ html, body {
     html.dyslexic .CodeMirror, body.dyslexic .CodeMirror {
       font-family: opendyslexic !important; }
 
-/*textarea {
-  font-family: $font-family ;;
-  font-size: 16px;
-  resize: none;
-  margin: 10px 5px;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: inset 3px 0px 14px -2px rgba(0,0,0,0.75);
-}*/
 input {
   font-size: 14px; }
 
@@ -2393,6 +2384,8 @@ button, .button {
     border-radius: 30px; }
   button.help, .button.help {
     padding: 1px 15px 5px 15px; }
+  button.text, .button.text {
+    font-size: 1.2em; }
 
 .buttonText {
   font-size: 1.6em;
@@ -2458,6 +2451,15 @@ button, .button {
   transition: all 1s; }
   .content.goright {
     left: 300px;
+    transition: all 1s; }
+
+.search-panel {
+  height: 0;
+  opacity: 0;
+  transition: all 1s; }
+  .search-panel.show {
+    height: 102px;
+    opacity: 1;
     transition: all 1s; }
 
 .editor {
