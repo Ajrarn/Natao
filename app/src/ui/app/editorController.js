@@ -90,15 +90,22 @@
         /**
          * switch trash/schoolbag
          */
-        self.switchTrash = function() {
+        self.switchTrash = function(hidePopover) {
             self.showTrash = !self.showTrash;
-            self.switchTrashOpened = false;
+            self.changeButtonText('')
+            hidePopover();
         };
 
+        /**
+         * open the switch and turn the arrow down
+         */
         self.openSwitchTrash = function() {
             self.switchTrashOpened = true;
         };
 
+        /**
+         * close the switch and turn the arrow left
+         */
         self.closeSwitchTrash = function() {
             self.switchTrashOpened = false;
         };

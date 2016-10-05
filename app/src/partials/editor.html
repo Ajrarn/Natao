@@ -86,12 +86,12 @@
         </div>
     </div>
     <div class="principal" flex layout="row">
-        <div id="menu" class="left-panel" layout="row" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showMenu}" ng-show="!EditorCtrl.inPrint">
+        <div id="menu" class="left-panel" layout="row" ng-class="{hidden: !appCtrl.PreferencesService.preferences.showMenu}">
             <div class="menu" layout="column">
                 <div layout="row" layout-align="space-between center">
                     <script type="text/ng-template" id="selectTree">
 
-                        <div class="ns-popover-tooltip ns-popover-colored" ng-class="appCtrl.PreferencesService.preferences.colorTheme" ng-click="EditorCtrl.switchTrash()">
+                        <div class="ns-popover-tooltip ns-popover-colored" ng-class="appCtrl.PreferencesService.preferences.colorTheme" ng-click="EditorCtrl.switchTrash(hidePopover)">
                             <p  ng-if="!EditorCtrl.showTrash"
                                     ng-mouseover="EditorCtrl.changeButtonText('TRASH')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'TRASH' | translate }}</p>
                             <p ng-if="EditorCtrl.showTrash"
@@ -103,19 +103,19 @@
                             ns-popover-timeout="-1"
                             ns-popover-template="selectTree"
                             ns-popover-trigger="click"
-                            ns-popover-hide-on-click="false"
+                            ns-popover-hide-on-click="true"
                             ns-popover-hide-on-inside-click="false"
                             ns-popover-placement="bottom"
                             ns-popover-theme="ns-popover-tooltip-theme"
                             ng-click="EditorCtrl.openSwitchTrash()" ns-popover-on-close="EditorCtrl.closeSwitchTrash()"
                             ng-mouseover="EditorCtrl.changeButtonText('SCHOOLBAG')" ng-mouseleave="EditorCtrl.changeButtonText('')">
-                        {{ 'SCHOOLBAG' | translate }} <span ng-if="EditorCtrl.switchTrashOpened" class="typcn typcn-arrow-sorted-down"></span><span ng-if="!EditorCtrl.switchTrashOpened"class="typcn typcn-media-play-reverse"></span>
+                        {{ 'SCHOOLBAG' | translate }} <span ng-if="EditorCtrl.switchTrashOpened" class="typcn typcn-arrow-sorted-down"></span><span ng-if="!EditorCtrl.switchTrashOpened" class="typcn typcn-media-play-reverse"></span>
                     </button>
                     <button ns-popover class="transparent text light" ng-if="EditorCtrl.showTrash"
                             ns-popover-timeout="-1"
                             ns-popover-template="selectTree"
                             ns-popover-trigger="click"
-                            ns-popover-hide-on-click="false"
+                            ns-popover-hide-on-click="true"
                             ns-popover-hide-on-inside-click="false"
                             ns-popover-placement="bottom"
                             ns-popover-theme="ns-popover-tooltip-theme"
@@ -141,7 +141,7 @@
                             </form>
                         </div>
                     </script>
-                    <div layout="row">
+                    <div layout="row" ng-if="!EditorCtrl.showTrash">
                         <button class="transparent light" ng-disabled="EditorCtrl.pasteButtonDisabled()" ng-click="EditorCtrl.pasteFolder()"
                                 ng-mouseover="EditorCtrl.changeButtonText('BTN_PASTE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
                             <span class="typcn typcn-book"></span>
@@ -165,7 +165,7 @@
                     </div>
 
                 </div>
-                <div class="treeContainer" flex>
+                <div class="treeContainer" flex  ng-if="!EditorCtrl.showTrash">
                     <script type="text/ng-template" id="popoverActionsFolder">
                         <div class="triangle"></div>
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">

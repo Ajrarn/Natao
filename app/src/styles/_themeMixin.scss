@@ -175,6 +175,7 @@
 
   &.ns-popover-colored {
     background-color: map-get($color_map, MD);
+    border-color: map-get($color_map, MD);
     color: white;
     cursor: pointer;
 
