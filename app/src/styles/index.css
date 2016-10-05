@@ -2894,6 +2894,16 @@ treecontrol {
     border-left-color: #54278f; }
 .purple .cm-searching {
   background-color: rgba(117, 107, 177, 0.3); }
+.purple.ns-popover-colored {
+  background-color: #756bb1;
+  color: white;
+  cursor: pointer; }
+  .purple.ns-popover-colored p {
+    font-size: 1.4em; }
+.purple.ns-popover-colored ~ .triangle {
+  border-bottom-color: #756bb1; }
+  .purple.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #756bb1; }
 
 .blue button, .blue .button {
   background-color: #08519c; }
@@ -2980,6 +2990,16 @@ treecontrol {
     border-left-color: #08519c; }
 .blue .cm-searching {
   background-color: rgba(49, 130, 189, 0.3); }
+.blue.ns-popover-colored {
+  background-color: #3182bd;
+  color: white;
+  cursor: pointer; }
+  .blue.ns-popover-colored p {
+    font-size: 1.4em; }
+.blue.ns-popover-colored ~ .triangle {
+  border-bottom-color: #3182bd; }
+  .blue.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #3182bd; }
 
 .red button, .red .button {
   background-color: #a50f15; }
@@ -3066,6 +3086,16 @@ treecontrol {
     border-left-color: #a50f15; }
 .red .cm-searching {
   background-color: rgba(222, 45, 38, 0.3); }
+.red.ns-popover-colored {
+  background-color: #de2d26;
+  color: white;
+  cursor: pointer; }
+  .red.ns-popover-colored p {
+    font-size: 1.4em; }
+.red.ns-popover-colored ~ .triangle {
+  border-bottom-color: #de2d26; }
+  .red.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #de2d26; }
 
 .pink button, .pink .button {
   background-color: #980043; }
@@ -3152,6 +3182,16 @@ treecontrol {
     border-left-color: #980043; }
 .pink .cm-searching {
   background-color: rgba(221, 28, 119, 0.3); }
+.pink.ns-popover-colored {
+  background-color: #dd1c77;
+  color: white;
+  cursor: pointer; }
+  .pink.ns-popover-colored p {
+    font-size: 1.4em; }
+.pink.ns-popover-colored ~ .triangle {
+  border-bottom-color: #dd1c77; }
+  .pink.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #dd1c77; }
 
 .orange button, .orange .button {
   background-color: #a63603; }
@@ -3238,6 +3278,16 @@ treecontrol {
     border-left-color: #a63603; }
 .orange .cm-searching {
   background-color: rgba(230, 85, 13, 0.3); }
+.orange.ns-popover-colored {
+  background-color: #e6550d;
+  color: white;
+  cursor: pointer; }
+  .orange.ns-popover-colored p {
+    font-size: 1.4em; }
+.orange.ns-popover-colored ~ .triangle {
+  border-bottom-color: #e6550d; }
+  .orange.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #e6550d; }
 
 .green button, .green .button {
   background-color: #006d2c; }
@@ -3324,6 +3374,16 @@ treecontrol {
     border-left-color: #006d2c; }
 .green .cm-searching {
   background-color: rgba(44, 162, 95, 0.3); }
+.green.ns-popover-colored {
+  background-color: #2ca25f;
+  color: white;
+  cursor: pointer; }
+  .green.ns-popover-colored p {
+    font-size: 1.4em; }
+.green.ns-popover-colored ~ .triangle {
+  border-bottom-color: #2ca25f; }
+  .green.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #2ca25f; }
 
 .grey button, .grey .button {
   background-color: #252525; }
@@ -3410,5 +3470,15 @@ treecontrol {
     border-left-color: #252525; }
 .grey .cm-searching {
   background-color: rgba(99, 99, 99, 0.3); }
+.grey.ns-popover-colored {
+  background-color: #636363;
+  color: white;
+  cursor: pointer; }
+  .grey.ns-popover-colored p {
+    font-size: 1.4em; }
+.grey.ns-popover-colored ~ .triangle {
+  border-bottom-color: #636363; }
+  .grey.ns-popover-colored ~ .triangle:after {
+    border-bottom-color: #636363; }
 
 /*# sourceMappingURL=index.css.map */

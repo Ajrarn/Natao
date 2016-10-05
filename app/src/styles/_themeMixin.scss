@@ -172,6 +172,23 @@
   .cm-searching {
     background-color: map-get($color_map, TR);
   }
+
+  &.ns-popover-colored {
+    background-color: map-get($color_map, MD);
+    color: white;
+    cursor: pointer;
+
+    p {
+      font-size: 1.4em;
+    }
+  }
+
+  &.ns-popover-colored ~ .triangle {
+    border-bottom-color: map-get($color_map, MD);
+    &:after {
+      border-bottom-color: map-get($color_map, MD);
+    }
+  }
 }
 
 @mixin color-square($color_map) {

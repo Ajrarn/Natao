@@ -90,13 +90,14 @@
             <div class="menu" layout="column">
                 <div layout="row" layout-align="space-between center">
                     <script type="text/ng-template" id="selectTree">
-                        <div class="triangle"></div>
-                        <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme">
-                            <button ng-click="EditorCtrl.switchTrash()" ng-if="!EditorCtrl.showTrash"
-                                    ng-mouseover="EditorCtrl.changeButtonText('TRASH')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'TRASH' | translate }}</button>
-                            <button ng-click="EditorCtrl.switchTrash()" ng-if="EditorCtrl.showTrash"
-                                    ng-mouseover="EditorCtrl.changeButtonText('SCHOOLBAG')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'SCHOOLBAG' | translate }}</button>
+
+                        <div class="ns-popover-tooltip ns-popover-colored" ng-class="appCtrl.PreferencesService.preferences.colorTheme" ng-click="EditorCtrl.switchTrash()">
+                            <p  ng-if="!EditorCtrl.showTrash"
+                                    ng-mouseover="EditorCtrl.changeButtonText('TRASH')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'TRASH' | translate }}</p>
+                            <p ng-if="EditorCtrl.showTrash"
+                                    ng-mouseover="EditorCtrl.changeButtonText('SCHOOLBAG')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'SCHOOLBAG' | translate }}</p>
                         </div>
+                        <div class="triangle"></div>
                     </script>
                     <button ns-popover class="transparent text light" ng-if="!EditorCtrl.showTrash"
                             ns-popover-timeout="-1"
@@ -106,8 +107,9 @@
                             ns-popover-hide-on-inside-click="false"
                             ns-popover-placement="bottom"
                             ns-popover-theme="ns-popover-tooltip-theme"
+                            ng-click="EditorCtrl.openSwitchTrash()" ns-popover-on-close="EditorCtrl.closeSwitchTrash()"
                             ng-mouseover="EditorCtrl.changeButtonText('SCHOOLBAG')" ng-mouseleave="EditorCtrl.changeButtonText('')">
-                        {{ 'SCHOOLBAG' | translate }} <span class="typcn typcn-arrow-sorted-down"></span>
+                        {{ 'SCHOOLBAG' | translate }} <span ng-if="EditorCtrl.switchTrashOpened" class="typcn typcn-arrow-sorted-down"></span><span ng-if="!EditorCtrl.switchTrashOpened"class="typcn typcn-media-play-reverse"></span>
                     </button>
                     <button ns-popover class="transparent text light" ng-if="EditorCtrl.showTrash"
                             ns-popover-timeout="-1"
@@ -117,8 +119,9 @@
                             ns-popover-hide-on-inside-click="false"
                             ns-popover-placement="bottom"
                             ns-popover-theme="ns-popover-tooltip-theme"
+                            ng-click="EditorCtrl.openSwitchTrash()" ns-popover-on-close="EditorCtrl.closeSwitchTrash()"
                             ng-mouseover="EditorCtrl.changeButtonText('TRASH')" ng-mouseleave="EditorCtrl.changeButtonText('')">
-                        {{ 'TRASH' | translate }} <span class="typcn typcn-arrow-sorted-down"></span>
+                        {{ 'TRASH' | translate }} <span ng-if="EditorCtrl.switchTrashOpened" class="typcn typcn-arrow-sorted-down"></span><span ng-if="!EditorCtrl.switchTrashOpened"class="typcn typcn-media-play-reverse"></span>
                     </button>
                     <script type="text/ng-template" id="popoverNewClass">
                         <div class="triangle"></div>

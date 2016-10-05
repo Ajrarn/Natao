@@ -42,6 +42,7 @@
         self.buffer = null;
         self.buttonTextActive = false;
         self.showTrash = false;
+        self.switchTrashOpened = false;
         self.searchPanelOpen = false;
         self.occurrencesFound = 0;
         self.searchEditorWord = '';
@@ -91,6 +92,15 @@
          */
         self.switchTrash = function() {
             self.showTrash = !self.showTrash;
+            self.switchTrashOpened = false;
+        };
+
+        self.openSwitchTrash = function() {
+            self.switchTrashOpened = true;
+        };
+
+        self.closeSwitchTrash = function() {
+            self.switchTrashOpened = false;
         };
 
         /**
