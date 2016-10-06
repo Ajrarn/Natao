@@ -507,7 +507,7 @@
                             reject(err);
                         });
                 } else {
-                    //If it's a folder we have to find all his documents in him
+                    //If it's a folder we have to find all his documents in itself
                     var documents = self.documentsInStructure(node);
                     var nbDocsPending = documents.length;
 
