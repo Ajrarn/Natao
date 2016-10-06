@@ -7,7 +7,7 @@
         .controller('LoadingController', LoadingController);
 
 
-    function LoadingController(PreferencesService,CssService,TemplateTreeService,PrincipalTreeService,$location,OnBoardingService,$q,$translate) {
+    function LoadingController(PreferencesService,CssService,TemplateTreeService,PrincipalTreeService,TrashTreeService,$location,OnBoardingService,$q,$translate) {
 
 
         this.PreferencesService = PreferencesService; //The preferences init send us here
@@ -15,7 +15,8 @@
         this.TemplateTreeService = TemplateTreeService;
 
         this.PrincipalTreeService = PrincipalTreeService;
-        this.OnBoardingService = OnBoardingService
+        this.TrashTreeService = TrashTreeService;
+        this.OnBoardingService = OnBoardingService;
         this.$location = $location;
         this.$translate = $translate;
 
@@ -28,9 +29,10 @@
                 self.CssService.getInitCss().then(function(defaultCss) {
                     var templatePromise = self.TemplateTreeService.getInitTemplate();
                     var principalTreePromise = self.PrincipalTreeService.getInitTreeService(defaultCss);
-                    var onBoardingPromise = OnBoardingService.init();
+                    var onBoardingPromise = self.OnBoardingService.init();
+                    var trashTreePromise = self.TrashTreeService.getInitTreeService();
 
-                    $q.all([templatePromise,principalTreePromise,onBoardingPromise])
+                    $q.all([templatePromise,principalTreePromise,trashTreePromise,onBoardingPromise])
                         .then(function() {
                             $location.path('/editor');
                         });

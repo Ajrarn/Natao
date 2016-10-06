@@ -279,6 +279,21 @@
                         </span>
                     </treecontrol>
                 </div>
+                <div class="treeContainer" flex  ng-if="EditorCtrl.showTrash">
+                    <treecontrol class="tree-classic"
+                                 tree-model="EditorCtrl.TrashTreeService.trashTree.tree"
+                                 options="EditorCtrl.TrashTreeService.treeOptions"
+                                 on-selection="EditorCtrl.selectNode(node)"
+                                 selected-node="EditorCtrl.TrashTreeService.trashTree.selectedNode"
+                                 expanded-nodes="EditorCtrl.TrashTreeService.trashTree.expandedNodes">
+                        <span ng-if="!node.leaf" ng-style="{color:node.color}">
+                                <span id="{{node.id}}"  item="item">{{node.name}}</span>
+                        </span>
+                        <span ng-if="node.leaf" >
+                            <span id="{{node.id}}">{{node.name}}</span>
+                        </span>
+                    </treecontrol>
+                </div>
             </div>
         </div>
 

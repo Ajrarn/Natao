@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
 
         var self = this;
         //self.$showdown = $showdown;
@@ -18,6 +18,7 @@
         self.$translate = $translate;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.TrashTreeService = TrashTreeService;
         self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
@@ -87,28 +88,6 @@
             },0,false);
         });
 
-        /**
-         * switch trash/schoolbag
-         */
-        self.switchTrash = function(hidePopover) {
-            self.showTrash = !self.showTrash;
-            self.changeButtonText('')
-            hidePopover();
-        };
-
-        /**
-         * open the switch and turn the arrow down
-         */
-        self.openSwitchTrash = function() {
-            self.switchTrashOpened = true;
-        };
-
-        /**
-         * close the switch and turn the arrow left
-         */
-        self.closeSwitchTrash = function() {
-            self.switchTrashOpened = false;
-        };
 
         /**
          * switch visibility of search panel
@@ -446,11 +425,7 @@
                     break;
                 case 'delete':
                     if (!self.cancel) {
-                        self.PrincipalTreeService
-                            .deleteNode(self.currentNode)
-                            .catch(function(err) {
-                                console.error(err);
-                            });
+                        self.putNodeInTrash(self.currentNode);
                     }
                     hide();
                     break;
@@ -524,20 +499,7 @@
 
             var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
 
-            self.PrincipalTreeService
-                .deleteNode(documentNode)
-                .then(function() {
-                    //and check the selected markdown
-                    var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
-                    if (!selNode) {
-                        self.PrincipalTreeService.principalTree.currentMarkdownId = null;
-                        self.PrincipalTreeService.save();
-                        self.currentMarkdown = null;
-                    }
-                })
-                .catch(function(err) {
-                    console.error(err);
-                });
+            self.putNodeInTrash(documentNode);
             hide();
         };
 
@@ -799,6 +761,40 @@
                 self.onboardingEnabled = true;
             }
         };
+
+
+        /************** Trash ***************/
+        /**
+         * switch trash/schoolbag
+         */
+        self.switchTrash = function(hidePopover) {
+            self.showTrash = !self.showTrash;
+            self.changeButtonText('')
+            hidePopover();
+        };
+
+        /**
+         * open the switch and turn the arrow down
+         */
+        self.openSwitchTrash = function() {
+            self.switchTrashOpened = true;
+        };
+
+        /**
+         * close the switch and turn the arrow left
+         */
+        self.closeSwitchTrash = function() {
+            self.switchTrashOpened = false;
+        };
+
+        self.putNodeInTrash = function(node) {
+            var nodeParent = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
+            node.nodeParentName = nodeParent.name;
+            self.TrashTreeService.addNode(node);
+            self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
+            self.PrincipalTreeService.save();
+        }
+
     }
 
 }());

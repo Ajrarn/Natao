@@ -17,11 +17,10 @@
 
 
     //Service itself
-    function TrashTreeService(TreeUtilService,TemplateTreeService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope) {
+    function TrashTreeService(TreeUtilService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope) {
 
         var self = this;
         self.TreeUtilService = TreeUtilService;
-        self.TemplateTreeService = TemplateTreeService;
         self.PendingService = PendingService;
         self.$q = $q;
         self.$translate = $translate;
@@ -92,7 +91,7 @@
                         if (docs.length === 0) {
                             console.error('Trash Document not found');
                             self.DatabaseService
-                                .insert(self.principalTree)
+                                .insert(self.trashTree)
                                 .then(function(newDoc) {
                                     self.trashTree = newDoc;
                                 })
@@ -110,7 +109,12 @@
             });
         };
 
-        //delete of a node
+        self.addNode = function(node) {
+            self.trashTree.tree.children.push(node);
+            self.save();
+        };
+
+        //delete a node
         self.deleteNode = function(node) {
 
             return self.$q(function(resolve,reject) {

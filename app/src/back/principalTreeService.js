@@ -166,7 +166,7 @@
                 if (templateName) {
 
                     // To make a good copy we will pass by the buffer
-                    var buffer = self.TreeUtilService
+                    self.TreeUtilService
                         .nodeToBuffer(self.TemplateTreeService.getTemplate(templateName))
                         .then(function (buffer) {
                             self.TreeUtilService

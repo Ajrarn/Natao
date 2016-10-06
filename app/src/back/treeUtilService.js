@@ -483,6 +483,14 @@
         };
 
 
+        /**
+         * this function effectively delete the node and all documents attached
+         * it will be only use in the trash
+         * for the principal tree the erase function will delete the node and preserve the documents
+         * @param node
+         * @param nodeRoot
+         * @returns {*}
+         */
         self.deleteNode = function(node,nodeRoot) {
 
             return self.$q(function(resolve,reject) {
@@ -551,8 +559,28 @@
 
                 }
             });
-
         };
+
+        /**
+         * this function only delete the node but not the documents attached
+         * for the principal tree
+         * @param node
+         * @param nodeRoot
+         * @returns {*}
+         */
+        self.eraseNode = function(node,nodeRoot) {
+            return self.$q(function(resolve) {
+                var parent = self.findParent(node,nodeRoot);
+                if (parent.children && parent.children.length > 0) {
+                    var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                    if (indexOfNode >=0) {
+                        parent.children.splice(indexOfNode,1);
+                    }
+                }
+                resolve();
+            });
+        };
+
 
         self.findNodeByName = function(node, name) {
             var nodeFound = null;
