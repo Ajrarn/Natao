@@ -280,13 +280,40 @@
                     </treecontrol>
                 </div>
                 <div class="treeContainer" flex  ng-if="EditorCtrl.showTrash">
+                    <script type="text/ng-template" id="popoverTrashActions">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
+                            <div layout="column" layout-align="center center" ng-show="EditorCtrl.trashPopover === 'buttonBar'">
+                                <div class="buttonBar" layout="row" layout-align="start start">
+                                    <span class="button" ng-click="EditorCtrl.restoreNode()"
+                                          ng-mouseover="EditorCtrl.changeButtonText('RESTORE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-edit"></span></span>
+                                    <span class="button" ng-click="EditorCtrl.openTrashDelete()"
+                                          ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></span>
+                                </div>
+                                <message id="messageTrash"></message>
+                            </div>
+                            <form name="Delete" novalidate ng-submit="EditorCtrl.trashDelete(hidePopover)" layout="column" layout-align="start center" ng-show="EditorCtrl.trashPopover === 'delete'">
+                                <p>{{ 'CONFIRM_DELETE_FOLDER' | translate }}</p>
+                                <div layout="row" layout-align="center center">
+                                    <button type="submit"  value="Submit">{{ 'YES' | translate }}</button>
+                                    <span class="button" ng-click="EditorCtrl.cancelTrashAction(hidePopover)">{{ 'NO' | translate }}</span>
+                                </div>
+                            </form>
+                        </div>
+                    </script>
                     <treecontrol class="tree-classic"
                                  tree-model="EditorCtrl.TrashTreeService.trashTree.tree"
                                  options="EditorCtrl.TrashTreeService.treeOptions"
                                  on-selection="EditorCtrl.selectNode(node)"
                                  selected-node="EditorCtrl.TrashTreeService.trashTree.selectedNode"
                                  expanded-nodes="EditorCtrl.TrashTreeService.trashTree.expandedNodes">
-                        <span ng-if="!node.leaf" ng-style="{color:node.color}">
+                        <span ns-popover ns-popover-timeout="-1"
+                              ns-popover-template="popoverTrashActions"
+                              ns-popover-trigger="click"
+                              ns-popover-hide-on-click="false"
+                              ns-popover-hide-on-inside-click="false"
+                              ns-popover-placement="top|left"
+                              ns-popover-theme="ns-popover-tooltip-theme" ng-click="EditorCtrl.openTrashPopover(node)" ng-if="!node.leaf" ng-style="{color:node.color}">
                                 <span id="{{node.id}}"  item="item">{{node.name}}</span>
                         </span>
                         <span ng-if="node.leaf" >

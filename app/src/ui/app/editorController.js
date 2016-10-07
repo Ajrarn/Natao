@@ -787,12 +787,29 @@
             self.switchTrashOpened = false;
         };
 
+        /**
+         * put the ndde in trash and keep safe documents
+         * @param node
+         */
         self.putNodeInTrash = function(node) {
             var nodeParent = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
             node.nodeParentName = nodeParent.name;
             self.TrashTreeService.addNode(node);
             self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
             self.PrincipalTreeService.save();
+        };
+
+        /**
+         * open the trash popover and set the current node
+         * @param node
+         */
+        self.openTrashPopover = function(node) {
+            self.currentNode = node;
+            self.trashPopover = 'buttonBar';
+        };
+
+        self.openTrashDelete = function() {
+            self.trashPopover = 'delete';
         }
 
     }

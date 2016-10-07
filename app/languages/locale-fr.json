@@ -91,6 +91,7 @@
   "SETTING_SHOW_TOUR_ENABLED":"Activé",
   "SETTING_SHOW_TOUR_DISABLED":"Désactivé",
   "TRASH":"Corbeille",
+  "RESTORE":"Restaurer",
   "HELP_INTERFACE": "Interface",
   "HELP_MARKDOWN": "Markdown",
   "HELP_ASCIIMATH": "AsciiMath",

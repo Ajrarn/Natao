@@ -90,6 +90,7 @@
   "SETTING_SHOW_TOUR_ENABLED":"Active",
   "SETTING_SHOW_TOUR_DISABLED":"Inactive",
   "TRASH":"Trash",
+  "RESTORE":"Restore",
   "HELP_INTERFACE": "Interface",
   "HELP_MARKDOWN": "Markdown",
   "HELP_ASCIIMATH": "AsciiMath",
