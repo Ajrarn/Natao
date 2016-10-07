@@ -307,7 +307,7 @@ Cet exemple modifie la couleur du titre de niveau 1 dans la boite #title-zone, m
 
 # Agir sur les grands boites d'un document Natao
 
-La première chose que l'on doit faire, c'est de décider les boites qui s'affiche dans notre feuille de style, leur taille et éventuellement les décorer.
+La première chose que l'on doit faire, c'est de décider les boites qui s'affichent dans notre feuille de style, leur taille et éventuellement les décorer.
 
 ## Les faire disparaître
 
@@ -691,12 +691,6 @@ Voici le code que j'ai utilisé pour le style des leçons:
     content: counter(chapitre,upper-roman) " - ";  
 }
 
-#made h1:after {
-    content:' ';
-    display:boitek;
-    border:1px solid lightgrey;
-}
-
 #made h2 {
     font-size: 1.2em;
     counter-reset: sous-section;
@@ -716,7 +710,7 @@ Tout d'abord je voudrais te montrer 2 nouveaux sélecteurs:
 - *h1:before*
 - *h1:after*
 
-J'ai ajouté *:before* et *:after* au sélecteur de boite *h1*. Ce sont des pseudo-classes, il y en a d'autres, mais celle-ci vont nous permettre de rajouter du contenu avant et après la boite choisi.
+J'ai ajouté *:before* au sélecteur de boite *h1*. C'est une pseudo-classe, il y en a d'autres, mais celle-ci va nous permettre de rajouter du contenu avant la boite choisi. Au besoin on aurait pu faire la même chose avec la pseudo-classe *after*.
 
 Et maintenant, nous allons parler des compteurs. Pour générer une numérotation automatique, j'utilise des compteurs. Je commence par initialiser leur valeur, les remettre à 1:
 

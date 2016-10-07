@@ -792,8 +792,7 @@
          * @param node
          */
         self.putNodeInTrash = function(node) {
-            var nodeParent = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
-            node.nodeParentName = nodeParent.name;
+            node.nodeFrom = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
             self.TrashTreeService.addNode(node);
             self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
             self.PrincipalTreeService.save();
@@ -808,8 +807,24 @@
             self.trashPopover = 'buttonBar';
         };
 
+        /**
+         * set the popover on delete mode
+         */
         self.openTrashDelete = function() {
             self.trashPopover = 'delete';
+        };
+
+
+        /**
+         * real delete of a node
+         */
+        self.trashDelete = function() {
+            self.TrashTreeService.deleteNode(self.currentNode);
+        };
+
+        self.restoreNode = function(node) {
+            var topParent = self.TrashTreeService.getHighestParent(node);
+            console.log('topParent', topParent);
         }
 
     }

@@ -150,6 +150,16 @@
 
         };
 
+        self.getHighestParent = function(node) {
+            if (node.nodeFrom) {
+                return node;
+            } else {
+                var parent;
+                for (parent = node; !(parent && parent.nodeFrom); parent = self.TreeUtilService.findParent(parent, self.trashTree.tree)) {}
+                return parent;
+            }
+        };
+
 
 
 
