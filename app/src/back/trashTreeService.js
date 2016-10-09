@@ -154,9 +154,17 @@
             if (node.nodeFrom) {
                 return node;
             } else {
-                var parent;
-                for (parent = node; !(parent && parent.nodeFrom); parent = self.TreeUtilService.findParent(parent, self.trashTree.tree)) {}
-                return parent;
+
+                var nodeFound = null;
+                var highestParent = null;
+                for (var index = 0; index < self.trashTree.tree.children.length && !nodeFound; index++) {
+                    nodeFound = self.TreeUtilService.getNode(node.id, self.trashTree.tree.children[index]);
+                    if (nodeFound) {
+                        highestParent = self.trashTree.tree.children[index];
+                    }
+                }
+                return highestParent;
+
             }
         };
 

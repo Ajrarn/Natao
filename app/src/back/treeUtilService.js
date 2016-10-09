@@ -582,6 +582,12 @@
         };
 
 
+        /**
+         * search a node by it's name
+         * @param node
+         * @param name
+         * @returns {*}
+         */
         self.findNodeByName = function(node, name) {
             var nodeFound = null;
             if (node.name === name) {
@@ -599,6 +605,32 @@
             return nodeFound;
         };
 
+        /**
+         * get the nodes id to make a path from a node to another
+         * @param nodeFrom
+         * @param nodeTo
+         * @param path
+         * @param found
+         * @returns {*}
+         */
+        self.getPath = function(nodeFrom, nodeTo) {
+            var path = [];
+
+            if (nodeFrom.id !== nodeTo.id && nodeFrom.children) {
+               for (var index = 0; !path && index < nodeFrom.children.length; index++) {
+
+                   if (nodeFrom.children[index].id === nodeTo.id) {
+                       path = [nodeFrom.id];
+                   } else {
+                       path = self.getPath(nodeFrom.children[index], nodeTo);
+                       if (path) {
+                           path.unshift(nodeFrom.id);
+                       }
+                   }
+                }
+           }
+            return path;
+        };
 
 
         return self;

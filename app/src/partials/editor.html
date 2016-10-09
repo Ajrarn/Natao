@@ -2,7 +2,7 @@
 
     <onboarding-popover enabled="EditorCtrl.onboardingEnabled" steps="EditorCtrl.onBoardingSteps" step-index='EditorCtrl.onboardingIndex' on-finish-callback="EditorCtrl.finishTour" custom-options="EditorCtrl.OnBoardingService.customOptions"></onboarding-popover>
 
-    <div id="toolbar" class="bandeau" ng-show="!EditorCtrl.inPrint" layout="row" layout-align="space-between center">
+    <div id="toolbar" class="bandeau" layout="row" layout-align="space-between center">
         <div layout="row" layput-align="start center" id="zoomPart">
             <button ng-click="appCtrl.zoomLower()" class="transparent"
                     ng-mouseover="EditorCtrl.changeButtonText('ZOOM_OUT')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-zoom-out-outline"></span></button>
@@ -285,7 +285,7 @@
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
                             <div layout="column" layout-align="center center" ng-show="EditorCtrl.trashPopover === 'buttonBar'">
                                 <div class="buttonBar" layout="row" layout-align="start start">
-                                    <span class="button" ng-click="EditorCtrl.restoreNode()"
+                                    <span class="button" ng-click="EditorCtrl.restoreNode(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('RESTORE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-edit"></span></span>
                                     <span class="button" ng-click="EditorCtrl.openTrashDelete()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></span>
@@ -324,9 +324,9 @@
             </div>
         </div>
 
-        <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu && !EditorCtrl.inPrint)}">
+        <div flex layout="column" class="content" ng-class="{goright: (appCtrl.PreferencesService.preferences.showMenu)}">
             <div flex layout=row">
-                <div id="editor" class="editor" flex layout="column" ng-show="!EditorCtrl.inPrint" ng-class="{hidden: !EditorCtrl.showEditor()}">
+                <div id="editor" class="editor" flex layout="column" ng-class="{hidden: !EditorCtrl.showEditor()}">
                     <div flex layout="column" ng-if="EditorCtrl.showEditor()">
                         <script type="text/ng-template" id="popoverDeleteDocument">
                             <div class="triangle"></div>
@@ -469,7 +469,7 @@
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
                 </div>
-                <div id="viewer" class="viewer CodeMirror-vscrollbar" flex ng-class="[{hidden: !EditorCtrl.showViewer()},{inprint: EditorCtrl.inPrint}]"
+                <div id="viewer" class="viewer CodeMirror-vscrollbar" flex ng-class="{hidden: !EditorCtrl.showViewer()}"
                      layout="column">
                     <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer()">
                         <div id="header" layout="row" layout-align="start stretch">
