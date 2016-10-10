@@ -765,6 +765,13 @@
             self.showTrash = !self.showTrash;
             self.changeButtonText('')
             hidePopover();
+
+            if (self.showTrash) {
+                self.codeMirror.setOption("readOnly", true);
+            } else {
+                self.codeMirror.setOption("readOnly", false)
+            }
+
         };
 
         /**
