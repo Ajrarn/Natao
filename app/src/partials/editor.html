@@ -357,7 +357,7 @@
                                 <p>{{ 'DOC_TITLE' | translate }}</p>
                                 <input flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
-                            <div class="buttonBar" layout="row" layout-align="end center">
+                            <div class="buttonBar" layout="row" layout-align="end center" ng-if="!EditorCtrl.showTrash">
                                 <button ng-click="EditorCtrl.copyDocument()"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_COPY')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-tabs-outline"></span></button>
                                 <button ng-click="EditorCtrl.cutDocument()"
@@ -410,7 +410,7 @@
                                     </label>
                                 </div>
                             </script>
-                            <div class="buttonBar" layout="row" layout-align="end center">
+                            <div class="buttonBar" layout="row" layout-align="end center"  ng-if="!EditorCtrl.showTrash">
                                 <button ng-click="EditorCtrl.addImage()"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
                                     <span class="typcn typcn-image-outline"></span>
