@@ -134,6 +134,12 @@
 
             self.CodeMirrorSearchService.init(self.codeMirror);
 
+            //codeMirrot read only if necessary
+            if (self.showTrash) {
+                self.codeMirror.setOption("readOnly", true);
+            } else {
+                self.codeMirror.setOption("readOnly", false)
+            }
 
             CodeMirror.commands.find = self.switchSearch;
             
@@ -184,7 +190,7 @@
             var pos = { // create a new object to avoid mutation of the original selection
                 line: cursor.line,
                 ch: line.length - 1 // set the character position to the end of the line
-            }
+            };
             doc.replaceRange('\n'+data+'\n', pos); // adds a new line
         };
 
@@ -305,11 +311,13 @@
         }
 
         self.showViewer = function() {
-            return self.currentMarkdown && self.PreferencesService.preferences.showViewer;
+            //return self.currentMarkdown && self.PreferencesService.preferences.showViewer;
+            return self.PreferencesService.preferences.showViewer;
         };
 
         self.showEditor = function() {
-            return self.currentMarkdown && self.PreferencesService.preferences.showEditor;
+            //return self.currentMarkdown && self.PreferencesService.preferences.showEditor;
+            return self.PreferencesService.preferences.showEditor;
         };
 
         self.print = function() {
@@ -494,6 +502,9 @@
             var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
 
             self.putNodeInTrash(documentNode);
+            self.PrincipalTreeService.principalTree.currentMarkdownId = null;
+            self.currentMarkdown = null;
+
             hide();
         };
 
@@ -764,13 +775,11 @@
         self.switchTrash = function(hidePopover) {
             self.showTrash = !self.showTrash;
             self.changeButtonText('')
-            hidePopover();
 
-            if (self.showTrash) {
-                self.codeMirror.setOption("readOnly", true);
-            } else {
-                self.codeMirror.setOption("readOnly", false)
-            }
+            self.PrincipalTreeService.principalTree.currentMarkdownId = null;
+            self.currentMarkdown = null;
+
+            hidePopover();
 
         };
 
@@ -828,18 +837,18 @@
          * restore the current node
          * @param node
          */
-        self.restoreNode = function(hidePopover) {
-            var topParent = self.TrashTreeService.getHighestParent(self.currentNode);
+        self.restoreNode = function(node) {
+            var topParent = self.TrashTreeService.getHighestParent(node);
             var nodeWhereRestore = self.TreeUtilService.getNode(topParent.nodeFrom.id,self.PrincipalTreeService.principalTree.tree);
 
-            var path = self.TreeUtilService.getPath(topParent, self.currentNode);
-            path.push(self.currentNode.id);
+            var path = self.TreeUtilService.getPath(topParent, node);
+            path.push(node.id);
 
             //follow the path to restore the node
             var jobDone = false;
             while (!jobDone) {
-                if (path[0] === self.currentNode.id) {
-                    nodeWhereRestore.children.push(self.currentNode);
+                if (path[0] === node.id) {
+                    nodeWhereRestore.children.push(node);
                     jobDone = true;
                 } else {
                     var foundNode = nodeWhereRestore.children.find(function(item) {
@@ -864,11 +873,25 @@
             //When restored delete the node from the trash
             var parentNode = self.TreeUtilService.findParent(self.currentNode, self.TrashTreeService.trashTree.tree);
             parentNode.children = parentNode.children.filter(function(item) {
-                return item.id !== self.currentNode.id;
+                return item.id !== node.id;
             });
 
+            self.PrincipalTreeService.save();
+            self.TrashTreeService.save();
+        };
+
+
+        self.restoreFolder = function(hidePopover) {
+            self.restoreNode(self.currentNode);
+
             hidePopover();
-        }
+        };
+
+        self.restoreDocument = function() {
+            var nodeToRestore = self.TreeUtilService.getNode(self.currentMarkdown._id, self.TrashTreeService.trashTree.tree);
+            self.restoreNode(nodeToRestore);
+
+        };
 
     }
 

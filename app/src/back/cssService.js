@@ -43,9 +43,16 @@
 
             return self.$q(function(resolve,reject) {
 
+                var language = null;
+
+                while (!language) {
+                    language = self.$translate.use();
+                    console.log('language',language);
+                }
+
 
                 //First we load the names of the css in the appropriate language
-                self.cssNamesFile = fs.readFileSync('./languages/cssNames-' + self.$translate.use() + '.json','utf8');
+                self.cssNamesFile = fs.readFileSync('./languages/cssNames-' + language + '.json','utf8');
                 self.cssNames = {};
 
                 var defaultCss = null;

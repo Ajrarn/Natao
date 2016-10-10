@@ -285,7 +285,7 @@
                         <div class="ns-popover-tooltip" ng-class="appCtrl.PreferencesService.preferences.colorTheme" layout="column">
                             <div layout="column" layout-align="center center" ng-show="EditorCtrl.trashPopover === 'buttonBar'">
                                 <div class="buttonBar" layout="row" layout-align="start start">
-                                    <span class="button" ng-click="EditorCtrl.restoreNode(hidePopover)"
+                                    <span class="button" ng-click="EditorCtrl.restoreFolder(hidePopover)"
                                           ng-mouseover="EditorCtrl.changeButtonText('RESTORE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-media-rewind-outline"></span></span>
                                     <span class="button" ng-click="EditorCtrl.openTrashDelete()"
                                           ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></span>
@@ -354,8 +354,8 @@
 
                         <div layout="row" layout-align="space-between center">
                             <label flex for="title" layout="row" layout-align="start center">
-                                <p>{{ 'DOC_TITLE' | translate }}</p>
-                                <input flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                <p>{{ 'DOC_TITLE' | translate }} <strong ng-if="EditorCtrl.showTrash">{{EditorCtrl.currentMarkdown.title}}</strong></p>
+                                <input  ng-if="!EditorCtrl.showTrash" flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
                             <div class="buttonBar" layout="row" layout-align="end center" ng-if="!EditorCtrl.showTrash">
                                 <button ng-click="EditorCtrl.copyDocument()"
@@ -379,18 +379,32 @@
                                         ns-popover-theme="ns-popover-tooltip-theme"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></button>
                             </div>
+                            <div class="buttonBar" layout="row" layout-align="end center" ng-if="EditorCtrl.showTrash">
+                                <button class="button" ng-click="EditorCtrl.restoreDocument()" ng-if="EditorCtrl.showTrash"
+                                        ng-mouseover="EditorCtrl.changeButtonText('RESTORE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-media-rewind-outline"></span></button>
+                                <button ns-popover ns-popover-timeout="-1"
+                                        ns-popover-template="popoverDeleteDocument"
+                                        ns-popover-trigger="click"
+                                        ns-popover-hide-on-click="false"
+                                        ns-popover-hide-on-inside-click="false"
+                                        ns-popover-placement="left"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        ng-mouseover="EditorCtrl.changeButtonText('BTN_DELETE')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-trash"></span></button>
+                            </div>
                         </div>
                         <div layout="row" layout-align="space-between center">
-                            <label for="css" layout="row" layout-align="start center">
+                            <label ng-if="!EditorCtrl.showTrash" for="css" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_CSS' | translate }}</p>
                                 <select id="css" ng-model="EditorCtrl.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
                                 </select>
                             </label>
 
                             <label for="created" layout="row" layout-align="start center">
-                                <p>{{ 'DOC_CREATED' | translate }}</p>
-                                <input id="created" type="date" ng-model="EditorCtrl.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                <p>{{ 'DOC_CREATED' | translate }} <strong ng-if="EditorCtrl.showTrash">{{EditorCtrl.currentMarkdown.created | date : 'longDate'}}</strong></p>
+                                <input id="created" type="date"  ng-if="!EditorCtrl.showTrash" ng-model="EditorCtrl.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
+
+
 
                             <script type="text/ng-template" id="popoverEditorSetting">
                                 <div class="triangle"></div>
