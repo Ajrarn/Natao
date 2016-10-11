@@ -134,13 +134,6 @@
 
             self.CodeMirrorSearchService.init(self.codeMirror);
 
-            //codeMirrot read only if necessary
-            if (self.showTrash) {
-                self.codeMirror.setOption("readOnly", true);
-            } else {
-                self.codeMirror.setOption("readOnly", false)
-            }
-
             CodeMirror.commands.find = self.switchSearch;
             
         };
@@ -294,6 +287,10 @@
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
 
                                 if (!self.showTrash) {
+                                    // disable the readOnly mode;
+                                    self.codeMirror.setOption("readOnly", false);
+
+                                    // and save what it must
                                     self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
                                     self.PrincipalTreeService.save();
                                 }
@@ -776,10 +773,15 @@
          */
         self.switchTrash = function(hidePopover) {
             self.showTrash = !self.showTrash;
-            self.changeButtonText('')
+            self.changeButtonText('');
 
             self.PrincipalTreeService.principalTree.currentMarkdownId = null;
             self.currentMarkdown = null;
+
+            //always set codeMirror in readOnly
+            //because no document is selected
+            self.codeMirror.setOption("readOnly", true);
+
 
             hidePopover();
 

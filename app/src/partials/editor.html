@@ -355,9 +355,9 @@
                         <div layout="row" layout-align="space-between center">
                             <label flex for="title" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_TITLE' | translate }} <strong ng-if="EditorCtrl.showTrash">{{EditorCtrl.currentMarkdown.title}}</strong></p>
-                                <input  ng-if="!EditorCtrl.showTrash" flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                <input  ng-if="!EditorCtrl.showTrash && EditorCtrl.currentMarkdown" flex id="title" type="text" ng-model="EditorCtrl.currentMarkdown.title" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
-                            <div class="buttonBar" layout="row" layout-align="end center" ng-if="!EditorCtrl.showTrash">
+                            <div class="buttonBar" layout="row" layout-align="end center" ng-if="!EditorCtrl.showTrash && EditorCtrl.currentMarkdown">
                                 <button ng-click="EditorCtrl.copyDocument()"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_COPY')" ng-mouseleave="EditorCtrl.changeButtonText('')"><span class="typcn typcn-tabs-outline"></span></button>
                                 <button ng-click="EditorCtrl.cutDocument()"
@@ -393,7 +393,7 @@
                             </div>
                         </div>
                         <div layout="row" layout-align="space-between center">
-                            <label ng-if="!EditorCtrl.showTrash" for="css" layout="row" layout-align="start center">
+                            <label ng-if="!EditorCtrl.showTrash && EditorCtrl.currentMarkdown" for="css" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_CSS' | translate }}</p>
                                 <select id="css" ng-model="EditorCtrl.currentMarkdown.css" ng-options="css._id as css.name for css in appCtrl.CssService.availableCss" ng-change="EditorCtrl.refresh()">
                                 </select>
@@ -401,7 +401,7 @@
 
                             <label for="created" layout="row" layout-align="start center">
                                 <p>{{ 'DOC_CREATED' | translate }} <strong ng-if="EditorCtrl.showTrash">{{EditorCtrl.currentMarkdown.created | date : 'longDate'}}</strong></p>
-                                <input id="created" type="date"  ng-if="!EditorCtrl.showTrash" ng-model="EditorCtrl.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                                <input id="created" type="date"  ng-if="!EditorCtrl.showTrash && EditorCtrl.currentMarkdown" ng-model="EditorCtrl.currentMarkdown.created" ng-change="EditorCtrl.refresh()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                             </label>
 
 
@@ -424,7 +424,7 @@
                                     </label>
                                 </div>
                             </script>
-                            <div class="buttonBar" layout="row" layout-align="end center"  ng-if="!EditorCtrl.showTrash">
+                            <div class="buttonBar" layout="row" layout-align="end center"  ng-if="!EditorCtrl.showTrash && EditorCtrl.currentMarkdown">
                                 <button ng-click="EditorCtrl.addImage()"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_INSERT_IMAGE')" ng-mouseleave="EditorCtrl.changeButtonText('')">
                                     <span class="typcn typcn-image-outline"></span>
@@ -479,7 +479,6 @@
 
                         </div>
                         <div ui-codemirror="{ onLoad : EditorCtrl.codeMirrorLoaded }" flex ui-codemirror-opts="EditorCtrl.editorOptions" ng-model="EditorCtrl.currentMarkdown.md" ng-change="EditorCtrl.refresh()"
-                             ng-if="EditorCtrl.currentMarkdown"
                                        ng-class="{space:EditorCtrl.PreferencesService.preferences.space, striped: EditorCtrl.PreferencesService.preferences.striped}"></div>
                     </div>
                 </div>
