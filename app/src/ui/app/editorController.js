@@ -292,9 +292,11 @@
                                 //this one is for the watcher of <a href>
                                 self.currentMarkdownCode = self.currentMarkdown.md;
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
-                                self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
-                                self.PrincipalTreeService.save();
 
+                                if (!self.showTrash) {
+                                    self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
+                                    self.PrincipalTreeService.save();
+                                }
                                 setTimeout(self.refreshMath, 100);  //without angular $digest
                             }
                         })
@@ -805,7 +807,15 @@
             node.nodeFrom = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
             self.TrashTreeService.addNode(node);
             self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
-            self.PrincipalTreeService.save();
+
+            // And finally we save in the good order
+            self.TrashTreeService.saveAndWait()
+                .then(function() {
+                    self.PrincipalTreeService.save();
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
         };
 
         /**
@@ -871,22 +881,34 @@
             }
 
             //When restored delete the node from the trash
-            var parentNode = self.TreeUtilService.findParent(self.currentNode, self.TrashTreeService.trashTree.tree);
+            var parentNode = self.TreeUtilService.findParent(node, self.TrashTreeService.trashTree.tree);
             parentNode.children = parentNode.children.filter(function(item) {
                 return item.id !== node.id;
             });
 
-            self.PrincipalTreeService.save();
-            self.TrashTreeService.save();
+            self.PrincipalTreeService.saveAndWait()
+                .then(function() {
+                    self.TrashTreeService.save();
+                })
+                .catch(function(error) {
+                    console.error(error);
+                });
         };
 
 
+        /**
+         * restore a folder
+         * @param hidePopover
+         */
         self.restoreFolder = function(hidePopover) {
             self.restoreNode(self.currentNode);
 
             hidePopover();
         };
 
+        /**
+         * restore a document
+         */
         self.restoreDocument = function() {
             var nodeToRestore = self.TreeUtilService.getNode(self.currentMarkdown._id, self.TrashTreeService.trashTree.tree);
             self.restoreNode(nodeToRestore);

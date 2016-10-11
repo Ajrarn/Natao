@@ -69,6 +69,13 @@
             self.save();
         });
 
+
+        /**
+         * init the principal tree service
+         * return a promise
+         * @param defaultCss
+         * @returns {*}
+         */
         self.getInitTreeService = function(defaultCss) {
 
             return self.$q(function(resolve,reject) {
@@ -76,7 +83,6 @@
                 self.DatabaseService.find({docName:'PrincipalTree'})
                     .then(function(docs){
                         if (docs.length === 0) {
-                            console.error('Principal Document not found');
 
                             self.principalTree.tree.defaultCss = defaultCss._id;
 
@@ -152,6 +158,28 @@
                     console.error('error:', err);
                 });
 
+        };
+
+        /**
+         * save in a promise to chain different saves
+         * @returns {*}
+         */
+        self.saveAndWait = function() {
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+
+                self.DatabaseService
+                    .update(self.principalTree._id,self.principalTree)
+                    .then(function(doc) {
+                        self.PendingService.stop();
+                        self.principalTree = doc;
+                        resolve();
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
         };
 
 

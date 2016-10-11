@@ -68,6 +68,9 @@
             self.save();
         });
 
+        /**
+         * save asynchroneous
+         */
         self.save = function() {
             self.PendingService.start();
 
@@ -84,16 +87,38 @@
 
         };
 
+        /**
+         * save in a promise to chain different saves
+         * @returns {*}
+         */
+        self.saveAndWait = function() {
+            return self.$q(function(resolve,reject) {
+                self.PendingService.start();
+
+                self.DatabaseService
+                    .update(self.trashTree._id,self.trashTree)
+                    .then(function(doc) {
+                        self.PendingService.stop();
+                        self.trashTree = doc;
+                        resolve();
+                    })
+                    .catch(function(err) {
+                        self.PendingService.stop();
+                        reject(err);
+                    });
+            });
+        };
+
         self.getInitTreeService = function() {
             return self.$q(function(resolve,reject) {
                 self.DatabaseService.find({docName:'TrashTree'})
                     .then(function(docs){
                         if (docs.length === 0) {
-                            console.error('Trash Document not found');
                             self.DatabaseService
                                 .insert(self.trashTree)
                                 .then(function(newDoc) {
                                     self.trashTree = newDoc;
+                                    resolve();
                                 })
                                 .catch(function(err) {
                                     reject(err);
@@ -111,10 +136,13 @@
 
         self.addNode = function(node) {
             self.trashTree.tree.children.push(node);
-            self.save();
         };
 
-        //delete a node
+        /**
+         * delete a node definitively
+         * @param node
+         * @returns {*}
+         */
         self.deleteNode = function(node) {
 
             return self.$q(function(resolve,reject) {
