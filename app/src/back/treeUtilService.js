@@ -617,7 +617,7 @@
             var path = [];
 
             if (nodeFrom.id !== nodeTo.id && nodeFrom.children) {
-               for (var index = 0; !path && index < nodeFrom.children.length; index++) {
+               for (var index = 0; path.length === 0 && index < nodeFrom.children.length; index++) {
 
                    if (nodeFrom.children[index].id === nodeTo.id) {
                        path = [nodeFrom.id];

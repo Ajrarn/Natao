@@ -2649,7 +2649,8 @@ hr {
 
 .slideContainer {
   position: relative;
-  height: 60vh; }
+  height: 60vh;
+  margin-top: 20vh; }
   .slideContainer .slideContent {
     position: absolute;
     transition: all 1.0s ease-in-out; }
