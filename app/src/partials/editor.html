@@ -484,7 +484,10 @@
                 </div>
                 <div id="viewer" class="viewer CodeMirror-vscrollbar" flex ng-class="{hidden: !EditorCtrl.showViewer()}"
                      layout="column">
-                    <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer()">
+                    <div ng-if="EditorCtrl.showViewer() && !EditorCtrl.currentMarkdown">
+                        <h1>{{ 'NO_DOCUMENT' | translate}}</h1>
+                    </div>
+                    <div flex layout="column" layout-align="start stretch" ng-if="EditorCtrl.showViewer() && EditorCtrl.currentMarkdown">
                         <div id="header" layout="row" layout-align="start stretch">
                             <div id="identity" layout="column" layout-align="center stretch">
                                 <p>{{EditorCtrl.PreferencesService.preferences.name}}</p>
