@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService) {
 
         var self = this;
         //self.$showdown = $showdown;
@@ -29,7 +29,7 @@
         self.$location = $location;
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
-        self.CodeMirrorSearchService = CodeMirrorSearchService;
+        self.CodeMirrorUtilService = CodeMirrorUtilService;
         self.MessageService.changeMessage('');
         self.focus = focus;
         self.editorOptions = {
@@ -66,25 +66,7 @@
         self.$rootScope.$watch(function(){
             return self.currentMarkdownCode;
         },function() {
-            self.$timeout(function() {
-                $('.viewer a').on('click', function(){
-                    require('nw.gui').Shell.openExternal( this.href );
-                    return false;
-                });
-
-                // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
-                $('pre code').each(function(i, block) {
-                    if (block.textContent.startsWith('::')) {
-                        var classe = block.textContent.split('\n')[0].replace('::','');
-                        block.textContent = block.textContent.replace('::' + classe + '\n', '');
-                        block.classList.add(classe);
-                    } else {
-                        // by default we add th class nohighlight
-                        block.classList.add('nohighlight');
-                    }
-                    hljs.highlightBlock(block);
-                });
-            },0,false);
+            self.CodeMirrorUtilService.codeMirrorHooks();
         });
 
 
@@ -98,7 +80,7 @@
                     self.occurrencesFound = 0;
                     self.searchEditorWord = '';
                     self.replaceEditorWord = '';
-                    self.CodeMirrorSearchService.clearSearch();
+                    self.CodeMirrorUtilService.clearSearch();
                 }
             },0);  //with angular $digest sometimes it will be called by codemirror
 
@@ -132,7 +114,7 @@
                 }
             });
 
-            self.CodeMirrorSearchService.init(self.codeMirror);
+            self.CodeMirrorUtilService.init(self.codeMirror);
 
             CodeMirror.commands.find = self.switchSearch;
             
@@ -144,13 +126,13 @@
          */
         self.searchCodeMirror = function() {
             if (self.searchEditorWord.length > 0) {
-                self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
-                self.CodeMirrorSearchService.findNext();
+                self.CodeMirrorUtilService.startSearch(self.searchEditorWord);
+                self.CodeMirrorUtilService.findNext();
 
-                self.occurrencesFound = self.CodeMirrorSearchService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
+                self.occurrencesFound = self.CodeMirrorUtilService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
             } else {
                 self.occurrencesFound = 0;
-                self.CodeMirrorSearchService.clearSearch();
+                self.CodeMirrorUtilService.clearSearch();
             }
 
         };
@@ -160,14 +142,14 @@
          */
         self.replace = function() {
             self.occurrencesFound--;
-            self.CodeMirrorSearchService.replace(self.replaceEditorWord);
+            self.CodeMirrorUtilService.replace(self.replaceEditorWord);
         };
 
         /**
          * execute replaceAll with replaceEditorWord
          */
         self.replaceAll = function() {
-            self.CodeMirrorSearchService.replaceAll(self.replaceEditorWord);
+            self.CodeMirrorUtilService.replaceAll(self.replaceEditorWord);
             self.occurrencesFound = 0;
         };
 
@@ -284,6 +266,7 @@
                                 self.currentMarkdown = docs[0];
                                 //this one is for the watcher of <a href>
                                 self.currentMarkdownCode = self.currentMarkdown.md;
+                                self.CodeMirrorUtilService.codeMirrorHooks();
                                 self.CssService.initCurrentById(self.currentMarkdown.css);
 
                                 if (!self.showTrash) {
