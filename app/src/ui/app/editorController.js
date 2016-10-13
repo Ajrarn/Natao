@@ -257,34 +257,43 @@
 
         self.selectNode = function(node) {
             if (node.leaf) {
-                if ( !self.PrincipalTreeService.principalTree.currentMarkdownId || (self.PrincipalTreeService.principalTree.currentMarkdownId && node.id !== self.currentMarkdownId)) {
+                if ((!self.showTrash && ( !self.PrincipalTreeService.principalTree.currentMarkdownId || (self.PrincipalTreeService.principalTree.currentMarkdownId && node.id !== self.PrincipalTreeService.principalTree.currentMarkdownId)))
+                || (self.showTrash && ( !self.TrashTreeService.trashTree.currentMarkdownId || (self.TrashTreeService.trashTree.currentMarkdownId && node.id !== self.TrashTreeService.trashTree.currentMarkdownId)))) {
 
-                    self.DocumentsService
-                        .findDocument(node.id)
-                        .then(function(docs){
-                            if (docs && docs.length > 0){
-                                self.currentMarkdown = docs[0];
-                                //this one is for the watcher of <a href>
-                                self.currentMarkdownCode = self.currentMarkdown.md;
-                                self.CodeMirrorUtilService.codeMirrorHooks();
-                                self.CssService.initCurrentById(self.currentMarkdown.css);
+                    self.loadDocument(node.id);
 
-                                if (!self.showTrash) {
-                                    // disable the readOnly mode;
-                                    self.codeMirror.setOption("readOnly", false);
-
-                                    // and save what it must
-                                    self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
-                                    self.PrincipalTreeService.save();
-                                }
-                                setTimeout(self.refreshMath, 100);  //without angular $digest
-                            }
-                        })
-                        .catch(function(err){
-                            console.error(err);
-                        });
                 }
             }
+        };
+
+        /**
+         * load document in the codemirror editor
+         * @param id
+         */
+        self.loadDocument = function(id) {
+            self.DocumentsService
+                .findDocument(id)
+                .then(function(docs){
+                    if (docs && docs.length > 0){
+                        self.currentMarkdown = docs[0];
+                        //this one is for the watcher of <a href>
+                        self.currentMarkdownCode = self.currentMarkdown.md;
+                        self.CodeMirrorUtilService.codeMirrorHooks();
+                        self.CssService.initCurrentById(self.currentMarkdown.css);
+
+                        if (self.showTrash) {
+                            self.TrashTreeService.trashTree.currentMarkdownId = self.currentMarkdown._id;
+                            self.TrashTreeService.save();
+                        } else {
+                            self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
+                            self.PrincipalTreeService.save();
+                        }
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
+                    }
+                })
+                .catch(function(err){
+                    console.error(err);
+                });
         };
 
         //select current selected node if necessary
@@ -758,12 +767,26 @@
             self.showTrash = !self.showTrash;
             self.changeButtonText('');
 
-            self.PrincipalTreeService.principalTree.currentMarkdownId = null;
-            self.currentMarkdown = null;
+            // We have to switch the current document
+            if (self.showTrash) {
 
-            //always set codeMirror in readOnly
-            //because no document is selected
-            self.codeMirror.setOption("readOnly", true);
+                if (self.TrashTreeService.trashTree.currentMarkdownId) {
+                    self.loadDocument(self.TrashTreeService.trashTree.currentMarkdownId);
+                } else {
+                    self.currentMarkdown = null;
+                }
+
+                self.codeMirror.setOption("readOnly", true);
+            } else {
+
+                if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
+                    self.loadDocument(self.PrincipalTreeService.principalTree.currentMarkdownId);
+                }else {
+                    self.currentMarkdown = null;
+                }
+
+                self.codeMirror.setOption("readOnly", false);
+            }
 
 
             hidePopover();
@@ -896,8 +919,10 @@
          */
         self.restoreDocument = function() {
             var nodeToRestore = self.TreeUtilService.getNode(self.currentMarkdown._id, self.TrashTreeService.trashTree.tree);
+            self.TrashTreeService.trashTree.currentMarkdownId = null;
             self.restoreNode(nodeToRestore);
 
+            self.currentMarkdown = null;
         };
 
     }
