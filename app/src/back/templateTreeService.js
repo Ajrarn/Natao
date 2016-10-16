@@ -50,7 +50,7 @@
                                         self.adaptCssTemplate(template);
 
                                         self.DatabaseService
-                                            .insert(template)
+                                            .save(template)
                                             .then(function(doc) {
                                                 self.availableTemplates.push(doc);
                                                 nbTemplatesPending--;
@@ -119,7 +119,7 @@
                 oldTemplate.children = template.children;
 
                 self.DatabaseService
-                    .update(oldTemplate._id, oldTemplate)
+                    .save(oldTemplate)
                     .then(function(doc) {
                         oldTemplate = doc;
                     })
@@ -137,7 +137,7 @@
                 //and finally save it in the database
 
                 self.DatabaseService
-                    .insert(template)
+                    .save(template)
                     .then(function(doc) {
                         self.availableTemplates.push(doc);
                     })

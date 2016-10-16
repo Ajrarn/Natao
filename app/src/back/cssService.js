@@ -83,7 +83,7 @@
                                 };
 
                                 self.DatabaseService
-                                    .insert(docCss)
+                                    .save(docCss)
                                     .then(function(doc) {
                                         self.availableCss.push(doc);
                                         nbfilesPending--;
@@ -117,7 +117,7 @@
         self.addCss = function(newCss) {
 
             self.DatabaseService
-                .insert(newCss)
+                .save(newCss)
                 .catch(function(err) {
                     console.error(err);
                 });
@@ -142,7 +142,7 @@
             return self.$q(function(resolve,reject) {
                 
                 self.DatabaseService
-                    .insert(docCss)
+                    .save(docCss)
                     .then(function(doc) {
                         self.availableCss.push(doc);
                         resolve(doc);
@@ -209,7 +209,7 @@
             if (css._id) {
                 
                 self.DatabaseService
-                    .update(css._id, css)
+                    .save(css)
                     .then(function(doc) {
                         css = doc;
                     })
@@ -220,7 +220,7 @@
             } else {
                 
                 self.DatabaseService
-                    .insert(css)
+                    .save(css)
                     .then(function(doc) {
                         self.availableCss.push(doc);
                         css = doc;

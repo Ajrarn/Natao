@@ -9,6 +9,8 @@
 
     function LoadingController(PreferencesService,CssService,TemplateTreeService,PrincipalTreeService,TrashTreeService,$location,OnBoardingService,$q,$translate) {
 
+        console.log('loadingController');
+
 
         this.PreferencesService = PreferencesService; //The preferences init send us here
         this.CssService = CssService;

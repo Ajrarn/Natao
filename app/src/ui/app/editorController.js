@@ -12,6 +12,8 @@
 
     function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService) {
 
+        console.log('editorController');
+
         var self = this;
         //self.$showdown = $showdown;
         self.$timeout = $timeout;
@@ -817,13 +819,8 @@
             self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
 
             // And finally we save in the good order
-            self.TrashTreeService.saveAndWait()
-                .then(function() {
-                    self.PrincipalTreeService.save();
-                })
-                .catch(function(error) {
-                    console.error(error);
-                });
+            self.TrashTreeService.save();
+            self.PrincipalTreeService.save();
         };
 
         /**
@@ -894,13 +891,8 @@
                 return item.id !== node.id;
             });
 
-            self.PrincipalTreeService.saveAndWait()
-                .then(function() {
-                    self.TrashTreeService.save();
-                })
-                .catch(function(error) {
-                    console.error(error);
-                });
+            self.PrincipalTreeService.save();
+            self.TrashTreeService.save();
         };
 
 

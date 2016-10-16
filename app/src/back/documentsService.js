@@ -47,7 +47,7 @@
 
                 self.PendingService.start();
                 self.DatabaseService
-                    .insert(newMarkDown)
+                    .save(newMarkDown)
                     .then(function(newDoc) {
                         self.PendingService.stop();
                         resolve(newDoc);
@@ -65,7 +65,7 @@
                 self.PendingService.start();
                 
                 self.DatabaseService
-                    .update(docSource._id,docSource)
+                    .save(docSource)
                     .then(function(doc) {
                         self.PendingService.stop();
                         resolve(doc);
@@ -83,7 +83,7 @@
                 self.PendingService.start();
 
                 self.DatabaseService
-                    .insert(docSource)
+                    .save(docSource)
                     .then(function(doc) {
                         self.PendingService.stop();
                         resolve(doc);

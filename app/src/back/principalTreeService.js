@@ -61,12 +61,17 @@
             }
         };
 
+        self.initWatch = true;
         // if we do the save on the select node, the selected node is not yet set
         //so we have to watch it
         self.$rootScope.$watch(function(){
             return self.principalTree.selectedNode;
         },function() {
-            self.save();
+            if (self.initWatch) {
+                self.initWatch = false;
+            } else {
+                self.save();
+            }
         });
 
 
@@ -87,7 +92,7 @@
                             self.principalTree.tree.defaultCss = defaultCss._id;
 
                             self.DatabaseService
-                                .insert(self.principalTree)
+                                .save(self.principalTree)
                                 .then(function(newDoc) {
                                     self.principalTree = newDoc;
 
@@ -148,7 +153,7 @@
             self.PendingService.start();
 
             self.DatabaseService
-                .update(self.principalTree._id,self.principalTree)
+                .save(self.principalTree)
                 .then(function(doc) {
                     self.PendingService.stop();
                     self.principalTree = doc;
@@ -157,7 +162,6 @@
                     self.PendingService.stop();
                     console.error('error:', err);
                 });
-
         };
 
         /**
@@ -169,7 +173,7 @@
                 self.PendingService.start();
 
                 self.DatabaseService
-                    .update(self.principalTree._id,self.principalTree)
+                    .save(self.principalTree)
                     .then(function(doc) {
                         self.PendingService.stop();
                         self.principalTree = doc;

@@ -75,7 +75,7 @@
             self.PendingService.start();
 
             self.DatabaseService
-                .update(self.trashTree._id,self.trashTree)
+                .save(self.trashTree)
                 .then(function(doc) {
                     self.PendingService.stop();
                     self.trashTree = doc;
@@ -96,7 +96,7 @@
                 self.PendingService.start();
 
                 self.DatabaseService
-                    .update(self.trashTree._id,self.trashTree)
+                    .save(self.trashTree)
                     .then(function(doc) {
                         self.PendingService.stop();
                         self.trashTree = doc;
@@ -115,7 +115,7 @@
                     .then(function(docs){
                         if (docs.length === 0) {
                             self.DatabaseService
-                                .insert(self.trashTree)
+                                .save(self.trashTree)
                                 .then(function(newDoc) {
                                     self.trashTree = newDoc;
                                     resolve();

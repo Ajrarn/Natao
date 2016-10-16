@@ -59,11 +59,7 @@
        };
 
         self.savePreferences = function() {
-            if (self.preferences._id) {
-                return self.DatabaseService.update(self.preferences._id,self.preferences);
-            } else {
-                return self.DatabaseService.insert(self.preferences);
-            }
+            return self.DatabaseService.save(self.preferences);
         };
 
         /*
