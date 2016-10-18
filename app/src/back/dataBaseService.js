@@ -88,11 +88,6 @@
                     if (err) {
                         reject(err);
                     } else {
-                        setImmediate(function() {
-                            self.db.count({ '0': 10 }, function (err, count) {
-                                console.log('Count: ' + count);
-                            });
-                        });
                         resolve(doc);
                     }
                 });
@@ -146,11 +141,13 @@
         self.taskDone = new Rx.Subject();
 
 
+
         // This part ensure that all tasks are made one by one synchronously
         self.taskObserver = self.eventTask.filter(function(eventItem) {
             return eventItem === 'start';
         }).subscribe(function() {
             if (self.queue.length > 0) {
+                self.pause();
                 var task = self.queue.shift();
                 self.resolveTask(task);
             } else {
@@ -206,8 +203,6 @@
          * @param task
          */
         self.resolveTask = function(task) {
-
-            self.pause();
 
             var resolvePromise;
 
@@ -280,6 +275,8 @@
             } else {
                 typeTask = 'insert';
             }
+
+
 
             return self.$q(function(resolve,reject) {
                 var taskId = self.addTask(typeTask, document);

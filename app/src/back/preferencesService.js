@@ -120,8 +120,8 @@
                                 self.$location.path(urlFirstSetting);
                             }
                         })
-                        .catch(function() {
-                            console.error('Document not found');
+                        .catch(function(err) {
+                            console.error(err);
                             self.$location.path('/settings');
                     });
                     

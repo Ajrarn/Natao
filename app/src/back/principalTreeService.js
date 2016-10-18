@@ -160,7 +160,7 @@
                 })
                 .catch(function(err) {
                     self.PendingService.stop();
-                    console.error('error:', err);
+                    console.error(err);
                 });
         };
 

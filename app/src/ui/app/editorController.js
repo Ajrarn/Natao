@@ -12,8 +12,6 @@
 
     function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService) {
 
-        console.log('editorController');
-
         var self = this;
         //self.$showdown = $showdown;
         self.$timeout = $timeout;

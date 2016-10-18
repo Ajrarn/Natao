@@ -82,31 +82,9 @@
                 })
                 .catch(function(err) {
                     self.PendingService.stop();
-                    console.error('error:', err);
+                    console.error(err);
                 });
 
-        };
-
-        /**
-         * save in a promise to chain different saves
-         * @returns {*}
-         */
-        self.saveAndWait = function() {
-            return self.$q(function(resolve,reject) {
-                self.PendingService.start();
-
-                self.DatabaseService
-                    .save(self.trashTree)
-                    .then(function(doc) {
-                        self.PendingService.stop();
-                        self.trashTree = doc;
-                        resolve();
-                    })
-                    .catch(function(err) {
-                        self.PendingService.stop();
-                        reject(err);
-                    });
-            });
         };
 
         self.getInitTreeService = function() {
