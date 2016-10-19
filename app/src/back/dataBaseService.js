@@ -59,7 +59,7 @@
          * @param findParams
          * @returns {*}
          */
-        self.findDocument = function(findParams) {
+        self.find = function(findParams) {
             return self.$q(function(resolve,reject) {
                 self.db.find(findParams,function(err,docs) {
                     if (err) {
@@ -120,7 +120,7 @@
          * @param id
          * @returns {*}
          */
-        self.remove = function(id) {
+        self.delete = function(id) {
             return self.$q(function(resolve,reject) {
                 self.db.remove({ _id: id }, {}, function(err, numRemoved) {
                     if (err) {
@@ -132,196 +132,23 @@
             });
         };
 
-        /**************************** The new API ********************************/
+        /**
+         * save a document return a promise
+         * @param doc
+         * @returns {*}
+         */
+        self.save = function(doc) {
 
-        self.working = false;
-        self.queue = [];
-        self.eventTask = new Rx.Subject();
-        self.currentEventTask = 'start';
-        self.taskDone = new Rx.Subject();
+            var savePromise;
 
-
-
-        // This part ensure that all tasks are made one by one synchronously
-        self.taskObserver = self.eventTask.filter(function(eventItem) {
-            return eventItem === 'start';
-        }).subscribe(function() {
-            if (self.queue.length > 0) {
-                self.pause();
-                var task = self.queue.shift();
-                self.resolveTask(task);
+            if (doc._id) {
+                savePromise = self.update(doc._id, doc);
             } else {
-                self.taskWaiting = false;
-            }
-        });
-
-        /**
-         * emit a start event to resolve a task in the queue
-         */
-        self.start = function() {
-            self.eventTask.onNext('start');
-            self.currentEventTask = 'start';
-        };
-
-        /**
-         * emit a pause event to avoid resolving a task before finishing the current task
-         */
-        self.pause = function() {
-            self.eventTask.onNext('pause');
-            self.currentEventTask = 'pause';
-        };
-
-
-        /**
-         * add a task to the queue and return it's id
-         * @param typeTask
-         * @param payload
-         * @returns {*}
-         */
-        self.addTask = function(typeTask, payload) {
-            var task = {
-                id : uuid.v4(),
-                type: typeTask,
-                payload: payload
-            };
-
-            var previousLength = self.queue.length;
-
-            self.queue.push(task);
-
-            if (self.currentEventTask === 'start' && previousLength === 0) {
-                self.start();
+                savePromise = self.insert(doc);
             }
 
-            return task.id;
-
+            return savePromise;
         };
-
-
-        /**
-         * resolve a task submit and put an "event" in the taskDone Subject
-         * @param task
-         */
-        self.resolveTask = function(task) {
-
-            var resolvePromise;
-
-            switch (task.type) {
-                case 'insert':
-                    resolvePromise = self.insert(task.payload);
-                    break;
-                case 'update':
-                    resolvePromise = self.update(task.payload._id,task.payload);
-                    break;
-                case 'delete':
-                    resolvePromise = self.remove(task.payload);
-                    break;
-                default:
-                    //find
-                    resolvePromise = self.findDocument(task.payload);
-            }
-
-            resolvePromise.then(function(document) {
-                self.taskDone.onNext({
-                    id: task.id,
-                    done: true,
-                    document: document,
-                    err: null
-                });
-
-                self.start();
-            }).catch(function(err) {
-                self.taskDone.onNext({
-                    id: task.id,
-                    done: false,
-                    document: null,
-                    err: err
-                });
-
-                self.start();
-            });
-        };
-
-        self.find = function(findParams) {
-
-            return self.$q(function(resolve,reject) {
-                var taskId = self.addTask('find', findParams);
-
-                self.taskDone
-                    .filter(function(item) {
-                        return item.id === taskId;
-                    })
-                    .first()
-                    .subscribe(function(job) {
-                        if (job.done) {
-                            resolve(job.document);
-                        } else {
-                            reject(job.err);
-                        }
-                    });
-            });
-        };
-
-        /**
-         * save a document
-         * return a promise
-         * @param document
-         * @returns {*}
-         */
-        self.save = function(document) {
-            var typeTask;
-            if (document._id) {
-                typeTask = 'update';
-            } else {
-                typeTask = 'insert';
-            }
-
-
-
-            return self.$q(function(resolve,reject) {
-                var taskId = self.addTask(typeTask, document);
-                self.taskDone
-                        .filter(function(item) {
-                            return item.id === taskId;
-                        })
-                        .first()
-                        .subscribe(function(job) {
-                            if (job.done) {
-                                resolve(job.document);
-                            } else {
-                                reject(job.err);
-                            }
-                        });
-            });
-        };
-
-        /**
-         * delete a document
-         * return a promise
-         * @param id
-         * @returns {*}
-         */
-        self.delete = function(id) {
-
-            return self.$q(function(resolve,reject) {
-                var taskId = self.addTask('delete', id);
-
-                self.taskDone
-                        .filter(function(item) {
-                            return item.id === taskId;
-                        })
-                        .first()
-                        .subscribe(function(job) {
-                            if (job.done) {
-                                resolve(job.document);
-                            } else {
-                                reject(job.err);
-                            }
-                        });
-            });
-
-        };
-
 
         return self;
 

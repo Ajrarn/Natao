@@ -102,7 +102,7 @@
                 self.PendingService.start();
 
                 self.DatabaseService
-                    .remove(id)
+                    .delete(id)
                     .then(function(numRemoved) {
                         self.PendingService.stop();
                         resolve(numRemoved);

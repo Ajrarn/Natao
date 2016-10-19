@@ -163,7 +163,7 @@
                 }
 
                 self.DatabaseService
-                    .remove(template._id)
+                    .delete(template._id)
                     .then(function(numRemoved) {
                         self.PendingService.stop();
                     })

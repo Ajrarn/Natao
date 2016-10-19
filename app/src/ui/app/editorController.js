@@ -812,7 +812,8 @@
          * @param node
          */
         self.putNodeInTrash = function(node) {
-            node.nodeFrom = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
+            var nodeFrom = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
+            node.nodeFromId = nodeFrom.id;
             self.TrashTreeService.addNode(node);
             self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
 
@@ -852,7 +853,7 @@
          */
         self.restoreNode = function(node) {
             var topParent = self.TrashTreeService.getHighestParent(node);
-            var nodeWhereRestore = self.TreeUtilService.getNode(topParent.nodeFrom.id,self.PrincipalTreeService.principalTree.tree);
+            var nodeWhereRestore = self.TreeUtilService.getNode(topParent.nodeFromId,self.PrincipalTreeService.principalTree.tree);
 
             var path = self.TreeUtilService.getPath(topParent, node);
             path.push(node.id);
@@ -875,6 +876,7 @@
                         var nodeInTrash = self.TreeUtilService.getNode(path[0], self.TrashTreeService.trashTree.tree);
                         var nodeToRestore = {};
                         angular.copy(nodeInTrash, nodeToRestore);
+                        delete nodeToRestore.nodeFromId;
                         nodeToRestore.children = [];
                         nodeWhereRestore.children.push(nodeToRestore);
                         nodeWhereRestore = nodeToRestore;

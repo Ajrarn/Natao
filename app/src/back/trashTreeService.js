@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function TrashTreeService(TreeUtilService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope) {
+    function TrashTreeService(TreeUtilService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope, AppStateService) {
 
         var self = this;
         self.TreeUtilService = TreeUtilService;
@@ -26,21 +26,9 @@
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;
         self.DocumentsService = DocumentsService;
+        self.AppStateService = AppStateService;
         self.$rootScope = $rootScope;
         self.docsMarkdown = [];
-        self.trashTree = {
-            docName: 'TrashTree',
-            tree: {
-                children:[]
-            },
-            expandedNodes: [],
-            selectedNode: null
-        };
-
-        self.cutNodePending = null;
-        self.exportFileName = null;
-        self.docsPendingForBuffer = 0;
-        self.nodesPendingPaste = 0;
 
         self.treeOptions = {
             nodeChildren: "children",
@@ -60,6 +48,7 @@
             }
         };
 
+        /*
         // if we do the save on the select node, the selected node is not yet set
         //so we have to watch it
         self.$rootScope.$watch(function(){
@@ -67,49 +56,21 @@
         },function() {
             self.save();
         });
+        */
 
         /**
          * save asynchroneous
          */
         self.save = function() {
-            self.PendingService.start();
-
-            self.DatabaseService
-                .save(self.trashTree)
-                .then(function(doc) {
-                    self.PendingService.stop();
-                    self.trashTree = doc;
-                })
-                .catch(function(err) {
-                    self.PendingService.stop();
-                    console.error(err);
-                });
-
+            self.AppStateService.setTrashTree(self.trashTree);
         };
 
-        self.getInitTreeService = function() {
-            return self.$q(function(resolve,reject) {
-                self.DatabaseService.find({docName:'TrashTree'})
-                    .then(function(docs){
-                        if (docs.length === 0) {
-                            self.DatabaseService
-                                .save(self.trashTree)
-                                .then(function(newDoc) {
-                                    self.trashTree = newDoc;
-                                    resolve();
-                                })
-                                .catch(function(err) {
-                                    reject(err);
-                                });
-
-                        } else {
-                            self.trashTree = docs[0];
-                            resolve();
-                        }
-                    }).catch(function(err) {
-                    reject(err);
-                });
-            });
+        /**
+         *
+         * @returns {*}
+         */
+        self.initTreeService = function() {
+            self.trashTree = self.AppStateService.getTrashTree();
         };
 
         self.addNode = function(node) {
