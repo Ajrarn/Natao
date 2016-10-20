@@ -36,6 +36,7 @@
         self.docsPendingForBuffer = 0;
         self.nodesPendingPaste = 0;
 
+
         self.treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,
@@ -55,10 +56,12 @@
         };
 
 
-        /*
-        self.initWatch = true;
         // if we do the save on the select node, the selected node is not yet set
-        //so we have to watch it
+        // so we have to watch it
+        // and don't save the first time
+        self.principalTree = { selectedNode: null };
+        self.initWatch = true;
+
         self.$rootScope.$watch(function(){
             return self.principalTree.selectedNode;
         },function() {
@@ -67,7 +70,7 @@
             } else {
                 self.save();
             }
-        });*/
+        });
 
 
         /**

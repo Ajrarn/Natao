@@ -76,7 +76,7 @@
                     .then(function(docs) {
                         if (docs.length === 0) {
                             self.DatabaseService
-                                .saveDocument(self.appState)
+                                .save(self.appState)
                                 .then(function(newDoc) {
                                     self.appState = newDoc;
                                     resolve();

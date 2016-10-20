@@ -48,15 +48,22 @@
             }
         };
 
-        /*
+
         // if we do the save on the select node, the selected node is not yet set
-        //so we have to watch it
+        // so we have to watch it
+        // and don't save the first time
+        self.trashTree = { selectedNode: null };
+        self.initWatch = true;
         self.$rootScope.$watch(function(){
             return self.trashTree.selectedNode;
         },function() {
-            self.save();
+            if (self.initWatch) {
+                self.initWatch = false;
+            } else {
+                self.save();
+            }
         });
-        */
+
 
         /**
          * save asynchroneous
@@ -73,6 +80,10 @@
             self.trashTree = self.AppStateService.getTrashTree();
         };
 
+        /**
+         * add a node to the trash tree
+         * @param node
+         */
         self.addNode = function(node) {
             self.trashTree.tree.children.push(node);
         };
@@ -117,6 +128,12 @@
 
         };
 
+        /**
+         * get the highest parent of the node we want to restore
+         * to have the node and the path where it come from
+         * @param node
+         * @returns {*}
+         */
         self.getHighestParent = function(node) {
             if (node.nodeFrom) {
                 return node;
