@@ -59,11 +59,7 @@
        };
 
         self.savePreferences = function() {
-            if (self.preferences._id) {
-                return self.DatabaseService.update(self.preferences._id,self.preferences);
-            } else {
-                return self.DatabaseService.insert(self.preferences);
-            }
+            return self.DatabaseService.save(self.preferences);
         };
 
         /*
@@ -124,8 +120,8 @@
                                 self.$location.path(urlFirstSetting);
                             }
                         })
-                        .catch(function() {
-                            console.error('Document not found');
+                        .catch(function(err) {
+                            console.error(err);
                             self.$location.path('/settings');
                     });
                     

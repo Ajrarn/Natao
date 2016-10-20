@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorSearchService) {
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService) {
 
         var self = this;
         //self.$showdown = $showdown;
@@ -18,6 +18,7 @@
         self.$translate = $translate;
         self.PreferencesService = PreferencesService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.TrashTreeService = TrashTreeService;
         self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
@@ -28,9 +29,8 @@
         self.$location = $location;
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
-        self.CodeMirrorSearchService = CodeMirrorSearchService;
+        self.CodeMirrorUtilService = CodeMirrorUtilService;
         self.MessageService.changeMessage('');
-        self.inPrint = false;
         self.focus = focus;
         self.editorOptions = {
             lineWrapping : true,
@@ -66,49 +66,9 @@
         self.$rootScope.$watch(function(){
             return self.currentMarkdownCode;
         },function() {
-            self.$timeout(function() {
-                $('.viewer a').on('click', function(){
-                    require('nw.gui').Shell.openExternal( this.href );
-                    return false;
-                });
-
-                // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
-                $('pre code').each(function(i, block) {
-                    if (block.textContent.startsWith('::')) {
-                        var classe = block.textContent.split('\n')[0].replace('::','');
-                        block.textContent = block.textContent.replace('::' + classe + '\n', '');
-                        block.classList.add(classe);
-                    } else {
-                        // by default we add th class nohighlight
-                        block.classList.add('nohighlight');
-                    }
-                    hljs.highlightBlock(block);
-                });
-            },0,false);
+            self.CodeMirrorUtilService.codeMirrorHooks();
         });
 
-        /**
-         * switch trash/schoolbag
-         */
-        self.switchTrash = function(hidePopover) {
-            self.showTrash = !self.showTrash;
-            self.changeButtonText('')
-            hidePopover();
-        };
-
-        /**
-         * open the switch and turn the arrow down
-         */
-        self.openSwitchTrash = function() {
-            self.switchTrashOpened = true;
-        };
-
-        /**
-         * close the switch and turn the arrow left
-         */
-        self.closeSwitchTrash = function() {
-            self.switchTrashOpened = false;
-        };
 
         /**
          * switch visibility of search panel
@@ -120,7 +80,7 @@
                     self.occurrencesFound = 0;
                     self.searchEditorWord = '';
                     self.replaceEditorWord = '';
-                    self.CodeMirrorSearchService.clearSearch();
+                    self.CodeMirrorUtilService.clearSearch();
                 }
             },0);  //with angular $digest sometimes it will be called by codemirror
 
@@ -154,8 +114,7 @@
                 }
             });
 
-            self.CodeMirrorSearchService.init(self.codeMirror);
-
+            self.CodeMirrorUtilService.init(self.codeMirror);
 
             CodeMirror.commands.find = self.switchSearch;
             
@@ -167,13 +126,13 @@
          */
         self.searchCodeMirror = function() {
             if (self.searchEditorWord.length > 0) {
-                self.CodeMirrorSearchService.startSearch(self.searchEditorWord);
-                self.CodeMirrorSearchService.findNext();
+                self.CodeMirrorUtilService.startSearch(self.searchEditorWord);
+                self.CodeMirrorUtilService.findNext();
 
-                self.occurrencesFound = self.CodeMirrorSearchService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
+                self.occurrencesFound = self.CodeMirrorUtilService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
             } else {
                 self.occurrencesFound = 0;
-                self.CodeMirrorSearchService.clearSearch();
+                self.CodeMirrorUtilService.clearSearch();
             }
 
         };
@@ -183,14 +142,14 @@
          */
         self.replace = function() {
             self.occurrencesFound--;
-            self.CodeMirrorSearchService.replace(self.replaceEditorWord);
+            self.CodeMirrorUtilService.replace(self.replaceEditorWord);
         };
 
         /**
          * execute replaceAll with replaceEditorWord
          */
         self.replaceAll = function() {
-            self.CodeMirrorSearchService.replaceAll(self.replaceEditorWord);
+            self.CodeMirrorUtilService.replaceAll(self.replaceEditorWord);
             self.occurrencesFound = 0;
         };
 
@@ -206,7 +165,7 @@
             var pos = { // create a new object to avoid mutation of the original selection
                 line: cursor.line,
                 ch: line.length - 1 // set the character position to the end of the line
-            }
+            };
             doc.replaceRange('\n'+data+'\n', pos); // adds a new line
         };
 
@@ -298,27 +257,43 @@
 
         self.selectNode = function(node) {
             if (node.leaf) {
-                if ( !self.PrincipalTreeService.principalTree.currentMarkdownId || (self.PrincipalTreeService.principalTree.currentMarkdownId && node.id !== self.currentMarkdownId)) {
+                if ((!self.showTrash && ( !self.PrincipalTreeService.principalTree.currentMarkdownId || (self.PrincipalTreeService.principalTree.currentMarkdownId && node.id !== self.PrincipalTreeService.principalTree.currentMarkdownId)))
+                || (self.showTrash && ( !self.TrashTreeService.trashTree.currentMarkdownId || (self.TrashTreeService.trashTree.currentMarkdownId && node.id !== self.TrashTreeService.trashTree.currentMarkdownId)))) {
 
-                    self.DocumentsService
-                        .findDocument(node.id)
-                        .then(function(docs){
-                            if (docs && docs.length > 0){
-                                self.currentMarkdown = docs[0];
-                                //this one is for the watcher of <a href>
-                                self.currentMarkdownCode = self.currentMarkdown.md;
-                                self.CssService.initCurrentById(self.currentMarkdown.css);
-                                self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
-                                self.PrincipalTreeService.save();
+                    self.loadDocument(node.id);
 
-                                setTimeout(self.refreshMath, 100);  //without angular $digest
-                            }
-                        })
-                        .catch(function(err){
-                            console.error(err);
-                        });
                 }
             }
+        };
+
+        /**
+         * load document in the codemirror editor
+         * @param id
+         */
+        self.loadDocument = function(id) {
+            self.DocumentsService
+                .findDocument(id)
+                .then(function(docs){
+                    if (docs && docs.length > 0){
+                        self.currentMarkdown = docs[0];
+                        //this one is for the watcher of <a href>
+                        self.currentMarkdownCode = self.currentMarkdown.md;
+                        self.CodeMirrorUtilService.codeMirrorHooks();
+                        self.CssService.initCurrentById(self.currentMarkdown.css);
+
+                        if (self.showTrash) {
+                            self.TrashTreeService.trashTree.currentMarkdownId = self.currentMarkdown._id;
+                            self.TrashTreeService.save();
+                        } else {
+                            self.PrincipalTreeService.principalTree.currentMarkdownId = self.currentMarkdown._id;
+                            self.PrincipalTreeService.save();
+                        }
+                        setTimeout(self.refreshMath, 100);  //without angular $digest
+                    }
+                })
+                .catch(function(err){
+                    console.error(err);
+                });
         };
 
         //select current selected node if necessary
@@ -326,21 +301,18 @@
             self.selectNode(self.PrincipalTreeService.principalTree.selectedNode);
         }
 
-        self.offPrint = function() {
-            self.inPrint = false;
-        };
-
         self.showViewer = function() {
-            return self.currentMarkdown && self.PreferencesService.preferences.showViewer;
+            //return self.currentMarkdown && self.PreferencesService.preferences.showViewer;
+            return self.PreferencesService.preferences.showViewer;
         };
 
         self.showEditor = function() {
-            return self.currentMarkdown && self.PreferencesService.preferences.showEditor;
+            //return self.currentMarkdown && self.PreferencesService.preferences.showEditor;
+            return self.PreferencesService.preferences.showEditor;
         };
 
         self.print = function() {
             self.PreferencesService.preferences.showViewer = true;
-            self.inPrint = true;
             setTimeout(window.print, 1050);       //without angular $digest
             self.$timeout(self.offPrint, 1150);  //with angular $digest
         };
@@ -446,11 +418,7 @@
                     break;
                 case 'delete':
                     if (!self.cancel) {
-                        self.PrincipalTreeService
-                            .deleteNode(self.currentNode)
-                            .catch(function(err) {
-                                console.error(err);
-                            });
+                        self.putNodeInTrash(self.currentNode);
                     }
                     hide();
                     break;
@@ -524,20 +492,10 @@
 
             var documentNode = self.TreeUtilService.getNode(self.currentMarkdown._id,self.PrincipalTreeService.principalTree.tree);
 
-            self.PrincipalTreeService
-                .deleteNode(documentNode)
-                .then(function() {
-                    //and check the selected markdown
-                    var selNode = self.TreeUtilService.getNode(self.PrincipalTreeService.principalTree.currentMarkdownId,self.PrincipalTreeService.principalTree.tree);
-                    if (!selNode) {
-                        self.PrincipalTreeService.principalTree.currentMarkdownId = null;
-                        self.PrincipalTreeService.save();
-                        self.currentMarkdown = null;
-                    }
-                })
-                .catch(function(err) {
-                    console.error(err);
-                });
+            self.putNodeInTrash(documentNode);
+            self.PrincipalTreeService.principalTree.currentMarkdownId = null;
+            self.currentMarkdown = null;
+
             hide();
         };
 
@@ -799,6 +757,166 @@
                 self.onboardingEnabled = true;
             }
         };
+
+
+        /************** Trash ***************/
+        /**
+         * switch trash/schoolbag
+         */
+        self.switchTrash = function(hidePopover) {
+            self.showTrash = !self.showTrash;
+            self.changeButtonText('');
+
+            // We have to switch the current document
+            if (self.showTrash) {
+
+                if (self.TrashTreeService.trashTree.currentMarkdownId) {
+                    self.loadDocument(self.TrashTreeService.trashTree.currentMarkdownId);
+                } else {
+                    self.currentMarkdown = null;
+                }
+
+                self.codeMirror.setOption("readOnly", true);
+            } else {
+
+                if (self.PrincipalTreeService.principalTree.currentMarkdownId) {
+                    self.loadDocument(self.PrincipalTreeService.principalTree.currentMarkdownId);
+                }else {
+                    self.currentMarkdown = null;
+                }
+
+                self.codeMirror.setOption("readOnly", false);
+            }
+
+
+            hidePopover();
+
+        };
+
+        /**
+         * open the switch and turn the arrow down
+         */
+        self.openSwitchTrash = function() {
+            self.switchTrashOpened = true;
+        };
+
+        /**
+         * close the switch and turn the arrow left
+         */
+        self.closeSwitchTrash = function() {
+            self.switchTrashOpened = false;
+        };
+
+        /**
+         * put the ndde in trash and keep safe documents
+         * @param node
+         */
+        self.putNodeInTrash = function(node) {
+            var nodeFrom = self.TreeUtilService.findParent(node, self.PrincipalTreeService.principalTree.tree);
+            node.nodeFromId = nodeFrom.id;
+            self.TrashTreeService.addNode(node);
+            self.TreeUtilService.eraseNode(node,self.PrincipalTreeService.principalTree.tree);
+
+            // And finally we save in the good order
+            self.TrashTreeService.save();
+            self.PrincipalTreeService.save();
+        };
+
+        /**
+         * open the trash popover and set the current node
+         * @param node
+         */
+        self.openTrashPopover = function(node) {
+            self.currentNode = node;
+            self.trashPopover = 'buttonBar';
+        };
+
+        /**
+         * set the popover on delete mode
+         */
+        self.openTrashDelete = function() {
+            self.trashPopover = 'delete';
+        };
+
+
+        /**
+         * real delete of a node
+         */
+        self.trashDelete = function() {
+            self.TrashTreeService.deleteNode(self.currentNode);
+        };
+
+
+        /**
+         * restore the current node
+         * @param node
+         */
+        self.restoreNode = function(node) {
+            var topParent = self.TrashTreeService.getHighestParent(node);
+            var nodeWhereRestore = self.TreeUtilService.getNode(topParent.nodeFromId,self.PrincipalTreeService.principalTree.tree);
+
+            var path = self.TreeUtilService.getPath(topParent, node);
+            path.push(node.id);
+
+            //follow the path to restore the node
+            var jobDone = false;
+            while (!jobDone) {
+                if (path[0] === node.id) {
+                    nodeWhereRestore.children.push(node);
+                    jobDone = true;
+                } else {
+                    var foundNode = nodeWhereRestore.children.find(function(item) {
+                        return item.id === path[0]
+                    });
+                    if (foundNode) {
+                        // the node already exist so don't need to restore it
+                        nodeWhereRestore = foundNode;
+                    } else {
+                        // we have to partially restore the node without children
+                        var nodeInTrash = self.TreeUtilService.getNode(path[0], self.TrashTreeService.trashTree.tree);
+                        var nodeToRestore = {};
+                        angular.copy(nodeInTrash, nodeToRestore);
+                        delete nodeToRestore.nodeFromId;
+                        nodeToRestore.children = [];
+                        nodeWhereRestore.children.push(nodeToRestore);
+                        nodeWhereRestore = nodeToRestore;
+                    }
+                    path.shift();
+                }
+            }
+
+            //When restored delete the node from the trash
+            var parentNode = self.TreeUtilService.findParent(node, self.TrashTreeService.trashTree.tree);
+            parentNode.children = parentNode.children.filter(function(item) {
+                return item.id !== node.id;
+            });
+
+            self.PrincipalTreeService.save();
+            self.TrashTreeService.save();
+        };
+
+
+        /**
+         * restore a folder
+         * @param hidePopover
+         */
+        self.restoreFolder = function(hidePopover) {
+            self.restoreNode(self.currentNode);
+
+            hidePopover();
+        };
+
+        /**
+         * restore a document
+         */
+        self.restoreDocument = function() {
+            var nodeToRestore = self.TreeUtilService.getNode(self.currentMarkdown._id, self.TrashTreeService.trashTree.tree);
+            self.TrashTreeService.trashTree.currentMarkdownId = null;
+            self.restoreNode(nodeToRestore);
+
+            self.currentMarkdown = null;
+        };
+
     }
 
 }());

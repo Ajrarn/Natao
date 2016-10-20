@@ -483,6 +483,14 @@
         };
 
 
+        /**
+         * this function effectively delete the node and all documents attached
+         * it will be only use in the trash
+         * for the principal tree the erase function will delete the node and preserve the documents
+         * @param node
+         * @param nodeRoot
+         * @returns {*}
+         */
         self.deleteNode = function(node,nodeRoot) {
 
             return self.$q(function(resolve,reject) {
@@ -507,7 +515,7 @@
                             reject(err);
                         });
                 } else {
-                    //If it's a folder we have to find all his documents in him
+                    //If it's a folder we have to find all his documents in itself
                     var documents = self.documentsInStructure(node);
                     var nbDocsPending = documents.length;
 
@@ -551,9 +559,35 @@
 
                 }
             });
-
         };
 
+        /**
+         * this function only delete the node but not the documents attached
+         * for the principal tree
+         * @param node
+         * @param nodeRoot
+         * @returns {*}
+         */
+        self.eraseNode = function(node,nodeRoot) {
+            return self.$q(function(resolve) {
+                var parent = self.findParent(node,nodeRoot);
+                if (parent.children && parent.children.length > 0) {
+                    var indexOfNode = _.findIndex(parent.children,{id:node.id});
+                    if (indexOfNode >=0) {
+                        parent.children.splice(indexOfNode,1);
+                    }
+                }
+                resolve();
+            });
+        };
+
+
+        /**
+         * search a node by it's name
+         * @param node
+         * @param name
+         * @returns {*}
+         */
         self.findNodeByName = function(node, name) {
             var nodeFound = null;
             if (node.name === name) {
@@ -571,6 +605,32 @@
             return nodeFound;
         };
 
+        /**
+         * get the nodes id to make a path from a node to another
+         * @param nodeFrom
+         * @param nodeTo
+         * @param path
+         * @param found
+         * @returns {*}
+         */
+        self.getPath = function(nodeFrom, nodeTo) {
+            var path = [];
+
+            if (nodeFrom.id !== nodeTo.id && nodeFrom.children) {
+               for (var index = 0; path.length === 0 && index < nodeFrom.children.length; index++) {
+
+                   if (nodeFrom.children[index].id === nodeTo.id) {
+                       path = [nodeFrom.id];
+                   } else {
+                       path = self.getPath(nodeFrom.children[index], nodeTo);
+                       if (path) {
+                           path.unshift(nodeFrom.id);
+                       }
+                   }
+                }
+           }
+            return path;
+        };
 
 
         return self;

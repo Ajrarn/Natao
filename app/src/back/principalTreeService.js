@@ -17,7 +17,7 @@
 
 
     //Service itself
-    function PrincipalTreeService(TreeUtilService,TemplateTreeService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope) {
+    function PrincipalTreeService(TreeUtilService,TemplateTreeService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope, AppStateService) {
 
         var self = this;
         self.TreeUtilService = TreeUtilService;
@@ -27,21 +27,15 @@
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;
         self.DocumentsService = DocumentsService;
+        self.AppStateService = AppStateService;
         self.$rootScope = $rootScope;
         self.docsMarkdown = [];
-        self.principalTree = {
-            docName: 'PrincipalTree',
-            tree: {
-                children:[]
-            },
-            expandedNodes: [],
-            selectedNode: null
-        };
 
         self.cutNodePending = null;
         self.exportFileName = null;
         self.docsPendingForBuffer = 0;
         self.nodesPendingPaste = 0;
+
 
         self.treeOptions = {
             nodeChildren: "children",
@@ -61,98 +55,89 @@
             }
         };
 
+
         // if we do the save on the select node, the selected node is not yet set
-        //so we have to watch it
+        // so we have to watch it
+        // and don't save the first time
+        self.principalTree = { selectedNode: null };
+        self.initWatch = true;
+
         self.$rootScope.$watch(function(){
             return self.principalTree.selectedNode;
         },function() {
-            self.save();
+            if (self.initWatch) {
+                self.initWatch = false;
+            } else {
+                self.save();
+            }
         });
 
+
+        /**
+         * init the principal tree service
+         * return a promise
+         * @param defaultCss
+         * @returns {*}
+         */
         self.getInitTreeService = function(defaultCss) {
 
             return self.$q(function(resolve,reject) {
 
-                self.DatabaseService.find({docName:'PrincipalTree'})
-                    .then(function(docs){
-                        if (docs.length === 0) {
-                            console.error('Principal Document not found');
+                self.principalTree = self.AppStateService.getPrincipalTree();
 
-                            self.principalTree.tree.defaultCss = defaultCss._id;
+                if (!self.principalTree.tree.defaultCss) {
 
-                            self.DatabaseService
-                                .insert(self.principalTree)
-                                .then(function(newDoc) {
-                                    self.principalTree = newDoc;
+                    self.principalTree.tree.defaultCss = defaultCss._id;
 
-                                    //We will create the first document
-                                    self.$translate('FIRST_DOC').then(function (translation) {
-                                        self.addFolder(translation)
-                                            .then(function(node) {
+                    //We will create the first document
+                    self.$translate('FIRST_DOC').then(function (translation) {
+                        self.addFolder(translation)
+                            .then(function(node) {
 
-                                                self.principalTree.expandedNodes.push(node);
+                                self.principalTree.expandedNodes.push(node);
 
+                                var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
 
-                                                var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
+                                self.DocumentsService
+                                    .addDocument(self.principalTree.tree.defaultCss,translation,welcomeMd)
+                                    .then(function(newDoc) {
 
-                                                self.DocumentsService
-                                                    .addDocument(self.principalTree.tree.defaultCss,translation,welcomeMd)
-                                                    .then(function(newDoc) {
+                                        var newNode = {
+                                            id: newDoc._id,
+                                            name: newDoc.title,
+                                            leaf: true
+                                        };
 
-                                                        var newNode = {
-                                                            id: newDoc._id,
-                                                            name: newDoc.title,
-                                                            leaf: true
-                                                        };
+                                        node.children.push(newNode);
+                                        self.principalTree.selectedNode = newNode;
+                                        self.save();
 
-                                                        node.children.push(newNode);
-                                                        self.principalTree.selectedNode = newNode;
-                                                        self.save();
-
-                                                        resolve();
-                                                    })
-                                                    .catch(function(err ){
-                                                        console.error(err);
-                                                    });
-
-                                            })
-                                            .catch(function(err) {
-                                                console.error(err);
-                                            });
-
+                                        resolve();
+                                    })
+                                    .catch(function(err ){
+                                        reject(err);
                                     });
 
-                                })
-                                .catch(function(err) {
-                                    reject(err);
-                                });
+                            })
+                            .catch(function(err) {
+                                reject(err);
+                            });
 
-                        } else {
-                            self.principalTree = docs[0];
-                            resolve();
-                        }
-                    }).catch(function(err) {
-                        reject(err);
                     });
+
+                } else {
+                    resolve();
+                }
+
             });
         };
 
 
         self.save = function() {
-            self.PendingService.start();
-
-            self.DatabaseService
-                .update(self.principalTree._id,self.principalTree)
-                .then(function(doc) {
-                    self.PendingService.stop();
-                    self.principalTree = doc;
-                })
-                .catch(function(err) {
-                    self.PendingService.stop();
-                    console.error('error:', err);
-                });
-
+            self.AppStateService.setPrincipalTree(self.principalTree);
         };
+
+
 
 
         self.addFolder = function(nodeName,nodeParent,templateName) {
@@ -166,7 +151,7 @@
                 if (templateName) {
 
                     // To make a good copy we will pass by the buffer
-                    var buffer = self.TreeUtilService
+                    self.TreeUtilService
                         .nodeToBuffer(self.TemplateTreeService.getTemplate(templateName))
                         .then(function (buffer) {
                             self.TreeUtilService

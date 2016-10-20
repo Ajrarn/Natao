@@ -7,15 +7,16 @@
         .controller('LoadingController', LoadingController);
 
 
-    function LoadingController(PreferencesService,CssService,TemplateTreeService,PrincipalTreeService,$location,OnBoardingService,$q,$translate) {
-
+    function LoadingController(PreferencesService,CssService,AppStateService,TemplateTreeService,PrincipalTreeService,TrashTreeService,$location,OnBoardingService,$q,$translate) {
 
         this.PreferencesService = PreferencesService; //The preferences init send us here
         this.CssService = CssService;
+        this.AppStateService = AppStateService;
         this.TemplateTreeService = TemplateTreeService;
 
         this.PrincipalTreeService = PrincipalTreeService;
-        this.OnBoardingService = OnBoardingService
+        this.TrashTreeService = TrashTreeService;
+        this.OnBoardingService = OnBoardingService;
         this.$location = $location;
         this.$translate = $translate;
 
@@ -25,17 +26,31 @@
 
         $translate.onReady()
             .then(function() {
-                self.CssService.getInitCss().then(function(defaultCss) {
-                    var templatePromise = self.TemplateTreeService.getInitTemplate();
-                    var principalTreePromise = self.PrincipalTreeService.getInitTreeService(defaultCss);
-                    var onBoardingPromise = OnBoardingService.init();
+                self.CssService.getInitCss()
+                    .then(function(defaultCss) {
 
-                    $q.all([templatePromise,principalTreePromise,onBoardingPromise])
-                        .then(function() {
-                            $location.path('/editor');
-                        });
+                        self.AppStateService.initAppState()
+                            .then(() => {
+                                var templatePromise = self.TemplateTreeService.getInitTemplate();
+                                var principalTreePromise = self.PrincipalTreeService.getInitTreeService(defaultCss);
+                                var onBoardingPromise = self.OnBoardingService.init();
+                                self.TrashTreeService.initTreeService();
 
-                });
+                                $q.all([templatePromise,principalTreePromise,onBoardingPromise])
+                                    .then(function() {
+                                        $location.path('/editor');
+                                    })
+                                    .catch((err) => {
+                                        console.error(err);
+                                    });
+                            })
+                            .catch((err) => {
+                                console.error(err);
+                            });
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
             });
        
     }

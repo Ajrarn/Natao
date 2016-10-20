@@ -43,31 +43,30 @@
 
             return self.$q(function(resolve,reject) {
 
-
-                //First we load the names of the css in the appropriate language
-                self.cssNamesFile = fs.readFileSync('./languages/cssNames-' + self.$translate.use() + '.json','utf8');
-                self.cssNames = {};
-
-                var defaultCss = null;
-
-                try {
-                    self.cssNames = JSON.parse(self.cssNamesFile);
-                }
-                catch (err) {
-                    reject(err);
-                }
-
                 //Then we search for existing css documents
                 self.DatabaseService
                     .find({docName:'css'})
                     .then(function(docs) {
                         if (docs.length === 0) {
-
                             //If there is no document we will add the defaults css
+
+                            var language = self.$translate.use();
+
+                            //First we load the names of the css in the appropriate language
+                            self.cssNamesFile = fs.readFileSync('./languages/cssNames-' + language + '.json','utf8');
+                            self.cssNames = {};
+
+                            try {
+                                self.cssNames = JSON.parse(self.cssNamesFile);
+                            }
+                            catch (err) {
+                                reject(err);
+                            }
+
                             var pathCss = './default_css';
                             self.availableCss = [];
 
-                            //We will read the fils in the path and it to the availableCss
+                            //We will read the files in the path and add it to the availableCss
                             var defaultFilesCss = fs.readdirSync(pathCss);
                             var nbfilesPending = defaultFilesCss.length;
 
@@ -84,7 +83,7 @@
                                 };
 
                                 self.DatabaseService
-                                    .insert(docCss)
+                                    .save(docCss)
                                     .then(function(doc) {
                                         self.availableCss.push(doc);
                                         nbfilesPending--;
@@ -118,7 +117,7 @@
         self.addCss = function(newCss) {
 
             self.DatabaseService
-                .insert(newCss)
+                .save(newCss)
                 .catch(function(err) {
                     console.error(err);
                 });
@@ -143,7 +142,7 @@
             return self.$q(function(resolve,reject) {
                 
                 self.DatabaseService
-                    .insert(docCss)
+                    .save(docCss)
                     .then(function(doc) {
                         self.availableCss.push(doc);
                         resolve(doc);
@@ -210,7 +209,7 @@
             if (css._id) {
                 
                 self.DatabaseService
-                    .update(css._id, css)
+                    .save(css)
                     .then(function(doc) {
                         css = doc;
                     })
@@ -221,7 +220,7 @@
             } else {
                 
                 self.DatabaseService
-                    .insert(css)
+                    .save(css)
                     .then(function(doc) {
                         self.availableCss.push(doc);
                         css = doc;

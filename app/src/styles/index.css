@@ -2649,7 +2649,8 @@ hr {
 
 .slideContainer {
   position: relative;
-  height: 60vh; }
+  height: 60vh;
+  margin-top: 20vh; }
   .slideContainer .slideContent {
     position: absolute;
     transition: all 1.0s ease-in-out; }
@@ -2896,10 +2897,13 @@ treecontrol {
   background-color: rgba(117, 107, 177, 0.3); }
 .purple.ns-popover-colored {
   background-color: #756bb1;
+  border-color: #756bb1;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .purple.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .purple.ns-popover-colored ~ .triangle {
   border-bottom-color: #756bb1; }
   .purple.ns-popover-colored ~ .triangle:after {
@@ -2992,10 +2996,13 @@ treecontrol {
   background-color: rgba(49, 130, 189, 0.3); }
 .blue.ns-popover-colored {
   background-color: #3182bd;
+  border-color: #3182bd;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .blue.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .blue.ns-popover-colored ~ .triangle {
   border-bottom-color: #3182bd; }
   .blue.ns-popover-colored ~ .triangle:after {
@@ -3088,10 +3095,13 @@ treecontrol {
   background-color: rgba(222, 45, 38, 0.3); }
 .red.ns-popover-colored {
   background-color: #de2d26;
+  border-color: #de2d26;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .red.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .red.ns-popover-colored ~ .triangle {
   border-bottom-color: #de2d26; }
   .red.ns-popover-colored ~ .triangle:after {
@@ -3184,10 +3194,13 @@ treecontrol {
   background-color: rgba(221, 28, 119, 0.3); }
 .pink.ns-popover-colored {
   background-color: #dd1c77;
+  border-color: #dd1c77;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .pink.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .pink.ns-popover-colored ~ .triangle {
   border-bottom-color: #dd1c77; }
   .pink.ns-popover-colored ~ .triangle:after {
@@ -3280,10 +3293,13 @@ treecontrol {
   background-color: rgba(230, 85, 13, 0.3); }
 .orange.ns-popover-colored {
   background-color: #e6550d;
+  border-color: #e6550d;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .orange.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .orange.ns-popover-colored ~ .triangle {
   border-bottom-color: #e6550d; }
   .orange.ns-popover-colored ~ .triangle:after {
@@ -3376,10 +3392,13 @@ treecontrol {
   background-color: rgba(44, 162, 95, 0.3); }
 .green.ns-popover-colored {
   background-color: #2ca25f;
+  border-color: #2ca25f;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .green.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .green.ns-popover-colored ~ .triangle {
   border-bottom-color: #2ca25f; }
   .green.ns-popover-colored ~ .triangle:after {
@@ -3472,10 +3491,13 @@ treecontrol {
   background-color: rgba(99, 99, 99, 0.3); }
 .grey.ns-popover-colored {
   background-color: #636363;
+  border-color: #636363;
   color: white;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 7px; }
   .grey.ns-popover-colored p {
-    font-size: 1.4em; }
+    font-size: 1.4em;
+    margin: 0; }
 .grey.ns-popover-colored ~ .triangle {
   border-bottom-color: #636363; }
   .grey.ns-popover-colored ~ .triangle:after {

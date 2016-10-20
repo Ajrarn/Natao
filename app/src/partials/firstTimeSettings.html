@@ -17,7 +17,7 @@
                         <li ng-class="{active:SettingCtrl.step === 3}"><p>Couleurs</p></li>
                     </ul>
                 </div>
-                <div class="slideContainer" flex layout="column" layout-align="center center">
+                <div class="slideContainer">
                     <div flex layout="row" class="slideContent" ng-class="{step1:SettingCtrl.step === 3}">
                         <div layout="column" layout-align="center center" class="slide">
                             <div flex markdown-to-html="SettingCtrl.identityMessage"></div>
@@ -44,7 +44,7 @@
 
                         </div>
 
-                        <div layout="column" layout-align="center center" class="slide" ng-show="SettingCtrl.nameValid">
+                        <div layout="column" layout-align="center center" class="slide"><!-- ng-show="SettingCtrl.nameValid"-->
                             <div flex layout="row" layout-align="start center">
                                 <p>{{ 'SETTING_MESSAGE_THEME' | translate }}</p>
 

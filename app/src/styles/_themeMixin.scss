@@ -178,9 +178,11 @@
     border-color: map-get($color_map, MD);
     color: white;
     cursor: pointer;
+    padding: 7px;
 
     p {
       font-size: 1.4em;
+      margin: 0;
     }
   }
 

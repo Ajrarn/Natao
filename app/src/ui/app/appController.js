@@ -54,10 +54,6 @@
         self.validPassword = false;
 
 
-        /*self.changeFile = function(){
-            console.log('file',self.databaseFile);
-        };*/
-
         self.help = function() {
             nw.Window.open('help.html?language=' + self.$translate.use()
                 + '&theme=' + self.PreferencesService.preferences.colorTheme

@@ -43,8 +43,8 @@
             .then(function(docs) {
                 self.preferences = docs[0];
             })
-            .catch(function() {
-                console.error('Document not found');
+            .catch(function(err) {
+                console.error(err);
             });
 
         $translate.onReady()
@@ -59,7 +59,6 @@
                                     .findDocument(self.docId)
                                     .then(function(docs) {
                                         self.currentMarkdown = docs[0];
-                                        console.log(self.currentMarkdown.css);
                                         self.CssService.initCurrentById(self.currentMarkdown.css);
 
                                         self.$timeout(function() {
