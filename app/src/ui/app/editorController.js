@@ -862,7 +862,16 @@
             var jobDone = false;
             while (!jobDone) {
                 if (path[0] === node.id) {
-                    nodeWhereRestore.children.push(node);
+                    // here the current node in the path is the node to restore
+                    // we must check if it was partially restored
+                    // if then restore only children not in principal tree
+
+                    var nodeInPrincipalTree = self.TreeUtilService.getNode(path[0], self.PrincipalTreeService.principalTree.tree);
+                    if (nodeInPrincipalTree) {
+                        self.TreeUtilService.mergeNodes(nodeInPrincipalTree, node);
+                    } else {
+                        nodeWhereRestore.children.push(node);
+                    }
                     jobDone = true;
                 } else {
                     var foundNode = nodeWhereRestore.children.find(function(item) {

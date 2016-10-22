@@ -24,9 +24,12 @@
         self.PendingService = PendingService;
         self.CssService = CssService;
 
-
-        //Give all the ids of subfolder of the node in an array
-        //this method don't return anything but change the arrayOfIds
+        /**
+         * Give all the ids of subfolder of the node in an array
+         * this method don't return anything but change the arrayOfIds
+         * @param node
+         * @param arrayOfIds
+         */
         self.allSubFoldersIds = function(node,arrayOfIds) {
             if (node) {
                 if(!arrayOfIds) {
@@ -43,7 +46,11 @@
             }
         };
 
-        //return the number of nodes inside a node
+        /**
+         * return the number of nodes inside a node
+         * @param node
+         * @returns {number}
+         */
         self.howManyNodes = function(node) {
             if (node.leaf || node.children.length === 0) {
                 return 1;
@@ -56,7 +63,12 @@
             }
         };
 
-        //Method to find the parent of a node
+        /**
+         * Method to find the parent of a node
+         * @param node
+         * @param nodeParent
+         * @returns {*}
+         */
         self.findParent = function(node, nodeParent) {
 
             if (nodeParent.leaf) {
@@ -77,11 +89,23 @@
             }
         };
 
+        /**
+         * retrurn true if nodeParent is the direct parent of node
+         * @param node
+         * @param nodeParent
+         * @returns {boolean}
+         */
         self.isParent = function(node,nodeParent) {
             var parent = self.findParent(node,nodeParent);
             return parent != null;
         };
 
+        /**
+         * get a node in a tree from it's id
+         * @param nodeId
+         * @param nodeParent
+         * @returns {*}
+         */
         self.getNode = function(nodeId,nodeParent) {
             var nodeFound = null;
             if (nodeParent.id === nodeId) {
@@ -100,6 +124,11 @@
 
         };
 
+        /**
+         * returns an array with the folders in an node
+         * @param node
+         * @returns {*}
+         */
         self.flatFolders = function(node) {
             if (!node.leaf) {
                 var arrayFolder = [node];
@@ -114,7 +143,11 @@
             }
         };
 
-        //Inventory of all documents in a structure
+        /**
+         * Inventory of all documents in a structure
+         * @param node
+         * @returns {*}
+         */
         self.documentsInStructure = function(node) {
             if (!node.leaf) {
                 var arrayDocuments = [];
@@ -129,12 +162,21 @@
             }
         };
 
-
+        /**
+         * return true if node is the first child of nodeRoot
+         * @param node
+         * @param nodeRoot
+         * @returns {boolean}
+         */
         self.isFirstChild = function(node,nodeRoot) {
             var parent = self.findParent(node,nodeRoot);
             return parent && parent.children && parent.children.indexOf(node) === 0;
         };
 
+        /**
+         * change Ids deeply in a node
+         * @param node
+         */
         self.changeIds = function(node) {
 
             if (!node.leaf) {
@@ -149,7 +191,11 @@
 
         };
 
-        //This function return a buffer with the node to copy/cut with all the documents it contains
+        /**
+         * This function return a buffer with the node to copy/cut with all the documents it contains
+         * @param node
+         * @returns {*}
+         */
         self.nodeToBuffer = function(node) {
 
             //First we proceed with a copy of the node
@@ -189,6 +235,11 @@
             });
         };
 
+        /**
+         * this method return a node from a buffer
+         * @param buffer
+         * @returns {*}
+         */
         self.bufferToNode = function(buffer) {
 
             return self.$q(function(resolve,reject) {
@@ -234,6 +285,10 @@
             });
         };
 
+        /**
+         * this method return a buffer from a file
+         * @param fileName
+         */
         self.fileToBuffer = function(fileName) {
 
             var extensionFile = fileName.split('.')[1];
@@ -248,6 +303,11 @@
 
         };
 
+        /**
+         * this method return a buffer from a file in markdown
+         * @param fileName
+         * @returns {*}
+         */
         self.markdownFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
                 self.PendingService.start();
@@ -283,7 +343,11 @@
             });
         };
 
-
+        /**
+         * this method return a buffer from a file in json
+         * @param fileName
+         * @returns {*}
+         */
         self.jsonFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
                 self.PendingService.start();
@@ -305,6 +369,11 @@
             });
         };
 
+        /**
+         * this method write in fil from a buffer
+         * @param buffer
+         * @param fileName
+         */
         self.bufferToFile = function(buffer,fileName) {
 
             var extensionFile = fileName.split('.')[1];
@@ -320,6 +389,12 @@
 
         };
 
+        /**
+         * this method write in a markdown file from buffer
+         * @param buffer
+         * @param fileName
+         * @returns {*}
+         */
         self.bufferToMarkdownFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
@@ -340,6 +415,12 @@
             });
         };
 
+        /**
+         * this method write in a json file from buffer
+         * @param buffer
+         * @param fileName
+         * @returns {*}
+         */
         self.bufferToJsonFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
@@ -360,14 +441,22 @@
             });
         };
 
-
-
+        /**
+         * transform the date in strin from the buffer in javascript date
+         * @param buffer
+         */
         self.transformDatesInBuffer = function(buffer) {
             buffer.documents.forEach(function (doc) {
                 doc.created = new Date(doc.created);
             });
         };
 
+        /**
+         * move a nodeToMove before a nodeAfter in nodeRoot tree
+         * @param nodeToMove
+         * @param nodeAfter
+         * @param nodeRoot
+         */
         self.moveBefore = function(nodeToMove,nodeAfter,nodeRoot) {
 
             var parentDestination = self.findParent(nodeAfter,nodeRoot);
@@ -407,6 +496,12 @@
 
         };
 
+        /**
+         * move a nodeToMove after a nodeBefore in nodeRoot tree
+         * @param nodeToMove
+         * @param nodeBefore
+         * @param nodeRoot
+         */
         self.moveAfter = function(nodeToMove,nodeBefore,nodeRoot) {
 
 
@@ -447,6 +542,12 @@
 
         };
 
+        /**
+         * move a nodeToMove into a nodeMoveIn in nodeRoot tree
+         * @param nodeToMove
+         * @param nodeMoveIn
+         * @param nodeRoot
+         */
         self.moveIn = function(nodeToMove,nodeMoveIn,nodeRoot) {
 
             if (!self.isParent(nodeMoveIn,nodeToMove) && nodeMoveIn !== nodeToMove) {
@@ -609,8 +710,6 @@
          * get the nodes id to make a path from a node to another
          * @param nodeFrom
          * @param nodeTo
-         * @param path
-         * @param found
          * @returns {*}
          */
         self.getPath = function(nodeFrom, nodeTo) {
@@ -623,13 +722,57 @@
                        path = [nodeFrom.id];
                    } else {
                        path = self.getPath(nodeFrom.children[index], nodeTo);
-                       if (path) {
+                       if (path.length > 0) {
                            path.unshift(nodeFrom.id);
                        }
                    }
                 }
            }
             return path;
+        };
+
+        /**
+         * merge nodeToGet in nodeToReceive
+         * it preserves nodes already in nodeToReceive
+         * @param nodeToReceive
+         * @param nodeToGet
+         */
+        self.mergeNodes = function(nodeToReceive, nodeToGet) {
+
+            // We have to identify the nodes tha are already in destination
+            // and those who just need to be add
+            let receiveIds = nodeToReceive.children.map(item => item.id);
+            let toGetIds = nodeToGet.children.map(item => item.id);
+
+            let intersectionIds = _.intersection(receiveIds, toGetIds);
+            let differenceIds = _.difference(toGetIds, receiveIds);
+
+
+            // We first treat the intersection to merge it
+            if (intersectionIds.length > 0) {
+                let nodeToMerges = nodeToGet.children.filter((item) => {
+                    return intersectionIds.indexOf(item.id) >= 0;
+                });
+
+                nodeToMerges.forEach((node) => {
+                    if (!node.leaf) {
+                        let nodeInReceiveToMerge = self.getNode(node.id, nodeToReceive);
+                        self.mergeNodes(nodeInReceiveToMerge, node);
+                    }
+                });
+            }
+
+            // and then we simply add the others
+            if (differenceIds.length > 0) {
+                let nodesToAdd = nodeToGet.children.filter((item) => {
+                    return differenceIds.indexOf(item.id) >= 0;
+                });
+                nodesToAdd.forEach((node) => {
+                    nodeToReceive.children.push(node);
+                });
+            }
+
+
         };
 
 
