@@ -47,7 +47,7 @@
 
         // receive the save event and save when it's time
         self.stateEvents.filter(item => item === 'save')
-            .debounce(500)
+            .debounce(300)
             .subscribe(() => {
                     self.DatabaseService.save(self.appState)
                         .then(() => {

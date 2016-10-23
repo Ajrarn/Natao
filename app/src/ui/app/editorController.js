@@ -237,6 +237,13 @@
             self.refreshTimeout = setTimeout(function() {
                 self.refreshTimeout = null;
                 self.saveCurrentMarkdown();
+
+                // if any change in the editor when searching
+                // we need to update the search counter
+                if (self.searchPanelOpen) {
+                    self.occurrencesFound = self.CodeMirrorUtilService.occurrences(self.currentMarkdown.md, self.searchEditorWord);
+                }
+
                 //this one is for the watcher of <a href>
                 self.currentMarkdownCode = self.currentMarkdown.md;
             },1000);
