@@ -310,9 +310,9 @@
          */
         self.markdownFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 fs.readFile(fileName,'utf8',function(err,data) {
-                    self.AppStateService.stopPending();
+                    self.AppStateService.stopWrite();
                     if (err) {
                         reject(err);
                     } else {
@@ -350,9 +350,9 @@
          */
         self.jsonFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 fs.readFile(fileName,'utf8',function(err,data) {
-                    self.AppStateService.stopPending();
+                    self.AppStateService.stopWrite();
                     if (err) {
                         reject(err);
                     } else {
@@ -398,13 +398,13 @@
         self.bufferToMarkdownFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 if (fs.existsSync(fileName)) {
                     fs.unlinkSync(fileName);
                 }
 
                 fs.writeFile(fileName, buffer.documents[0].md, 'utf8', function(err) {
-                    self.AppStateService.stopPending();
+                    self.AppStateService.stopWrite();
                     if (err) {
                         reject(err);
                     } else {
@@ -424,13 +424,13 @@
         self.bufferToJsonFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 if (fs.existsSync(fileName)) {
                     fs.unlinkSync(fileName);
                 }
 
                 fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
-                    self.AppStateService.stopPending();
+                    self.AppStateService.stopWrite();
                     if (err) {
                         reject(err);
                     } else {

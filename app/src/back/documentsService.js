@@ -45,15 +45,15 @@
                     newMarkDown.md = markdown;
                 }
 
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 self.DatabaseService
                     .save(newMarkDown)
                     .then(function(newDoc) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         resolve(newDoc);
                     })
                     .catch(function(err) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         reject(err);
                     });
             });
@@ -62,16 +62,16 @@
         self.updateDocument = function(docSource) {
             return self.$q(function(resolve,reject) {
                 
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 
                 self.DatabaseService
                     .save(docSource)
                     .then(function(doc) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         resolve(doc);
                     })
                     .catch(function(err) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         reject(err);
                     });
             });
@@ -80,16 +80,16 @@
         self.insertDocument = function(docSource) {
             return self.$q(function(resolve,reject) {
 
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
 
                 self.DatabaseService
                     .save(docSource)
                     .then(function(doc) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         resolve(doc);
                     })
                     .catch(function(err) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         reject(err);
                     });
             });
@@ -99,16 +99,16 @@
         self.deleteDocument = function(id) {
             
             return self.$q(function(resolve,reject) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
 
                 self.DatabaseService
                     .delete(id)
                     .then(function(numRemoved) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         resolve(numRemoved);
                     })
                     .catch(function(err) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                         reject(err);
                     });
             });

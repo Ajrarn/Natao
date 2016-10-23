@@ -155,7 +155,7 @@
 
         self.deleteTemplate = function(template) {
             if (template._id) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 var indexTemplate = _.findIndex(self.availableTemplates,{_id:template._id});
 
                 if (indexTemplate && indexTemplate >= 0) {
@@ -165,10 +165,10 @@
                 self.DatabaseService
                     .delete(template._id)
                     .then(function(numRemoved) {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                     })
                     .catch(function(err) {
-                        self.PendingService.stop();
+                        self.AppStateService.stopWrite();
                         console.error(err);
                     });
             }

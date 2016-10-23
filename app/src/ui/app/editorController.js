@@ -10,10 +10,9 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,PendingService,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService) {
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService, AppStateService) {
 
         var self = this;
-        //self.$showdown = $showdown;
         self.$timeout = $timeout;
         self.$translate = $translate;
         self.PreferencesService = PreferencesService;
@@ -22,7 +21,6 @@
         self.TreeUtilService = TreeUtilService;
         self.CssService = CssService;
         self.TemplateTreeService = TemplateTreeService;
-        self.PendingService = PendingService;
         self.DocumentsService = DocumentsService;
         self.$rootScope = $rootScope;
         self.fileDialog = fileDialog;
@@ -30,6 +28,7 @@
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
         self.CodeMirrorUtilService = CodeMirrorUtilService;
+        self.AppStateService = AppStateService;
         self.MessageService.changeMessage('');
         self.focus = focus;
         self.editorOptions = {
@@ -39,7 +38,6 @@
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             mode: 'gfm'
         };
-        self.buffer = null;
         self.buttonTextActive = false;
         self.showTrash = false;
         self.switchTrashOpened = false;
@@ -351,7 +349,7 @@
         };
 
         self.pasteButtonDisabled = function() {
-            return !(self.buffer);
+            return !(self.AppStateService.hasBuffer());
         };
 
         self.editFolder = function() {
@@ -430,7 +428,7 @@
             self.TreeUtilService
                 .nodeToBuffer(self.currentNode)
                 .then(function(buffer) {
-                    self.buffer = buffer;
+                    self.AppStateService.setBuffer(buffer);
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -445,7 +443,7 @@
             self.TreeUtilService
                 .nodeToBuffer(documentNode)
                 .then(function(buffer) {
-                    self.buffer = buffer;
+                    self.AppStateService.setBuffer(buffer);
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -456,7 +454,7 @@
             self.TreeUtilService
                 .nodeToBuffer(self.currentNode)
                 .then(function(buffer) {
-                    self.buffer = buffer;
+                    self.AppStateService.setBuffer(buffer);
                     self.PrincipalTreeService
                         .deleteNode(self.currentNode)
                         .catch(function(err) {
@@ -476,7 +474,7 @@
             self.TreeUtilService
                 .nodeToBuffer(documentNode)
                 .then(function(buffer) {
-                    self.buffer = buffer;
+                    self.AppStateService.setBuffer(buffer);
                     self.PrincipalTreeService
                         .deleteNode(documentNode)
                         .catch(function(err) {
@@ -544,9 +542,9 @@
 
         self.pasteFolder = function(hide) {
 
-            if (self.buffer) {
+            if (self.AppStateService.hasBuffer()) {
                 self.TreeUtilService
-                    .bufferToNode(self.buffer)
+                    .bufferToNode(self.AppStateService.getBuffer())
                     .then(function(node) {
                         if (hide) {
                             // then the paste command is past from the tree
@@ -558,7 +556,7 @@
                             //the command was past by the toolbar
                             self.PrincipalTreeService.principalTree.tree.children.push(node);
                         }
-                        self.buffer = null;
+                        self.AppStateService.resetBuffer();
                         self.PrincipalTreeService.save();
 
                     })

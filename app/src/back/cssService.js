@@ -20,7 +20,6 @@
      * Create the CssService
      * @param $translate
      * @param $q
-     * @param PendingService
      * @param DatabaseService
      * @returns {CssService}
      * @constructor
@@ -237,7 +236,7 @@
          */
         self.deleteCss = function(css) {
             if (css._id) {
-                self.AppStateService.startPending();
+                self.AppStateService.startWrite();
                 var indexCss = _.findIndex(self.availableCss,{_id:css._id});
 
                 if (indexCss && indexCss >= 0) {
@@ -247,11 +246,11 @@
                 self.DatabaseService
                     .remove(css._id)
                     .then(() => {
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                     })
                     .catch(function(err) {
                         console.error(err);
-                        self.AppStateService.stopPending();
+                        self.AppStateService.stopWrite();
                     });
             }
         };

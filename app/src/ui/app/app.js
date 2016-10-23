@@ -20,6 +20,7 @@
         //prevent properly close
         win.on('close', () => {
 
+            AppStateService.resetBuffer();
             AppStateService.close()
                 .subscribe(
                     (event) => {

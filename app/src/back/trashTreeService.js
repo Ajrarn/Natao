@@ -17,11 +17,10 @@
 
 
     //Service itself
-    function TrashTreeService(TreeUtilService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope, AppStateService) {
+    function TrashTreeService(TreeUtilService,$q,$translate,DatabaseService,DocumentsService,$rootScope, AppStateService) {
 
         var self = this;
         self.TreeUtilService = TreeUtilService;
-        self.PendingService = PendingService;
         self.$q = $q;
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;

@@ -52,9 +52,11 @@
                     self.DatabaseService.save(self.appState)
                         .then(() => {
                             self.pendingSaveState = false;
+                            self.checkClose();
                         })
                         .catch((err) => {
                             self.pendingSaveState = false;
+                            self.checkClose();
                             console.error(err);
                         });
 
@@ -169,6 +171,14 @@
             return self.appState.buffer;
         };
 
+        /**
+         * return true if buffer contains anything
+         * @returns {boolean}
+         */
+        self.hasBuffer = () => {
+            return self.appState.buffer !== null;
+        };
+
         // ******************************* the saves in pendings ****************************************
 
         /*
@@ -191,6 +201,7 @@
          */
         self.stopWrite = () => {
             self.nbWritePendings--;
+            self.checkClose();
         };
         
         // ***************************** wait for the end of saves ************************************

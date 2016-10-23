@@ -17,12 +17,11 @@
 
 
     //Service itself
-    function PrincipalTreeService(TreeUtilService,TemplateTreeService,$q,PendingService,$translate,DatabaseService,DocumentsService,$rootScope, AppStateService) {
+    function PrincipalTreeService(TreeUtilService,TemplateTreeService,$q,$translate,DatabaseService,DocumentsService,$rootScope, AppStateService) {
 
         var self = this;
         self.TreeUtilService = TreeUtilService;
         self.TemplateTreeService = TemplateTreeService;
-        self.PendingService = PendingService;
         self.$q = $q;
         self.$translate = $translate;
         self.DatabaseService = DatabaseService;
