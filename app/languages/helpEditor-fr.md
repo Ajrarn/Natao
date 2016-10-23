@@ -21,7 +21,7 @@ Il y a une petite exception à cette règle : les polices explicitement choisies
 
 ## Les 3 panneaux
 
-- <span class="typcn typcn-th-menu-outline"></span> permet de masquer/afficher le panneau de navigation dans tes documents, appelé aussi **Mes Cours**.
+- <span class="typcn typcn-th-menu-outline"></span> permet de masquer/afficher le panneau de navigation dans tes documents, appelé aussi **Documents**.
 - <span class="typcn typcn-edit"></span> permet de masquer/afficher l'éditeur Markdown
 - <span class="typcn typcn-eye-outline"></span> permet de masquer/afficher le panneau de visualisation du résultat.
 
@@ -37,15 +37,15 @@ Il y a une petite exception à cette règle : les polices explicitement choisies
 
 <span class="typcn typcn-cog-outline"></span> te permet d'accéder aux réglages de Natao.
 
-# Mes Cours
+# Documents
 
 ## La barre d'outils de l'explorateur de documents
-![Image of ExplorerBar](./src/images/myLessons.png)
+![Image of ExplorerBar](./src/images/documents.png)
 
-Cette barre contient, en plus du titre, 3 boutons :
+Cette barre contient un titre cliquable pour basculer de la vue **Corbeille** à la vue **Documents**, et 3 boutons :
 - <span class="typcn typcn-book"></span> permet de coller un contenu préalablement copié ou coupé dans le presse-papiers de Natao.
 - <span class="typcn typcn-download-outline"></span> permet d'importer un contenu depuis un fichier.
-- <span class="typcn typcn-plus-outline"></span> permet d'ajouter un dossier à la racine de **Mes Cours**. Lors de la création d'un dossier, tu peux utiliser un modèle de structure qui ajoutera dans ton dossier des sous-dossier correspondant à l'organisation que tu as choisi.
+- <span class="typcn typcn-plus-outline"></span> permet d'ajouter un dossier à la racine de **Documents**. Lors de la création d'un dossier, tu peux utiliser un modèle de structure qui ajoutera dans ton dossier des sous-dossier correspondant à l'organisation que tu as choisi.
 
 ## L'explorateur de documents
 
@@ -70,7 +70,16 @@ Dans ce dernier apparaissent tes dossiers et documents, selon l'organisation qui
 - <span class="typcn typcn-export-outline"></span> permet d'exporter dans un fichier un dossier et tout son contenu.
 - <span class="typcn typcn-download-outline"></span> permet d'importer un contenu exporté depuis un fichier.
 - <span class="typcn typcn-flow-children"></span> permet d'enregistrer la structure, tous les sous-dossiers sans les documents, en tant que modèle de structure. Ce modèle de structure pourra être utilisé à chaque création de dossier/sous-dossier.
-- <span class="typcn typcn-trash"></span> permet de supprimer le dossier ainsi que tout ce qu'il contient.
+- <span class="typcn typcn-trash"></span> permet de mettre le dossier dans la corbeille avec tout ce qu'il contient.
+
+## Dans la corbeille
+Tu peux y voir un arbre contenant les documents que tu y as mis. Il y a moins d'interactions dans cette vue.
+Les seules choses que tu peux faire sur les dossiers et documents sont:
+
+- <span class="typcn typcn-trash"></span> les supprimer définitivement.
+- <span class="typcn typcn-media-rewind-outline"></span> les restaurer(si possible à leur emplacement d'origine).
+
+
 
 # L'éditeur
 
@@ -93,7 +102,22 @@ Dans ce dernier apparaissent tes dossiers et documents, selon l'organisation qui
 ## Réglages de l'éditeur
 Le bouton <span class="typcn typcn-cog"></span> te permet d'agir sur la présentation de l'éditeur avec 2 options très pratiques notamment en cas de troubles visuo-spatiaux:
 - la possibilité de mettre des rayures. Les lignes (dans le sens de l'éditeur, voir le numéro à gauche) seront rayées blanches et grises te permettant de te situer plus rapidement dans le document.
-- la possibilité d'augmenter la taille des lignes, et donc de séparer davantage les lignes de texte que par défaut. Attention ce réglage a un effet sur le curseur. Pour l'instant, il vaut mieux, après avoir modifié ce réglage, sortir de l'éditeur et y revenir. Soit en fermant Natao, soit en allant dans les réglages.
+- la possibilité d'augmenter la taille des lignes, et donc de séparer davantage les lignes de texte que par défaut.
+
+## Rechercher du texte
+Le bouton <span class="typcn typcn-zoom-outline"></span> te permet d'ouvrir un panneau de recherche au dessus de l'éditeur Markdown.
+
+Ce panneau te permet de rechercher du texte dans l'éditeur Markdown.
+
+En tapant le texte recherché dans le champs *Recherche*, celui-ci va surligner les occurences du mot trouvé dans le Markdown, il va également t'indiquer combien il en a trouvé.
+
+Les flèches <span class="typcn typcn-arrow-left-outline"></span> et <span class="typcn typcn-arrow-right-outline"></span>, te permettront de positionner l'éditeur sur le précédent ou le prochain mot correspondant. Tu verras l'occurence sélectionné dans une couleur plus foncée.
+
+Mais tu peux également remplacer une ou plusieurs occurences avec le texte que tu écris dans le champs *Remplace par*.
+
+- Le bouton <span class="typcn typcn-arrow-repeat"></span> remplace l'occurence en cours.
+- Le bouton <span class="typcn typcn-arrow-repeat-outline"></span> remplace toutes les occurences.
+
 
 ## L'éditeur Markdown
 

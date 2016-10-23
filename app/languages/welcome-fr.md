@@ -14,10 +14,10 @@ Si tu es un peu observateur, tu dois te rendre compte que le texte de l'éditeur
 # Des titres
 Oui, les # en début de ligne ont une signification. Ils disent à Natao:
 
-> Fais attention à la ligne après le #, c'est un titre important.
+	Fais attention à la ligne après le #, c'est un titre important.
 
 ## Et des sous-titres
-> Et cette ligne avec ## est un sous-titre du précédent titre
+	Et cette ligne avec ## est un sous-titre du précédent titre
 
 ## Et encore un sous-titre
 
@@ -45,7 +45,9 @@ Première chose, tout en haut de l'éditeur, tu as un champs *Style*, qui te pro
 
 Si tu choisis par exemple la feuille de style *Contrôle*, tu devrais voir apparaître tes noms et prénom, la date et des marges permettant de présenter un devoir à rendre.
 
-Et ces feuilles de style sont modifiables, et tu peux en créer de nouvelles qui s'appliqueront automatiquement à tout ton document.
+Ces feuilles de style sont modifiables, et tu peux en créer de nouvelles qui s'appliqueront automatiquement à tout ton document.
+
+Et c'est dans ces feuilles de style que tu pourras lui dire que tu précisera que tu veux du rouge sur le texte en question.
 
 # Aller plus loin
 Voila, tu connais les grandes lignes de cette application. Si tu souhaites aller plus loin, je t'invite à cliquer sur le point d'interrogation en haut à droite. Cela ouvrira une fenêtre avec l'aide qui te permettra de mieux découvrir Natao et tout ce que tu peux faire avec.

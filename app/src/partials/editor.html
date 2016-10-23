@@ -95,7 +95,7 @@
                             <p  ng-if="!EditorCtrl.showTrash"
                                     ng-mouseover="EditorCtrl.changeButtonText('TRASH')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'TRASH' | translate }}</p>
                             <p ng-if="EditorCtrl.showTrash"
-                                    ng-mouseover="EditorCtrl.changeButtonText('SCHOOLBAG')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'SCHOOLBAG' | translate }}</p>
+                                    ng-mouseover="EditorCtrl.changeButtonText('DOCUMENTS')" ng-mouseleave="EditorCtrl.changeButtonText('')">{{ 'DOCUMENTS' | translate }}</p>
                         </div>
                         <div class="triangle"></div>
                     </script>
@@ -108,8 +108,8 @@
                             ns-popover-placement="bottom"
                             ns-popover-theme="ns-popover-tooltip-theme"
                             ng-click="EditorCtrl.openSwitchTrash()" ns-popover-on-close="EditorCtrl.closeSwitchTrash()"
-                            ng-mouseover="EditorCtrl.changeButtonText('SCHOOLBAG')" ng-mouseleave="EditorCtrl.changeButtonText('')">
-                        {{ 'SCHOOLBAG' | translate }} <span ng-if="EditorCtrl.switchTrashOpened" class="typcn typcn-arrow-sorted-down"></span><span ng-if="!EditorCtrl.switchTrashOpened" class="typcn typcn-media-play-reverse"></span>
+                            ng-mouseover="EditorCtrl.changeButtonText('DOCUMENTS')" ng-mouseleave="EditorCtrl.changeButtonText('')">
+                        {{ 'DOCUMENTS' | translate }} <span ng-if="EditorCtrl.switchTrashOpened" class="typcn typcn-arrow-sorted-down"></span><span ng-if="!EditorCtrl.switchTrashOpened" class="typcn typcn-media-play-reverse"></span>
                     </button>
                     <button ns-popover class="transparent text light" ng-if="EditorCtrl.showTrash"
                             ns-popover-timeout="-1"

@@ -2385,6 +2385,7 @@ button, .button {
   button.help, .button.help {
     padding: 1px 15px 5px 15px; }
   button.text, .button.text {
+    padding: 2px 6px 3px 6px;
     font-size: 1.2em; }
 
 .buttonText {
