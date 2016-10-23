@@ -15,25 +15,24 @@
         .module('Natao', modules)
         .run(run);
 
-    function run($rootScope, PendingService) {
+    function run($rootScope, AppStateService) {
 
         //prevent properly close
-        win.on('close', function () {
+        win.on('close', () => {
 
-            if (PendingService.pending > 0) {
-                $rootScope.$watch(function () {
-                    return PendingService.pending;
-                }, function () {
-                    if (PendingService.pending === 0) {
+            AppStateService.close()
+                .subscribe(
+                    (event) => {
+                        console.log(event);
+                    },
+                    (err) => {
+                        console.error(err);
+                    },
+                    () => {
                         win.hide(); // Pretend to be closed already
                         win.close(true);
                     }
-                })
-
-            } else {
-                win.hide(); // Pretend to be closed already
-                win.close(true);
-            }
+                );
         });
 
         //Detect webkit and version

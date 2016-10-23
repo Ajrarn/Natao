@@ -16,12 +16,12 @@
     }
 
     //Service itself
-    function TreeUtilService(DocumentsService,$q,PendingService,CssService) {
+    function TreeUtilService(DocumentsService,$q,AppStateService,CssService) {
 
         var self = this;
         self.DocumentsService = DocumentsService;
         self.$q = $q;
-        self.PendingService = PendingService;
+        self.AppStateService = AppStateService;
         self.CssService = CssService;
 
         /**
@@ -310,9 +310,9 @@
          */
         self.markdownFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
-                self.PendingService.start();
+                self.AppStateService.startPending();
                 fs.readFile(fileName,'utf8',function(err,data) {
-                    self.PendingService.stop();
+                    self.AppStateService.stopPending();
                     if (err) {
                         reject(err);
                     } else {
@@ -350,9 +350,9 @@
          */
         self.jsonFileToBuffer = function(fileName) {
             return self.$q(function(resolve,reject) {
-                self.PendingService.start();
+                self.AppStateService.startPending();
                 fs.readFile(fileName,'utf8',function(err,data) {
-                    self.PendingService.stop();
+                    self.AppStateService.stopPending();
                     if (err) {
                         reject(err);
                     } else {
@@ -398,13 +398,13 @@
         self.bufferToMarkdownFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
-                self.PendingService.start();
+                self.AppStateService.startPending();
                 if (fs.existsSync(fileName)) {
                     fs.unlinkSync(fileName);
                 }
 
                 fs.writeFile(fileName, buffer.documents[0].md, 'utf8', function(err) {
-                    self.PendingService.stop();
+                    self.AppStateService.stopPending();
                     if (err) {
                         reject(err);
                     } else {
@@ -424,13 +424,13 @@
         self.bufferToJsonFile = function(buffer,fileName) {
 
             return self.$q(function(resolve,reject) {
-                self.PendingService.start();
+                self.AppStateService.startPending();
                 if (fs.existsSync(fileName)) {
                     fs.unlinkSync(fileName);
                 }
 
                 fs.writeFile(fileName, JSON.stringify(buffer), 'utf8', function(err) {
-                    self.PendingService.stop();
+                    self.AppStateService.stopPending();
                     if (err) {
                         reject(err);
                     } else {

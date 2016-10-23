@@ -37,24 +37,6 @@
             }
         };
 
-        self.startLoading = function() {
-            self.loading++;
-        };
-
-        self.stopLoading = function() {
-            self.loading--;
-
-            if (self.loading <= 0) {
-                //ensure that this affectation will be considerated by the $digest cycle
-                self.$timeout(self.loading = 0);
-
-            }
-        };
-
-        self.showLoader = function() {
-            return self.loading > 0;
-        };
-
         return self;
     }
 

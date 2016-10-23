@@ -25,13 +25,13 @@
      * @returns {CssService}
      * @constructor
      */
-    function CssService($translate,$q,PendingService,DatabaseService) {
+    function CssService($translate,$q,AppStateService,DatabaseService) {
 
         var self = this;
 
         self.$translate = $translate;
         self.$q = $q;
-        self.PendingService = PendingService;
+        self.AppStateService = AppStateService;
         self.DatabaseService = DatabaseService;
 
 
@@ -237,7 +237,7 @@
          */
         self.deleteCss = function(css) {
             if (css._id) {
-                self.PendingService.start();
+                self.AppStateService.startPending();
                 var indexCss = _.findIndex(self.availableCss,{_id:css._id});
 
                 if (indexCss && indexCss >= 0) {
@@ -246,8 +246,12 @@
                 
                 self.DatabaseService
                     .remove(css._id)
+                    .then(() => {
+                        self.AppStateService.stopPending();
+                    })
                     .catch(function(err) {
                         console.error(err);
+                        self.AppStateService.stopPending();
                     });
             }
         };
