@@ -136,6 +136,20 @@
         };
 
         /**
+         * find next word
+         */
+        self.findNext = () => {
+            self.CodeMirrorUtilService.findNext();
+        };
+
+        /**
+         * find previous word
+         */
+        self.findPrevious = () => {
+            self.CodeMirrorUtilService.findNext(true);
+        };
+
+        /**
          * execute replace with replaceEditorWord
          */
         self.replace = function() {

@@ -145,19 +145,21 @@
          * @param reverse
          * @param callback
          */
-        self.findNext = function(reverse, callback) {self.editor.operation(function() {
-            var state = self.getSearchState();
-            var cursor = self.getSearchCursor(state.query, reverse ? state.posFrom : state.posTo);
-            if (!cursor.find(reverse)) {
-                cursor = self.getSearchCursor(state.query, reverse ? CodeMirror.Pos(self.editor.lastLine()) : CodeMirror.Pos(self.editor.firstLine(), 0));
-                if (!cursor.find(reverse)) return;
-            }
-            self.editor.setSelection(cursor.from(), cursor.to());
-            self.editor.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
-            state.posFrom = cursor.from(); state.posTo = cursor.to();
-            state.cursor = cursor;
-            if (callback) callback(cursor.from(), cursor.to())
-        });};
+        self.findNext = function(reverse, callback) {
+            self.editor.operation(function() {
+                var state = self.getSearchState();
+                var cursor = self.getSearchCursor(state.query, reverse ? state.posFrom : state.posTo);
+                if (!cursor.find(reverse)) {
+                    cursor = self.getSearchCursor(state.query, reverse ? CodeMirror.Pos(self.editor.lastLine()) : CodeMirror.Pos(self.editor.firstLine(), 0));
+                    if (!cursor.find(reverse)) return;
+                }
+                self.editor.setSelection(cursor.from(), cursor.to());
+                self.editor.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
+                state.posFrom = cursor.from(); state.posTo = cursor.to();
+                state.cursor = cursor;
+                if (callback) callback(cursor.from(), cursor.to())
+            });
+        };
 
 
         /**

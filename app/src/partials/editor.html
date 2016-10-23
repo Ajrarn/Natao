@@ -450,11 +450,11 @@
                                     <p>{{ 'SEARCH' | translate }}</p>
                                     <input flex type="text" id="searchEditor" name="searchEditor" value="true" ng-model="EditorCtrl.searchEditorWord" ng-change="EditorCtrl.searchCodeMirror()" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
                                 </label>
-                                <button ng-click="EditorCtrl.CodeMirrorSearchService.findNext(true)" ng-class="{disabled: EditorCtrl.occurrencesFound === 0}"
+                                <button ng-click="EditorCtrl.findPrevious()" ng-class="{disabled: EditorCtrl.occurrencesFound === 0}"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_SEARCH_PREVIOUS')" ng-mouseleave="EditorCtrl.changeButtonText('')">
                                     <span class="typcn typcn-arrow-left-outline"></span>
                                 </button>
-                                <button ng-click="EditorCtrl.CodeMirrorSearchService.findNext()" ng-class="{disabled: EditorCtrl.occurrencesFound === 0}"
+                                <button ng-click="EditorCtrl.findNext()" ng-class="{disabled: EditorCtrl.occurrencesFound === 0}"
                                         ng-mouseover="EditorCtrl.changeButtonText('BTN_SEARCH_NEXT')" ng-mouseleave="EditorCtrl.changeButtonText('')">
                                     <span class="typcn typcn-arrow-right-outline"></span>
                                 </button>

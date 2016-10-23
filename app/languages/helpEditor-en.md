@@ -48,7 +48,7 @@ You can organize your folders and documents as you see fit.
 
 ## The Explorer tool bar
 
-![Image of ExplorerBar](./src/images/myLessons.png)
+![Image of Explorer](./src/images/explorer.png)
 
 This bar displays three extra buttons which let you:
 - <span class="typcn typcn-book"></span> Paste copied or cut content previously saved in Natao's clipboard.
