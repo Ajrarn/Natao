@@ -52,6 +52,8 @@ Et c'est dans ces feuilles de style que tu pourras lui dire que tu précisera qu
 # Aller plus loin
 Voila, tu connais les grandes lignes de cette application. Si tu souhaites aller plus loin, je t'invite à cliquer sur le point d'interrogation en haut à droite. Cela ouvrira une fenêtre avec l'aide qui te permettra de mieux découvrir Natao et tout ce que tu peux faire avec.
 
+Si tu souhaites imprimer l'aide, cliques sur le bouton *Réglages* en haut à droite, puis dans l'onglet *Autres*, et enfin sur le bouton *Importer*. Les fichiers qui composent l'aide apparaitront dans *Documents* et tu pourras les imprimer un à un.
+
 Si au contraire, tu n'y trouves rien d'intéressant, tant pis. J'espère que tu trouveras ce que tu cherches.
 
 Dans tous les cas, à bientôt.
