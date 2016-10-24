@@ -29,3 +29,8 @@ Dans une future version, j'essaierai de créer un assistant pour t'aider à modi
 # Structures
 
 Cette dernière section te permet de manipuler les structures de dossiers. Ce sont les mêmes outils que dans l'éditeur normal, sauf que tu ne peux pas y créer de documents. Tu pourras donc facilement modifier tes modèles de structure préférés avant de les réutiliser dans l'éditeur.
+
+# Autres
+Cette dernière section te permet de faire 2 choses:
+- Activer les boutons de visite guidée<span class="typcn typcn-compass"></span> pour pouvoir les rejouer à volonté.
+- Importer les fichier de l'aide dans *Documents*, tu pourras ainsi les éditer, les imprimer, etc.

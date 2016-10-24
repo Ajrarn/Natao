@@ -225,52 +225,61 @@
         };
 
         self.addHelpFiles = function() {
-            // First we check the name of the folder who contains We will contain the files
-            self.$translate('HELP_FOLDER')
-                .then(function (translation) {
-                    // then we find and delete the previous folder and its content
-                    var folderHelp = self.TreeUtilService.findNodeByName(self.principalTree.tree, translation);
 
-                    if (folderHelp) {
-                        self.TreeUtilService.deleteNode(folderHelp, self.principalTree.tree);
-                    }
+            return self.$q((resolve, reject) => {
+                // First we check the name of the folder who contains We will contain the files
+                self.$translate('HELP_FOLDER')
+                    .then(function (translation) {
+                        // then we find and delete the previous folder and its content
+                        var folderHelp = self.TreeUtilService.findNodeByName(self.principalTree.tree, translation);
 
-                    //And finally we create a new folder and import all the files in
-                    self.addFolder(translation,self.principalTree.tree)
-                        .then(function(node) {
+                        if (folderHelp) {
+                            self.TreeUtilService.deleteNode(folderHelp, self.principalTree.tree);
+                        }
 
-                            var files = fs.readdirSync('./languages');
-                            var helpFiles = files.filter(function(item) {
-                                return item.startsWith('help');
+                        //And finally we create a new folder and import all the files in
+                        self.addFolder(translation,self.principalTree.tree)
+                            .then(function(node) {
+
+                                var files = fs.readdirSync('./languages');
+                                var helpFiles = files.filter(function(item) {
+                                    return item.startsWith('help');
+                                });
+
+                                let nbFiles = helpFiles.length;
+
+                                helpFiles.forEach(function(filename) {
+                                    var file = fs.readFileSync('./languages/' + filename,'utf8');
+
+                                    self.DocumentsService
+                                        .addDocument(self.principalTree.tree.defaultCss, filename, file)
+                                        .then(function(newDoc) {
+
+                                            var newNode = {
+                                                id: newDoc._id,
+                                                name: newDoc.title,
+                                                leaf: true
+                                            };
+
+                                            node.children.push(newNode);
+                                            self.principalTree.selectedNode = newNode;
+                                            self.save();
+
+                                            // resolve the promise when all files are imported
+                                            nbFiles--;
+                                            if (nbFiles === 0) {
+                                                resolve();
+                                            }
+                                        })
+                                        .catch(function(err ){
+                                            reject(err);
+                                        });
+                                });
+                            })
+                            .catch(function(err) {
+                                reject(err);
                             });
-
-                            helpFiles.forEach(function(filename) {
-                                var file = fs.readFileSync('./languages/' + filename,'utf8');
-
-                                self.DocumentsService
-                                    .addDocument(self.principalTree.tree.defaultCss, filename, file)
-                                    .then(function(newDoc) {
-
-                                        var newNode = {
-                                            id: newDoc._id,
-                                            name: newDoc.title,
-                                            leaf: true
-                                        };
-
-                                        node.children.push(newNode);
-                                        self.principalTree.selectedNode = newNode;
-                                        self.save();
-                                    })
-                                    .catch(function(err ){
-                                        console.error(err);
-                                    });
-                            });
-                        })
-                        .catch(function(err) {
-                            console.error(err);
-                        });
-
-
+                    });
             });
 
         };

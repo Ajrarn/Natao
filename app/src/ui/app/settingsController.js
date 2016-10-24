@@ -35,6 +35,7 @@
         self.PrincipalTreeService = PrincipalTreeService;
         self.MessageService.changeMessage('');
         self.viewer = true;
+        self.checkmark = false;
 
         //init currentDoc
         self.currentDoc = {
@@ -508,6 +509,17 @@
         self.startTourTemplate = function() {
             self.onboardingIndexTemplate = 0;
             self.onboardingEnabledTemplate = true;
+        };
+
+
+        self.importHelpFiles = () => {
+            self.PrincipalTreeService.addHelpFiles()
+                .then(() => {
+                    self.checkmark = true;
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
         };
 
     }
