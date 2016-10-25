@@ -10,7 +10,8 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,focus,fileDialog,$location,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService, AppStateService) {
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,
+                              focus,fileDialog,$location,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService, AppStateService, ShowDownUtilService) {
 
         var self = this;
         self.$timeout = $timeout;
@@ -28,6 +29,7 @@
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
         self.CodeMirrorUtilService = CodeMirrorUtilService;
+        self.ShowDownUtilService = ShowDownUtilService;
         self.AppStateService = AppStateService;
         self.MessageService.changeMessage('');
         self.focus = focus;
@@ -64,7 +66,7 @@
         self.$rootScope.$watch(function(){
             return self.currentMarkdownCode;
         },function() {
-            self.CodeMirrorUtilService.codeMirrorHooks();
+            self.ShowDownUtilService.showDownHooks();
         });
 
 

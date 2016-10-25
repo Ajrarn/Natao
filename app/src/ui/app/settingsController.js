@@ -11,7 +11,7 @@
         .controller('SettingsController', SettingsController);
 
 
-    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,OnBoardingService,
+    function SettingsController($rootScope,$scope,PreferencesService,DatabaseService,$location,$sce,fileDialog,OnBoardingService, ShowDownUtilService,
                                 CssService,DocumentsService,TemplateTreeService,$showdown,focus,$timeout,TreeUtilService,MessageService, PrincipalTreeService) {
 
         var self = this;
@@ -33,6 +33,7 @@
         self.MessageService = MessageService;
         self.OnBoardingService = OnBoardingService;
         self.PrincipalTreeService = PrincipalTreeService;
+        self.ShowDownUtilService = ShowDownUtilService;
         self.MessageService.changeMessage('');
         self.viewer = true;
         self.checkmark = false;
@@ -69,25 +70,7 @@
         self.$rootScope.$watch(function(){
             return self.currentDoc.md;
         },function() {
-            self.$timeout(function() {
-                $('.viewer a').on('click', function(){
-                    require('nw.gui').Shell.openExternal( this.href );
-                    return false;
-                });
-
-                // Specify language or nohighlight in th first line inside :: like this ::nohighlight::
-                $('pre code').each(function(i, block) {
-                    if (block.textContent.startsWith('::')) {
-                        var classe = block.textContent.split('::')[1];
-                        block.textContent = block.textContent.replace('::' + classe + '::\n', '');
-                        block.classList.add(classe);
-                    } else {
-                        // by default we add th class nohighlight
-                        block.classList.add('nohighlight');
-                    }
-                    hljs.highlightBlock(block);
-                });
-            },0,false);
+            self.ShowDownUtilService.showDownHooks();
         });
 
 

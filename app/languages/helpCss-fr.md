@@ -6,6 +6,8 @@ Par contre, il y a de nombreuses notions à découvrir que tu pourrais trouver a
 
 # Notions de HTML indispensables
 
+[toc]
+
 Avant de découvrir comment personnaliser les documents avec CSS, il faut comprendre comment ils sont construits.
 
 ## XML
