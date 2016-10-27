@@ -13,7 +13,7 @@
             requireBase: false
         });
 
-        $showdownProvider.loadExtension(toc);
+        $showdownProvider.loadExtension(myToc);
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',
@@ -43,6 +43,7 @@
             {
                 type: 'output',
                 filter: function(source) {
+                    console.log('source', source);
                     var elements = $(source);
                     var output = [];
                     var headingLevel = null;
@@ -179,6 +180,47 @@
                     // Build some HTML to return
                     // Return it.
                     return $('<div>').append(output).html();
+                }
+            }
+
+        ];
+    };
+
+    var myToc = function(converter) {
+        return [
+
+            {
+                type: 'output',
+                filter: function(source) {
+                    if (source.indexOf('[toc]') > 0) {
+                        var elements = $('<div></div>');
+                        elements.html(source);
+                        var titles = $('h1,h2,h3,h4,h5,h6', elements);
+
+                        var toc = $('<ol>',{'class':'showdown-toc'});
+
+                        var previousNodeName;
+                        titles.each((index, item) => {
+                            console.log(index,item);
+                            if (previousNodeName) {
+                                if (item.nodeName === previousNodeName) {
+                                    console.log('=');
+                                } else {
+                                    if (item.nodeName >= previousNodeName) {
+                                        console.log('>');
+                                    } else {
+                                        console.log('<');
+                                    }
+                                }
+                            }
+                            previousNodeName = item.nodeName;
+                        });
+                    }
+
+
+
+
+                    return source;
                 }
             }
 
