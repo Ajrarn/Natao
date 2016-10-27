@@ -11,9 +11,10 @@
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
-        });
+        }).hashPrefix('!');
 
-        $showdownProvider.loadExtension(myToc);
+        //$showdownProvider.loadExtension(myToc);
+        $showdownProvider.loadExtension(toc);
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',

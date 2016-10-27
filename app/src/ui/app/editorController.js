@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService, $scope, $anchorScroll,
                               focus,fileDialog,$location,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService, AppStateService, ShowDownUtilService) {
 
         var self = this;
@@ -299,7 +299,7 @@
                         self.currentMarkdown = docs[0];
                         //this one is for the watcher of <a href>
                         self.currentMarkdownCode = self.currentMarkdown.md;
-                        self.CodeMirrorUtilService.codeMirrorHooks();
+                        self.ShowDownUtilService.showDownHooks();
                         self.CssService.initCurrentById(self.currentMarkdown.css);
 
                         if (self.showTrash) {
@@ -946,6 +946,11 @@
 
             self.currentMarkdown = null;
         };
+
+        $scope.scrollTo = function(id) {
+            $location.hash(id);
+            $anchorScroll();
+        }
 
     }
 

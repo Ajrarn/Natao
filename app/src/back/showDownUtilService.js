@@ -10,10 +10,12 @@
     function run() {
     }
 
-    function ShowDownUtilService($timeout) {
+    function ShowDownUtilService($timeout, $anchorScroll, $location) {
 
         var self = this;
         self.$timeout = $timeout;
+        self.$anchorScroll = $anchorScroll;
+        self.$location = $location;
 
 
         /**
@@ -21,8 +23,16 @@
          */
         self.showDownHooks = function () {
             self.$timeout(function() {
-                $('.viewer a').not('[target="_self"]').on('click', function(){
+                // external links open in a browser
+                $('.viewer a').not('[href^="#"]').on('click', function(){
                     require('nw.gui').Shell.openExternal( this.href );
+                    return false;
+                });
+
+                // internal links generated bu showdown navigate with scrollTo
+                $('.viewer a[href^="#"]').on('click', function(eent){
+                    console.log('click', event.currentTarget.hash);
+                    self.scrollTo(event.currentTarget.hash.replace('#',''));
                     return false;
                 });
 
@@ -39,6 +49,11 @@
                     hljs.highlightBlock(block);
                 });
             },0,false);
+        };
+
+        self.scrollTo = function(id) {
+            $location.hash(id);
+            $anchorScroll();
         };
 
         return self;
