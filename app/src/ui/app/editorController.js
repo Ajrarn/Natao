@@ -10,7 +10,7 @@
         .controller('EditorController', EditorController);
 
 
-    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService, $scope, $anchorScroll,
+    function EditorController($timeout,$translate,PreferencesService,PrincipalTreeService,TrashTreeService,TreeUtilService,CssService,TemplateTreeService,
                               focus,fileDialog,$location,DocumentsService,$rootScope,MessageService,OnBoardingService,CodeMirrorUtilService, AppStateService, ShowDownUtilService) {
 
         var self = this;
@@ -946,11 +946,6 @@
 
             self.currentMarkdown = null;
         };
-
-        $scope.scrollTo = function(id) {
-            $location.hash(id);
-            $anchorScroll();
-        }
 
     }
 

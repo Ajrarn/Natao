@@ -13,8 +13,8 @@
             requireBase: false
         }).hashPrefix('!');
 
-        //$showdownProvider.loadExtension(myToc);
-        $showdownProvider.loadExtension(toc);
+        $showdownProvider.loadExtension(myToc);
+        //$showdownProvider.loadExtension(toc);
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',
@@ -198,24 +198,80 @@
                         elements.html(source);
                         var titles = $('h1,h2,h3,h4,h5,h6', elements);
 
-                        var toc = $('<ol>',{'class':'showdown-toc'});
+                        /*var titleTree = {children:[]};
+                        var currentNode, parentNode;
+                        var pathNode = [];
 
-                        var previousNodeName;
+                        var previousNodeName = null;
                         titles.each((index, item) => {
-                            console.log(index,item);
                             if (previousNodeName) {
                                 if (item.nodeName === previousNodeName) {
                                     console.log('=');
+                                    currentNode = {item:item.id, children: []};
+                                    parentNode.children.push(currentNode);
+
                                 } else {
                                     if (item.nodeName >= previousNodeName) {
                                         console.log('>');
+                                        pathNode.push(parentNode);
+                                        parentNode = currentNode;
+                                        currentNode = {item:item.id, children: []};
+                                        parentNode.children.push(currentNode);
+
                                     } else {
                                         console.log('<');
+                                        parentNode = pathNode.pop();
+                                        currentNode = {item:item.id, children: []};
+                                        parentNode.children.push(currentNode);
                                     }
                                 }
+                            } else {
+                                currentNode = {item:item.id, children: []};
+                                titleTree.children.push(currentNode);
+                                parentNode = titleTree;
                             }
                             previousNodeName = item.nodeName;
                         });
+
+                        console.log('titleTree', titleTree);
+
+                        */
+                        var tocHtml = '<ol class="showdown-toc">';
+                        var nbOl = 1;
+
+                        var previouslevel = 0;
+                        var currentLevel;
+
+
+
+                        titles.each((index, item) => {
+                            if (previouslevel === 0) {
+                                currentLevel = parseInt(item.nodeName.replace('H', ''));
+                                console.log('currentLevel', currentLevel);
+                                tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                            } else {
+                                if (item.nodeName === previousNodeName) {
+                                    console.log('=');
+                                    tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                                } else {
+                                    if (item.nodeName >= previousNodeName) {
+                                        console.log('>');
+                                        nbOl++;
+                                        tocHtml = tocHtml + '<ol>';
+                                        tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+
+                                    } else {
+                                        console.log('<');
+                                        nbOl--;
+                                        tocHtml = tocHtml + '</ol>';
+                                        tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                                    }
+                                }
+
+                            }
+                        });
+
+                        console.log('tocHtml',tocHtml);
                     }
 
 
