@@ -193,10 +193,15 @@
             {
                 type: 'output',
                 filter: function(source) {
+
+                    var tocHtml;
+
                     if (source.indexOf('[toc]') > 0) {
                         var elements = $('<div></div>');
                         elements.html(source);
                         var titles = $('h1,h2,h3,h4,h5,h6', elements);
+
+                        console.log('titles', titles);
 
                         /*var titleTree = {children:[]};
                         var currentNode, parentNode;
@@ -236,46 +241,71 @@
                         console.log('titleTree', titleTree);
 
                         */
-                        var tocHtml = '<ol class="showdown-toc">';
-                        var nbOl = 1;
+                        tocHtml = '<ol class="showdown-toc">';
 
-                        var previouslevel = 0;
-                        var currentLevel;
+
+                        var previousLevel = 0;
+                        var currentLevel = 0;
 
 
 
                         titles.each((index, item) => {
-                            if (previouslevel === 0) {
-                                currentLevel = parseInt(item.nodeName.replace('H', ''));
-                                console.log('currentLevel', currentLevel);
-                                tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                            currentLevel = parseInt(item.nodeName.replace('H', ''));
+
+                            if (previousLevel === 0) {
+                                tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
                             } else {
-                                if (item.nodeName === previousNodeName) {
+                                if (currentLevel === previousLevel) {
                                     console.log('=');
-                                    tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                                    tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
                                 } else {
-                                    if (item.nodeName >= previousNodeName) {
+                                    if (currentLevel >= previousLevel) {
                                         console.log('>');
-                                        nbOl++;
                                         tocHtml = tocHtml + '<ol>';
-                                        tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                                        tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
 
                                     } else {
                                         console.log('<');
-                                        nbOl--;
-                                        tocHtml = tocHtml + '</ol>';
-                                        tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.nodeName +'</a>';
+                                        let nbDif = previousLevel - currentLevel;
+                                        console.log('nbDif', nbDif);
+                                        switch (previousLevel - currentLevel) {
+                                            case 2: tocHtml = tocHtml + '</ol></ol>';
+                                                break;
+                                            case 3: tocHtml = tocHtml + '</ol></ol></ol>';
+                                                break;
+                                            case 4: tocHtml = tocHtml + '</ol></ol></ol></ol>';
+                                                break;
+                                            case 5: tocHtml = tocHtml + '</ol></ol></ol></ol></ol>';
+                                                break;
+                                            default: tocHtml = tocHtml + '</ol>';
+                                                break;
+                                        }
+                                        tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
                                     }
                                 }
 
                             }
+                            previousLevel = currentLevel;
                         });
+                        switch (currentLevel) {
+                            case 2: tocHtml = tocHtml + '</ol></ol>';
+                                break;
+                            case 3: tocHtml = tocHtml + '</ol></ol></ol>';
+                                break;
+                            case 4: tocHtml = tocHtml + '</ol></ol></ol></ol>';
+                                break;
+                            case 5: tocHtml = tocHtml + '</ol></ol></ol></ol></ol>';
+                                break;
+                            default: tocHtml = tocHtml + '</ol>';
+                                break;
+                        }
 
-                        console.log('tocHtml',tocHtml);
+
                     }
 
-
-
+                    source = source.replace('[toc]', tocHtml);
+                    console.log('source', source);
+                    console.log('tocHtml',tocHtml);
 
                     return source;
                 }
