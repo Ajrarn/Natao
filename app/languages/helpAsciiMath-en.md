@@ -1,3 +1,4 @@
+[toc]
 # Writing formulae in AsciiMath
 
 When you use the AsciiMath syntax, you only need to surround your mathematical formula with two at-signs ( @@ ). The math portion of your text will then appear as an inline formula, within the rest of the text.

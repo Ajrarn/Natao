@@ -1,3 +1,5 @@
+[toc]
+
 Peut-être souhaites tu en savoir plus sur les raisons de faire ce logiciel, et sur la façon dont il est fait. Ce document est fait pour cela. Pour expliquer l'idée et les concepts derrière sa réalisation.
 
 # Pourquoi ?

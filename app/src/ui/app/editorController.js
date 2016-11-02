@@ -299,7 +299,7 @@
                         self.currentMarkdown = docs[0];
                         //this one is for the watcher of <a href>
                         self.currentMarkdownCode = self.currentMarkdown.md;
-                        self.CodeMirrorUtilService.codeMirrorHooks();
+                        self.ShowDownUtilService.showDownHooks();
                         self.CssService.initCurrentById(self.currentMarkdown.css);
 
                         if (self.showTrash) {

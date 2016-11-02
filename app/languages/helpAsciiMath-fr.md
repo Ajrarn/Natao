@@ -1,3 +1,4 @@
+[toc]
 # Comment signaler les formules AsciiMath
 Pour signaler une formule mathématique, il suffit de l'entourer de 2 @.
 Cela correspond à une formule dans la ligne courante. A toi de changer de paragraphe si tu souhaites la séparer du texte qui l'entoure.
