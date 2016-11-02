@@ -14,7 +14,6 @@
         }).hashPrefix('!');
 
         $showdownProvider.loadExtension(toc);
-        //$showdownProvider.loadExtension(toc);
 
         $translateProvider.useStaticFilesLoader({
             prefix: './languages/locale-',
@@ -53,10 +52,6 @@
                         elements.html(source);
                         var titles = $('h1,h2,h3,h4,h5,h6', elements);
 
-                        console.log('find', elements.find('p:contains("[toc]")'));
-
-                        console.log('titles', titles);
-
                         tocHtml = '<ol class="showdown-toc">';
 
 
@@ -70,18 +65,13 @@
                                 tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
                             } else {
                                 if (currentLevel === previousLevel) {
-                                    console.log('=');
                                     tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
                                 } else {
                                     if (currentLevel >= previousLevel) {
-                                        console.log('>');
                                         tocHtml = tocHtml + '<ol>';
                                         tocHtml = tocHtml + '<li><a href="#'+ item.id +'" target="_self">'+ item.textContent +'</a></li>';
 
                                     } else {
-                                        console.log('<');
-                                        let nbDif = previousLevel - currentLevel;
-                                        console.log('nbDif', nbDif);
                                         switch (previousLevel - currentLevel) {
                                             case 2: tocHtml = tocHtml + '</ol></ol>';
                                                 break;
@@ -118,15 +108,8 @@
 
 
                     }
-
-                    /*let tocDom = $('<div></div>');
-                    tocDom.html(tocHtml);*/
-
                     source = source.replace('<p>[toc]</p>', tocHtml);
-                    //elements.replaceWith('p:contains("[toc]")', tocDom);
-
                     return source;
-                    //return elements.html();
                 }
             }
 

@@ -24,13 +24,19 @@
         self.showDownHooks = function () {
             self.$timeout(function() {
                 // external links open in a browser
-                $('.viewer a').not('[href^="#"]').on('click', function(){
+                $('#viewer a').not('[href^="#"]').on('click', function(){
+                    require('nw.gui').Shell.openExternal( this.href );
+                    return false;
+                });
+
+                // external links open in a browser in help
+                $('.viewerHelp a').not('[href^="#"]').on('click', function(){
                     require('nw.gui').Shell.openExternal( this.href );
                     return false;
                 });
 
                 // internal links generated bu showdown navigate with scrollTo
-                $('.viewer a[href^="#"]').on('click', function(eent){
+                $('#viewer a[href^="#"]').on('click', function(event){
                     console.log('click', event.currentTarget.hash);
                     self.scrollTo(event.currentTarget.hash.replace('#',''));
                     return false;
