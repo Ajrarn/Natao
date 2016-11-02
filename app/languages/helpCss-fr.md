@@ -1,3 +1,5 @@
+[toc]
+
 # Introduction
 
 Ce document n'a pas pour vocation de t'expliquer tout le CSS, mais d'en comprendre au moins le minimum pour habiller tes documents Natao. Il n'est donc pas exhaustif.
@@ -5,8 +7,6 @@ Ce document n'a pas pour vocation de t'expliquer tout le CSS, mais d'en comprend
 Par contre, il y a de nombreuses notions à découvrir que tu pourrais trouver ardues. Si tu ne t'en sens pas le courage, et je peux le comprendre, fais toi aider par quelqu'un s'y connaissant un peu pour personnaliser tes feuilles de style. Il devrait trouver dans le présent document de précieuses informations pour l'aider.
 
 # Notions de HTML indispensables
-
-[toc]
 
 Avant de découvrir comment personnaliser les documents avec CSS, il faut comprendre comment ils sont construits.
 

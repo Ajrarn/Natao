@@ -1,3 +1,5 @@
+[toc]
+
 # Les bases
 
 Pour rédiger un texte avec Natao, tu vas devoir apprendre un nouveau langage.

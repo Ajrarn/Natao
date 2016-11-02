@@ -1,3 +1,5 @@
+[toc]
+
 # The Markdown Language
 
 To write a text with Natao, you are going to have to learn a new language called Markdown. Rest assured: this will be much easier than learning a foreign tongue.

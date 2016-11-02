@@ -1,3 +1,5 @@
+[toc]
+
 # Préférences
 
 Dans cette section, tu n'as que 3 parties à renseigner:

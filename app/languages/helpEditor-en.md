@@ -1,3 +1,5 @@
+[toc]
+
 # The main buttons bar
 
 ![Image of MenuBar](./src/images/menuBar.png)
