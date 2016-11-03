@@ -1,5 +1,5 @@
 {
-  "version":"0.17.1",
+  "version":"0.18.4",
   "downloadFolder":"build/downloads",
   "unzipFolder":"build/prepareNwjs",
   "buildFolder":"build/final",
