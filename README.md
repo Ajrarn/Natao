@@ -25,7 +25,7 @@ The other purpose is to help organize all these documents. So the document explo
 
 ## Screenshot
 
-[NataoScreen](./NataoScreen.png)
+![NataoScreen](./NataoScreen.png)
 
 ## Authors
 

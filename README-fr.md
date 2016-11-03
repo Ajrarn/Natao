@@ -24,7 +24,11 @@ C'est pourquoi il utilise le Markdown.
 
 L'autre objectif de Natao est d'aider à organiser ces documents. L'explorateur de documents permet donc de faciliter l'utilisation de structures de dossiers récurrentes.
 
-## Authors
+## Aperçu
+
+![NataoScreen](./NataoScreen.png)
+
+## Auteurs
 
 * **Christophe Dos Santos** - Développeur principal - [Ajrarn](https://github.com/Ajrarn)
 
@@ -34,7 +38,7 @@ Vous pouvez voir également la liste des [contributeurs](https://github.com/Ajra
 
 Ce projet est fourni sous  MIT License - voir [LICENSE](LICENSE) pour les détails.
 
-## Acknowledgments
+## Remerciements
 
 * Tous mes amis pour leurs tests, conseils et spécialement Alexandre Nothis pour ses traductions anglaises.
 * Anne Missotte, ergothérapeute, pour ses conseils.
