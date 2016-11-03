@@ -27,7 +27,7 @@ Oui, les # en début de ligne ont une signification. Ils disent à Natao:
 
 Non, ce n'est pas tout. Il y a encore d'autres options de mise en page à l'aide de caractères spéciaux.
 
-Il y a par exemple les \* qui permettent de valoriser des portions de texte, voici 2 exemples d'utilisation :
+Les \* qui permettent de valoriser des portions de texte, voici 2 exemples d'utilisation :
 - un *bout de texte en italique*.
 - un autre en **gras souligne**
 
@@ -47,12 +47,17 @@ Si tu choisis par exemple la feuille de style *Contrôle*, tu devrais voir appar
 
 Ces feuilles de style sont modifiables, et tu peux en créer de nouvelles qui s'appliqueront automatiquement à tout ton document.
 
-Et c'est dans ces feuilles de style que tu pourras lui dire que tu précisera que tu veux du rouge sur le texte en question.
+Et c'est dans ces feuilles de style que tu pourras lui préciser que tu veux du rouge sur le texte en question.
 
 # Aller plus loin
 Voila, tu connais les grandes lignes de cette application. Si tu souhaites aller plus loin, je t'invite à cliquer sur le point d'interrogation en haut à droite. Cela ouvrira une fenêtre avec l'aide qui te permettra de mieux découvrir Natao et tout ce que tu peux faire avec.
 
-Si tu souhaites imprimer l'aide, cliques sur le bouton *Réglages* en haut à droite, puis dans l'onglet *Autres*, et enfin sur le bouton *Importer*. Les fichiers qui composent l'aide apparaitront dans *Documents* et tu pourras les imprimer un à un.
+Si tu souhaites imprimer l'aide:
+- cliques sur le bouton *Réglages* en haut à droite,
+- puis dans l'onglet *Autres*,
+- et enfin sur le bouton *Importer*.
+
+Les fichiers qui composent l'aide apparaitront dans *Documents* et tu pourras les imprimer un à un.
 
 Si au contraire, tu n'y trouves rien d'intéressant, tant pis. J'espère que tu trouveras ce que tu cherches.
 

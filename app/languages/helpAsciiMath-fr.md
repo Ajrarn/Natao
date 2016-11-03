@@ -127,7 +127,7 @@ La plupart du temps, la portée des symboles s'applique au prochain caractère.
 
 >@@sqrt 1/3@@
 
-Si tu souhaites appliquer le symbole ou la fonction sur plusieurs caractères, il suffit de mettre des parenthèses autour de l'expression pour laquelle ceka va s'appliquer.
+Si tu souhaites appliquer le symbole ou la fonction sur plusieurs caractères, il suffit de mettre des parenthèses autour de l'expression pour laquelle cela va s'appliquer.
 
 	>@@sqrt(1/3)@@
 
@@ -321,7 +321,7 @@ On voit qu'ici, les parenthèses ne sont pas affichées, mais le symbole racine 
 
 # Tex
 
-Il existe d'autres syntaxes pour écrire des formules mathématiques, la plus connue est TeX, et pour les utilisateurs qui connaisse déjà cette syntaxe, elle a été incluse dans Natao.
+Il existe d'autres syntaxes pour écrire des formules mathématiques, la plus connue est TeX, et pour les utilisateurs qui connaissent déjà cette syntaxe, elle a été incluse dans Natao.
 
 ## Comment signaler les formules TeX
 Pour TeX, il existe 2 signalétiques, la première permet d'utiliser des formules dans la ligne courante et utilise 2 $.

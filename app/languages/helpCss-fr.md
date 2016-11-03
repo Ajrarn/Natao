@@ -296,7 +296,7 @@ Tu peux aussi appliquer une règle à plusieurs sélecteurs, en les séparant pa
 
 Ainsi, la règle s'applique à tous les éléments *h1* et à la boite *header*.
 
-## Sélectionner les descendants de
+## Sélectionner les descendants d'une boite
 
 Tu peux sélectionner les descendants de boites en mettant un espace entre le parent et le descendant :
 
@@ -385,7 +385,7 @@ c'est à dire commençant par un # suivi de 6 chiffres.
 
 Une fois que tu as tapé ce texte (#111111;), cliques dessus pour le voir apparaître.
 
-![Chois de couleur](./src/images/thistle.png)
+![Choix de couleur](./src/images/thistle.png)
 
 Tu peux y voir 3 composants:
 
@@ -607,7 +607,7 @@ La propriété *text-align* permet de choisir l'alignement du texte. Elle peut a
     
 Pour les vers d'une poésie par exemple.
 
-## Indenter la première ligne
+## Décaler / Indenter la première ligne
 
 La propriété *text-indent* permet d'indenter la première ligne d'une boite de texte:
 

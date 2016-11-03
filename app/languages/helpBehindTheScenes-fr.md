@@ -31,7 +31,7 @@ Les développeurs ont-ils un traitement de texte plus facile ?
 
 ### LaTeX
 
-Oui... et Non. Je ne vais pas parler au nom de tous les développeurs, car tous ne s'en servent pas, mais nous disposons d'un formidable *Traitement de texte* appelé **LaTeX**. Formidable, car il permet à celui qui le comprends de rédiger des documents d'une qualité irréprochable, sans avoir l'impression d'utiliser un *Traitement de texte* classique. Mais inaccessible pour le commun des mortels, car il faut littéralement coder son document.
+Oui... et Non. Je ne vais pas parler au nom de tous les développeurs, car tous ne s'en servent pas, mais nous disposons d'un formidable *Traitement de texte* appelé **LaTeX**. Formidable, car il permet à celui qui le comprend de rédiger des documents d'une qualité irréprochable, sans avoir l'impression d'utiliser un *Traitement de texte* classique. Mais inaccessible pour le commun des mortels, car il faut littéralement coder son document.
 
 Mais LaTeX m'a appris quelque chose de fondamental : **Séparer la forme du contenu**.
 
@@ -88,8 +88,8 @@ Une base de données qui tourne nativement sous Node.js et qui permet notamment 
 C'est le framework javascript développée par Google qui sert de pierre angulaire à l'application Natao.
 
 ## OpenDyslexic
-Je parle de celui-ci, car quand j'ai cherché une police pour dyslexique, je n'en ai trouvé qu'une seule d'open-source et plusieurs payantes. Très honnêtement, cela me désole qu'elles ne soient pas toutes open-source et gratuites...
-Donc, un grand merci pour cette initiative
+Quand j'ai cherché une police pour dyslexique, je n'en ai trouvé qu'une seule d'open-source et plusieurs payantes. Très honnêtement, cela me désole qu'elles ne soient pas toutes open-source et gratuites...
+Donc, un grand merci pour cette initiative.
 
 ## Et les autres
 Il y a plusieurs librairies utilisées pour développer Natao, je vais essayer de les lister:

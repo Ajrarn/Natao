@@ -231,7 +231,7 @@ class MyClass extends MyfirstClass {
 
 # Listes
 
-## listes non ordonnées
+## Listes non ordonnées
 
 Tu peux créer une liste non ordonnée en mettant devant chaque article un \* ou un -, tous deux suivis d'un espace.
 
@@ -319,16 +319,16 @@ Commençons par le plus simple des tableaux.
 
 Nous avons tout simplement représenté 2 colonne en entourant le contenu de chaque colonne par les pipes (|).
 
-Nous avons également séparé l'entête du tableau, du reste des données par une ligne avec un tiret (-) dans chaque colonne.
+Nous avons également séparé l'en-tête du tableau, du reste des données par une ligne avec un tiret (-) dans chaque colonne.
 
-L'entête est valorisé et se différencie du contenu du tableau.
+L'en-tête est valorisé et se différencie du contenu du tableau.
 
 ## Aspect dans l'éditeur
 
 Examinons le tableau suivant:
 
 	::gfm
-    |Un joli entête|
+    |Un joli en-tête|
 	|----|
 	|b                       |
     |c'est bizarre|
@@ -336,7 +336,7 @@ Examinons le tableau suivant:
 
 **donne ceci**:
     
-|Un joli entête|
+|Un joli en-tête|
 |----|
 |b                       |
 |c'est bizarre|
@@ -345,14 +345,14 @@ Examinons le tableau suivant:
 Notes que le résultat est un tableau correct, alors que le texte dans l'éditeur est difficile à associer à un tableau.
 
 Mais regardons de plus près:
-- le nombre de tirets entre 2 pipes n'a pas d'importance et sépare bien l'entête du reste des valeurs.
+- le nombre de tirets entre 2 pipes n'a pas d'importance et sépare bien l'en-tête du reste des valeurs.
 - le nombre d'espaces n'impacte pas non plus l'aspect du tableau
 - Ce qui compte c'est que les contenus des colonnes soient entourés par des pipes.
 
 Notre tableau est syntaxiquement correct, mais n'est pas très lisible dans l'éditeur. Essayons de le rendre lisible.
 
 	::gfm
-    |Un joli entête|
+    |Un joli en-tête|
 	|--------------|
 	|b             |
 	|c'est bizarre |
@@ -360,7 +360,7 @@ Notre tableau est syntaxiquement correct, mais n'est pas très lisible dans l'é
     
 Ce tableau qui nous donne le même résultat est plus facile à lire.
 
-|Un joli entête|
+|Un joli en-tête|
 |--------------|
 |b             |
 |c'est bizarre |
@@ -371,7 +371,7 @@ Ce tableau qui nous donne le même résultat est plus facile à lire.
 Nous allons maintenant préciser pour chaque colonne comment aligner les colonnes de données. Le tableau suivant:
 
 	::gfm
-	|Un joli entête|Un joli entête bis  |
+	|Un joli en-tête|Un joli en-tête bis  |
 	|:------------:|-------------------:|
 	|b             |b                   |
 	|c'est bizarre |c'est pas si bizarre|
@@ -379,13 +379,13 @@ Nous allons maintenant préciser pour chaque colonne comment aligner les colonne
     
 **donne ceci**:
     
-|Un joli entête|Un joli entête bis  |
+|Un joli en-tête|Un joli en-tête bis  |
 |:------------:|-------------------:|
 |b             |b                   |
 |c'est bizarre |c'est pas si bizarre|
 |d             |d                   |
 
-La ligne qui sert de séparateur entre l'entête et les données a été agrémenté de nouveaux symboles: les deux-points(:).
+La ligne qui sert de séparateur entre l'en-tête et les données a été agrémenté de nouveaux symboles: les deux-points(:).
 
 - Si l'on entoure les tirets de deux-points(:), l'alignement est centré.
 - Si l'on met les deux-points(:) à la fin, l'alignement est à droite.

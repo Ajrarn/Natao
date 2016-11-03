@@ -5,7 +5,7 @@
 Dans cette section, tu n'as que 3 parties à renseigner:
 ## Ton fichier base de données
 
-c'est l'endroit ou est stocké le fichier contenant tous tes documents Natao
+c'est l'endroit où est stocké le fichier contenant tous tes documents Natao
 
 
 ## Ton identité
