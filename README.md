@@ -14,7 +14,7 @@ You only need to download Natao for your OS in the releases part:
 
 Unzip it where you want, and start Natao.
 
-## Why another one Markdown Editor ?
+## Why another Markdown Editor ?
 
 It is first an editor to write elegant lessons and school works with as less efforts as possible.
 
@@ -22,6 +22,10 @@ So this is why it use Markdown.
 
 The other purpose is to help organize all these documents. So the document explorer is made to help recurrent patterns in document organization.
 
+
+## Screenshot
+
+[NataoScreen](./NataoScreen.png)
 
 ## Authors
 
