@@ -8,6 +8,8 @@ Par contre, il y a de nombreuses notions à découvrir que tu pourrais trouver a
 
 # Notions de HTML indispensables
 
+
+
 Avant de découvrir comment personnaliser les documents avec CSS, il faut comprendre comment ils sont construits.
 
 ## XML
@@ -198,7 +200,7 @@ Sa disposition est en colonne et on peut voir qu'elle contient 3 boites intéres
 </div>
 ```
     
-Ce dernier est composé de 2 boites:
+Cette dernière est composée de 2 boites:
 - *identity*
 - *title-zone*
 
@@ -225,7 +227,7 @@ C'est une boite vide, qui servira à créer un espace de notation entre le titre
         </div>
    	</div>
 
-Ce dernier est lui même composé de 2 boites qu'il va disposer en ligne:
+Cette dernière est elle-même composé de 2 boites qu'elle va disposer en ligne:
 - *margin* qui est une marge à gauche permettant à ton enseignant de corriger ton devoir.
 - *made* qui est la zone de rendu de ton document Markdown.
 
@@ -296,7 +298,7 @@ Tu peux aussi appliquer une règle à plusieurs sélecteurs, en les séparant pa
 
 Ainsi, la règle s'applique à tous les éléments *h1* et à la boite *header*.
 
-## Sélectionner les descendants d'une boite
+## Sélectionner les descendants de
 
 Tu peux sélectionner les descendants de boites en mettant un espace entre le parent et le descendant :
 
@@ -385,7 +387,7 @@ c'est à dire commençant par un # suivi de 6 chiffres.
 
 Une fois que tu as tapé ce texte (#111111;), cliques dessus pour le voir apparaître.
 
-![Choix de couleur](./src/images/thistle.png)
+![Chois de couleur](./src/images/thistle.png)
 
 Tu peux y voir 3 composants:
 
@@ -607,7 +609,7 @@ La propriété *text-align* permet de choisir l'alignement du texte. Elle peut a
     
 Pour les vers d'une poésie par exemple.
 
-## Décaler / Indenter la première ligne
+## Indenter la première ligne
 
 La propriété *text-indent* permet d'indenter la première ligne d'une boite de texte:
 
@@ -794,5 +796,5 @@ Voici les différentes valeurs possibles, et quand je le sais à quoi ça corres
 - *lower-alpha* en lettres en minuscule,
 - *upper-alpha* en lettre en majuscule.
 
-    
+
 
