@@ -201,7 +201,7 @@
                         <div  layout="row" layout-align="space-between center">
                             <label for="document" layout="row" layout-align="start center">
                                 <p>{{ 'SETTING_DOCUMENT_TEST' | translate }}</p>
-                                <select id="document" ng-model="SettingCtrl.currentDoc"
+                                <select id="document" ng-model="SettingCtrl.currentDoc" ng-disabled="SettingCtrl.disableDocumentChoice"
                                         ng-options="document as document.title for document in SettingCtrl.documents"
                                         ng-change="SettingCtrl.changeDocument()"></select>
                             </label>
@@ -230,7 +230,7 @@
                                 <div id="separator"></div>
                                 <div id="content" flex layout="row" layout-align="start stretch">
                                     <div id="margin"></div>
-                                    <div id="made" markdown-to-html="SettingCtrl.currentDoc.md" flex></div>
+                                    <div id="made" markdown-to-html="SettingCtrl.currentDoc.md"></div>
                                 </div>
                             </div>
                         </div>

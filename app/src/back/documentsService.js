@@ -22,6 +22,10 @@
         self.getDocuments = function() {
             return self.DatabaseService.find({docName:'markdown'});
         };
+
+        self.getDocumentsByCss = function(css) {
+            return self.DatabaseService.find({docName:'markdown', css: css});
+        };
         
         self.findDocument = function(id) {
             return self.DatabaseService.find({docName:'markdown',_id: id});

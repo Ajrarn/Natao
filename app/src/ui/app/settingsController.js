@@ -37,11 +37,9 @@
         self.MessageService.changeMessage('');
         self.viewer = true;
         self.checkmark = false;
+        self.disableDocumentChoice = true;
 
-        //init currentDoc
-        self.currentDoc = {
-            md:''
-        };
+
 
         self.buffer = null;
         self.nodesPendingPaste = 0;
@@ -73,12 +71,18 @@
             self.ShowDownUtilService.showDownHooks();
         });
 
+        /**
+         * reset the current doc in the css part
+         */
+        self.resetCurrentDoc = function() {
+            self.currentDoc = {
+                md:''
+            };
+        };
+        //init currentDoc
+        self.resetCurrentDoc();
 
 
-        self.documentsPromise = self.DocumentsService.getDocuments();
-        self.documentsPromise.then(function(docs) {
-            self.documents = docs;
-        });
         
         self.setCssEditor = function(editor) {
             self.cssEditor = editor;
@@ -129,11 +133,24 @@
             self.currentHTML = self.$showdown.makeHtml(self.currentDoc.md);
             self.allHtml();
         };
+
+        self.changeDocumentChoice = function() {
+            self.resetCurrentDoc();
+
+            self.documentsPromise = self.DocumentsService.getDocumentsByCss(self.currentCss._id);
+            self.documentsPromise.then(function(docs) {
+                self.documents = docs;
+                self.disableDocumentChoice = false;
+            });
+
+        };
         
 
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
             self.focus('cssEditor');
+
+            self.changeDocumentChoice();
         };
 
         self.initAddCss= function() {
@@ -157,6 +174,8 @@
         self.deleteCss = function(hide) {
             self.CssService.deleteCss(self.currentCss);
             self.currentCss = null;
+            self.resetCurrentDoc();
+            self.disableDocumentChoice = true;
             self.CssService.initCurrentByContent('');
             hide();
         };
@@ -175,7 +194,7 @@
                 '<p>' + self.PreferencesService.preferences.firstName +'</p>' +
                 '<p>' + self.PreferencesService.preferences.className + '</p>' +
                 '</div>' +
-                '<div id="titleZone" flex layout="column" layout-align="center center">' +
+                '<div id="title-zone" flex layout="column" layout-align="center center">' +
                 '<h1>' + self.currentDoc.title +'</h1>' +
                 '<p id="dateCreated">' + self.currentDoc.created + '</p>' +
                 '</div>' +

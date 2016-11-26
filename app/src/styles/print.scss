@@ -2,6 +2,12 @@
 @import 'layout';
 @import 'opendyslexic';
 
+
+body, div {
+  max-width: 21cm;
+}
+
+
 .dyslexic {
   font-family: opendyslexic !important;
 }

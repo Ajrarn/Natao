@@ -13,9 +13,10 @@
 
 #made {
     padding:20px;
+    min-width: 100%;
 }
 
-#titleZone > h1 {
+#title-zone > h1 {
     text-align: center;
 }
 
@@ -32,4 +33,8 @@
     margin-top: 50px;
     text-align:right;
     font-size:1.4em;
+}
+
+strong {
+    text-decoration: underline;
 }

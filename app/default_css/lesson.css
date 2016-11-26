@@ -15,7 +15,7 @@
     padding:20px;
 }
 
-#titleZone > h1 {
+#title-zone > h1 {
     text-align: center;
     font-size: 2em;
     color: red;
@@ -30,7 +30,7 @@
 }
 
 #made .typcn {
-     font-size: 1.7em;
+    font-size: 1.7em;
 }
 
 /* Table */
@@ -38,15 +38,18 @@
     border-collapse: collapse;
     margin-left:auto;
     margin-right:auto;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(211, 202, 221);
 }
 
 #made table thead, .made table tr {
     border-top-width: 1px;
     border-top-style: solid;
-    border-top-color: rgb(214,221,202);
+    border-top-color: rgb(211, 202, 221);
 }
 
-#made table {
+#made table thead tr{
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgb(211, 202, 221);
@@ -57,12 +60,12 @@
     padding: 5px 10px;
     font-size: 12px;
     font-family: Verdana;
-    color: rgb(96,120,73);
+    color: rgb(95, 74, 121);
 }
 
 /* Alternating background colors */
 #made table tr:nth-child(even) {
-    background: rgb(218,232,216)
+    background: rgb(223, 216, 232)
 }
 #made table tr:nth-child(odd) {
     background: #FFF

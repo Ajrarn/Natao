@@ -2150,6 +2150,9 @@
   src: url("../../bower_components/open-dyslexic/otf/OpenDyslexicAlta-BoldItalic.otf");
   font-weight: bold;
   font-style: italic; }
+body, div {
+  max-width: 21cm; }
+
 .dyslexic {
   font-family: opendyslexic !important; }
 

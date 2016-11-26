@@ -297,6 +297,7 @@
                 .then(function(docs){
                     if (docs && docs.length > 0){
                         self.currentMarkdown = docs[0];
+                        console.log(self.currentMarkdown);
                         //this one is for the watcher of <a href>
                         self.currentMarkdownCode = self.currentMarkdown.md;
                         self.ShowDownUtilService.showDownHooks();

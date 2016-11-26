@@ -99,11 +99,8 @@
 
 
         self.print = function() {
-            //setTimeout(function() {
-                window.print();
-                window.close();
-            //}, 1500);
-
+            window.print();
+            window.close();
         };
 
 
