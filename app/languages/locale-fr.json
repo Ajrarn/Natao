@@ -66,7 +66,7 @@
   "NO_DOCUMENT":"Aucun document sélectionné",
   "CONFIRM_DELETE_FOLDER":"Es tu sûr de vouloir supprimer ce dossier ?",
   "CONFIRM_DELETE_DOCUMENT":"Es tu sûr de vouloir supprimer ce document ?",
-  "CONFIRM_DELETE_CSS":"Es tu sûr de vouloir supprimer cette feuille de style ?",
+  "CONFIRM_DELETE_CSS":"Es tu sûr de vouloir supprimer cette feuille de style, et la remplacer dans les documents par la suivante ?",
   "CONFIRM_DELETE_TEMPLATE":"Es tu sûr de vouloir supprimer ce modèle de structure ?",
   "CONFIRM_SAVE_TEMPLATE":"Es tu sur de vouloir remplacer la structure existante par celle-ci ?",
   "YES":"Oui",

@@ -38,6 +38,7 @@
         self.viewer = true;
         self.checkmark = false;
         self.disableDocumentChoice = true;
+        self.otherAvailableCss = [];
 
 
 
@@ -83,24 +84,34 @@
         self.resetCurrentDoc();
 
 
-        
+        /**
+         * this function set the css editor and associate Inlet to it
+         * @param editor
+         */
         self.setCssEditor = function(editor) {
             self.cssEditor = editor;
             Inlet(editor);
         };
 
-
+        /**
+         * check if a css is valid
+         */
         self.settingsValide = function() {
             self.valid = self.PreferencesService.isValid();
         };
 
-       
 
+        /**
+         * save editor preferences
+         */
         self.save = function() {
             self.PreferencesService.save();
             $location.path( '/editor' );
         };
 
+        /**
+         * set a new database file
+         */
         self.newDatabase = function() {
             self.fileDialog.saveAs(function(filename) {
                 self.PreferencesService.settings.fileDatabase = filename;
@@ -111,6 +122,9 @@
             },'Natao.db',['db']);
         };
 
+        /**
+         * choose an existing database file
+         */
         self.chooseDatabase = function() {
             self.fileDialog.openFile(function(filename){
                 self.PreferencesService.settings.fileDatabase = filename;
@@ -122,42 +136,74 @@
 
         /* *************CSS**************** */
 
-        self.saveCss = function(e) {
+        /**
+         * save the current css
+         */
+        self.saveCss = function() {
             if (self.currentCss) {
                 self.CssService.initCurrentByContent(self.currentCss.css);
                 self.CssService.saveCss(self.currentCss);
             }
         };
 
+        /**
+         * change the current html
+         */
         self.changeDocument = function() {
             self.currentHTML = self.$showdown.makeHtml(self.currentDoc.md);
             self.allHtml();
         };
 
+        /**
+         * change the choice of documents for example
+         */
         self.changeDocumentChoice = function() {
             self.resetCurrentDoc();
 
             self.documentsPromise = self.DocumentsService.getDocumentsByCss(self.currentCss._id);
             self.documentsPromise.then(function(docs) {
-                self.documents = docs;
-                self.disableDocumentChoice = false;
+                if (!docs || docs.length === 0) {
+                    self.documentsPromise = self.DocumentsService.getDocumentsByCss();
+                    self.documentsPromise.then(function(docs) {
+                        self.documents = docs;
+                        self.disableDocumentChoice = false;
+                    }).catch((err) => {
+                        console.error(err);
+                    })
+                } else {
+                    self.documents = docs;
+                    self.disableDocumentChoice = false;
+                }
+            }).catch((err) => {
+                console.error(err);
             });
-
         };
-        
 
+
+        /**
+         * change the current css
+         */
         self.changeCss = function() {
             self.CssService.initCurrentByContent(self.currentCss.css);
             self.focus('cssEditor');
 
             self.changeDocumentChoice();
+
+            self.otherAvailableCss = self.CssService.otherCss(self.currentCss);
         };
 
+        /**
+         * init the popup to add new css
+         */
         self.initAddCss= function() {
             self.newCssName = null;
             self.focus('addCssName');
         };
 
+        /**
+         * add a new css from the popup add
+         * @param hide
+         */
         self.addCss = function(hide) {
             self.CssService.addCssNamed(self.newCssName)
                 .then(function(res) {
@@ -171,8 +217,12 @@
             hide();
         };
 
+        /**
+         * delete a css from the popup delete
+         * @param hide
+         */
         self.deleteCss = function(hide) {
-            self.CssService.deleteCss(self.currentCss);
+            self.CssService.deleteCss(self.currentCss, self.currentReplaceCss);
             self.currentCss = null;
             self.resetCurrentDoc();
             self.disableDocumentChoice = true;
@@ -180,11 +230,18 @@
             hide();
         };
 
+        /**
+         * set the editor read only for the html part
+         * @param _editor
+         */
         self.editorReadOnly = function(_editor) {
             // Options
             _editor.setReadOnly(true);
         };
 
+        /**
+         * generate the html code used in the visualisation
+         */
         self.allHtml = function() {
 
             var completeHtml = '<div flex layout="column" layout-align="start stretch">' +
@@ -208,6 +265,11 @@
             self.currentHtmlAll = beautify_html(completeHtml);
         };
 
+
+        /**
+         * the option tree used in codeMirror
+         * @type {{nodeChildren: string, dirSelectable: boolean, injectClasses: {ul: string, li: string, liSelected: string, iExpanded: string, iCollapsed: string, iLeaf: string, label: string, labelSelected: string}, isLeaf: SettingsController.treeOptions.isLeaf}}
+         */
         self.treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,
@@ -229,18 +291,27 @@
 
         /* *************Templates**************** */
 
-        self.saveTemplate = function(e) {
+        /**
+         * save the current template
+         */
+        self.saveTemplate = function() {
             if (self.currentTemplate) {
                 self.TemplateTreeService.saveTemplate(self.currentTemplate);
             }
         };
-        
 
+        /**
+         * init the popu to add template
+         */
         self.initAddTemplate= function() {
             self.newTemplateName = null;
             self.focus('addTemplateName');
         };
 
+        /**
+         * add a template from the popup
+         * @param hide
+         */
         self.addTemplate = function(hide) {
             self.TemplateTreeService.addTemplate(self.newTemplateName)
                 .then(function(res) {
@@ -252,13 +323,21 @@
             hide();
         };
 
+        /**
+         * delete a template from the popup
+         * @param hide
+         */
         self.deleteTemplate = function(hide) {
             self.TemplateTreeService.deleteTemplate(self.currentTemplate);
             self.currentTemplate = null;
             hide();
         };
 
-        // the possible values of folderPopover are ['buttonBar','edit','addFolder','delete']
+        /**
+         * open th popover with all functionnalities
+         * the possible values of folderPopover are ['buttonBar','edit','addFolder','delete']
+         * @param node
+         */
         self.openFolderPopover = function(node) {
             self.currentNode = node;
             self.newNameFolder = node.name;
@@ -267,16 +346,25 @@
             self.newColor = node.color;
         };
 
+        /**
+         * return true if there is something in the buffer
+         * @returns {boolean}
+         */
         self.pasteButtonDisabled = function() {
             return !(self.buffer);
         };
 
+        /**
+         * the popover in edit mode
+         */
         self.editFolder = function() {
             self.folderPopover = 'edit';
             self.focus('folderName');
         };
 
-
+        /**
+         * the popover in add mode
+         */
         self.openAddFolder = function() {
             self.newFolderName = null;
             self.folderPopover = 'addFolder';
@@ -284,22 +372,36 @@
             self.focus('addFolderName');
         };
 
-
+        /**
+         * the popover in delete mode
+         */
         self.openDelete = function() {
             self.folderPopover = 'delete';
             self.cancel = false;
         };
 
+        /**
+         * the popover in confirm mode
+         */
         self.openConfirmTemplate = function() {
             self.folderPopover = 'confirmTemplate';
             self.cancel = false;
         };
 
+        /**
+         * the cancel action from popover
+         * @param hide
+         */
         self.cancelAction = function(hide) {
             self.cancel = true;
             hide();
         };
 
+        /**
+         * the submit action from popover
+         * with different modes
+         * @param hide
+         */
         self.submitFolderPopover = function(hide){
             switch (self.folderPopover) {
                 case 'edit':
@@ -319,6 +421,10 @@
             }
         };
 
+        /**
+         * copy folder in buffer
+         * @param hide
+         */
         self.copyFolder = function(hide) {
 
             self.TreeUtilService
@@ -332,6 +438,10 @@
             hide();
         };
 
+        /**
+         * cut folder in buffer
+         * @param hide
+         */
         self.cutFolder = function(hide) {
 
             self.TreeUtilService
@@ -348,6 +458,10 @@
         };
 
 
+        /**
+         * paste from buffer
+         * @param hide
+         */
         self.pasteFolder = function(hide) {
 
             if (self.buffer) {
@@ -368,6 +482,10 @@
 
         };
 
+        /**
+         * add a new folder from popover
+         * @param hide
+         */
         self.addFolder = function(hide) {
             if (self.newFolderName && self.newFolderName.length > 0) {
                 var newNode = {
@@ -393,6 +511,10 @@
             hide();
         };
 
+        /**
+         * save the folder from popover
+          * @param hide
+         */
         self.saveFolder = function(hide) {
             if (self.newNameFolder && self.newNameFolder.length > 0) {
                 self.currentNode.name = self.newNameFolder;
@@ -405,6 +527,10 @@
             }
         };
 
+        /**
+         * delete node from  the template tree
+         * @param node
+         */
         self.deleteNode = function(node) {
 
             // delete the selectednode if it is the current node
@@ -431,8 +557,11 @@
 
 
         };
-        
 
+        /**
+         * expande a node
+         * @param node
+         */
         self.expand = function(node) {
             if (self.expandedNodes.indexOf(node) < 0) {
                 self.expandedNodes.push(node);
@@ -441,6 +570,11 @@
 
 
         /* ***************************** */
+        /**
+         * handle the drop
+         * @param item
+         * @param bin
+         */
         self.handleDrop = function(item, bin) {
 
             var nodeDrag = self.TreeUtilService.getNode(item,self.currentTemplate);
@@ -461,18 +595,36 @@
             }
         };
 
+        /**
+         * return true if a node is the first child the current template
+         * @param node
+         */
         self.isFirstChild = function(node) {
             return self.TreeUtilService.isFirstChild(node,self.currentTemplate);
         };
-        
+
+        /**
+         * return true if the node is expanded
+         * @param node
+         * @returns {*|boolean}
+         */
         self.isExpanded = function(node) {
             return self.expandedNodes && self.expandedNodes.indexOf(node) >= 0;
         };
 
+        /**
+         * return true if a node isn't expanded and have children
+         * @param node
+         * @returns {boolean}
+         */
         self.showAfter = function(node) {
             return !(self.isExpanded(node) && node.children.length > 0);
         };
 
+        /**
+         * change the text in the messages zone
+         * @param message
+         */
         self.changeButtonText = function(message) {
             self.MessageService.changeMessage(message);
         };
@@ -488,11 +640,17 @@
 
         self.onboardingEnabledStyle = self.OnBoardingService.startFirstTour('Style');
 
+        /**
+         * finish the tour for the css
+         */
         self.finishTourStyle = function() {
             self.OnBoardingService.finishTour('Style');
             self.onboardingEnabledStyle = false;
         };
 
+        /**
+         * start the tour for the css
+         */
         self.startTourStyle = function() {
             self.onboardingIndexStyle = 0;
             self.onboardingEnabledStyle = true;
@@ -503,17 +661,25 @@
 
         self.onboardingEnabledTemplate = self.OnBoardingService.startFirstTour('Template');
 
+        /**
+         * finish the tour for the template
+         */
         self.finishTourTemplate = function() {
             self.OnBoardingService.finishTour('Template');
             self.onboardingEnabledTemplate = false;
         };
 
+        /**
+         * start the tour for the template
+         */
         self.startTourTemplate = function() {
             self.onboardingIndexTemplate = 0;
             self.onboardingEnabledTemplate = true;
         };
 
-
+        /**
+         * import help files
+         */
         self.importHelpFiles = () => {
             self.PrincipalTreeService.addHelpFiles()
                 .then(() => {

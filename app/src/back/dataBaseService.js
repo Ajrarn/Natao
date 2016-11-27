@@ -57,17 +57,29 @@
          * find a document
          * return a promise
          * @param findParams
+         * @param limit the number of occurences (if none, no limit)
          * @returns {*}
          */
-        self.find = function(findParams) {
+        self.find = function(findParams, limit) {
             return self.$q(function(resolve,reject) {
-                self.db.find(findParams,function(err,docs) {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(docs);
-                    }
-                });
+                if (limit) {
+                    self.db.find(findParams).limit(limit).exec(function(err,docs) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(docs);
+                        }
+                    });
+                } else {
+                    self.db.find(findParams,function(err,docs) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(docs);
+                        }
+                    });
+                }
+
             });
         };
 
@@ -89,6 +101,24 @@
                         reject(err);
                     } else {
                         resolve(doc);
+                    }
+                });
+            });
+        };
+
+        /**
+         * update multiple documents
+         * @param query
+         * @param set
+         * @returns {*}
+         */
+        self.updateMassive = (query, set) => {
+            return self.$q((resolve,reject) => {
+                self.db.update(query, {$set: set}, {multi: true}, (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
                     }
                 });
             });

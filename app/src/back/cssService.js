@@ -5,6 +5,11 @@
         ,fs = require('fs')
         ,cssParser = require('css');
 
+    const defaultCss = '#title-zone {\r'+
+           '\t color: #000000;\r'+
+        '}';
+
+
 
     angular
         .module('Natao')
@@ -134,7 +139,7 @@
                 docName:'css',
                 name: nameCss,
                 default: false,
-                css: null
+                css: defaultCss
             };
             
 
@@ -234,24 +239,44 @@
          * delete a css document from the database
          * @param css
          */
-        self.deleteCss = function(css) {
+        self.deleteCss = function(css, replacement) {
             if (css._id) {
-                self.AppStateService.startWrite();
-                var indexCss = _.findIndex(self.availableCss,{_id:css._id});
 
-                if (indexCss && indexCss >= 0) {
-                    self.availableCss.splice(indexCss,1);
-                }
-                
+                var indexCss = _.findIndex(self.availableCss,{_id: css._id});
+
+                self.AppStateService.startWrite();
                 self.DatabaseService
-                    .remove(css._id)
+                    .updateMassive({css: css._id}, {css: replacement._id})
                     .then(() => {
+                        // end of update
                         self.AppStateService.stopWrite();
-                    })
-                    .catch(function(err) {
+                        // then we can delete the css not used
+                        self.AppStateService.startWrite();
+                        self.DatabaseService
+                            .delete(css._id)
+                            .then(() => {
+                                self.AppStateService.stopWrite();
+
+                                // reload the available css
+                                self.DatabaseService
+                                    .find({docName:'css'})
+                                    .then(function(docs) {
+                                        self.availableCss = docs;
+                                    }).catch((err) => {
+                                        console.error(err);
+                                    });
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                                self.AppStateService.stopWrite();
+                            });
+
+                    }).catch((err) => {
                         console.error(err);
                         self.AppStateService.stopWrite();
                     });
+                
+
             }
         };
 
@@ -284,6 +309,16 @@
 
             return cssParser.stringify(objCss);
 
+        };
+
+        /**
+         * get a list of all other css than those given
+         * @param css
+         */
+        self.otherCss = (css) => {
+            return self.availableCss.filter((item) => {
+                return item._id !== css._id;
+            });
         };
 
         return self;

@@ -24,7 +24,11 @@
         };
 
         self.getDocumentsByCss = function(css) {
-            return self.DatabaseService.find({docName:'markdown', css: css});
+            if (css) {
+                return self.DatabaseService.find({docName:'markdown', css: css}, 5);
+            } else {
+                return self.DatabaseService.find({docName:'markdown'}, 5);
+            }
         };
         
         self.findDocument = function(id) {

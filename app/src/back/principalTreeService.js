@@ -95,7 +95,7 @@
 
                                 self.principalTree.expandedNodes.push(node);
 
-                                var welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
+                                let welcomeMd = fs.readFileSync('./languages/welcome-' + self.$translate.use() + '.md','utf8');
 
                                 self.DocumentsService
                                     .addDocument(self.principalTree.tree.defaultCss,translation,welcomeMd)

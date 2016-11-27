@@ -31,7 +31,6 @@
 
                 // internal links generated bu showdown navigate with scrollTo
                 $('#viewer a[href^="#"]').on('click', function(event){
-                    console.log('click', event.currentTarget.hash);
                     self.scrollTo(event.currentTarget.hash.replace('#',''));
                     return false;
                 });
