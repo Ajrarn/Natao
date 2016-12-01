@@ -2,26 +2,25 @@
 
 # Natao
 
-Natao is a Markdown editor specially made for student who are dyspraxic, dysgraphic or dyslexic.
+Natao is a Markdown Editor that has been specifically designed to help dyspraxic, dysgraphic and dyslexic students easily produce
+their homework and compose school/college essays.
 
-It is made to work on MacOs, Windows and Linux.
+Natao is Operating System (OS) independent: it works equally well on OSX, Linux and Windows machines.
 
 ## Getting Started
 
-You only need to download Natao for your OS in the releases part:
+Find the Natao release that corresponds to your computer's OS here:
 
 [releases](https://github.com/Ajrarn/Natao/releases).
 
-Unzip it where you want, and start Natao.
+Unzip the application's folder wherever you want on your computer, and start using Natao right away.
 
 ## Why another Markdown Editor ?
 
-It is first an editor to write elegant lessons and school works with as less efforts as possible.
+Unlike other more conventional Markdown Editors, Natao has been designed, from the ground up, to help students write essays and
+calculate mathematical formulas clearly, easily and elegantly.
 
-So this is why it use Markdown.
-
-The other purpose is to help organize all these documents. So the document explorer is made to help recurrent patterns in document organization.
-
+Natao has also been designed to help its users organize their Natao-produced documents along standardized folder structures.
 
 ## Screenshot
 
@@ -29,7 +28,7 @@ The other purpose is to help organize all these documents. So the document explo
 
 ## Authors
 
-* **Christophe Dos Santos** - *Initial work* - [Ajrarn](https://github.com/Ajrarn)
+* **Christophe Dos Santos** - *Lead Programmer* - [Ajrarn](https://github.com/Ajrarn)
 
 See also the list of [contributors](https://github.com/Ajrarn/Natao/contributors) who participated in this project.
 
@@ -39,13 +38,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* All my friends for the tests and advices, and specially Alexandre Nothis for the English translation.
-* Anne Missotte, ergotherapist, for some advices.
-* All the people that made the library and tools used by Natao:
-	* [Nwjs](http://nwjs.io/)
+* Thanks to all my friends, for their insights and time spent testing Natao, and special thanks to Alexandre Nothis who
+* helped on the French-to-English translation.
+* Thanks to Anne Missotte, ergotherapist, for her ideas and suggestions.
+* Thanks to all the programers who created the library and tools used by Natao:
+    * [Nwjs](http://nwjs.io/)
     * [AngularJs](https://angularjs.org/)
     * [CodeMirror](https://codemirror.net/)
     * [Showdown](https://github.com/showdownjs/showdown)
     * [NeDB](https://github.com/louischatriot/nedb)
-    * and all the others.
-* And my wife and our 2 kids that give me some time to do this software.
+    * and many others.
+* Finally, my heartfelt thanks to my wife and our two kids who gave me the time and space to create Natao.
