@@ -97,7 +97,7 @@
 
         self.toggleEditor = function() {
             if (self.PreferencesService.preferences.showEditor && !self.PreferencesService.preferences.showViewer) {
-                self.toggleVisualiser();
+                self.toggleViewer();
             }
             self.PreferencesService.preferences.showEditor = !self.PreferencesService.preferences.showEditor;
             self.PreferencesService.savePreferences();

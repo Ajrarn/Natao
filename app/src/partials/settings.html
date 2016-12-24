@@ -128,9 +128,11 @@
                                 <div class="ns-popover-tooltip"
                                      ng-class="appCtrl.PreferencesService.preferences.colorTheme">
                                     <p>{{ 'CONFIRM_DELETE_CSS' | translate }}</p>
-                                    <select id="otherCss" ng-model="SettingCtrl.currentReplaceCss"
-                                            ng-options="css as css.name for css in SettingCtrl.otherAvailableCss">
-                                    </select>
+                                    <div layout="row" layout-align="center center">
+                                        <select id="otherCss" ng-model="SettingCtrl.currentReplaceCss"
+                                                ng-options="css as css.name for css in SettingCtrl.otherAvailableCss">
+                                        </select>
+                                    </div>
                                     <div layout="row" layout-align="center center">
                                         <button ng-click="SettingCtrl.deleteCss(hidePopover)" ng-disabled="!SettingCtrl.currentReplaceCss">{{ 'YES' | translate }}
                                         </button>
