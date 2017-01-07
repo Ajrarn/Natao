@@ -1,118 +1,114 @@
 [toc]
 
-Peut-être souhaites tu en savoir plus sur les raisons de faire ce logiciel, et sur la façon dont il est fait. Ce document est fait pour cela. Pour expliquer l'idée et les concepts derrière sa réalisation.
+# Why create Natao?
 
-# Pourquoi ?
+## A little story ...
 
-## Une petite histoire...
-Je suis développeur, et comme la plupart de mes confrères, j'utilise des éditeurs de code qui me facilitent drôlement la vie, mais j'y reviendrais plus tard.
+I'm a software developer and, like many of my colleagues, I use code editors to help me do my work. 
 
-Mon fils est dyspraxique et on m'a demandé de lui fournir des modèles de documents Word, pour lui faciliter l'usage de l'ordinateur en classe. Et, si beaucoup pensent que c'est super cool d'utiliser un ordinateur en classe, je me suis dis que ce n'était pas aussi simple que ça en avait l'air. Et pourtant, ça le devrait.
+Because my son has dyspraxia, I was asked to design MS Word document templates to help him work on his laptop at school. Using a computer at school may sound pretty fun, but it's actually fraught with potential pitfalls.
 
-Mais qu'est-ce qui ne va pas ?
+To organize their document files, students must file them into folders by opening a  *File Explorer* window. To read and write the documents themselves, they have to open them in a *Word Processing* window. To switch to another document file, students must either go back to the *File Explorer*, or open another window from *Word Processing* window menu.
 
-## L'explorateur de fichiers
-Un élève utilisant un ordinateur, doit classer ses documents dans des dossiers, dans une fenêtre *Explorateur de fichier* et les ouvrir dans une fenêtre à part *Traitement de texte*. Pour passer d'un document à un autre, il peut soit revenir sur la fenêtre *Explorateur de fichier*, soit aller explorer le menu du *Traitement de texte* pour aller ouvrir un document en ouvrant une mini fenêtre *Explorateur de fichier*.
+That's a lot of clicking around and navigating back and forth between windows, a daunting task for anyone with dyspraxia.
 
-Et bien pour les développeurs, la vie est plus douce. Nos éditeurs de code incluent bien souvent l'équivalent de l'*Explorateur de fichier* pratiquement affiché en permanence sur un panneau à gauche. Ainsi, nous ne perdons pas de vue, l'ensemble des fichiers de nos projets. Et mieux encore, un fichier que l'on ouvre ne surgit pas dans une nouvelle fenêtre, il est ouvert dans un panneau d'édition du même logiciel.
+For us, software developers, life's more straightforward. Often our text/code editors include *File Explorer* panels that are constantly displayed to the left of our editors' windows. We therefore never lose sight of all the files contained in our projects. Even better, newly opened files don't appear in new windows: they merely pop up in the editor's central panel, which is how Natao works too.
 
-Voila pourquoi Natao inclut cette fonctionnalité essentielle.
+I then thought that I could give Natao additional functions. Indeed, what if the *File Explorer* window could also help users organize their files/documents? Done!
 
-Mais je me suis dit que je pouvais faire un peu mieux. Imaginons que cet *Explorateur de documents* puisse faciliter le rangement de ceux-ci.
+- Natao gives its users the ability to colorize folder names, to give them helpful visual pointers (this idea has been implemented in other editors too).
+- Natao lets users record folder/sub-folder structures as templates, to facilitate the organization of files and documents across projects.
 
-J'ai donc intégré 2 fonctionnalités supplémentaires:
-- La possibilité de colorer les titres de dossiers(là, c'est juste un repère visuel, et l'idée n'est pas de moi).
-- La possibilité d'enregistrer une structure de dossiers et de sous-dossier, sous la forme d'un modèle pour recréer facilement un mode de rangement qui nous convient.
+## The Markdown editor
 
-## L'éditeur Markdown
-Je n'ai rien contre les logiciels de *Traitement de texte*, ce sont des outils formidables, offrant énormément de possibilités. Mais leur puissance et leur richesse diminuent leur simplicité. Et j'ai le sentiment que la simplicité est la clé de l'utilisation d'un ordinateur à l'école, surtout pour un enfant ayant des troubles Dys quels qu'ils soient.
+I have nothing against *Word Processing* programs. They are very powerful tools for most of their users. But that power makes them complex to use, which, I feel, doesn't make them ideal tools for young students to use at school, particularly for the ones with dyspraxia.
 
-Les développeurs ont-ils un traitement de texte plus facile ?
+Do software developers use simpler tools than *Word Processing* programs? Yes ... and no.
 
 ### LaTeX
 
-Oui... et Non. Je ne vais pas parler au nom de tous les développeurs, car tous ne s'en servent pas, mais nous disposons d'un formidable *Traitement de texte* appelé **LaTeX**. Formidable, car il permet à celui qui le comprends de rédiger des documents d'une qualité irréprochable, sans avoir l'impression d'utiliser un *Traitement de texte* classique. Mais inaccessible pour le commun des mortels, car il faut littéralement coder son document.
+I won't claim to speak for all developers, as not all of them use it, but LaTex is a very powerful *Word Processing* tool. For the ones who know how to harness its power, LaTex can indeed help people generate perfectly formatted texts without having to use mainstream *Word Processing* programs. It does so by completely separating a document's form from its content.
 
-Mais LaTeX m'a appris quelque chose de fondamental : **Séparer la forme du contenu**.
+Its main drawback? Its users have literally to code their documents. By using certain key words, they organize and structure their text. LaTex's syntax is not always easy to use though. And creating one's own formatting style is sometimes quite arduous. 
 
-En LaTeX, on décrit un document. A l'aide de mots clés on permet à l'outil de comprendre la structure de notre document et de le mettre en forme uniformément. La syntaxe n'est pas aisée, mais elle est plutôt claire.
-Là, où le bàt blesse, c'est qu'il est parfois assez difficile de faire sa propre mise en forme.
-
-Inaccessible pour la plupart des adultes, alors pour un enfant...
+So if LaTex is hard for adults, how can one even think of having children use it?
 
 ### HTML / CSS
-Actuellement un des meilleurs exemples de la séparation de la forme et du contenu.
-Si vous ne savez pas ce que c'est, tous les sites webs sont faits avec ces 2 langages.
-Le HTML, c'est le contenu, et le CSS la forme. Et le CSS permet vraiment de faire des choses superbes.
-Malheureusement, ici c'est le HTML qui n'est pas aisé à écrire.
 
-### Enfin, le Markdown
-Le Markdown, ce sont les idées de LaTeX, en plus simple, et la puissance de CSS puisqu'au final, il génère du HTML.
-Quand j'ai vu la simplicité de cette syntaxe, j'ai tout de suite imaginé le gain de temps à la saisie. Rester sur le clavier sans passer par l'étape clic de souris sur telle ou telle portion de texte, puis rechercher parmi toutes les options, celles qui nous conviennent.
+The HTML and CSS syntax, which are both great examples of the form-separated-from-content approach to text formatting, offer solutions. If you don't know what they are, just know that all web site are written in HTML and CSS: HTML handles content and CSS handles form, sometimes superbly. But there, it's the HTML syntax that's not easy to use.
 
-Ici, on valorise son texte, on l'organise, et la mise en forme se fait à un autre endroit: l'éditeur de feuilles de style.
-Quand la feuille de style est suffisante, elle est réutilisable à l'infini.
+### Markdown
 
-Je reconnais qu'écrire du CSS n'est pas à la portée de tout le monde, mais je vais travailler là dessus dans une prochaine version.
+The Markdown language, which generates an HTML-like syntax, combines a simpler approach to some of the ideas found in LaTex and the power of the CSS code.
 
-En tout cas, l'idée principale est là :
-- Markdown pour le contenu.
-- CSS pour la forme.
+Upon discovering the Markdown language I immediately noticed its simplicity and how fast it was making the writing process by allowing its users to stay focused on the content of their text itself, without having to click on any portion of the text, or navigate through an array of formatting options, etc. 
 
-# Comment ?
+The formatting takes place elsewhere, in the style-sheet editor. And when a style-sheet works, it may be re-used on all subsequent documents, 
 
-Attention, ici on parle de technologie, alors si le sujet ne vous intéresse pas, inutile de poursuivre.
-Précision importante toutes les technologies utilisées ici sont open-source et gratuites. N'importe qui peut créer gratuitement le logiciel qu'il a envie en assemblant ces composants.
-Mais surtout, tous ont créé des outils formidables sans lesquels je n'aurais pas pu développer Natao.
+I should point out that I am aware that writing CSS code is not for everyone, but I hope to facilitate the process in a later version of Natao.
+
+Still, at the core of Natao lie two approaches: 
+- Markdown deals with content.
+- CSS deals with form.
+
+# How was Natao created?
+
+Before going any further, let me state that the following section deals with coding technology. So if the subject doesn't interest you, skip it!
+Also, I would like to note that all the tools that were used to create Natao are open-source tools, freely available online for all to use. Without these tools Natao could not have been put together.
 
 ## NW.js
 
-Pour faire simple, disons que **NW.js** (anciennement NodeWebkit) est une machine virtuelle permettant de faire tourner une application de type web embarquée que l'on livre avec **NW.js**, et plus important encore qui permet de la faire fonctionner déconnectée d'internet.
-Natao, c'est du javascript, du HTML et du CSS exécuté par **NW.js** et livré avec ce dernier.
+To stay simple, **NW.js**, which used to be known as NodeWebkit, is a virtual machine that lets programs run without having to be linked to the Internet. 
+Natao, which is written in JavaScript, HTML and CSS, runs under **NW.js** with which it is distributed.
 
-**NW.js** est multi plate-formes, Windows, MacOSX et Linux. Du coup, le code permettant de faire Natao est développé une fois et tourne sur les 3 plate-formes nativement.
+**NW.js** is platform independent: it runs under the Windows, Mac OSX and Linux environments. This allows Natao to run on all three platforms, natively, while having to be coded three times.
 
 ## Showdown
-Le deuxième élément est Showdown. C'est ce dernier qui transforme le Markdown en HTML. Sans lui, pas de rendu. Et Showdown permet de lire en plus du Markdown étendu comme GFM (Github Flavored Markdown)
+
+Showdown transforms the Markdown language into HTML code. Without this tool, no Natao document could be rendered. Showdown also allows the extended form of Markdown called GFM (Github Flavored Markdown) to be used.
 
 ## MathJax
-Celui-ci permet de faire le rendu des formules mathématiques.
+
+This technology gives Natao the ability to render mathematical formulae.
 
 ## CodeMirror
-Ce dernier est l'éditeur de texte qui valorise en cours de frappe le MarkDown et le CSS, numérote les lignes. etc...
+
+This tool lets Natao highlights portions of Markdown and CSS syntax, numbers lines,   etc.
 
 ## NeDB
-Une base de données qui tourne nativement sous Node.js et qui permet notamment ici de tout enregistrer dans un seul fichier, plutôt que disperser vos documents un peu partout et les perdre.
+
+This technology creates a database that runs natively under Node.js and that lets Natao record all modifications and work done on one document in a single file. That way, files stay grouped and well organized. 
 
 ## Angular
-C'est le framework javascript développée par Google qui sert de pierre angulaire à l'application Natao.
+
+Angular is the javascript framework developed by Google that stands at the core of Natao.
 
 ## OpenDyslexic
-Je parle de celui-ci, car quand j'ai cherché une police pour dyslexique, je n'en ai trouvé qu'une seule d'open-source et plusieurs payantes. Très honnêtement, cela me désole qu'elles ne soient pas toutes open-source et gratuites...
-Donc, un grand merci pour cette initiative
 
-## Et les autres
-Il y a plusieurs librairies utilisées pour développer Natao, je vais essayer de les lister:
-- **crypto-js** pour chiffrer le mot de passe
-- **css** pour analyser le code css que vous rédigez
-- **js-beautify** pour rendre le code HTML généré par Showdown lisible
-- **lodash** une boite à outil indispensable
-- **node-uuid** pour générer les id de chaque noeud de l'arborescence de l'explorateur
-- **ng-showdown** pour faire fonctionner showdown avec Angular
-- **typicons** toutes les icones utilisées ici
-- **angular-tree-control$** l'explorateur de fichier
-- **nw-fileDialog** les fenêtres d'ouverture de fichiers
-- **angular-i18n** la base de l'internationalisation
-- **angular-dynamic-locale** permettant de s'assurer que l'internationalisation fonctionne parfaitement
-- **nsPopover** les petites fenêtres blanches de choix ou de confirmation
-- **angular-ui-switch** les boutons switch dans l'éditeur de style notamment
-- **angular-route** le routeur des différentes pages
-- **ngjs-color-picker** qui permet d'adapter Inlet à Codemirror
-- **angular-ui-codemirror** qui permet de faire tourner codemirror avec Angular
-- **Inlet** le composant permettant de choisir les couleurs dans l'éditeur de CSS
-- **angular-translate** la librairie permettant de gérer les langages
-- **angular-translate-loader-static-files** pour charger des fichiers de langues
-- **jquery** la base d'Angular
-- **ngOnboarding** le composant qui permet de présenter Natao au premier démarrage
+I opted to use this font as it's the only one I found that's open-source and free for anyone to use. That almost all fonts for dyslexics are not free is a sad state of affair. So thank you very much to the people behind the OpenDyslexic initiative.
 
+## And many others ...
 
+A few libraries were used to develop Natao. Here's a list of them. 
+
+- **crypto-js** to encrypt the password.
+- **css** to analyze the CSS code used by Natao's user.
+- **js-beautify** to make the HTML code generated by Showdown readable.
+- **lodash** a key set of tools.
+- **node-uuid** to generate unique identifiers for each of the explorer nodes.
+- **ng-showdown** to make Showdown work with Angular.
+- **typicons** used for all of Natao's icons.
+- **angular-tree-control$** which is Natao's file explorer.
+- **nw-fileDialog** which let the file windows open.
+- **angular-i18n** which makes internationalization work.
+- **angular-dynamic-locale** which makes sure that Natao's internationalization works perfectly.
+- **nsPopover** which makes the little white choice or confirmation windows work.
+- **angular-ui-switch** which make the switch buttons work, particularly the ones found in the style editor.
+- **angular-route** which stands behind the proper routing of all of Natao's various pages.
+- **ngjs-color-picker** to adapt Inlet to Codemirror.
+- **angular-ui-codemirror** to make Codemirror work with Angular.
+- **Inlet** which lets Natao's users pick colors in the CSS editor.
+- **angular-translate** is the library that organizes all languages.
+- **angular-translate-loader-static-files** is used to load the various language files.
+- **jquery** is Angular's base.
+- **ngOnboarding** is the module that lets Natao appear on the first run.
