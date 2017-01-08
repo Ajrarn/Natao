@@ -21,11 +21,11 @@ You should note that Natao saves interface modifications automatically. In other
 
 - <span class="typcn typcn-th-menu-outline"></span> This button lets you hide/display your documents' navigation panel, which is also called **Documents**.
 - <span class="typcn typcn-edit"></span> This button lets you hide/display the Markdown editor panel.
-- <span class="typcn typcn-eye-outline"></span> This button lets you hide/display the document viewer panel.
+- <span class="typcn typcn-eye-outline"></span> This button lets you hide/display the document Viewer panel.
 
 ## Print
 
-<span class="typcn typcn-printer"></span> This button lets you print the document visible in the document viewer panel.
+<span class="typcn typcn-printer"></span> This button lets you print the document visible in the Viewer panel.
 
 ## Help
 
@@ -40,7 +40,7 @@ You should note that Natao saves interface modifications automatically. In other
 ## The Documents Panel Tool Bar
 ![Image of ExplorerBar](./src/images/documents.png)
 
-This bar displays a click-able title to switch from the **Trash Bin** view to the **Documents** view.
+This bar displays a click-able title to switch from the **Trash-Bin** view to the **Documents** view.
 This bar displays three extra buttons which let you:
 
 - <span class="typcn typcn-book"></span> Paste copied or cut content previously saved in Natao's clipboard.
@@ -72,7 +72,7 @@ Here appear your folders and documents, organized as you see fit.
 - <span class="typcn typcn-flow-children"></span> Lets you save the selected folders' sub-folder structure as a new template. Be aware that the content of these folders and sub-folders is not saved. The new template will be usable each time you create new folders and sub-folders.
 - <span class="typcn typcn-trash"></span> Lets you delete the selected folder and its content.
 
-## The Trash Bin
+## The Trash-Bin
 
 Selected, the trash-bin lets you see all the documents that you've marked for deletion.
 
@@ -89,11 +89,11 @@ This panel lets you write your documents.
 
 Three input-fields are available:
 
-- *Title*: your document's title is independent of your document's core content. This allows you to see it within the explorer panel. The document's title also appears in the viewer panel.
+- *Title*: your document's title is independent of your document's core content. This allows you to see it within the Explorer panel. The document's title also appears in the Viewer panel.
 
-- *Style*: the style you select modifies your document’s formatting in the viewer pannel. You can modify these styles, as we'll see in a later part of our help section.
+- *Style*: the style you select modifies your document’s formatting in the Viewer pannel. You can modify these styles, as we'll see in a later part of our Help section.
 
-- *Creation Date*: your document's creation date. By default, this is the date displayed by your computer. You can modify your document's creation date: you can, for instance, make it the date at which you are supposed to return your homework. Please note that the way the date appears in your document depends on the style-sheet you've selected.
+- *Creation Date*: your document's creation date. By default, this is the date displayed by your computer. You can modify your document's creation date: you can, for instance, make it the date at which you're supposed to return your homework. Please note that the way the date appears in your document depends on the style-sheet you've selected.
 
 Besides the three input-fields, additional buttons are present. These function similarly to the ones seen in the Explorer panel.
 
@@ -104,7 +104,7 @@ Besides the three input-fields, additional buttons are present. These function s
 
 ## Inserting an Image
 
-- <span class="typcn typcn-image-outline"></span> Lets you insert an image in your document. The Markdown help document offers more details on this function in the chapter *Images*.
+- <span class="typcn typcn-image-outline"></span> Lets you insert an image in your document. The Markdown Help offers more details on this function in the *Images* chapter.
 
 ## The Editor Settings
 
