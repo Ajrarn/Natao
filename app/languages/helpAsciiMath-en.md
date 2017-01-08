@@ -1,46 +1,47 @@
 [toc]
+
 # Writing formulae in AsciiMath
 
-When you use the AsciiMath syntax, you only need to surround your mathematical formula with two at-signs ( @@ ). The math portion of your text will then appear as an inline formula, within the rest of the text.
+When you write a mathematical formula, surround it with two at-signs ( @@ ), as the example that follows illustrates.
 
-	>The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
+        >The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
 
 Which gives:
 
 >The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
 
-Please, note that to have the formula appear on its own in the center of the page, simply create a new paragraph using the Makdown syntax, as follows:
-
->Here is some text followed by a formula @@1/3@@. The formula appear separate from the text.
+As illustrated above, the math formula portion of your text will appear as an inline formula contained within the rest of your text. To separate the formula from your text, simply start a new paragraph.
 
 # Basic AsciiMath
 
 ## Basic Operations
 
-Natao can only allow you to write in-line operations. Here are some examples:
+Natao only allows you to write in-line operations.
 
-| AsciiMath Syntax | Character |
-|:----------------:|:---------:|
-| @@=@@              | =       |
-| @@+@@              | +       |
-| @@-@@              | -       |
-| @@xx@@             | xx      |
-| @@-:@@             | -:      |
-| @@!=@@             | !=      |
-| @@<@@              | <       |
-| @@<=@@             | <=      |
-| @@>@@              | >       |
-| @@>=@@             | >=      |
+Here are some examples:
+
+|  AsciiMath Syntax  | Character |
+|:------------------:|:---------:|
+| @@=@@              |   =       |
+| @@+@@              |   +       |
+| @@-@@              |   -       |
+| @@xx@@             |   xx      |
+| @@-:@@             |   -:      |
+| @@!=@@             |   !=      |
+| @@<@@              |   <       |
+| @@<=@@             |   <=      |
+| @@>@@              |   >       |
+| @@>=@@             |   >=      |
 
 You may thus write:
 
-	>@@4 xx 3 = 12@@
+    >@@4 xx 3 = 12@@
 
     >@@100 -: 4 = 25@@
 
     >@@200mm < 25cm <= 3dm@@
 
-to obtain :
+to obtain:
 
 >@@4 xx 3 = 12@@
 
@@ -48,13 +49,13 @@ to obtain :
 
 >@@200mm < 25cm <= 3dm@@
 
-Remember to leave spaces before and after the less-than ( < ) and greater-than signs ( > ) to avoid any confusion with HTML.
+Remember to leave spaces before and after the less-than ( < ) and greater-than signs ( > ) to avoid any confusion with HTML code.
 
 ## Fractions
 
 Use the slash sign ( / ) to separate two portion of a single formula, as follows:
 
-	>@@1/2 + 1/4 = 3/4@@
+        >@@1/2 + 1/4 = 3/4@@
 
 You should get the following:
 
@@ -72,13 +73,15 @@ You may thus write:
 
 @@perimeter = 2 xx pi xx radius @@
 
-# Advanced Operations
+# Advanced AsciiMath
 
 ## Indexes & Exponents
 
-You may use the underscore-sign ( _ ) after a plain text number or expression to indicate that an index follows. When a caret-sign ( ^ ) is written after a plain text number or expression, an exponent appears.
+You may use the underscore-sign ( _ ) after a plain text number or expression to indicate that an index follows.
 
-	>@@x_1@@
+When a caret-sign ( ^ ) is written after a plain text number or expression, an exponent appears, as follows.
+
+    >@@x_1@@
 
     >@@x^2@@
 
@@ -94,21 +97,21 @@ Which gives:
 
 You should note that when you need to show the two symbols at the same time, you should always use the index sign first.
 
-These two types of symbols can also be used to changed the elements of a mathematical formula:
+These two types of symbols can also be used to change the elements of a mathematical formula, as the examples that follow illustrate:
 
-	>@@sum_(n=1)^(n=5) 4^n@@
+    >@@sum_(n=1)^(n=5) 4^n@@
 
     >@@int_0^1 f(x)dx@@
 
->@@sum_(n=1)^(n=5) 4^n@@
+    >@@sum_(n=1)^(n=5) 4^n@@
 
->@@int_0^1 f(x)dx@@
+    >@@int_0^1 f(x)dx@@
 
 ## Matrices & Vectors
 
 The AsciiMath notation for matrices is as follows:
 
-	>@@[[a,b],[c,d]]@@
+        >@@[[a,b],[c,d]]@@
 
 You will then get obtain the following matrix:
 
@@ -116,7 +119,7 @@ You will then get obtain the following matrix:
 
 The AsciiMath notation for vectors is as follows:
 
-	>@@((a,b),(c,d))@@
+        >@@((a,b),(c,d))@@
 
 You will then obtain the following vector:
 
@@ -124,17 +127,17 @@ You will then obtain the following vector:
 
 ## Symbols & Functions
 
-Usually, symbols are applied to the characters that follow them.
+Usually, AsciiMath syntax symbols affect the characters that follow them.
 
-By writing the following exemple:
+For instance, by writing the following example:
 
-	>@@sqrt 1/3@@
+        >@@sqrt 1/3@@
 
 You obtain:
 
 >@@sqrt 1/3@@
 
-If you wish to apply the symbol or the function to a group of characters, simply write parentheses around the group of characters, as follows:
+If you wish to apply the symbol (or the function) to a group of characters, simply write parentheses around the group of characters, as follows:
 
     >@@sqrt(1/3)@@
 
@@ -142,7 +145,7 @@ You will then obtain:
 
 >@@sqrt(1/3)@@
 
-In the examples above, you will notice that the parentheses do not appear, and that the square root symbol is applied to (1/3).
+In the examples above, you will notice that the parentheses do not appear, and that the AsciiMath square root symbol is applied to (1/3).
 
 # List of Symbols and Functions
 
@@ -214,7 +217,6 @@ In the examples above, you will notice that the parentheses do not appear, and t
 | @@ &#124;-- @@   | &#124;--   |
 | @@ &#124;== @@   | &#124;==   |
 
-
 ## Grouping
 
 | AsciiMath Syntax | Character |
@@ -244,7 +246,6 @@ In the examples above, you will notice that the parentheses do not appear, and t
 | @@lArr@@         | lArr      |
 | @@hArr@@         | hArr      |
 | @@&#124;->@@       | &#124;->   |
-
 
 ## Accents
 
@@ -326,31 +327,28 @@ In the examples above, you will notice that the parentheses do not appear, and t
 
 # TeX
 
-Il existe d'autres syntaxes pour écrire des formules mathématiques, la plus connue est TeX, et pour les utilisateurs qui connaisse déjà cette syntaxe, elle a été incluse dans Natao.
+Other syntax, besides AsciiMath, can be used to write mathematical formulae. The most known of these is TeX, and it has been included in Natao.
 
-There is other syntax to write math formulae. The most known is TeX, and for those who are familiar with TeX, it is included in Natao.
+## Tex Mathematical Formulae
 
-## Writing formulae in TeX
-
-In TeX, math formulae come in two forms.
+In TeX, formulae come either be centered or written as inline formulae.
 
 ### Inline Formulae:
 
-The formula appears within a line of text. Simply start and end your formula with two dollar signs ( $$ ):
+The formula appears within a line of text. Simply start and end your formula with two dollar signs ( $$ ), as the example that follows shows:
 
-	>The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
+        >The loot was thus shared: $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
 
 Which gives:
 
->The loot was shared as follows, $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
+>The loot was thus shared: $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
 
 ### Centered Formulae:
 
 The formula appears after the line of text, in the center of the document's page. Simply start and end your formula with three dollar signs ( $$$ ):
 
-	>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
+        >Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appears separately from the text.
 
 Which gives:
 
->Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appear separate from the text.
-
+>Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appears separately from the text.
