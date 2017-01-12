@@ -2,544 +2,559 @@
 
 # Introduction
 
-Ce document n'a pas pour vocation de t'expliquer tout le CSS, mais d'en comprendre au moins le minimum pour habiller tes documents Natao. Il n'est donc pas exhaustif.
+The following document does not explain in detail how CSS works. It only describes how CSS works within Natao, with the express purpose of making it easy to change the appearance of documents produced within Natao.
 
-Par contre, il y a de nombreuses notions à découvrir que tu pourrais trouver ardues. Si tu ne t'en sens pas le courage, et je peux le comprendre, fais toi aider par quelqu'un s'y connaissant un peu pour personnaliser tes feuilles de style. Il devrait trouver dans le présent document de précieuses informations pour l'aider.
+Still, although this document's scope is limited, a few notions need to be explained even before we start discussing on CSS. You may find it difficult to wrap your mind around some of these. Therefore, don't hesitate to seek the help of a person already aware of CSS, and who might be able to help you customize your Natao style-sheets for you.
 
-# Notions de HTML indispensables
+Let's start with HTML.
 
+# Basic HTML
 
-
-Avant de découvrir comment personnaliser les documents avec CSS, il faut comprendre comment ils sont construits.
+One needs to understand how Natao's documents are constructed, and, for that, one needs to know about HTML.
 
 ## XML
 
-### Les balises
+### Tags
 
-Le XML est un langage de balisage qui permet de décrire n'importe quel document avec des balises personnalisées.
-Ces balises marchent en général par paire ouvrante et fermante.
+The XML language sets rules that help programs such as Natao encode and format documents in an easily readable manner.
 
-Une balise ouvrante, c'est un nom entouré des signes < et >, par exemple:
+To write an XML document that works, one must define which elements of the document  appear within it, and how.
 
-	::xml
-	<paragraphe>
+To do so, tags are used. These are case sensitive and are written between less-than and greater-than signs, like so: <paragraph> or <b>
 
+Usually, all tags within a XML text appear in pairs: once as an opened tag and ones as a closed tag.
 
-Une balise fermante comporte le même nom mais commence par `</`
+An opened tag appears as a word surrounded by a less-than and greater-than sign, like so:
 
-	::xml
-	</paragraphe>
+        ::xml
+        <paragraph>
+
+A closed tag appears as a word surrounded by a less-than and a greater-than sign, with the addition of a slash sign positioned right after the less-than sign, like so:
+
+        ::xml
+        </paragraph>
+
+These tag pairs constitute "boxes", quite simply because they contain some bits of text called "elements".
     
-Cette paire de balise définit une *boite* (tout simplement car elle contient quelque chose).
+**Beware**: tags can only contain one word. If two are present, they must appear without space between them.
+
+For instance, the following example is wrong:
+
+        ::xml
+        <contact info></contact info>
     
-**Attention** le nom d'une balise ne contient qu'un seul mot (c'est à dire sans espace), l'exemple suivant ne sera pas valide :
+While the following example is correct:
 
-	::xml
-	<en tete></en tete>
-    
-mais le suivant si:
+        ::xml
+        <contact-info></contact-info>
 
-	::xml
-	<en-tete></en-tete>
+So, if I want to define a paragraph box with the paragraph tag, I need to write my XML code like so:
 
-    
-Donc, si je souhaite définir une boite paragraphe à l'aide de ma balise *paragraphe*, je vais l'écrire comme suit:
+        ::xml
+        <paragraph>This is my paragraph's first sentence.
+And here is my second sentence.</paragraph>
 
-	::xml
-	<paragraphe>Et voici la première phrase de mon paragraphe.
-    Et maintenant, la deuxième.</paragraphe>
-    
-On peut également mettre à l'intérieur d'une boite d'autres boites:
+Note: in the example above, the words "This is my paragraph's first sentence.
+And here is my second sentence." are the elements.
 
-	::xml
-	<document>
-    	<titre>Mon titre</titre>
-    	<paragraphe>Un petit paragraphe.</paragraphe>
-    	<paragraphe>Et un autre.</paragraphe>
+I can also put boxes within boxes, as follows:
+
+        ::xml
+    <document>
+        <title>My title</title>
+        <paragraph>A short paragraph.</paragraph>
+        <paragraph>And another.</paragraph>
     </document>
     
-Ici, j'ai un ensemble appelé document contenant un titre et deux paragraphes.
+Incidentally, I have now created "a document" containing a title and two paragraphs.
 
-Enfin, il existe un dernier type de balises qui sont ouvrantes et fermantes à la fois, car on ne peut rien mettre dedans. Par exemple:
+By the way, a third type of tag exists in the XML language. It is called the "solo tag", as opposed to the "tag pair". These solo tags are opened and closed at the same time. No element can therefore be placed between them. For instance:
 
-	::xml
-	<saut-de-page/>
-    
-Notes que le caractère / apparait juste avant le >.
+        ::xml
+        <Items/>
 
-### Les attributs
+### Attributes
 
-Examinons l'exemple suivant:
+Let's take a look at the following example:
 
-	::xml
-	<paragraphe alignement="centré">Un petit paragraphe.</paragraphe>
-    <paragraphe alignement="gauche">Un moins petit paragraphe.</paragraphe>
-    <paragraphe invisible>Et un autre.</paragraphe>
+        ::xml
+        <alignment paragraph="centered">A short paragraph.</paragraph>
+        <alignment paragraph="left">A less short paragraph.</paragraph>
+        <invisible paragraph>And another paragraph.</paragraph>
 
-Nous pouvons voir ici qu'à chaque balise *paragraphe*, nous avons ajouté des attributs avant de fermer la balise ouvrante.
+To each *paragraph* tag we have added attributes, between quotes, before closing the tag by using a greater-than sign. Each of these attributes makes the tags they refer to more specific by adding more information.
 
-Nous avons 2 attributs:
-- l'attribut *alignement* qui a pour valeur 'centré' au premier paragraphe et 'gauche' au deuxième.
-- l'attribut *invisible* qui n'a pas de valeur.
+In the example above, we used two attributes:
 
-Chaque attribut ajoute une information exploitable à nos balises.
+- The *alignment* attribute, which value is 'centered' in the first paragraph and 'left' in the second paragraph.
+- The *invisible* attribute which has no particular value.
+
+Each new attributes adds details to their tags, details that Natao exploits to format the text appropriately.
 
 ### Standards
 
-Maintenant, j'ai arbitrairement choisi le nom de mes balises pour qu'elles m'aident à expliquer le concept. Tout le monde peut imaginer les balises qu'il souhaite utiliser et la manière de les agencer en XML. Mais ça deviendrait vite n'importe quoi si on se mettait tous à écrire des documents avec chacun nos balises personnelles.
 
-Il existe donc des modèles standards utilisés dans l'industrie, DocBook par exemple pour rédiger des livres, ou le HTML pour les sites webs.
+In the previous examples, I gave my tags random names, like *paragraph* or *contact-info*, to help me explain how tags work in XML. Imagining tags left and and right would be easy, but would make XML useless as a way for everyone to use XML.
+
+That is why models have been devised to help people work in an efficient and consistent way across the board, whether in the book publishing, by using the DocBook model, or in the web-publishing industry, by using HTML.
 
 ## HTML
 
-Le HTML est donc un ensemble de balises permettant de décrire une page web. Le plus important à savoir, c'est que l'interpréteur Markdown génère du HTML et que c'est ce dernier que nous allons pouvoir habiller avec du CSS.
+HTML is therefore a set of tags used to create web pages.
+As regards Natao, just know that the Markdown syntax used in Natao generates HTML code natively and that it is that HTML code that we are going to shape with CSS.
 
-Donc, tu apprendras ici quelles balises sont générées et avec cela, tu pourras modifier l'apparence de ton document.
+As a result, we are only going to learn a few HTML tags here, the ones you will need to modify Natao's style-sheets.
 
-On ne va pas voir tout de suite les différentes balises, mais je vais te montrer l'exemple précédent en HTML.
+Let's get "our HTML feet wet" by re-writing one of our previous examples in HTML:
 
-	::html
-	<html>
-    	<header>
-        	...
+        ::html
+        <html>
+        <header>
+                ...
         </header>
-    	<body>
-        	<h1>Mon titre</h1>
-        	<p>Un petit paragraphe.</p>
-        	<p>Et un autre.</p>
+        <body>
+                <h1>My title</h1>
+                <p>A short paragraph.</p>
+                <p>And another.</p>
       </body>
      </html>
      
-une page web est en fait une page HTML, d'où les balises *html*.
-Il y a une partie *header* qui ne s'affiche pas et que l'on ne détaillera donc pas ici.
-Et enfin une partie *body* qui contient ce qui s'affiche, avec un titre de niveau 1 (les plus importants) *h1* et des paragraphes *p*.
+This is basically how traditional web pages are written: 
+There's a *header* section, which we won't get into here as it remains invisible in the final document. And there's a *body* section, which contains what's visible in the final document, with a level 1 title (the most important ones) written as *h1* and paragraphs noted as *p*.
      
-# Structure d'un document Natao
+# Structure of a Natao Document
 
+Let's look at the core structure of a Natao document.
 
-	::html
-	<div id="viewer" layout="column">
-    	<div flex layout="column" layout-align="start stretch">
-        	<div id="haut" layout="row" layout-align="start stretch">
-            	<div id="identity" layout="column" layout-align="center stretch">
-                	<p>Ton nom</p>
-                    <p>Ton prénom</p>
-                    <p>Ta classe</p>
+Note: it's going to be a lot to take in at first, mainly because we haven't talked about Markdown when transformed into HTML yet, but it's important to take note of it to help us understand how to edit the appearance of a Natao document.
+
+        ::html
+        <div id="viewer" layout="column">
+        <div flex layout="column" layout-align="start stretch">
+                <div id="haut" layout="row" layout-align="start stretch">
+                <div id="identity" layout="column" layout-align="center stretch">
+                        <p>Your last name</p>
+                    <p>Your first name</p>
+                    <p>Your grade</p>
                 </div>
                 <div id="title-zone" flex layout="column" layout-align="center stretch">
                     <h1>Titre</h1>
-                    <p id="dateCreated">Date de création</p>
+                    <p id="dateCreated">Creation date</p>
                 </div>
             </div>
             <div id="separator"></div>
             <div id="content" flex layout="row" layout-align="start stretch">
                 <div id="margin"></div>
                 <div id="made">
-                	...Et ici le contenu de ce que tu as rédigé en Markdown
+                        Here will appear what you wrote in your document.
                 </div>
             </div>
         </div>
     </div>
-    
-Ca fait beaucoup de texte, et on n'a pas encore vu le Markdown transformé. Mais cette connaissance est indispensable à l'habillage d'un document.
 
-Commençons par analyser la première balise :
+Let's take a look at the first tag:
 
-	::html
-	<div id="viewer" layout="column">
+        ::html
+        <div id="viewer" layout="column">
     </div>
-  
-J'ai mis dans l'exemple, la balise ouvrante et la balise fermante pour que tu puisses voir que le nom de la balise utilisée est *div* (qui est une boite sans signification particulière). Le plus important ici, ce sont les attributs :
 
-	::string
-	id="viewer" layout="column"
+Note that I kept the *div* open and closed tags, which in this instance work together as a box with no particular signification.
+What we need to pay attention to here are the attributes:
+
+        ::string
+        id="viewer" layout="column"
     
-- *id* qui signifie identifiant.
-- *layout* qui n'est pas un attribut standard, mais qui signifie la disposition au sein de cet élément dans Natao:
-	- *column* signifie en colonne
-    - *row* signifie en ligne
+- *id* stands for identifier.
+- *layout*, which is not a standard attribute, indicates how the layout elements appear in Natao:
+        - *column* means that the elements appear as a column.
+        - *row* means that the elements appear in a row.
 
+In other words, *div* which is identified as *viewer* appears as a column. The boxes which appear within it appear as columns.
 
-Donc, nous pouvons voir ici que notre élément *div* a pour identifiant *viewer* et une disposition en colonne. Les boites qui sont à l'intérieur se disposent en colonne.
+To simplify things further, we'll use the boxes' identification to designate them (because divs are used everywhere). We will therefore not speak of *div* boxes, but of the *viewer* box.
 
-Pour simplifier la compréhension, nous utiliserons l'identifiant des boites pour les désigner (car les div sont utilisés partout). Ainsi, au lieu de parler de boites *div*, nous parlerons de la boite *viewer*.
+Inside the first box, we have a second one which is stretched out (*layout-align="start stretch"*) and which takes all the room it can (*flex*), like so:
 
-A l'intérieur de notre première boite, nous en avons une autre qui s'étire(*layout-align="start stretch"*) et prend toute la place disponible(*flex*) :
+        ::html
+        <div flex layout="column" layout-align="start stretch"></div>
+   
+It too appears as a column. Moreover, we can that it contains three interesting boxes:
 
-	::html
-	<div flex layout="column" layout-align="start stretch"></div>
+        ::html
+        <div flex layout="column" layout-align="start stretch">
+        <div id="high" layout="row" layout-align="start stretch"></div>
+        <div id="notation"></div>
+        <div id="content" flex layout="row" layout-align="start stretch"></div>
+        </div>
     
-Sa disposition est en colonne et on peut voir qu'elle contient 3 boites intéressantes :
+- A *header* box.
+- A *separator* box.
+- A *content* box.
 
-	::html
-	<div flex layout="column" layout-align="start stretch">
-    	<div id="haut" layout="row" layout-align="start stretch"></div>
-    	<div id="notation"></div>
-    	<div id="content" flex layout="row" layout-align="start stretch"></div>
-	</div>
-    
+## The *header* box
 
-    
-- une boite *header*
-- une boite *separator*
-- une boite *content*
-
-## la boite *header*
 ```
 ::html
 <div id="header" layout="row" layout-align="start stretch">
     <div id="identity" layout="column" layout-align="center stretch">
-    	<p>Ton nom</p>
-    	<p>Ton prénom</p>
-    	<p>Ta classe</p>
+        <p>Your last name</p>
+        <p>Your first name</p>
+        <p>Your grade</p>
     </div>
     <div id="title-zone" flex layout="column" layout-align="center stretch">
-    	<h1>Titre</h1>
-    	<p id="dateCreated">Date de création</p>
+        <h1>Titre</h1>
+        <p id="dateCreated">Creation Date</p>
     </div>
 </div>
 ```
     
-Cette dernière est composée de 2 boites:
+The *header* box is composed of two boxes:
+
 - *identity*
 - *title-zone*
 
-Ces 2 boites sont disposées sur la même ligne et vont s'étirer dans cette ligne en commençant à gauche:
+These two boxes are written on the same line and are going to stretch over that line, starting from the left:
 
-	::html
-	<div id="header" layout="row" layout-align="start stretch">
+        ::html
+        <div id="header" layout="row" layout-align="start stretch">
     
-Au sein de *identity*, ton nom, ton prénom et ta classe vont se disposer en colonne.
+Within the *identity* box, your last name, your first name, and your grade will appear in a column.
 
-Au sein de *title-zone*, le titre du document et sa date de création apparaîtront en colonne.
+Within the *title-zone* box, the document's title and its creation date will appear  in a column.
 
-## la boite *separator*
+## The *separator* box
 
-C'est une boite vide, qui servira à créer un espace de notation entre le titre et le contenu de ton devoir.
+The *separator* box is empty. It will create a blank space between your document's title and your written text.
 
-## la boite *content*
-	
+## The *content* box
+
     ::html
-	<div id="content" flex layout="row" layout-align="start stretch">
-    	<div id="margin"></div>
+        <div id="content" flex layout="row" layout-align="start stretch">
+        <div id="margin"></div>
         <div id="made">
-        	...Et ici le contenu de ce que tu as rédigé en Markdown
+                Here will appear what you wrote in your document.
         </div>
-   	</div>
+        </div>
 
-Cette dernière est elle-même composé de 2 boites qu'elle va disposer en ligne:
-- *margin* qui est une marge à gauche permettant à ton enseignant de corriger ton devoir.
-- *made* qui est la zone de rendu de ton document Markdown.
+The *content* box is composed of two boxes which will appear on the same line:
 
+- *margin* stands for the margin to the left of your document, where your teacher will leave her or his marks.
+- *made* stands for your Markdown document's render zone.
     
-# Une règle CSS
+# A CSS Rule
 
-On y arrive enfin, tu vas pouvoir personnaliser ton document grace à ce qui suit. En CSS, on écrit des règles qui vont être appliquées au HTML. Voici un exemple de règle:
+This is the section where we start talking about modifying your document to fit it to your own personal needs. 
 
-	::css
+CSS is used to write the formatting rules which will be applied to your document's HTML code. What follows is an example of one such rule:
+
+        ::css
     #identity {
-    	display: none;
-	}
+        display: none;
+        }
     
-Parlons tout d'abord de *#identity*. Cette partie de la règle se situe avant les accolades ({ }), c'est ce que l'on appelle un sélecteur. Il va nous permettre de savoir à quella boite s'applique la règle.
+Let's start with *#identity*:
 
-Ici la règle s'applique à la boite dont l'identifiant est *identity*.
+This section of the CSS rule, positioned before the bracket signs ( { } ), is called a selector. Selectors indicate which box CSS rules are applied to. In the example above, the rule is applied to the *identity* identifier. 
 
-Ensuite, on peut voir 1 propriété qui est appliquée à cette boite.
-- *display: none;* lui dit de ne pas s'afficher.
+We then notice a particular property that's applied to this box:
 
-Dans le cas d'une leçon, je n'ai pas besoin de voir s'afficher la boite avec mon nom et mon prénom, voila comment lui dire de ne pas s'afficher et de ne pas prendre de place.
+- *display: none;*, which keeps the box from appearing and therefore taking up any extra room in the document.
 
-Je vais maintenant te donner les éléments qui te permettront de bien choisir les boites que tu vas relooker et les propriétés les plus utiles.
+How does this related to your homework or class assignment? In such case, you are not going to need the box to appear with your last and first names. 
 
-# les sélecteurs utiles
+Let's now take a look at the bits that are going to help you pick the best box for your document, the boxes which you will transform to fit your formatting needs. 
 
-## Le sélecteur de boite
+# The Useful Selectors
 
-Pour sélectionner toutes les boites identiques, il me suffit d'utiliser comme sélecteur le nom de la balise:
+## The Box Selectors
 
-	::css
+To select all identical boxes, I merely need to use as selector the name of the tag:
+        ::css
     div {
-    	display: none;
-	}
-    
-Ce mauvais exemple va dissimuler toutes les boites *div*, autrement dit, tout ton document...
+        display: none;
+        }
 
-## Le sélecteur d'identifiant
+This bad example is going to hide all the *div* boxes, that is, all your document.
 
-Pour sélectionner une boite quel qu'elle soit sur son identifiant je vais utiliser un # devant l'identifiant, comme l'exemple vu en tout premier lieu.
+## The Identifier Selector
 
-## Le sélecteur de classe
+To select any box, whatever might his identifier be, I'm going to use a hash-tag sign ( # ) in front of the identifier, as seen in our original example. 
 
-Une boite possédant une propriété class comme par exemple:
+## The Class Selector
 
-	::html
+What follows is a box that has a class property:
+
+        ::html
     <pre class="java">
-    	<code>du code </code>
+        <code>some code </code>
     </pre>
 
-peut être sélectionnée, grace au sélecteur de classe(avec un . devant) comme suit:
+It may be selected thanks to the class selector with a period sign ( . ) in front of it, as follows:
 
-	::css
+        ::css
     .java {
-    	display: none;
-	}
+        display: none;
+        }
 
-Et hop! Encore quelque chose d'intéressant qu'on passe à la trappe.
+And here again, we make something interesting disappear. 
 
-## Utiliser plusieurs sélecteurs en même temps
 
-Tu peux aussi appliquer une règle à plusieurs sélecteurs, en les séparant par une virgule:
+## Using Many Selectors at Once
 
-	::css
+You may apply a rule to many selectors at the same time, by separating them with a comma, as follows: 
+
+        ::css
     h1, #header {
-    	display: none;
+        display: none;
     }
 
-Ainsi, la règle s'applique à tous les éléments *h1* et à la boite *header*.
+Here, the rule is applied to all *h1* elements and to the *header* box.
 
-## Sélectionner les descendants de
+## Selecting Box Descendants
 
-Tu peux sélectionner les descendants de boites en mettant un espace entre le parent et le descendant :
+You can select the box descendants by adding a space between the parent and the descendant:
 
-	::css
+        ::css
     #title-zone h1 {
-    	color: red
+        color: red
     }
-    
-Cet exemple modifie la couleur du titre de niveau 1 dans la boite #title-zone, mais n'impacte pas les autres titres dans d'autres boites.
 
-# Agir sur les grands boites d'un document Natao
+The example above modifies the color of the level 1 title in the box #title-zone, without affecting any of the other box titles. 
 
-La première chose que l'on doit faire, c'est de décider les boites qui s'affichent dans notre feuille de style, leur taille et éventuellement les décorer.
+# Affecting Natao's Large Boxes
 
-## Les faire disparaître
+We must first decide which of the document's boxes will appear in our style-sheet, as well as their sizes. Once that is done, we can choose how best to change their appearance. 
 
-Je te remets le premier exemple sur le CSS:
+## Making Boxes Disappear
 
-	::css
+Once again, here's the first CSS example we used:
+
+        ::css
     #identity {
-    	display: none;
-	}
-    
+        display: none;
+        }    
 
-*display* permet de modifier la disposition des éléments enfants. Dans la mesure où cette disposition est pilotée d'une autre manière dans Natao, la seule valeur à connaître est *none* qui permet de masquer l'élément.
+*display* allows us to modify the so-called child selectors. The way Natao modifies such selectors is unique to Natao. As a result, the only value one needs to know is *none*, which makes the elements invisible.
 
-A appliquer sur les éléments suivants qui ne sont utiles que pour les devoirs:
+To be applied to the following elements, which are only useful for homework related documents:
+
 - *identity*
 - *separator*
 - *margin*
 
-## Modifier leur taille
+## Modifying Box Sizes
 
-### Hauteur et Largeur
-	
+### Height and Width
+        
     ::css
-	#identity {
-    	width: 200px;
-	}
+        #identity {
+        width: 200px;
+        }
     
     #separator {
-    	height: 200px;
+        height: 200px;
     }
 
+In the preceding example, I fixed the *width* of the *identity* box to 200 pixels, and the *height* of the *separator* box to 200 pixels as well.
 
-Dans l'exemple précédent, j'ai fixé la largeur(*width*) de la boite *identity* à 200 pixels, et la hauteur(*height*) de la boite *separator* également à 200 pixels.
+*identity* is located in a box which elements are in a line. The separator will use the indicated width and the other elements of the box will use the left-over room.
 
-En effet *identity* est dans une boite où les éléments sont disposés en ligne. Il prendra la largeur indiquée et les autres éléments de la même boite prendront la place restante.
+In the case of the *separator*, it is located in a column box. By fixing its size, the box that follows will use the height space that's left over.
 
-Dans le cas de *separator*, il est dans une boite disposée en colonne. En fixant sa taille, la boite suivante prendra la hauteur qui reste.
+### Units
 
-### Unités
+In the preceding example, I used the pixels (px) units. There are many others, among which are:
 
-Dans l'exemple précédent, j'ai utilisé comme unité des pixels(px). Il y en a de nombreuses autres. Je vais t'en citer quelques unes intéressantes:
+- *px* for pixels, which represent screen points.
+- *pt* for points, which are used for printing documents.
+- *%* used to delineate a usable portion of the screen. 50% means that we are using half of the screen's space.
+- *em*, which might be the most interesting unit. 1em represents the font size for the entirety of the document. You'll therefore be able to define a few elements which will be proportional to this font size.
 
-- *px* pour pixels(ce sont des points à l'écran)
-- *pt* pour points(à l'impression)
-- *%* qui comme son nom l'indique est une proportion de l'espace disponible. 50% siginifie qu'il occupe la moitité de l'espace.
-- *em* qui est pour moi l'unité la plus intéressante. 1em = la taille de police du document. Tu vas donc pouvoir définir plusieurs éléments qui seront proportionnels à cette taille de police.
+## Modifying Colors
 
-## Modifier leur couleur
+### By Changing Their Properties
 
-### en écrivant les propriétés
-	::css
+        ::css
     #identity {
-    	background-color: red;
+        background-color: red;
         color: #af2356;
     }
     
-Voici 2 nouvelles propriétés permettant de modifier des couleurs:
-- *color* permet de modifier la couleur du texte.
-- *background-color* permet de modifier la couleur du fond.
+Here are two new properties to be use to modify colors: 
 
-Comme tu peux le voir, la propriété *background-color* contient un nom de couleur en anglais. La liste de couleurs disponibles est trop grande pour figurer dans ce document. Je t'invite à la consulter [ici](http://www.colors.commutercreative.com/grid/).
+- *color* lets you modify the text's color.
+- *background-color* , as its name suggests, lets you modify the background color.
 
-La propriété *color* contient un #, suivi d'une valeur de 6 caractères en hexadécimal. Je ne vais pas t'expliquer l'héxadécimal ici, mais ces 6 caractères sont en fait 3 fois 2 caractères. La première paire est pour la composante Rouge, la deuxième pour la composante Verte, et la dernière pour la composante Bleue. Soit RVB ou RGB en anglais. Cette façon d'écrire te permet de choisir très précisément la couleur que tu souhaites contrairement aux noms.
+Note: the list of available colors is too large to be included here, but if you can still get it by using the following [link](http://www.colors.commutercreative.com/grid/).
 
-### en utilisant l'outil de choix de couleur
+In the example above you'll noticed that the *color* property contains a hash sign ( # ) followed by six hexadecimal characters. These six characters are in fact made up of three pairs of characters: the first pair is for red, the second is for green, and the third is for blue, which is the RGB color space. This lets you pick the colors you need very precisely.
 
-Natao intègre un outil pour t'aider à choisir les couleurs. Celui-ci s'active quand il voit un code couleur valide comme par exemple:
+### By Using the Color Picker
 
-	::css
+A color picker has been integrated to Natao. It will come into play as soon as Natao recognizes a valid color code, that is series of six characters following a hash sign, as follows:
+
+        ::css
     color: #111111;
     
-c'est à dire commençant par un # suivi de 6 chiffres.
+As soon as you've typed the color code, in this case (#111111;), click on it to see it pop up.
 
-Une fois que tu as tapé ce texte (#111111;), cliques dessus pour le voir apparaître.
+![Color choice](./src/images/thistle.png)
 
-![Chois de couleur](./src/images/thistle.png)
+Three componants are noticeable:
 
-Tu peux y voir 3 composants:
+- A preview bar, at the bottom.
+- A brightness bar, on the right.
+- A hue circle.
 
-- la barre d'aperçu, celle qui est toute en bas.
-- la barre de luminosité, à droite.
-- le cercle de teintes.
+You can choose to play with the hue circle's diameter by bringing it closer to its center (the colors fade), or by bringing it away from the center (the colors intensity). 
+You can choose a color by moving your cursor within the circle.
+You can pick your color's brightness by sliding the brightness bar shuttle.
 
-Tu peux agir sur le diamètre du cercle, en le rapprochant du centre (couleurs fades), ou l'éloignant (couleurs vives). Puis tu peux choisir la couleur en déplaçant le curseur dans le cercle. Enfin, la luminiusité avec le curseur présent dans la barre de droite.
+## Modifying Borders
 
-## Modifier les bordures
+### Two Syntax
 
+You may add borders to your boxes like so: 
 
-### 2 syntaxes
-
-Tu peux mettre sur chaque boite des bordures, comme ceci:
-
-	::css
+        ::css
     #identity {
-    	border-width: thin;
+        border-width: thin;
         border-style: solid;
         border-color: red;
     }
     
     #separator {
-    	border: thin solid red;
+        border: thin solid red;
     }
-    
-Dans cet exemple, nous avons appliqué la même bordure aux 2 boites *identity* et *separator*. Commençons par la syntaxe utilisée pour *identity*.
 
-Tu peux voir 3 propriétés:
-- *border-width* qui est l'épaisseur de la bordure, ici elle fine(thin).
-- *border-style* qui est le style de la bordure, ici c'est un trait plein (solid).
-- *border-color* qui est la couleur de la bordure, ici rouge (red).
+In the previous example, we've applied to same border to the two boxes, *identity* and *separator*. 
 
-Pour *separator* tu peux voir une syntaxe abrégée. Le mot clé *border* est suivi des 3 valeurs associées à la largeur, au style et à la couleur.
+The *identity* box has three properties:
 
-### L'épaisseur (width)
+- *border-width* which describes the thickness of the border, which, in our example, is thin).
+- *border-style* which describes the border's style, which in our example is a solid line. 
+- *border-color* which describes the border's color, which in our example is red.
 
-Pour cette propriété, il existe 3 valeurs standards:
+The *separator* box uses three abbreviated syntax: the key word *border* is followed by three values referring to the border's width, style and color.
 
-- *thin* : pour une bordure fine.
-- *medium* : pour une bordure moyenne.
-- *thick* : pour une bordure épaisse.
+### Width
 
-Tu peux aussi y mettre des valeurs en pixels(px), en points(pt), etc...
+This property has three standard values:
 
-### Le style
+- *thin* for a thin border.
+- *medium* for a medium border.
+- *thick* for a thick border.
 
-Voici 4 valeurs à connaître:
+You may also add other values to it, in pixels (px), or points (pt), etc.
 
-- *dotted* : pour obtenir un trait en pointillés.
-- *dashed* : pour obtenir un trait en tirets.
-- *solid* : pour obtenir un trait plein.
-- *double* : pour obtenir un double-trait(visible à partir de medium).
+### Style
 
-### Des bordures partielles
+Four values need to be known:
 
-Les propriétés que l'on a vu permettent de faire une bordure qui entoure complètement la boite. On peut avoir besoin de n'avoir qu'une bordure sur un ou 2 côtés. Chaque côté a un mot clé associé:
+- *dotted* to get a dotted line border.
+- *dashed* to get a border made of dashes.
+- *solid* to get a plain line border.
+- *double* to get a border made of two lines, which only become visible with medium borders.
 
-- *top* : pour la bordure supérieure.
-- *bottom* : pour la bordure inférieure.
-- *left* : pour la bordure gauche.
-- *right* : pour la bordure droite.
+### Partial Borders
 
-Il suffit d'ajouter ce mot-clé après border comme suit:
+You may chose to give your box a partial border, of either one or two or three sides. Each side has an associated word:
 
-	::css
+
+- *top* which refers to the top border.
+- *bottom* which refers to the bottom border.
+- *left* which refers to the left border.
+- *right* which refers to the right border.
+
+Simply add one of the above key words after border to affect it:
+
+        ::css
     #separator {
-    	border-top: thin solid blue;
+        border-top: thin solid blue;
         border-bottom: thin solid blue;
     }
     
     #margin {
-    	border-right-width: thin;
+        border-right-width: thin;
         border-right-style: solid;
         border-right-color: red;
     }
 
-Comme tu peux le voir, cela fonctionne aussi pour la forme abrégée.
+## Modifying Margins
 
-## Modifier les marges
+Each box has two types of margins: 
 
-Chaque boite possède 2 types de marge:
-- une marge extérieure (propriété *margin* qui n'est pas notre boite du même nom), qui permet de définir à quelle distance minimale d'une autre boite se situe la notre.
-- une marge intérieur (mot-clé *padding*), qui permet de définir à quelle distance minimale d'un bord de notre boite apparaitra la première boite interne.
+- An external margin (that is, the *margin* property, not the similarly named box) om): it helps us define how close our margin will come to our box.
+- An internal margin, (key-word *padding*): it helps us define how close our margin will come to our internal box.
 
-De la même manière que les bordures, les mots-clés peuvent être suffixés de *top*, *bottom*, *left* et *right* :
+Just as is the case for borders, key-words can be followed by *top*, *bottom*, *left* et *right*, as follows
 
 ````
 ::css
 #made {
-	margin: 10px;
+        margin: 10px;
     padding: 20px;
 }
 
 #made h1 {
-	margin-top: 30px;
+        margin-top: 30px;
 }
 ```
 
-Ici nous voyons que la boite *made* sera éloignée de la boite *separator* d'au moins 10pixels, et que les boites qu'elle contient seront à 20 pixels de ses bords.
+In the above example, we can see that our *made* box will be at least 10 pixels away from our *made* box, and that the box they contain will be 20 pixels away from the borders.
 
-Nous voyons également que les titres de niveau 1(*h1*), s'écarten de la boite précédente de 30 pixels.
+We can also notice that the level 1 titles (*h1*) will be 30 pixels way from the previous box.
 
-# Agir globalement sur le texte
+# Applying Changes to the Text Globally
 
-## Modifier la taille de référence du texte
+## Modifying the Text's Reference Size
 
-Je te fais un petit rappel sur les unités de mesure:
+Let's use this opportunity to go over the size unites again: 
 
-- *px* pour pixels(ce sont des points à l'écran)
-- *pt* pour points(à l'impression)
-- *em* qui est pour moi l'unité la plus intéressante. 1em = la taille de police du document.
+- *px* for pixels, which represent screen points.
+- *pt* for points, which are used for printing documents.
+- *em*, which might be the most interesting unit. 1em represents the font size for the entirety of the document.
 
-On peut fixer pour le contenu du document une taille de police de base. Par exemple:
+You can choose a font size for the entirety of your document, like so: 
 
-	::css
+        ::css
     #made {
-    	font-size: 16px;
+        font-size: 16px;
     }
     
-Cet exemple donne une taille de police de 16px, c'est la taille par défaut. C'est à partir de cette taille par défaut que je vais pouvoir ajuster celle des titres, par exemple.
+This example gives us a default 16px font size. From here, you may adjust the font size of titles for example:
 
-	::css
+
+        ::css
     #made h1 {
-    	font-size: 2em;
+        font-size: 2em;
     }
     
     #made h2 {
-    	font-size: 1.5em;
+        font-size: 1.5em;
     }
     
-Ainsi mon titre de niveau 1 (qui correspond à un seul #) fera 2 fois la taille de base, et le titre de niveau 2 (qui correspond à ##) fera 1,5 fois cette taille.
+Thus, my level 1 title (which corresponds to only one hash sign ( # )) will be twice teh size of the base font size. The level 2 title (which corresponds to two has signs ( ## )) will be 1.5 times the font size.
 
-Si je change la taille de base à 20px, les titres resteront proportionnels.
+If I change the default font size to 20px, the size of the document's title will change proportionally.
 
-## Modifier la police
+## Modifying the Font
 
-On peut modifier la police utilisée grace à la propriété *font-family* comme ceci:
+You can modify the font that's used in your document thanks to the *font-family* property, as follows: 
 
-	::css
+        ::css
     #made {
-    	font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+        font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
     }
     
-La signification de cette ligne est la suivante : Prends la police *RobotoDraft*, si tu ne la trouve pas *Roboto*, si tu ne la trouve pas *Helvetica Neue* et si tu ne la trouves toujours pas prends la première police de type *sans-serif* que tu as.
+This line of code asks Natao to use the *RobotoDraft* font. If that font is not found, Natao is asked to use the *Roboto* font. If not that can't happen, the *Helvetica Neue* font should be used. And in case it can't be found, the first *sans-serif* font it finds should be used.
+In other words, you should consider giving Natao the option to pick from two or three fonts before asking it to use a family of fonts. 
 
-Les polices disponibles dépendent du système d'exploitation sur lequel Natao tourne. Soit Windwos, soit MacOs, soit Linux. Il faut donc lui donner plusieurs pistes à explorer et à la fin une piste infaillible(la famille).
+Note that the font you will have access to to write your Natao document will dependent on the fonts present on your computer. 
 
-Voici quelques exemple courants de définition de *font-family*:
+Here are a few of these *font-family*:
 
-| famille    | définition                                          |
+| Family     | Definition                                          |
 |------------|-----------------------------------------------------|
 | Serif      | Georgia, serif                                      |
 | Serif      | "Palatino Linotype", "Book Antiqua", Palatino, serif|
@@ -555,132 +570,132 @@ Voici quelques exemple courants de définition de *font-family*:
 | Monospace  | "Courier New", Courier, monospace                   |   
 | Monospace  | "Lucida Console", Monaco, monospace                 | 
 
-## Souligner du texte
+## Underlining a Text
 
-Soulignons tout le texte:
+Let's underline a bit of text:
 
-	::css
+        ::css
     #made {
-    	text-decoration: underline;
+        text-decoration: underline;
     }
     
-## l'épaisseur du texte
+## Text thickness
 
-La propriété *font-weight* permet de régler l'épaisseur du texte:
-- *lighter* pour un texte plus fin que d'habitude
-- *normal* pour un texte normal.
-- *bold* pour un texte gras.
-- *bolder* pour un texte très gras.
+The *font-weight* property lets you change the text's thickness:
 
-Mettons tout le texte en gras comme ceci:
+- *lighter* for a text that's thinner than usual.
+- *normal* for a normal text.
+- *bold* for a bold text.
+- *bolder* for an extra-bold text.
 
-	::css
+Let's put the entirety of our document's text in bold, like so: 
+
+        ::css
     #made {
-    	font-weight: bold;
+        font-weight: bold;
     }
 
-## Le style de texte
+## Text Style
 
-La propriété *font-style* permet de déterminer si un texte est:
-- *normal*: avec des caractères verticaux.
-- *italic*: avec des caractères penchés.
+The *font-style* property let's us decide if a portion of text is:
 
-Mettons tout notre texte en italique comme ceci:
+- *normal*: with straight characters.
+- *italic*: with slanted characters.
 
-	::css
-	#made {
-    	font-style: italic;
+Let's put the entirety of our document's text in italic, like so:
+
+        ::css
+        #made {
+        font-style: italic;
     }
     
-## L'alignement du texte
+## Text Alignment
 
-La propriété *text-align* permet de choisir l'alignement du texte. Elle peut avoir les valeurs suivantes:
-- *left*, pour coller le texte à gauche.
-- *right*, pour coller le texte à droite.
-- *center*, pour centrer le texte.
-- *justify*, pour que le texte se colle à la fois à gauche et à droite, qu'il prenne toute la place.
+The *text-align* property let's us pick how our text is aligned. It is used as follows: 
+
+- *left*, to move the text to the left.
+- *right*, to move the text to the right.
+- *center*, to center the text.
+- *justify*, for the text to spread evenly.
+
+Let's write an example which we could use to write a poem's verses:
+
 
 ```
 ::css
 #made p {
-	text-align: center;
+        text-align: center;
 }
 ```
-    
-Pour les vers d'une poésie par exemple.
 
-## Indenter la première ligne
+## Indenting a First Line
 
-La propriété *text-indent* permet d'indenter la première ligne d'une boite de texte:
+The *text-indent* property lets us indent a box's first line, like so:
 
-	::css
+        ::css
     #made p {
-    	text-indent: 1.5em;
+        text-indent: 1.5em;
     }
 
-# Agir sur les boites de texte individuellement
+# Affecting Individual Text Boxes
 
-Voici un exemple de document Markdown avec des paragraphes, des titres, et du texte valorisé:
+What follows is an example of a Markdown document with paragraphs, titles, and some highlighted text: 
 
-	::markdown
-    # Titre 1
-    ## Titre 1.1
-    ### Titre 1.1.1
+        ::markdown
+    # Title 1
+    ## Title 1.1
+    ### Title 1.1.1
     ...
-    ###### Titre 1.1.1.1.1.1
-    
-    Voici mon premier paragraphe, avec sa première ligne simple.
-    Suivie d'une deuxième ligne.
-    
-    Et maintenant le *paragraphe* suivant avec des mots **valorisés** voire ~~barrés~~
-    
-Ce texte en Markdown devrait donner ce code HTML:
+    ###### Title 1.1.1.1.1.1
 
-	::html
-    <h1>Titre 1</h1>
-    <h2>Titre 1.1</h2>
-    <h3>Titre 1.1.1</h3>
+The code written above describes that a first paragraph is followed by a first line which is itself followed by a second line. 
+The following *paragraph* with **highlighted** and even ~~struck-through~~ words. 
+    
+Written in HTML, this Markdown text gives the following code:
+
+        ::html
+    <h1>Title 1</h1>
+    <h2>Title 1.1</h2>
+    <h3>Title 1.1.1</h3>
     ...
-    <h6>Titre 1.1.1.1.1.1</h6>
+    <h6>Title 1.1.1.1.1.1</h6>
     
-    <p>Voici mon premier paragraphe, avec sa première ligne simple.Suivie d'une deuxième ligne.</p>
-    <p>Et maintenant le <em>paragraphe</em> suivant avec des mots <strong>valorisés</strong> voire <del>barrés</del></p>
+    <p>The code written above describes that a first paragraph is followed by a first line which is itself followed by a second line.</p>
+    <p>The following <em>paragraph</em> with <strong>highlighted</strong> and even <del>struck-through</del> words.</p>
     
-Nous pouvons voir que le nombre de # d'un titre correspond au numéro qui suit le h de la boite de titre. Ainsi # devient une boite *h1* et ainsi de suite.
+You can notice here that the number of hash signs ( # ) used in a title corresponds to the number that follows the <h> of the title box. In other words, one hash sign becomes *h1* and so on. 
 
-Les paragraphes sont dans des boites *p*.
+The paragraphs are in the *p* boxes. 
+The word *paragraph* which was surrounded by one star sign ( * ) is in the *em* box.
+The word *highlighted* which was surrounded by two star signs ( ** ) is in the *strong* box.
+The word *struck-through* which was surrounded by two tilde signs ( ~ ) is in the *del box.
 
-Le mot *paragraphe* qui était entouré de 1 `*` est dans une boite *em*.
+All of the boxes referred to above are normal boxes. As a result, everything we've seen so far on how to modify boxes can be used on them: 
 
-Le mot *valorisés* qui était entouré de 2 `*`est dans une boite *strong*.
+- Changing the background and text colors.
+- Changing the font.
+- Changing the font size.
+- Underlining.
+- Changing the thickness of the text.
+- Changing the style of the text.
 
-Enfin, le mot *barrés* qui était entouré de 2 `~`est dans une boite *del*.
+These boxes have a default appearance. A *em* box is in italic by default. A *strong* box is in bold by default. A *del* box is struck-through by default. And the titles also have default sizes. I suggest that you only modify the bits that you need to modify.
 
-Tous ces boites sont des boites comme les autres. Par conséquent, tout ce que nous avons vu jusqu'à présent peut être appliqué à un de ceux-ci:
-- les couleurs de fond et de texte
-- le changement de police
-- le changement de taille de police
-- le soulignement
-- l'épaisseur du texte
-- son style
+If you also need the bold text to be made red or underlined, do it as follows: 
 
-Ces boites ont déjà une apparence par défaut. Ainsi une boite *em* est par défaut en italique, une boite *strong* est par défaut en gras, une boite *del* est par défaut barré et les titres ont également des tailles par défaut. Ne modifiez que ce qui est utile.
-
-Si tu as besoin qu'en plus d'être en gras, le texte très valorisé soit en rouge et souligné ecris ceci:
-
-	::css
+        ::css
     strong {
-    	color: red;
+        color: red;
         text-decoration: underline;
     }
 
-# La numérotation automatique
+# Automatic Numerotation
 
-Voici le code que j'ai utilisé pour le style des leçons:
+Here's the code I used for the lesson style:
 
 ```
 ::css
-#made {counter-reset: chapitre section sous-section;}
+#made {counter-reset: chapter section sub-section;}
 
 #made  h1 {
     font-family: "Courier New", Courier, monospace;
@@ -691,48 +706,48 @@ Voici le code que j'ai utilisé pour le style des leçons:
 }
 
 #made  h1:before {
-	counter-increment: chapitre;
-    content: counter(chapitre,upper-roman) " - ";  
+        counter-increment: chapter;
+    content: counter(chapter,upper-roman) " - ";  
 }
 
 #made h2 {
     font-size: 1.2em;
-    counter-reset: sous-section;
+    counter-reset: sub-section;
 }
 
 #made h2:before {
     counter-increment: section;
-    content: counter(chapitre) "." counter(section) "  ";
+    content: counter(chapter) "." counter(section) "  ";
 }
 #made  h3:before {
-    counter-increment: sous-section;
-    content: counter(chapitre) "." counter(section) "." counter(sous-section) "  ";
+    counter-increment: sub-section;
+    content: counter(chapter) "." counter(section) "." counter(sub-section) "  ";
 }
 ```
 
-Tout d'abord je voudrais te montrer 2 nouveaux sélecteurs:
+I'd like to use this opportunity to show you two new selectors: 
 - *h1:before*
 - *h1:after*
 
-J'ai ajouté *:before* au sélecteur de boite *h1*. C'est une pseudo-classe, il y en a d'autres, mais celle-ci va nous permettre de rajouter du contenu avant la boite choisi. Au besoin on aurait pu faire la même chose avec la pseudo-classe *after*.
+I've added *:before* to the *h1* box selector as a pseudo-class. There are others like it, but this one is going to allow us to add content to whatever box we chose.  We could have done the same with the *after* pseudo-class. 
 
-Et maintenant, nous allons parler des compteurs. Pour générer une numérotation automatique, j'utilise des compteurs. Je commence par initialiser leur valeur, les remettre à 1:
+Let's talk about counters. To generate numbers automatically, I use counters. I start by initializing their value by setting them to 1:
 
-	::css
-	#made {counter-reset: chapitre section sous-section;}
-    
-*counter-reset* remet tous les compteurs spécifiés à 0. Ici, les compteurs que l'on a nommé *chapitre*, *section* et *sous-section* prennent une valeur à 0.
+        ::css
+        #made {counter-reset: chapter section sub-section;}
 
-Les compteurs sont chacun associés à un type de boite (de niveau de titre donc):
-- *chapitre* pour *h1*.
-- *section* pour *h2*.
-- *sous-section* pour *h3*.
+*counter-reset* sets all the specified counters to 0. Here the counters which we've called *chapter*, *section*, and *sub-section* all get a value of 0.
 
-A chaque nouveau *h1*(chapitre), je remets à 0 le compteur de *h2*, *section*.
+These counters are all linked to a title-level type of box:
 
-A chaque nouveau *h2*(section), je remets à 0 le compteur de *h3*, *sous-section*.
+- *chapter* for *h1*.
+- *section* for *h2*.
+- *sub-section* for *h3*.
 
-Ce qui se traduit par le css suivant.
+For each new *h1* level (chapter), I set the *h2* level (*section*) counter to 0.
+For each new *h2* level (section), I set the *h3* level (*sub-section*) counter to 0.
+
+In CSS we then get:
 
 ````
 ::css
@@ -741,60 +756,56 @@ Ce qui se traduit par le css suivant.
 }
 
 #made h2 {
-    counter-reset: sous-section;
+    counter-reset: sub-section;
 }
 ```
 
-Examinons maintenant les *before* des boites h1 et h2:
+Let's now take a look at the *before* of the h1 and h2 boxes:
 
 ```
 ::css
 #made  h1:before {
-    counter-increment: chapitre;
-    content: counter(chapitre,upper-roman) " - ";
+    counter-increment: chapter;
+    content: counter(chapter,upper-roman) " - ";
 }
 
 #made h2:before {
     counter-increment: section;
-    content: counter(chapitre) "." counter(section) "  ";
+    content: counter(chapter) "." counter(section) "  ";
 }
 
 ```
 
-La première chose à voir est l'utilisation de la propriété *counter-increment* associée au compteur *chapitre* pour *h1:before* et au compteur *section* pour *h2:before*. Cette instruction ajoute 1 au compteur sélectionné.
+Let's first look at the use of the *counter-increment* property, which is linked to the *chapter* counter for *h1:before* and to the *section* counter for *h2:before*. This order adds 1 to the selected counter.
 
-Ensuite, il y a la propriété *content*. Cette propriété permet de modifier le contenu d'une boite. Ici, nous nous situons avant(*before*) la boite *h1* ou avant la boite *h2*.
+Then comes the *content* property. It lets us modify the content of a box. Here, we're positioned *before* the *h1* box or *before* the *h2* box.
 
-En commençant par la boite *h2*, tu peux voir que la propriété *content* contient *counter(chapitre) "." counter(section) "  "*. Cela veut dire:
+Starting with the *h2* box, we can see that the *content* property contains *counter(chapter) "." counter(section) "  "*, which broken down means:
 
-- la valeur du compteur *chapitre* (*counter(chapitre)*),
-- suivi d'un point,
-- suivi de la valeur du compteur *section* (*counter(section)*),
-- suivi d'un espace,
-- et enfin suivi de notre boite *h2* donc notre titre, car tout ce l'on a vu avant s'écrit avant *h2*.
+- The value of the *chapter* counter (*counter(chapitre)*),
+- followed by a period,
+- followed by the value of the *section* counter (*counter(section)*),
+- followed by a blank space,
+- and finally followed by our *h2* box, and therefore our title, because everything we've looked at before is situated before *h2*.
 
-Maintenant si l'on regarde la boite *h1*, tu peux voir que la propriété *content* contient *counter(chapitre,upper-roman) " - "*. Cela veut dire:
+If we look at the *h1* box, you may notice that the *content* property contains *counter(chapter,upper-roman) " - "*, which means:
 
-- la valeur du compteur *chapitre*, mais en chiffre romains, en majuscule (*counter(chapitre,upper-roman)*),
-- suivi d'un espace, d'un tiret, un nouvel espace,
-- et enfin, suivi de notre boite *h1*.
+- The value of the *chapter* counter, in upper case roman numerals (*counter(chapter,upper-roman)*),
+- followed by a blank-space, and a blank-space,
+- and finally, our *h1* box.
 
-Comme tu as du le remarquer, pour *h2* j'utilise *counter(section)* et pour *h1* j'utilise *counter(chapitre,upper-roman)*. Dans le deuxième cas, je spécifie l'écriture en chiffre romain, et dans le premier, je ne mets que le compteur.
-C'est parce qu'il écrit par défaut en *decimal*. Je pourrais écrire *counter(section,decimal)*, mais il ferait exactement la même chose.
+For *h2*, I use *counter(section)*, and for *h1* and use *counter(chapter,upper-roman)*. In the second case, I specify that roman numerals need to be used, and in the first, I don't put in the counter. This is because it is written in *decimal* by default. I could have written *counter(section,decimal)*, but it would have been the same thing.
 
-Voici les différentes valeurs possibles, et quand je le sais à quoi ça correspond:
+Here are the various possible values, and when I know what they correspond to:
 
-- *decimal* pour l'affichage en chiffres arabes (ceux qu'on utilise d'habitude),
-- *decimal-leading-zero* pour afficher en chiffres arabes, mais en rajoutant un 0 dans les dizaines,
-- *lower-roman* en chiffre romains, mais en minuscules,
-- *upper-roman* en chiffres romains et en majuscule,
-- *lower-greek* en chiffres grecs,
+- *decimal* to write Arabic numerals (which we usually use),
+- *decimal-leading-zero* to write Arabic numbers with a 0 in the decimals,
+- *lower-roman* in roman numerals, lower case,
+- *upper-roman* in roman numerals, upper case,
+- *lower-greek* in Greek numerals,
 - *lower-latin*, 
 - *upper-latin*,
 - *armenian*,
 - *georgian*, 
-- *lower-alpha* en lettres en minuscule,
-- *upper-alpha* en lettre en majuscule.
-
-
-
+- *lower-alpha* in lower case letters,
+- *upper-alpha* in upper case letters.
