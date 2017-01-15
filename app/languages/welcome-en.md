@@ -1,52 +1,73 @@
 # Hello and welcome to Natao.##
 
-Before we go any further, know that you may adjust the size of the interface's characters by clicking on the small looking-glass icon visible within the black bar located at the top-left of the screen. 
-You may also adjust the look of Natao's user-interface by clicking on the gears icon located right above the central panel.
+**Before We Start**
 
-You are probably wondering what Natao is and what it can help you accomplish. The document you are currently reading should help you answer these questions.
+You may have noticed in the guided tour the buttons which are designed to help you adjust Natao's appearance, or User Interface, to your liking.
 
-# Natao's Interface
+Well, start using them: adjust the magnifying glass and the open-dyslexix until you're comfrotable with Natao's User Interface.
 
-Looking at Natao's user-interface, you can notice three panels:
+You can choose to change Natao's appearance even more, by going into the **Editor** panel. There you will find buttons which will help you add space and/or grey stripes between your document's lines.
 
-- The left panel is called the "Explorer". It lets you organize the documents you create within Natao.
-- The center panel is called the "Editor". It shows the Markdown syntax as you write it.
-- The right panel is called the "Viewer". It shows how the text appears in its final, formatted, print-ready form.
+# So what's Natao good for?
 
-# Natao's Two Core Goals
+Natao has been designed to help you easily create elegant documents, filled with text and/or basic mathematical formulae.
+To do so, Natao uses a language called Markdown which converts a simple text containing a few structurally significant characters, like hashtag signs ( # ) or star signs ( * ) or greater-than signs ( > ) into an easily readable and clearly formatted document.
 
-## To help you organize your documents.
+Using the Markdown language lets you concentrate on your text body and not on unwieldy formatting windows, as is the case in regular word processing programs. 
 
-Although the Explorer panel operates the way your computer organizes files and documents, it offers additional functions:
+Take a look at Natao's text Editor and text Viewer panels. You'll notice that they are very similar to each other, but for two key differences: in the Editor, single hastag ( # ) signs appear, whereas in the Viewer these have been replaced by roman numerals. Similarly, the double hastag ( ## ) signs seen in the Editor window have been replaced by numbers in the Viewer panel.
 
-- The Explorer is integrated within Natao's interface. You may therefore navigate through your documents and edit them within the program. Indeed, if you were to click on one of the documents visible within the Explorer panel, the selected document would open in Natao's Editor panel, and let you start working immediately.
+You can use Markdown signs to create all sorts of design elements within whichever document you write, such as:
 
-- The Explorer contains examples of folder structures to help you organize your work. Each folder you create within the panel automatically appears with its own set of sub-folders. You may modify these sub-folders and create your own structures.
+# Titles
 
-- The Explorer allows you to colorize the folder names to highlight and differentiate them.
+Insert a single hash ( # ) sign in front of a word or sentence and transform that word or sentence into a title.
 
-## To help you write without worrying about formatting.
+ This word is not a title, but this # word is title.
 
-Working on the content and the formatting of a document within the confines of a traditional desktop publishing program can be cumbersome and time-consuming. In order to modify a text's appearance in such program, one has to stop typing, select the text to be formated, and click on a button to change its appearance, after having gone through many options. Natao lets you concentrate on a document's content by doing the formatting for you. 
+## Sub-titles
 
-This is where the Markdown approach of composing documents comes in.
+This time we're using two hash ( ## ) signs to create a ## subtitle.
 
-What's Markdown?
+### And we can even go further, with three hash ( ### ) signs.
 
-The Markdown language converts a simple text containing a few structurally significant characters into an easily readable and clearly formatted document. For instance:
+# Emphasizing words or sentences
+Star ( * ) signs can be used to emphasize some text, as the two following examples illustrate:
 
-- A line beginning with a single pound or hash sign ( # ) becomes an important title. A sentence beginning with two pound or hash signs appears as a less important title.
-- A text beginning and ending with a star sign ( * ) is highlighted, while one that begins and ends with two stars becomes even more visible.
+- A single star ( * ) sign put before and after *a portion of text* italicizes it.
+- Two star ( * ) signs put before and after **a portion of text** underline and embolden it.
 
-What about formatting styles?
+The Markdown syntax offers a lot more tools for you to format your documents properly. We take a look at them in Natao's other Help sections. 
 
-Natao uses style-sheets. A few examples of these are made available as soon as the program starts. You may modify them and even create your own.
+By the way, the Markdown language can be used outside of Natao, to write wikis for instance. So learning it for Natao will pay off in the real world too.
+
+## What if I want to my words to be red and underlined?
+
+I know the feeling.
+
+Well, it so happens that you can personalize the appearance of Natao's default document style.
+
+Take a look at the top of the Editor window, and noticed the *Style* option. Click on it and a drop-down menu will deploy, listing a series of document style-sheets. By switching to any of them, you'll be able to give your document a new appearance.
+
+For instance, by choosing the *Test* style-sheet, you'll get to write down your first and last names, as well as the day's date at the top of a document formatted with a margin, for your teacher's notes and comments.
+
+Moreover, these style-sheets can be modified by you, Natao's user. Each change you implement will be applied to the entirety of your document.
+
+
+Yes, that's where you'll be able to underline your text's words and turn them red.
 
 # Next Steps
 
-You should now have a better idea of what Natao is and what it can allow you to accomplish.
-If you decide to go further, click on the question mark icon located at the top-right corner of Natao's interface. A new window will pop up and let you delve deeper into the program.
+You should now have a better idea of what Natao is and what it can allow you to accomplish. If you decide to go further, click on the question mark icon located at the top-right corner of Natao's interface. A new window will pop up and let you delve deeper into the program.
 
-I hope you will find Natao easy to use and useful to your work.
+If you want to print any of the Help documents:
+
+- Click on the *Settings* button, located at the top-right corner of Natao's interface,
+- Click on the *Other* thumbnail,
+- Click on the *Import* button.
+
+These Help document files will appear in *Documents* which will let you print them.
+
+In any event, I hope you'll find Natao easy to use and useful to your work.
 
 Thanks and good luck!
