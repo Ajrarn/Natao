@@ -55,7 +55,7 @@ Here appear your folders and documents, organized as you see fit.
 
 - One click on a folder icon will either reveal or hide its content.
 - One click on the folder's name will open a pop-up tool menu that will let you edit the folder.
-- One click on a document will open it in the Editor panel, as an editable Markdown text, and in the Viewer panel, as a preview of its once printed.
+- One click on a document will open it in the Editor panel, as an editable Markdown text, and in the Viewer panel, as a digital preview of its printed version.
 
 ## The Pop-up Folder Tool Menu
 
