@@ -2,36 +2,36 @@
 
 # Writing formulae in AsciiMath
 
-When you write a mathematical formula, surround it with two at-signs ( @@ ), as the example that follows illustrates.
+When you write a mathematical formula, surround it with two at-signs ( @@ ), as follows:
 
         >The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
 
 Which gives:
 
->The loot was shared as follows, @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
+>The loot was shared liek so: @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
 
-As illustrated above, the math formula portion of your text will appear as an inline formula contained within the rest of your text. To separate the formula from your text, simply start a new paragraph.
+As illustrated above, the math formula portion of your text will appear as an inline formula contained within the rest of your text. To separate the formula from your text, simply start a new paragraph by adding a blank space between your formulae (as discussed in the Markdown Help document).
 
 # Basic AsciiMath
 
 ## Basic Operations
 
-Natao only allows you to write in-line operations.
+With Natao, you may only write in-line operations.
 
 Here are some examples:
 
 |  AsciiMath Syntax  | Character |
-|:------------------:|:---------:|
-| @@=@@              |   =       |
-| @@+@@              |   +       |
-| @@-@@              |   -       |
-| @@xx@@             |   xx      |
-| @@-:@@             |   -:      |
-| @@!=@@             |   !=      |
-| @@<@@              |   <       |
-| @@<=@@             |   <=      |
-| @@>@@              |   >       |
-| @@>=@@             |   >=      |
+|:------------------:|:--------------:|
+| @@=@@              |        =       |
+| @@+@@              |        +       |
+| @@-@@              |        -       |
+| @@xx@@             |        xx      |
+| @@-:@@             |        -:      |
+| @@!=@@             |        !=      |
+| @@<@@              |        <       |
+| @@<=@@             |        <=      |
+| @@>@@              |        >       |
+| @@>=@@             |        >=      |
 
 You may thus write:
 
@@ -49,7 +49,7 @@ to obtain:
 
 >@@200mm < 25cm <= 3dm@@
 
-Remember to leave spaces before and after the less-than ( < ) and greater-than signs ( > ) to avoid any confusion with HTML code.
+Remember to leave spaces before and after the less-than ( < ) signs and greater-than signs ( > ) to avoid any confusion with HTML code.
 
 ## Fractions
 
@@ -63,7 +63,7 @@ You should get the following:
 
 ## Pi
 
-If you have started calculating circle perimeters, you may use the Pi sign by surrounding it with two at-signs ( @ ), as follows:
+If you've started learning how to calculate circle perimeters, you'll be asked to use the Pi sign in your calculations. Simply surround the word Pi with two at-signs ( @ ), as follows:
 
 | AsciiMath Syntax | Charcater |
 |:----------------:|:---------:|
@@ -79,7 +79,7 @@ You may thus write:
 
 You may use the underscore-sign ( _ ) after a plain text number or expression to indicate that an index follows.
 
-When a caret-sign ( ^ ) is written after a plain text number or expression, an exponent appears, as follows.
+When a caret-sign ( ^ ) is written after a plain text number or expression, an exponent appears, as follows:
 
     >@@x_1@@
 
@@ -95,9 +95,9 @@ Which gives:
 
 >@@x_1^2@@
 
-You should note that when you need to show the two symbols at the same time, you should always use the index sign first.
+You should note that when you need to show the index and the exponent symbols at the same time, you should always use the index sign first.
 
-These two types of symbols can also be used to change the elements of a mathematical formula, as the examples that follow illustrate:
+These two types of symbols can also be used to change the elements of a mathematical formula, as the following examples illustrate:
 
     >@@sum_(n=1)^(n=5) 4^n@@
 
@@ -113,7 +113,7 @@ The AsciiMath notation for matrices is as follows:
 
         >@@[[a,b],[c,d]]@@
 
-You will then get obtain the following matrix:
+You will then get the following matrix:
 
 >@@[[a,b],[c,d]]@@
 
@@ -127,17 +127,15 @@ You will then obtain the following vector:
 
 ## Symbols & Functions
 
-Usually, AsciiMath syntax symbols affect the characters that follow them.
-
-For instance, by writing the following example:
+Usually, AsciiMath syntax symbols affect the characters that follow them. For instance, by writing the following example:
 
         >@@sqrt 1/3@@
 
-You obtain:
+You get:
 
 >@@sqrt 1/3@@
 
-If you wish to apply the symbol (or the function) to a group of characters, simply write parentheses around the group of characters, as follows:
+If you wish to apply a symbol, or a function, to a group of characters, simply write parentheses around the group of characters, as follows:
 
     >@@sqrt(1/3)@@
 
@@ -145,7 +143,7 @@ You will then obtain:
 
 >@@sqrt(1/3)@@
 
-In the examples above, you will notice that the parentheses do not appear, and that the AsciiMath square root symbol is applied to (1/3).
+In the examples above, you will notice that the parentheses are not visible, and that the AsciiMath square root symbol is applied to (1/3).
 
 # List of Symbols and Functions
 
@@ -327,15 +325,15 @@ In the examples above, you will notice that the parentheses do not appear, and t
 
 # TeX
 
-Other syntax, besides AsciiMath, can be used to write mathematical formulae. The most known of these is TeX, and it has been included in Natao.
+Other syntax, besides AsciiMath, can be used to write mathematical formulae. The most known of these is called TeX (pronounced Tek). It has been included in Natao.
 
 ## Tex Mathematical Formulae
 
-In TeX, formulae come either be centered or written as inline formulae.
+In TeX, formulae can either be centered or written as inline formulae.
 
 ### Inline Formulae:
 
-The formula appears within a line of text. Simply start and end your formula with two dollar signs ( $$ ), as the example that follows shows:
+The formula appears within a line of text. Simply start and end your formula with two dollar signs ( $$ ), as follows:
 
         >The loot was thus shared: $$\frac{1}{2}$$ for the captain, $$\frac{1}{4}$$ for the helmsman, and the remainder for the rest of the crew.
 
@@ -345,7 +343,7 @@ Which gives:
 
 ### Centered Formulae:
 
-The formula appears after the line of text, in the center of the document's page. Simply start and end your formula with three dollar signs ( $$$ ):
+The formula appears after the line of text, in the center of the document's page. Simply start and end your formula with three dollar signs ( $$$ ), like so:
 
         >Here is some text followed by a formula $$$\sqrt{\frac{1}{3}}$$$. The formula appears separately from the text.
 
