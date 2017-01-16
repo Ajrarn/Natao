@@ -1,10 +1,10 @@
 [toc]
 
-# The Markdown Language
+# The Markdown Computer Language
 
 Working with Natao means using a simple, computer-based language called Markdown.
 
-The Markdown language is designed to help its users format documents with common signs and characters, like the pound sign ( # ) or the greater-than sign ( > ). By inserting such signs within your Natao-produced document, you will similarly be able to organize your document.
+The Markdown computer syntax is designed to help its users format documents with common signs and characters, like the pound sign ( # ) or the greater-than sign ( > ). By inserting such signs within your Natao-produced document, you will similarly be able to format your document.
 
 In the following sections, we are going to go over the Markdown syntax, starting with the basics.
 
@@ -22,30 +22,30 @@ I am                               hungry!
 
 I am hungry.
 
-Note that no matter how many spaces you add between words, in your document's final, ready-to-print output, it will look like you only added one blank space, as is the norm.
-So, if adding blank spaces between words helpd you better read them, do so! In the final document, your words will be separated normally.
+Note that no matter how many spaces you add between words, in your document's final, ready-to-print output, it will look like you only added one blank space, as is the norm in text formatting standards.
+So, if adding blank spaces between words help you better read them, do so. In the final document, your words will be separated normally.
 
 ## Paragraphs
 
-As long as you don't insert blank spaces between your sentences, Natao considers that your sentences are all part of the same paragraph or block of text.
+Create paragraphs by adding blank spaces between your lines. Otherwise Natao considers that your sentences are all part of the same paragraph or block of text.
 
-	This is the first sentence. This is the second sentence. They appear as being part of the same paragrpah because I didn't add any blank space between them.
+	This is the first sentence. This is the second sentence. They are part of the same paragraph because I didn't add any blank space between them.
 
 	I've written another sentence, but I then added a blank space after it.
-	As a result, the second sentence appears sepratated from the first sentence.
+	As a result, the second sentence appears separated from the first sentence.
 
 **Results in:**
 
-This is the first sentence. This is the second sentence. They appear as being part of the same paragrpah because I didn't add any blank space between them.
+This is the first sentence. This is the second sentence. They appear as being part of the same paragraph because I didn't add any blank space between them.
 
 I've written another sentence, but I then added a blank space after it.
-As a result, the second sentence appears sepratated from the first sentence.
+As a result, the second sentence appears separated from the first sentence.
 
 Keep in mind that as you write your text in Natao's Editor panel, you may insert as many line-breaks as you see fit. As long as you don't insert blank spaces, Natao will keep your sentences within the same paragraph.
 
 ## Titles
 
-You can keep your document visually organized by creating titles. You create titles by adding one or a few pound or hash signs ( # ) at the beginning of the text that you would like to have appear as a title. The number of pound or hash signs ( # ) you add determines how important the title is. Note that you may only add up to six (#) signs.
+You can keep your document visually organized by creating titles. You create titles by adding one or a few pound or hash-tag signs ( # ) at the beginning of the text that you'd like to have appear as a title. The number of pound or hash-tag signs ( # ) you add determines how important the title is. Note that you may only add up to six ( # ) of these signs.
 
 The following example shows you how the titles of this particular document have been designed.
 
@@ -56,9 +56,9 @@ The following example shows you how the titles of this particular document have 
 ### Within a Line
 ###### And the Maximum number of Pound Signs
 
-We also recommend that, to help readability, you do not go beyond three title levels.
+To help readability, we recommend that you do not go beyond three title levels.
 
-## Highlight Text Elements
+## Emphasizing Text Elements
 
 You may decide to bring your readers' attention to specific parts of your text. You may do so for single words or for groups of words.
 
@@ -66,7 +66,7 @@ Place a single star sign ( * ) before and after the word(s) you'd like to highli
 
 *This text will be italicized.*
 
-Place two star signs ( * ) before and after the word(s) you'd like to highlight, and, by default, the text's letters will become darker, or bold.
+Place two star signs ( * ) before and after the word(s) you'd like to emphasize, and, by default, the text's letters will become slighty thicker and darker, or bold.
 
 **This text is in bold.**
 
@@ -78,7 +78,7 @@ You may also add a single underscore sign ( _ ) before and after some word or wo
 
 **Everyone _must_ arrive on time today.**
 
-You may also choose to strike-through a word or words by adding two tilde signs ( ~ ) before and after the word or words you would like to cross out.
+You may also choose to strike-through a word or words by adding two tilde signs ( ~ ) before and after the word or words you'd like to cross out.
 
     ~~A mistake.~~
 
@@ -86,7 +86,7 @@ You may also choose to strike-through a word or words by adding two tilde signs 
 
 ~~A mistake.~~
 
-As mentioned above, adding a single star sign ( * ) or a couple of them before and after words will respectively italicize or bolden your word or words. This default behavior may be changed by editing Natao's style-sheets (see our manual for help on this function). You could then decide that adding star signs in fact means underlining a word or a group of words with, for example, a red line.
+As mentioned above, adding a single star sign ( * ) or a couple of them before and after words will respectively italicize or embolden your word or words. This default behavior may be changed by editing Natao's style-sheets. You could then decide that adding star signs in fact means underlining a word or a group of words with, for example, a red line.
 
 ## Special Characters
 
@@ -96,7 +96,7 @@ By placing a backlash sign ( \ ) before a special character, one may use any cha
 
 ## Conclusion
 
-The basic Markdown syntax allows anyone to write standard documents. The simple elements of syntax that follow should allow you to go a step further. And it's still quite easy.
+The basic Markdown syntax allows anyone to write standard documents. But there's more. The simple elements of syntax that follow should allow you to go a step further. And it's still quite easy.
 
 # Citations
 
@@ -128,8 +128,7 @@ If you wish to have the name of the author appear in the citation block itself, 
 
 ## Within a Line
 
-To display a word or words without any formatting, place a grave accent sign ( ` ) before and after the word or words.
-In the example that follows, the star signs ( * ) placed within the grave accent signs ( ` ) appear as what they are, star signs.
+To display a word or words without any formatting, place a grave accent sign ( ` ) before and after the word or words. In the example that follows, the star signs ( * ) placed within the grave accent signs ( ` ) appear as what they are, as star signs.
 
     This text is `important` and here, it becomes even `**more**` important.
 
@@ -139,7 +138,7 @@ This text is 'important' and here, it becomes even '**more**' important
 
 ## Over Many Lines
 
-The grayed out blockquotes seen throughout this guide were created as follows: by inserting before the lines of text that need to be part of the box four empty character spaces, or one use of your keyboard's TAB-key.
+The grayed out block-quotes seen throughout this guide were created as follows: by inserting, before the lines of text that need to be part of the box, four empty character spaces, or one use of your keyboard's TAB-key.
 
     As an example, here's some text:
 
@@ -171,15 +170,16 @@ x = 2 + 2
 ```
 
 Because the content of the text is not formatted, three details become noticeable:
-- The hash and star signs don't impact the formatting.
-- Each sentence appears as is, not as paragraphs.
+
+- The hash-tag and star signs don't impact the formatting.
+- Each sentence appears as is, not as a paragraph.
 - Each blank space remains as is.
 
 # Highlighting Code
 
-Unformatted blockquotes are often used to display programming code.
+Unformatted block-quotes are often used to display programming code.
 
-Because Natao is not intended for use by computer programmers, its capacities as a computer code editor are deactivated by default. You may reactivate these dormant capacities by starting your section of computer code with three grave accent signs ( ` ), followed by two colons ( : ) placed right before your first sentence, as follows:
+Because Natao is not intended for use by computer programmers, its capacities as a computer code editor are deactivated by default. You may reactivate these dormant capacities by starting your section of computer code with three grave accent signs ( ` ), followed by two colons signs ( : ) placed right before your first sentence, as follows:
 
     ```
 	::typescript
@@ -231,7 +231,7 @@ You may create an unnumbered list by adding a star sign ( * ) or a hyphen-minus 
 - Here, some text!
 - I just wrote some words.
 
-We suggest you use a minus sign instead of a star sign for such lists, to avoid any confusion with highlighting.
+We suggest you use a minus sign ( - ) instead of a star sign ( * ) for such lists, to avoid any confusion with emphasizing.
 
 ## Numbered Lists
 
@@ -277,7 +277,7 @@ You may indent a list by adding four blank spaces, or a TAB, before the item mak
 
 ## A Basic Table
 
-You may create a basic table by sketching one, right in your document in Natao's Editor panel, with vertical bars or pipe signs ( | ), hyphen-minus signs ( - ), and colon signs ( : ), like so:
+You may create a basic table by sketching one, right in your document in Natao's Editor panel, with pipe signs ( | ), hyphen-minus signs ( - ), and colon signs ( : ), like so:
 
 	::gfm
     |A|B|
@@ -294,9 +294,10 @@ You may create a basic table by sketching one, right in your document in Natao's
 |y|v|
 |x|u|
 
-This simple table's two columns were created by using the vertical bars ( | ). Its header was separated from the rows by using hyphen-minus signs ( - ). The colon signs ( : ) were used to highlight the table's title.
+This simple table's two columns were created by using the vertical bars ( | ). Its header was separated from the rows by using minus signs ( - ). The colon signs ( : ) were used to highlight the table's title.
 
 Let's create another table, this time one that's a bit more complex.
+
 In the Editor panel, let's write or paste-in the following section:
 
 	::gfm
@@ -314,7 +315,7 @@ In the Editor panel, let's write or paste-in the following section:
 |it's strange|
 |d|
 
-Here again, note that although the table appears correctly in the Viewer panel, in the Editor, the text looks nothing like a table. In other words:
+Here again, note that, although the table appears correctly in the Viewer panel, in the Editor, the text looks nothing like a table. In other words:
 
 - No matter how many minus signs you include within the pipe signs, the table headline still appears correctly.
 - No matter how many blank spaces you include, the table's appearance in the Viewer panel remains unchanged.
@@ -343,7 +344,7 @@ Finally, note that tables appear in the center of the pages you create.
 
 ## Aligning Table Content
 
-By default, table content is aligned to the left. Still, that default position can be altered by using colon signs ( : ), as follows.
+By default, table content is aligned to the left. However, that default position can be altered by using colon signs ( : ), as follows.
 
 	::gfm
 	|Pretty headline|Pretty headline bis  |
@@ -367,7 +368,7 @@ In other words:
 
 ## A Complex Table
 
-In the following table, we have changed how content is aligned and how text is highlighted.
+In the following table, we have changed how content is aligned and how text is emphasized.
 
 	::gfm
     | Tables         | Are              | Cool  |
@@ -386,7 +387,7 @@ In the following table, we have changed how content is aligned and how text is h
 
 # Images
 
-You may insert images in your document, as we've done with the Natao logo, here:
+You may insert images in your document, as we've done with the Natao logo, like so:
 
     ::gfm
     ![Logo de Natao](./natao.png)
@@ -397,7 +398,7 @@ You may insert images in your document, as we've done with the Natao logo, here:
 
 ## Using Natao to insert an image
 
-- Create a folder called "Natao_images" within your database folder (if it doesn't already exist).
+- Create a folder called "Natao_images" within your database folder (if such folder doesn't already exist).
 - Copy the image you would like to use to that folder.
 - In the Editor panel, place your computer's cursor where you'd like to have the image appear.
 - Click on Natao's "Insert Image" button.
@@ -405,16 +406,16 @@ You may insert images in your document, as we've done with the Natao logo, here:
 
 ## Breaking Down the Markdown Syntax
 
-Here's an example of the sort of code that Natao is going to generate for you:
+Here's an example of the sort of code Natao is going to generate for you:
 
 	::gfm
 	![newImage](file:/Mon%20chemin%20de%20fichier/mon%20image.png)
 
-This code is composed of three sections:
+Let's deconstruct this code:
 
 - The exclamation point sign ( ! ) announces the beginning of the code.
 - The text surrounded by bracket signs ( [ ] ) is the text that appears in lieu of the image.
-- The URL that starts with ( file:// ) shows the images' location on your computer. In this particular example, the word "file" indicates that the image is located on your machine. In the case of an image located on-line, the URL code would start with ( http:// ) or ( https:// ). For images already present within Natao, there is no need for anything.
+- The URL that starts with ( file:// ) shows the images' location on your computer. In this particular example, the word "file" indicates that the image is located on your machine. In the case of an image located online, the URL code would start with ( http:// ) or ( https:// ). For images already present within Natao, there is no need for anything.
 - Note the %20: just like for internet URLs, the Markdown language doesn't like blank spaces and replaces them with %20.
 
 # Links
@@ -446,7 +447,7 @@ Natao should be on [Github][github.natao].
 
 In the example above, [github.natao] is called the link-label. To transform it into a reference link, you need to define its destination. 
 
-To do so, anywhere in the document (usually at the end), paste-in your link-label, insert a colon after it, and place its URL destination right after. Then, between quotations marks, give your link-label the title that will pop up each time your drag your cursor over your link-label.
+To do so, anywhere in the document (usually at the end), paste-in your link-label, insert a colon after it, and place its URL destination right after. Then, between quotation marks, give your link-label the title that will pop up each time your drag your cursor over your link-label.
 
     ::gfm
     [github.natao]: https://github.com/Ajrarn/Natao  "Natao is on Github"
@@ -456,5 +457,3 @@ Note that, wherever you place them, link-labels remain invisible in the document
 Creating link-labels allows you to stay organized and use them more than once in your text. To do so, simply use the same link-label: for this [word][github.natao], we used the link-label used in the example above.
 
 [github.natao]: https://github.com/Ajrarn/Natao  "Natao is on Github"
-
-
