@@ -27,19 +27,17 @@ So, if adding blank spaces between words help you better read them, do so. In th
 
 ## Paragraphs
 
-Create paragraphs by adding blank spaces between your lines. Otherwise Natao considers that your sentences are all part of the same paragraph or block of text.
+Create paragraphs by adding a blank space between your lines, by pressing on your keyboard's Return or Enter key. Otherwise Natao considers that your sentences are all part of the same paragraph or block of text.
 
-	This is the first sentence. This is the second sentence. They are part of the same paragraph because I didn't add any blank space between them.
+	This is the first sentence. This is the second sentence. They are both part of the same paragraph.
 
-	I've written another sentence, but I then added a blank space after it.
-	As a result, the second sentence appears separated from the first sentence.
+	I've started a new paragraph by adding a blank space after the first paragraph's last sentence.
 
 **Results in:**
 
-This is the first sentence. This is the second sentence. They appear as being part of the same paragraph because I didn't add any blank space between them.
+This is the first sentence. This is the second sentence. They are both part of the same paragraph.
 
-I've written another sentence, but I then added a blank space after it.
-As a result, the second sentence appears separated from the first sentence.
+I've started a new paragraph by adding a blank space after the first paragraph's last sentence.
 
 Keep in mind that as you write your text in Natao's Editor panel, you may insert as many line-breaks as you see fit. As long as you don't insert blank spaces, Natao will keep your sentences within the same paragraph.
 
