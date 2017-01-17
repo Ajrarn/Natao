@@ -4,13 +4,15 @@
 
 The following document does not explain in detail how CSS works. It only describes how CSS works within Natao, with the express purpose of making it easy to change the appearance of documents produced within Natao.
 
-Still, although this document's scope is limited, a few notions need to be explained even before we start discussing on CSS. You may find it difficult to wrap your mind around some of these. Therefore, don't hesitate to seek the help of a person already aware of CSS, and who might be able to help you customize your Natao style-sheets for you.
+Although this document's scope is limited, a few notions related to XML and HTML coding need to be explained nonetheless, even before we start discussing CSS. You may find it difficult to wrap your mind around some of these notions. Therefore, don't hesitate to seek the help of a person already familiar with CSS who might be able to help you customize your Natao style-sheets for you.
 
-Let's start with HTML.
+Ready? Ok. Let's start with HTML.
 
 # Basic HTML
 
-One needs to understand how Natao's documents are constructed, and, for that, one needs to know about HTML.
+One needs to understand how Natao's documents are constructed, and, for that, one needs to know about HTML, which is used to structure Natao produced documents; CSS is used to change the appearance of that structure.
+
+HTML is about displaying data or information. But to display such information or data, one has control and understand it. This is where XML comes in as it describes data, as well as it stores data within HTML. In that respect, XML is a complement of the HTML syntax.
 
 ## XML
 
@@ -18,23 +20,23 @@ One needs to understand how Natao's documents are constructed, and, for that, on
 
 The XML language sets rules that help programs such as Natao encode and format documents in an easily readable manner.
 
-To write an XML document that works, one must define which elements of the document  appear within it, and how.
+To write an XML document that works, one must define which elements of the document appear within it, and how.
 
-To do so, tags are used. These are case sensitive and are written between less-than and greater-than signs, like so: <paragraph> or <b>
+To do so, tags are used. These are case sensitive and are written between less-than ( < ) and greater-than signs ( > ), like so: <paragraph> or <b>
 
-Usually, all tags within a XML text appear in pairs: once as an opened tag and ones as a closed tag.
+Usually, all tags within a XML text appear in pairs: once as an opened tag, and once as a closed tag.
 
-An opened tag appears as a word surrounded by a less-than and greater-than sign, like so:
+An opened tag appears as a word surrounded by a less-than ( < ) and greater-than sign ( > ), like so:
 
         ::xml
         <paragraph>
 
-A closed tag appears as a word surrounded by a less-than and a greater-than sign, with the addition of a slash sign positioned right after the less-than sign, like so:
+A closed tag appears as a word surrounded by a less-than ( < ) and a greater-than sign ( > ), with the addition of a slash sign ( / ) positioned right after the less-than sign ( < ), like so:
 
         ::xml
         </paragraph>
 
-These tag pairs constitute "boxes", quite simply because they contain some bits of text called "elements".
+These tag pairs constitute "boxes". Like boxes in the real world, they contain items which in the case of XML coding are called "elements".
     
 **Beware**: tags can only contain one word. If two are present, they must appear without space between them.
 
@@ -54,8 +56,7 @@ So, if I want to define a paragraph box with the paragraph tag, I need to write 
         <paragraph>This is my paragraph's first sentence.
 And here is my second sentence.</paragraph>
 
-Note: in the example above, the words "This is my paragraph's first sentence.
-And here is my second sentence." are the elements.
+Note: in the example above, the words "This is my paragraph's first sentence. And here is my second sentence." are the elements.
 
 I can also put boxes within boxes, as follows:
 
@@ -68,7 +69,7 @@ I can also put boxes within boxes, as follows:
     
 Incidentally, I have now created "a document" containing a title and two paragraphs.
 
-By the way, a third type of tag exists in the XML language. It is called the "solo tag", as opposed to the "tag pair". These solo tags are opened and closed at the same time. No element can therefore be placed between them. For instance:
+By the way, a third type of tag exists in the XML language. It is called the "solo tag", as opposed to the "pair tag". These solo tags are opened and closed at the same time. No element can therefore be placed between them. For instance:
 
         ::xml
         <Items/>
@@ -82,7 +83,7 @@ Let's take a look at the following example:
         <alignment paragraph="left">A less short paragraph.</paragraph>
         <invisible paragraph>And another paragraph.</paragraph>
 
-To each *paragraph* tag we have added attributes, between quotes, before closing the tag by using a greater-than sign. Each of these attributes makes the tags they refer to more specific by adding more information.
+To each *paragraph* tag we have added attributes, between quotes, before closing the tag by using a greater-than sign ( > ). Each of these attributes makes the tags they refer to more specific by adding more information.
 
 In the example above, we used two attributes:
 
@@ -93,19 +94,15 @@ Each new attributes adds details to their tags, details that Natao exploits to f
 
 ### Standards
 
-
-In the previous examples, I gave my tags random names, like *paragraph* or *contact-info*, to help me explain how tags work in XML. Imagining tags left and and right would be easy, but would make XML useless as a way for everyone to use XML.
-
-That is why models have been devised to help people work in an efficient and consistent way across the board, whether in the book publishing, by using the DocBook model, or in the web-publishing industry, by using HTML.
+In the previous examples, I gave my tags random names, like *paragraph* or *contact-info*, to help me explain how tags work in XML. Continuously coming up with tags would make XML useless as a way for everyone to use it. That is why models have been devised to help people work in an efficient and consistent way, whether in the book publishing, by using the DocBook model, or in the web-publishing industry, by using HTML.
 
 ## HTML
 
-HTML is therefore a set of tags used to create web pages.
-As regards Natao, just know that the Markdown syntax used in Natao generates HTML code natively and that it is that HTML code that we are going to shape with CSS.
+As suggested above, HTML is therefore a set of tags. It is usually used to create web pages.
 
-As a result, we are only going to learn a few HTML tags here, the ones you will need to modify Natao's style-sheets.
+As regards Natao, just know that the Markdown syntax used in Natao generates HTML code natively, and that it is that HTML code that we are going to shape with CSS. As a result, we are only going to learn a few HTML tags here, the ones that you will need to modify Natao's style-sheets.
 
-Let's get "our HTML feet wet" by re-writing one of our previous examples in HTML:
+Let's get our HTML-feet wet by re-writing one of our previous examples, but this time in HTML:
 
         ::html
         <html>
@@ -119,14 +116,13 @@ Let's get "our HTML feet wet" by re-writing one of our previous examples in HTML
       </body>
      </html>
      
-This is basically how traditional web pages are written: 
-There's a *header* section, which we won't get into here as it remains invisible in the final document. And there's a *body* section, which contains what's visible in the final document, with a level 1 title (the most important ones) written as *h1* and paragraphs noted as *p*.
+This is basically how traditional web pages are written: there's a *header* section, which we won't get into here as it remains invisible in the final document; and there's a *body* section, which contains what's visible in the final document, with a level 1 title (the most important ones) written as *h1* and paragraphs noted as *p*.
      
 # Structure of a Natao Document
 
 Let's look at the core structure of a Natao document.
 
-Note: it's going to be a lot to take in at first, mainly because we haven't talked about Markdown when transformed into HTML yet, but it's important to take note of it to help us understand how to edit the appearance of a Natao document.
+Note: it's going to be a lot to take in at first, mainly because we haven't yet talked about Markdown when it is transformed into HTML, but it's important to take note of it now, to help us understand how to edit the appearance of a Natao document later.
 
         ::html
         <div id="viewer" layout="column">
@@ -158,7 +154,7 @@ Let's take a look at the first tag:
         <div id="viewer" layout="column">
     </div>
 
-Note that I kept the *div* open and closed tags, which in this instance work together as a box with no particular signification.
+Note that I kept the open and closed *div* tags. In this instance they work together as a box with no particular signification.
 What we need to pay attention to here are the attributes:
 
         ::string
@@ -173,12 +169,12 @@ In other words, *div* which is identified as *viewer* appears as a column. The b
 
 To simplify things further, we'll use the boxes' identification to designate them (because divs are used everywhere). We will therefore not speak of *div* boxes, but of the *viewer* box.
 
-Inside the first box, we have a second one which is stretched out (*layout-align="start stretch"*) and which takes all the room it can (*flex*), like so:
+Inside the first box, we have a second one which is stretched out (*layout-align="start stretch"*), and which takes all the room it can take (*flex*), like so:
 
         ::html
         <div flex layout="column" layout-align="start stretch"></div>
    
-It too appears as a column. Moreover, we can that it contains three interesting boxes:
+It too appears as a column. Moreover, we can notice that it contains three interesting boxes:
 
         ::html
         <div flex layout="column" layout-align="start stretch">
@@ -207,20 +203,19 @@ It too appears as a column. Moreover, we can that it contains three interesting 
     </div>
 </div>
 ```
-    
+
 The *header* box is composed of two boxes:
 
 - *identity*
 - *title-zone*
 
-These two boxes are written on the same line and are going to stretch over that line, starting from the left:
+These two boxes are written on the same line, and are going to stretch over that line, starting from the left:
 
         ::html
         <div id="header" layout="row" layout-align="start stretch">
     
 Within the *identity* box, your last name, your first name, and your grade will appear in a column.
-
-Within the *title-zone* box, the document's title and its creation date will appear  in a column.
+Within the *title-zone* box, the document's title and its creation date will appear in a column.
 
 ## The *separator* box
 
@@ -269,16 +264,17 @@ Let's now take a look at the bits that are going to help you pick the best box f
 ## The Box Selectors
 
 To select all identical boxes, I merely need to use as selector the name of the tag:
+
         ::css
     div {
         display: none;
         }
 
-This bad example is going to hide all the *div* boxes, that is, all your document.
+This eroneous example is going to hide all the *div* boxes, that is, all your document.
 
 ## The Identifier Selector
 
-To select any box, whatever might his identifier be, I'm going to use a hash-tag sign ( # ) in front of the identifier, as seen in our original example. 
+To select any box, whatever might its identifier be, I'm going to use a hash-tag sign ( # ) in front of the identifier, as seen in our original example. 
 
 ## The Class Selector
 
@@ -297,7 +293,6 @@ It may be selected thanks to the class selector with a period sign ( . ) in fron
         }
 
 And here again, we make something interesting disappear. 
-
 
 ## Using Many Selectors at Once
 
@@ -363,11 +358,11 @@ In the case of the *separator*, it is located in a column box. By fixing its siz
 
 ### Units
 
-In the preceding example, I used the pixels (px) units. There are many others, among which are:
+In the preceding example, I used the pixels (px) units. There are many others units. We only need to be aware of a few here though. They are:
 
 - *px* for pixels, which represent screen points.
-- *pt* for points, which are used for printing documents.
-- *%* used to delineate a usable portion of the screen. 50% means that we are using half of the screen's space.
+- *pt* for points, which are used when printing documents.
+- *%* used to delineate a usable portion of the screen. Note: 50% means that we are using half of the screen's space.
 - *em*, which might be the most interesting unit. 1em represents the font size for the entirety of the document. You'll therefore be able to define a few elements which will be proportional to this font size.
 
 ## Modifying Colors
@@ -379,24 +374,24 @@ In the preceding example, I used the pixels (px) units. There are many others, a
         background-color: red;
         color: #af2356;
     }
-    
+
 Here are two new properties to be use to modify colors: 
 
 - *color* lets you modify the text's color.
-- *background-color* , as its name suggests, lets you modify the background color.
+- *background-color*, as its name suggests, lets you modify the background color.
 
 Note: the list of available colors is too large to be included here, but if you can still get it by using the following [link](http://www.colors.commutercreative.com/grid/).
 
-In the example above you'll noticed that the *color* property contains a hash sign ( # ) followed by six hexadecimal characters. These six characters are in fact made up of three pairs of characters: the first pair is for red, the second is for green, and the third is for blue, which is the RGB color space. This lets you pick the colors you need very precisely.
+In the example above you'll noticed that the *color* property contains a hash-tag sign ( # ), followed by six hexadecimal characters. These six characters are in fact made up of three pairs of characters: the first pair is for red, the second is for green, and the third is for blue: Red/Green/Blue, also known as the RGB color space. Being able to use the RGB color space in HTML coding lets you pick the colors you need very precisely. Neat stuff, no?
 
 ### By Using the Color Picker
 
-A color picker has been integrated to Natao. It will come into play as soon as Natao recognizes a valid color code, that is series of six characters following a hash sign, as follows:
+A color picker has been integrated to Natao. It will come into play as soon as Natao recognizes a valid color code, which, as we've just seen, is series of six characters following a hash-tag sign, as follows:
 
         ::css
     color: #111111;
     
-As soon as you've typed the color code, in this case (#111111;), click on it to see it pop up.
+As soon as you've typed the color code, in this case (#111111;), click on it to see it pop up. Super neat stuff!
 
 ![Color choice](./src/images/thistle.png)
 
@@ -427,12 +422,12 @@ You may add borders to your boxes like so:
         border: thin solid red;
     }
 
-In the previous example, we've applied to same border to the two boxes, *identity* and *separator*. 
+In the previous example, we've applied the same border to the two boxes, *identity* and *separator*. 
 
 The *identity* box has three properties:
 
-- *border-width* which describes the thickness of the border, which, in our example, is thin).
-- *border-style* which describes the border's style, which in our example is a solid line. 
+- *border-width* which describes the thickness of the border, which, in our example, is thin.
+- *border-style* which describes the border's style, which in our example is a solid line.
 - *border-color* which describes the border's color, which in our example is red.
 
 The *separator* box uses three abbreviated syntax: the key word *border* is followed by three values referring to the border's width, style and color.
@@ -454,12 +449,11 @@ Four values need to be known:
 - *dotted* to get a dotted line border.
 - *dashed* to get a border made of dashes.
 - *solid* to get a plain line border.
-- *double* to get a border made of two lines, which only become visible with medium borders.
+- *double* to get a border made of two lines. Do note that this type of border only becomes visible with medium-sized borders and above.
 
 ### Partial Borders
 
 You may chose to give your box a partial border, of either one or two or three sides. Each side has an associated word:
-
 
 - *top* which refers to the top border.
 - *bottom* which refers to the bottom border.
@@ -473,7 +467,7 @@ Simply add one of the above key words after border to affect it:
         border-top: thin solid blue;
         border-bottom: thin solid blue;
     }
-    
+
     #margin {
         border-right-width: thin;
         border-right-style: solid;
@@ -485,9 +479,9 @@ Simply add one of the above key words after border to affect it:
 Each box has two types of margins: 
 
 - An external margin (that is, the *margin* property, not the similarly named box) om): it helps us define how close our margin will come to our box.
-- An internal margin, (key-word *padding*): it helps us define how close our margin will come to our internal box.
+- An internal margin (key-word *padding*): it helps us define how close our margin will come to our internal box.
 
-Just as is the case for borders, key-words can be followed by *top*, *bottom*, *left* et *right*, as follows
+Just as is the case for borders, key-words can be followed by *top*, *bottom*, *left* et *right*, as follows:
 
 ````
 ::css
@@ -503,13 +497,13 @@ Just as is the case for borders, key-words can be followed by *top*, *bottom*, *
 
 In the above example, we can see that our *made* box will be at least 10 pixels away from our *made* box, and that the box they contain will be 20 pixels away from the borders.
 
-We can also notice that the level 1 titles (*h1*) will be 30 pixels way from the previous box.
+We can also notice that the level 1 titles (*h1*) will be 30 pixels (30px) away from the previous box.
 
 # Applying Changes to the Text Globally
 
-## Modifying the Text's Reference Size
+## Modifying the Overall Font t Size
 
-Let's use this opportunity to go over the size unites again: 
+Let's use this opportunity to go over the size units again: 
 
 - *px* for pixels, which represent screen points.
 - *pt* for points, which are used for printing documents.
@@ -521,24 +515,23 @@ You can choose a font size for the entirety of your document, like so:
     #made {
         font-size: 16px;
     }
-    
-This example gives us a default 16px font size. From here, you may adjust the font size of titles for example:
 
+This example gives us a default 16px font size. From here, you may adjust the font size of titles for example:
 
         ::css
     #made h1 {
         font-size: 2em;
     }
-    
+
     #made h2 {
         font-size: 1.5em;
     }
-    
-Thus, my level 1 title (which corresponds to only one hash sign ( # )) will be twice teh size of the base font size. The level 2 title (which corresponds to two has signs ( ## )) will be 1.5 times the font size.
+
+Thus, my level 1 title, which corresponds to only one hash-tag sign ( # ), will be twice the size of the base font size. The level 2 title, which corresponds to two hash-tag signs ( ## ), will be 1.5 times the base font size.
 
 If I change the default font size to 20px, the size of the document's title will change proportionally.
 
-## Modifying the Font
+## Modifying the Overall Font
 
 You can modify the font that's used in your document thanks to the *font-family* property, as follows: 
 
@@ -547,14 +540,15 @@ You can modify the font that's used in your document thanks to the *font-family*
         font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
     }
     
-This line of code asks Natao to use the *RobotoDraft* font. If that font is not found, Natao is asked to use the *Roboto* font. If not that can't happen, the *Helvetica Neue* font should be used. And in case it can't be found, the first *sans-serif* font it finds should be used.
-In other words, you should consider giving Natao the option to pick from two or three fonts before asking it to use a family of fonts. 
+This line of code tells Natao to use the *RobotoDraft* font. If that font is not found, Natao is told to use the *Roboto* font. If that can't happen either, the *Helvetica Neue* font should be used. And in the case that this font can't be found, the first *sans-serif* font Natao finds should be used.
 
-Note that the font you will have access to to write your Natao document will dependent on the fonts present on your computer. 
+Note, as the example above suggests, that it is a good idea to give Natao the option to pick from two or three fonts, before asking it to use a family of fonts. 
+
+Note also that the font you will have access to to compose your Natao document will be dependent on the fonts present on your computer. 
 
 Here are a few of these *font-family*:
 
-| Family     | Definition                                          |
+|Font-Family | Definition                                          |
 |------------|-----------------------------------------------------|
 | Serif      | Georgia, serif                                      |
 | Serif      | "Palatino Linotype", "Book Antiqua", Palatino, serif|
@@ -572,14 +566,14 @@ Here are a few of these *font-family*:
 
 ## Underlining a Text
 
-Let's underline a bit of text:
+Let's underline a bit of text, like so:
 
         ::css
     #made {
         text-decoration: underline;
     }
     
-## Text thickness
+## Text Thickness
 
 The *font-weight* property lets you change the text's thickness:
 
@@ -597,7 +591,7 @@ Let's put the entirety of our document's text in bold, like so:
 
 ## Text Style
 
-The *font-style* property let's us decide if a portion of text is:
+The *font-style* property lets us decide if a portion of text is:
 
 - *normal*: with straight characters.
 - *italic*: with slanted characters.
@@ -611,7 +605,7 @@ Let's put the entirety of our document's text in italic, like so:
     
 ## Text Alignment
 
-The *text-align* property let's us pick how our text is aligned. It is used as follows: 
+The *text-align* property lets us pick how our text is aligned. It is used as follows: 
 
 - *left*, to move the text to the left.
 - *right*, to move the text to the right.
@@ -619,7 +613,6 @@ The *text-align* property let's us pick how our text is aligned. It is used as f
 - *justify*, for the text to spread evenly.
 
 Let's write an example which we could use to write a poem's verses:
-
 
 ```
 ::css
@@ -639,7 +632,7 @@ The *text-indent* property lets us indent a box's first line, like so:
 
 # Affecting Individual Text Boxes
 
-What follows is an example of a Markdown document with paragraphs, titles, and some highlighted text: 
+What follows is an example of a Markdown document containing paragraphs, titles, and some emphasized text: 
 
         ::markdown
     # Title 1
@@ -648,8 +641,8 @@ What follows is an example of a Markdown document with paragraphs, titles, and s
     ...
     ###### Title 1.1.1.1.1.1
 
-The code written above describes that a first paragraph is followed by a first line which is itself followed by a second line. 
-The following *paragraph* with **highlighted** and even ~~struck-through~~ words. 
+The code written above describes that a first paragraph is followed by a first line followed by a second line. 
+The following *paragraph* with **emphasized** and even ~~struck-through~~ words. 
     
 Written in HTML, this Markdown text gives the following code:
 
@@ -660,14 +653,14 @@ Written in HTML, this Markdown text gives the following code:
     ...
     <h6>Title 1.1.1.1.1.1</h6>
     
-    <p>The code written above describes that a first paragraph is followed by a first line which is itself followed by a second line.</p>
-    <p>The following <em>paragraph</em> with <strong>highlighted</strong> and even <del>struck-through</del> words.</p>
+    <p>The code written above describes that a first paragraph is followed by a first line followed by a second line.</p>
+    <p>The following <em>paragraph</em> with <strong>emphasized</strong> and even <del>struck-through</del> words.</p>
     
-You can notice here that the number of hash signs ( # ) used in a title corresponds to the number that follows the <h> of the title box. In other words, one hash sign becomes *h1* and so on. 
+You can notice here that the number of hash-tag signs ( # ) used in a title corresponds to the number that follows the <h> of the title box. In other words, one hash-tag sign becomes *h1* and so on. 
 
 The paragraphs are in the *p* boxes. 
 The word *paragraph* which was surrounded by one star sign ( * ) is in the *em* box.
-The word *highlighted* which was surrounded by two star signs ( ** ) is in the *strong* box.
+The word *emphasized* which was surrounded by two star signs ( ** ) is in the *strong* box.
 The word *struck-through* which was surrounded by two tilde signs ( ~ ) is in the *del box.
 
 All of the boxes referred to above are normal boxes. As a result, everything we've seen so far on how to modify boxes can be used on them: 
@@ -679,9 +672,10 @@ All of the boxes referred to above are normal boxes. As a result, everything we'
 - Changing the thickness of the text.
 - Changing the style of the text.
 
-These boxes have a default appearance. A *em* box is in italic by default. A *strong* box is in bold by default. A *del* box is struck-through by default. And the titles also have default sizes. I suggest that you only modify the bits that you need to modify.
+These boxes have a default appearance. A *em* box is in italic by default. A *strong* box is in bold by default. A *del* box is struck-through by default. And the titles also have default sizes.
+I suggest that you only modify the bits that you need to modify.
 
-If you also need the bold text to be made red or underlined, do it as follows: 
+If you also need the embolden text to be made red or underlined, do it as follows: 
 
         ::css
     strong {
@@ -729,7 +723,7 @@ I'd like to use this opportunity to show you two new selectors:
 - *h1:before*
 - *h1:after*
 
-I've added *:before* to the *h1* box selector as a pseudo-class. There are others like it, but this one is going to allow us to add content to whatever box we chose.  We could have done the same with the *after* pseudo-class. 
+I've added *:before* to the *h1* box selector as a pseudo-class. There are others like it, but this one is going to allow us to add content to whatever box we chose. We could have done the same with the *after* pseudo-class. 
 
 Let's talk about counters. To generate numbers automatically, I use counters. I start by initializing their value by setting them to 1:
 
@@ -747,7 +741,7 @@ These counters are all linked to a title-level type of box:
 For each new *h1* level (chapter), I set the *h2* level (*section*) counter to 0.
 For each new *h2* level (section), I set the *h3* level (*sub-section*) counter to 0.
 
-In CSS we then get:
+In CSS we then get the following:
 
 ````
 ::css
