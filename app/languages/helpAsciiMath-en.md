@@ -10,7 +10,7 @@ Which gives:
 
 >The loot was shared liek so: @@1/2@@ for the captain, @@1/4@@ for the helmsman, and the remainder for the rest of the crew.
 
-As illustrated above, the math formula portion of your text will appear as an inline formula contained within the rest of your text. To separate the formula from your text, simply start a new paragraph by adding a blank space between your formulae (as discussed in the Markdown Help document).
+As illustrated above, the math formula portion of your text will appear as an inline formula contained within the rest of your text. To separate the formula from your text, simply start a new paragraph by pressing once on your beyboard's Enter or Return key, thus adding a blank space between your formulae (as discussed in the Markdown Help document).
 
 # Basic AsciiMath
 
