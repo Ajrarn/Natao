@@ -426,11 +426,11 @@ You may create a hyperlink by:
 2. Wrapping the thus-created link between parentheses ( ( ) ).
 
 	::gfm
-    [Natao is on Github!](https://github.com/Ajrarn/Natao)
+    [Natao is on Github!](https://github.com/Ajrarn/Natao_legacy)
 
 **Results in:**
 
-[Natao is on Github!](https://github.com/Ajrarn/Natao)
+[Natao is on Github!](https://github.com/Ajrarn/Natao_legacy)
 
 ## Reference Links
 
@@ -448,10 +448,10 @@ In the example above, [github.natao] is called the link-label. To transform it i
 To do so, anywhere in the document (usually at the end), paste-in your link-label, insert a colon after it, and place its URL destination right after. Then, between quotation marks, give your link-label the title that will pop up each time your drag your cursor over your link-label.
 
     ::gfm
-    [github.natao]: https://github.com/Ajrarn/Natao  "Natao is on Github"
+    [github.natao]: https://github.com/Ajrarn/Natao_legacy  "Natao is on Github"
 
 Note that, wherever you place them, link-labels remain invisible in the document's final, ready-to-print version. Their pop-up labels only appear when you drag your cursor above the link within your document.
 
 Creating link-labels allows you to stay organized and use them more than once in your text. To do so, simply use the same link-label: for this [word][github.natao], we used the link-label used in the example above.
 
-[github.natao]: https://github.com/Ajrarn/Natao  "Natao is on Github"
+[github.natao]: https://github.com/Ajrarn/Natao_legacy  "Natao is on Github"

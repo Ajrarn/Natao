@@ -1,4 +1,4 @@
-[English](https://github.com/Ajrarn/Natao)
+[English](https://github.com/Ajrarn/Natao_legacy)
 
 # Natao
 
@@ -12,7 +12,7 @@ Il fonctionne sur:
 
 ## Comment l'instaler
 
-Vous avez seulement besoin de récupérer Natao pour votre OS dans la partie [releases](https://github.com/Ajrarn/Natao/releases).
+Vous avez seulement besoin de récupérer Natao pour votre OS dans la partie [releases](https://github.com/Ajrarn/Natao_legacy/releases).
 
 Dézippez l'archive où vous le souhaitez et démarrez Natao.
 
@@ -32,7 +32,7 @@ L'autre objectif de Natao est d'aider à organiser ces documents. L'explorateur 
 
 * **Christophe Dos Santos** - Développeur principal - [Ajrarn](https://github.com/Ajrarn)
 
-Vous pouvez voir également la liste des [contributeurs](https://github.com/Ajrarn/Natao/contributors) qui ont participé sur ce projet.
+Vous pouvez voir également la liste des [contributeurs](https://github.com/Ajrarn/Natao_legacy/contributors) qui ont participé sur ce projet.
 
 ## Licence
 

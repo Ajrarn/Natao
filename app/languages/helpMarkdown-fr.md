@@ -468,11 +468,11 @@ Cette URL peut commencer par:
 Tu peux créer un lien en ligne en mettant le texte sur lequel figure le lien entre crochets ( `[ ]` ) et tout de suite après, entre parenthèse ( `( )` ), là où conduit ce lien :
 
 	::gfm
-    [Natao est sur Github!](https://github.com/Ajrarn/Natao)
+    [Natao est sur Github!](https://github.com/Ajrarn/Natao_legacy)
 
 **donne ceci**:
 
-[Natao est sur Github!](https://github.com/Ajrarn/Natao)
+[Natao est sur Github!](https://github.com/Ajrarn/Natao_legacy)
 
 ## Référence
 
@@ -490,14 +490,14 @@ Notes bien que tu n'as pas encore écrit où allait ce lien. Pour ce faire, mais
 Donc tu remets l'identifiant entre crochets, suivi de :, de la destination et enfin d'un titre entre guillemets.
 
     ::gfm
-    [github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
+    [github.natao]: https://github.com/Ajrarn/Natao_legacy  "Natao sur Github"
 
 Tu noteras également que cette description ne s'affiche pas. Mais quand tu survoles le lien de ton texte, tu vois apparaître le titre. Mais à quoi cela peut-il servir ?
 A organiser toutes tes références, mais surtout à réutiliser les mêmes à plusieurs endroits. Il te suffit d'utiliser le même identifiant.
 Par exemple, [ici][github.natao], c'est le même lien que celui utilisé dans l'exemple.
 
 
-[github.natao]: https://github.com/Ajrarn/Natao  "Natao sur Github"
+[github.natao]: https://github.com/Ajrarn/Natao_legacy  "Natao sur Github"
 
 
 

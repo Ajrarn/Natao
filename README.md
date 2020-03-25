@@ -1,4 +1,4 @@
-[Français](https://github.com/Ajrarn/Natao/blob/develop/README-fr.md)
+[Français](https://github.com/Ajrarn/Natao_legacy/blob/develop/README-fr.md)
 
 # Natao
 
@@ -11,7 +11,7 @@ Natao is Operating System (OS) independent, that is, it works equally well on OS
 
 Find the Natao release that corresponds to your computer's OS here:
 
-[releases](https://github.com/Ajrarn/Natao/releases).
+[releases](https://github.com/Ajrarn/Natao_legacy/releases).
 
 Unzip the application's folder wherever you want on your computer, and start using Natao right away.
 
@@ -30,7 +30,7 @@ Natao has also been designed to help its users organize their Natao-produced doc
 
 * **Christophe Dos Santos** - *Lead Programmer* - [Ajrarn](https://github.com/Ajrarn)
 
-See also the list of [contributors](https://github.com/Ajrarn/Natao/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Ajrarn/Natao_legacy/contributors) who participated in this project.
 
 ## License
 
