@@ -10,9 +10,11 @@ export default class Natao {
 
   onWindowAllClosed() {
     return () => {
-      if (process.platform !== 'darwin') {
+      // j'ai commenté l'exception sur MacOS, mais le mieux serait de réouvrir l'application
+      // si réactivation
+      // if (process.platform !== 'darwin') {
         this.application.quit();
-      }
+      // }
     };
   }
 
