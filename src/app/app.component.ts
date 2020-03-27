@@ -12,5 +12,13 @@ export class AppComponent {
 
   constructor(private _electronService: ElectronService) {
     this.isElectron = this._electronService.isElectronApp;
+
+    if (this.isElectron) {
+      console.log('electronService', this._electronService);
+      let pong: string = this._electronService
+        .ipcRenderer.sendSync('ping');
+      console.log(pong);
+    }
+
   }
 }
