@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ElectronService } from "ngx-electron";
+import { ApiElectronService } from "./shared/services/api-electron.service";
 
 @Component({
   selector: 'app-root',
@@ -8,24 +8,20 @@ import { ElectronService } from "ngx-electron";
 })
 export class AppComponent {
   title = 'Natao';
-  isElectron = false;
 
-  constructor(private _electronService: ElectronService) {
-    this.isElectron = this._electronService.isElectronApp;
+  constructor(public apiElectron: ApiElectronService) {
 
-    if (this.isElectron) {
-      let pong: string = this._electronService
-        .ipcRenderer.sendSync('ping');
-      console.log(pong);
-
+    if (this.apiElectron.isElectron) {
+      let pong: string = this.apiElectron.sendSync('ping');
+      console.log('pong', pong);
 
       //config
-      this._electronService.ipcRenderer.sendSync('setConfig', 'appDirectory', 'myDirectory');
-      const appDirectory = this._electronService.ipcRenderer.sendSync('getConfig', 'appDirectory');
+      this.apiElectron.sendSync('setConfig', 'appDirectory', 'myOtherDirectory');
+      const appDirectory = this.apiElectron.sendSync('getConfig', 'appDirectory');
       console.log('appDirectory', appDirectory);
 
       // pour voir le path où le fichier de config est enregistré
-      console.log('path', this._electronService.ipcRenderer.sendSync('getPath'));
+      console.log('path', this.apiElectron.sendSync('getPath'));
     }
 
   }

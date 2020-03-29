@@ -72,6 +72,7 @@ export default class Natao {
     });
 
     this.ipc.on('ping', (event, arg) => {
+      console.log('ping');
       event.returnValue = 'ping-pong';
     });
 
