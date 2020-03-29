@@ -1,0 +1,29 @@
+import * as ElectronStore from 'electron-store';
+import IpcMain = Electron.IpcMain;
+
+
+export class Config {
+  store = new ElectronStore({name: 'NataoConfig'});
+
+  constructor(private ipc: IpcMain) {
+
+    this.ipc.on('getConfig',(event, key) => {
+        event.returnValue = this.getConfig(key);
+    });
+
+    this.ipc.on('setConfig',(event, key: string, value: any) => {
+      event.returnValue = this.setConfig(key, value);
+    });
+
+  }
+
+  getConfig(key: string): any {
+      return this.store.get(key);
+  }
+
+
+  setConfig(key: string, value: any): void {
+      this.store.set(key, value);
+  }
+
+}
