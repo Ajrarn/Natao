@@ -37,8 +37,14 @@ export default class Natao {
       this.mainWindow = new BrowserWindow({
         width: 1366,
         height: 768,
-        webPreferences: {
+        /*webPreferences: {
           nodeIntegration: true
+        }*/
+        webPreferences: {
+          nodeIntegration: false, // is default value after Electron v5
+          contextIsolation: true, // protect against prototype pollution
+          enableRemoteModule: false, // turn off remote
+          preload: path.join(app.getAppPath(), 'preload.js')
         }
       });
       this.mainWindow
