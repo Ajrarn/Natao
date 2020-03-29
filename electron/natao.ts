@@ -55,6 +55,7 @@ export default class Natao {
   }
 
   start() {
+    // instance of configuration service
     this.config = new Config(this.ipc);
 
     this.application.on('window-all-closed', () => {

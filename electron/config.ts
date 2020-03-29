@@ -7,6 +7,7 @@ export class Config {
 
   constructor(private ipc: IpcMain) {
 
+    // register the ipc channels
     this.ipc.on('getConfig',(event, key) => {
         event.returnValue = this.getConfig(key);
     });
