@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain, session } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { Config } from './config';
-import IpcMainEvent = Electron.IpcMainEvent;
+import { FileService } from './file-service';
 
 export default class Natao {
 
@@ -11,59 +11,68 @@ export default class Natao {
   ipc = ipcMain;
 
   config: Config;
+  fileService: FileService
 
 
   onWindowAllClosed() {
-      // j'ai commenté l'exception sur MacOS, mais le mieux serait de réouvrir l'application
-      // si réactivation
-      // if (process.platform !== 'darwin') {
-        this.application.quit();
-      // }
+    this.application.quit();
   }
 
   onClose() {
-      // Dereference the window object.
-      this.mainWindow = null;
+    // Dereference the window object.
+    this.mainWindow = null;
   }
 
   onReady() {
-      /*session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-        callback({ responseHeaders: Object.assign({
-            'Content-Security-Policy': [ "default-src 'self'" ]
-          }, details.responseHeaders)});
-      });*/
 
-
-      this.mainWindow = new BrowserWindow({
-        width: 1366,
-        height: 768,
-        /*webPreferences: {
-          nodeIntegration: true
-        }*/
-        webPreferences: {
-          nodeIntegration: false, // is default value after Electron v5
-          contextIsolation: true, // protect against prototype pollution
-          enableRemoteModule: false, // turn off remote
-          preload: path.join(app.getAppPath(), 'preload.js')
-        }
+    /* TODO: activer pour version production
+    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+       callback({
+             responseHeaders: {
+             ...details.responseHeaders,
+             'Content-Security-Policy': ['default-src \'none\'']
+             }
       });
-      this.mainWindow
-        .loadURL(url.format({
-          pathname: path.join(__dirname, `./Natao/index.html`),
-          protocol: 'file:',
-          slashes: true
-        }));
+     });*/
 
-      // les devtools
-      this.mainWindow.webContents.openDevTools();
+    // property deprecated but set by default at true
+    // to avoid future bug
+    app.allowRendererProcessReuse = false;
 
-      this.mainWindow.on('closed', this.onClose);
+
+    this.mainWindow = new BrowserWindow({
+      width: 1366,
+      height: 768,
+      webPreferences: {
+        nodeIntegration: false, // is default value after Electron v5
+        contextIsolation: true, // protect against prototype pollution
+        enableRemoteModule: false, // turn off remote
+        preload: path.join(app.getAppPath(), 'preload.js')
+      }
+    });
+    this.mainWindow
+      .loadURL(url.format({
+        pathname: path.join(__dirname, `./Natao/index.html`),
+        protocol: 'file:',
+        slashes: true
+      }));
+
+    // les devtools
+    // TODO: désactiver pour version de production
+    this.mainWindow.webContents.openDevTools();
+
+    // close app
+    this.mainWindow.on('closed', this.onClose);
   }
 
   start() {
     // instance of configuration service
     this.config = new Config(this.ipc);
 
+    //instance of file service
+    this.fileService = new FileService(this.config, this.ipc);
+
+    // listener app
     this.application.on('window-all-closed', () => {
       this.onWindowAllClosed()
     });
@@ -71,14 +80,11 @@ export default class Natao {
       this.onReady()
     });
 
+    // listener tests
     this.ipc.on('ping', (event, arg) => {
       console.log('ping');
       event.returnValue = 'ping-pong';
     });
 
-    // pour voir le path où le fichier de config est enregistré
-    this.ipc.on('getPath', (event, arg) => {
-      event.returnValue =  app.getPath('userData');
-    })
   }
 }

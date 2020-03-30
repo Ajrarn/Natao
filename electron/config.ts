@@ -1,5 +1,5 @@
 import * as ElectronStore from 'electron-store';
-import IpcMain = Electron.IpcMain;
+import { IpcMain } from 'electron';
 
 
 export class Config {
@@ -25,6 +25,10 @@ export class Config {
 
   setConfig(key: string, value: any): void {
       this.store.set(key, value);
+  }
+
+  hasConfig(key: string) {
+    return this.store.has(key);
   }
 
 }
