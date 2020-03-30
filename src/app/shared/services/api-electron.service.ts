@@ -11,7 +11,7 @@ export class ApiElectronService {
 
   api: {
     sendSync: (channel: string, ...args: any[]) => any,
-    receive: () => {}
+    invoke: (channel: string, ...args: any[]) => Promise<any>
   };
 
   constructor() {
@@ -20,6 +20,10 @@ export class ApiElectronService {
 
   sendSync(channel: string, ...args: any[]): any {
     return this.api.sendSync(channel, ...args);
+  }
+
+  invoke(channel: string, ...args: any[]): Promise<any> {
+    return this.api.invoke(channel, ...args);
   }
 
   get isElectron(): boolean {

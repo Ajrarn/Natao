@@ -16,13 +16,15 @@ export class AppComponent {
       console.log('pong', pong);
 
       //config
-      this.apiElectron.sendSync('setConfig', 'appDirectory', 'myOtherDirectory');
       const appDirectory = this.apiElectron.sendSync('getConfig', 'appDirectory');
       console.log('appDirectory', appDirectory);
 
-      // pour voir le path où le fichier de config est enregistré
-      console.log('path', this.apiElectron.sendSync('getPath'));
+      //test mkDir
+      this.apiElectron.invoke('mkDir', 'toto').then(() => {
+        console.log('dossier créé');
+      }).catch((error) => {
+        console.error(error);
+      });
     }
-
   }
 }
