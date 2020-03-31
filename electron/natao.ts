@@ -79,12 +79,5 @@ export default class Natao {
     this.application.on('ready', () => {
       this.onReady()
     });
-
-    // listener tests
-    this.ipc.on('ping', (event, arg) => {
-      console.log('ping');
-      event.returnValue = 'ping-pong';
-    });
-
   }
 }
