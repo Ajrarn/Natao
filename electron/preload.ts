@@ -8,24 +8,17 @@ contextBridge.exposeInMainWorld(
   "api", {
     sendSync: (channel: string, ...args: any[]) => {
       // whitelist channels
-      let validChannels = ['ping','setConfig','getConfig'];
+      let validChannels = ['setConfig','getConfig'];
       if (validChannels.includes(channel)) {
         return ipcRenderer.sendSync(channel, ...args);
       }
     },
     invoke: (channel: string, ...args: any[]) => {
       // whitelist channels
-      let validChannels = ['mkDir'];
+      let validChannels = ['readdir', 'mkDir', 'rmdir', 'readFile', 'writeFile', 'unlink', 'rename'];
       if (validChannels.includes(channel)) {
         return ipcRenderer.invoke(channel, ...args);
       }
     }
-    /*receive: (channel, func) => {
-      let validChannels = ['getPath','getConfig'];
-      if (validChannels.includes(channel)) {
-        // Deliberately strip event as it includes `sender`
-        ipcRenderer.on(channel, (event, ...args) => func(...args));
-      }
-    }*/
   }
 );
