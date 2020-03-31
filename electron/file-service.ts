@@ -1,6 +1,7 @@
 import { Config } from './config';
 import { app, IpcMain } from 'electron';
 import * as fs from 'fs';
+import { Subject } from 'rxjs';
 
 const APP_DIRECTORY_KEY = 'appDirectory';
 const defaultPath = app.getPath('userData') + '/Natao_files';
@@ -10,7 +11,13 @@ export class FileService {
   appDirectory: string;
   fileSystem = fs;
 
+  $fileEvents: Subject<string>;
+  pendingWrites = 0;
+  quitAsked = false;
+
   constructor(private config: Config, private ipc: IpcMain){
+
+    this.$fileEvents = new Subject();
 
     //init appDirectory for the first time
     if (!this.config.hasConfig(APP_DIRECTORY_KEY)) {
@@ -58,6 +65,21 @@ export class FileService {
     this.ipc.handle('rename', async (event, oldName, newName) => {
       return this.rename(oldName, newName);
     });
+
+    // start observation of file events to quit properly
+    this.$fileEvents.subscribe((event) => {
+      switch (event) {
+        case 'startWrite': this.pendingWrites++;
+          break;
+        case 'endWrite': this.pendingWrites--;
+          break;
+        case 'quit': this.quitAsked = true;
+          break;
+        default: break;
+
+      }
+    });
+
   }
 
   // ****** directory manipulations *********//
@@ -76,6 +98,9 @@ export class FileService {
   }
 
   mkDir(dirname: string): Promise<any> {
+
+    this.$fileEvents.next('startWrite');
+
     const dir = defaultPath + '/' + dirname;
 
     const that = this;
@@ -84,11 +109,14 @@ export class FileService {
       that.fileSystem.mkdir(dir, function(error) {
         if (error) reject(error)
         else resolve();
+        that.$fileEvents.next('endWrite');
       })
     });
   }
 
   rmdir(filename: string): Promise<any> {
+    this.$fileEvents.next('startWrite');
+
     const fullName = defaultPath + '/' + filename;
 
     const that = this;
@@ -97,6 +125,7 @@ export class FileService {
       that.fileSystem.rmdir(fullName, function (error) {
         if (error) reject(error)
         else resolve();
+        that.$fileEvents.next('endWrite');
       })
     });
   }
@@ -117,6 +146,7 @@ export class FileService {
   }
 
   writeFile(filename: string, data: any): Promise<any> {
+    this.$fileEvents.next('startWrite');
     const fullName = defaultPath + '/' + filename;
 
     const that = this;
@@ -125,11 +155,13 @@ export class FileService {
       that.fileSystem.writeFile(fullName, data, function(error) {
         if (error) reject(error)
         else resolve();
+        that.$fileEvents.next('endWrite');
       })
     });
   }
 
   unlink(filename: string): Promise<any> {
+    this.$fileEvents.next('startWrite');
     const fullName = defaultPath + '/' + filename;
 
     const that = this;
@@ -138,11 +170,13 @@ export class FileService {
       that.fileSystem.unlink(fullName, function(error) {
         if (error) reject(error)
         else resolve();
+        that.$fileEvents.next('endWrite');
       })
     });
   }
 
   rename(oldName: string, newName: string): Promise<any> {
+    this.$fileEvents.next('startWrite');
     const oldFullName = defaultPath + '/' + oldName;
     const newFullName = defaultPath + '/' + newName;
 
@@ -152,7 +186,12 @@ export class FileService {
       that.fileSystem.rename(oldFullName, newFullName, function(error) {
         if (error) reject(error)
         else resolve();
+        that.$fileEvents.next('endWrite');
       })
     });
+  }
+
+  quitProperly() {
+    this.$fileEvents.next('quit');
   }
 }
