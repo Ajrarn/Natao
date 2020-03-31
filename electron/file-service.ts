@@ -76,7 +76,10 @@ export class FileService {
         case 'quit': this.quitAsked = true;
           break;
         default: break;
+      }
 
+      if (this.quitAsked && this.pendingWrites === 0) {
+        app.quit();
       }
     });
 
