@@ -15,7 +15,11 @@ export default class Natao {
 
 
   onWindowAllClosed() {
-    this.application.quit();
+    if (this.fileService) {
+      this.fileService.quitProperly();
+    } else {
+      this.application.quit();
+    }
   }
 
   onClose() {
