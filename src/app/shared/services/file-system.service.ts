@@ -2,21 +2,20 @@ import { Injectable } from '@angular/core';
 import { ApiElectronService } from './api-electron.service';
 import { Observable, Subject, interval } from 'rxjs';
 
-export enum ResourceStatus {
-  AVAILABLE,
-  BUSY
+const intervalTime = 300;
+
+export enum JobStatus {
+  PENDING,
+  IN_PROGRESS
 }
 
 export interface ResourceJob {
   name: string;
-  status: ResourceStatus,
-  operations: [
-    {
-      instruction: Instruction,
-      data: string,
-      subject: Subject<any>
-    }
-  ];
+  status: JobStatus,
+  instruction: Instruction,
+  data: string,
+  subject: Subject<any>
+  ;
 }
 
 export enum Instruction {
@@ -37,48 +36,46 @@ const returnDataInstructions = [ Instruction.READ_DIR, Instruction.READ_FILE];
 export class FileSystemService {
 
   resourcesJobs: ResourceJob[] = [];
-  $jobWatcher = interval(500);
+  $jobWatcher = interval(intervalTime);
 
   // to avoid race conditions between read, write, delete on file system
-  // all the fileSystems operations are queued for each resource
+  // all the fileSystems operations are queued
   // a job watcher will execute the different jobs in order, when the previous are finished
-
-  // TODO: Think of a security when one resource is child of another
 
   constructor (private apiElectron: ApiElectronService) {
 
     this.$jobWatcher.subscribe(() => {
 
-      this.resourcesJobs.filter(item => item.status !== ResourceStatus.BUSY)
-        .forEach((item) => {
+      if (this.resourcesJobs.length > 0) {
+        const currentJob = this.resourcesJobs[0];
 
-          item.status = ResourceStatus.BUSY;
+        if (currentJob.status === JobStatus.PENDING) {
 
-          if (item.operations.length > 0) {
-            const operation = item.operations.shift();
+          console.log('currentJob', currentJob);
 
-            if (returnDataInstructions.indexOf(operation.instruction) > -1) {
-              // return data in subject
-              this.apiElectron.invoke(operation.instruction, item.name, operation.data).then((data) => {
-                operation.subject.next(data);
-                item.status = ResourceStatus.AVAILABLE;
-              }).catch((error) => {
-                operation.subject.error(error);
-                item.status = ResourceStatus.AVAILABLE;
-              });
+          currentJob.status = JobStatus.IN_PROGRESS;
 
-            } else {
-              // return done in subject
-              this.apiElectron.invoke(operation.instruction, item.name, operation.data).then(() => {
-                operation.subject.next('done');
-                item.status = ResourceStatus.AVAILABLE;
-              }).catch((error) => {
-                operation.subject.error(error);
-                item.status = ResourceStatus.AVAILABLE;
-              });
-            }
+          if (returnDataInstructions.indexOf(currentJob.instruction) > -1) {
+            this.apiElectron.invoke(currentJob.instruction, currentJob.name, currentJob.data).then((data) => {
+              currentJob.subject.next(data);
+              this.resourcesJobs.shift();
+            }).catch((error) => {
+              currentJob.subject.error(error);
+              this.resourcesJobs.shift();
+            });
+
+          } else {
+            // return done in subject
+            this.apiElectron.invoke(currentJob.instruction, currentJob.name, currentJob.data).then(() => {
+              currentJob.subject.next('done');
+              this.resourcesJobs.shift();
+            }).catch((error) => {
+              currentJob.subject.error(error);
+              this.resourcesJobs.shift();
+            });
           }
-        })
+        }
+      }
     })
 
   }
@@ -86,20 +83,9 @@ export class FileSystemService {
   registerJob(name: string, instruction: Instruction, data: string): Subject<any> {
     const subject = new Subject<any>();
 
-    const resource = this.resourcesJobs.find(item => item.name === name);
-
-    if (resource) {
-      resource.operations.push({instruction, data, subject})
-    } else {
-      this.resourcesJobs.push({
-        name,
-        status: ResourceStatus.AVAILABLE,
-        operations: [{instruction, data, subject}]
-      });
-    }
+    this.resourcesJobs.push({name, status: JobStatus.PENDING, instruction, data, subject});
 
     return subject;
-
   }
 
   // ********* directories manipulations *************
