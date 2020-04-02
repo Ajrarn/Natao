@@ -20,6 +20,35 @@ export class FileService {
     this.$fileEvents = new Subject();
 
     //init appDirectory for the first time
+    this.initFirstTime();
+
+    // get the current appDirectory
+    this.appDirectory = this.config.getConfig(APP_DIRECTORY_KEY);
+
+
+    // register the ipc channels
+    this.registerChannels();
+
+    // start observation of file events to quit properly
+    this.$fileEvents.subscribe((event) => {
+      switch (event) {
+        case 'startWrite': this.pendingWrites++;
+          break;
+        case 'endWrite': this.pendingWrites--;
+          break;
+        case 'quit': this.quitAsked = true;
+          break;
+        default: break;
+      }
+
+      if (this.quitAsked && this.pendingWrites === 0) {
+        app.quit();
+      }
+    });
+
+  }
+
+  initFirstTime() {
     if (!this.config.hasConfig(APP_DIRECTORY_KEY)) {
       this.config.setConfig(APP_DIRECTORY_KEY, defaultPath);
 
@@ -32,12 +61,9 @@ export class FileService {
         console.error(error);
       }
     }
+  }
 
-    // get the current appDirectory
-    this.appDirectory = this.config.getConfig(APP_DIRECTORY_KEY);
-
-
-    // register the ipc channels
+  registerChannels() {
     this.ipc.handle('mkDir', async (event, dirName) => {
       return this.mkDir(dirName);
     });
@@ -65,21 +91,6 @@ export class FileService {
     this.ipc.handle('rename', async (event, oldName, newName) => {
       return this.rename(oldName, newName);
     });
-
-    // start observation of file events to quit properly
-    this.$fileEvents.subscribe((event) => {
-      switch (event) {
-        case 'startWrite': this.pendingWrites++;
-          break;
-        case 'endWrite': this.pendingWrites--;
-          break;
-        case 'quit': this.quitAsked = true;
-          break;
-        default: break;
-
-      }
-    });
-
   }
 
   // ****** directory manipulations *********//
@@ -91,7 +102,7 @@ export class FileService {
 
     return new Promise(function(resolve, reject) {
       that.fileSystem.readdir(fullName, function(error, data) {
-        if (error) reject(error)
+        if (error) reject(error);
         else resolve(data);
       })
     });
@@ -107,7 +118,7 @@ export class FileService {
 
     return new Promise(function(resolve, reject) {
       that.fileSystem.mkdir(dir, function(error) {
-        if (error) reject(error)
+        if (error) reject(error);
         else resolve();
         that.$fileEvents.next('endWrite');
       })
@@ -139,7 +150,7 @@ export class FileService {
 
     return new Promise(function (resolve, reject) {
       that.fileSystem.readFile(fullName, 'utf8',function (error, data) {
-        if (error) reject(error)
+        if (error) reject(error);
         else resolve(data);
       })
     });
@@ -153,7 +164,7 @@ export class FileService {
 
     return new Promise(function(resolve, reject) {
       that.fileSystem.writeFile(fullName, data, function(error) {
-        if (error) reject(error)
+        if (error) reject(error);
         else resolve();
         that.$fileEvents.next('endWrite');
       })
@@ -168,7 +179,7 @@ export class FileService {
 
     return new Promise(function(resolve, reject) {
       that.fileSystem.unlink(fullName, function(error) {
-        if (error) reject(error)
+        if (error) reject(error);
         else resolve();
         that.$fileEvents.next('endWrite');
       })
@@ -184,7 +195,7 @@ export class FileService {
 
     return new Promise(function(resolve, reject) {
       that.fileSystem.rename(oldFullName, newFullName, function(error) {
-        if (error) reject(error)
+        if (error) reject(error);
         else resolve();
         that.$fileEvents.next('endWrite');
       })

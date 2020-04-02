@@ -28,18 +28,20 @@ export class AppComponent {
         console.log('renameTiti', result);
       });
 
+      //test readDirectory
+      this.fileSystemService.readDirectory('').subscribe((result) => {
+        console.log('readdir', result);
+      });
+
       // test delete dir
       this.fileSystemService.deleteDirectory('tata').subscribe((result) => {
         console.log('deleteTata', result);
       });
 
-
-
       //test createFile
       this.fileSystemService.saveFile('test1', {test: true}).subscribe((result) => {
         console.log('createFile', result);
       });
-
 
       //test readFile
       this.fileSystemService.readFile('test1').subscribe((result) => {
@@ -55,7 +57,6 @@ export class AppComponent {
       this.fileSystemService.deleteFile('test2').subscribe((result) => {
         console.log('deleteTest2', result);
       });
-
     }
   }
 }
