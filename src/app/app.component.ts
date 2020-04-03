@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiElectronService } from "./shared/services/api-electron.service";
 import { FileSystemService } from './shared/services/file-system.service';
+import { version } from '../../package.json';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,12 @@ import { FileSystemService } from './shared/services/file-system.service';
 export class AppComponent {
   title = 'Natao';
 
-  constructor(public apiElectron: ApiElectronService, private fileSystemService: FileSystemService) {
+  constructor(public apiElectron: ApiElectronService, private fileSystemService: FileSystemService, public translate: TranslateService) {
+  translate.addLangs(['en', 'fr']);
+  translate.setDefaultLang('en');
+
+  const browserLang = translate.getBrowserLang();
+  translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
 
     if (this.apiElectron.isElectron) {
 
