@@ -1,25 +1,39 @@
 {
-  "name": "Natao",
-  "version": "1.0.0-rc.1",
-  "description": "A Markdown, AsciiMath Editor for school",
+  "name": "natao",
+  "version": "0.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
-  "author": "Christophe Dos Santos",
-  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~12.2.0",
+    "@angular/common": "~12.2.0",
+    "@angular/compiler": "~12.2.0",
+    "@angular/core": "~12.2.0",
+    "@angular/forms": "~12.2.0",
+    "@angular/platform-browser": "~12.2.0",
+    "@angular/platform-browser-dynamic": "~12.2.0",
+    "@angular/router": "~12.2.0",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
   "devDependencies": {
-    "del": "^2.2.0",
-    "fs-extra": "^0.27.0",
-    "gulp": "^3.9.1",
-    "gulp-gunzip": "0.0.3",
-    "gulp-rename": "^1.2.2",
-    "gulp-run": "^1.6.12",
-    "gulp-sequence": "^0.4.5",
-    "gulp-untar": "0.0.4",
-    "gulp-unzip": "^0.1.3",
-    "gulp-util": "^3.0.7",
-    "gulp-zip": "^3.2.0",
-    "nw-builder": "^2.2.0",
-    "request": "^2.69.0"
+    "@angular-devkit/build-angular": "~12.2.1",
+    "@angular/cli": "~12.2.1",
+    "@angular/compiler-cli": "~12.2.0",
+    "@types/jasmine": "~3.8.0",
+    "@types/node": "^12.11.1",
+    "jasmine-core": "~3.8.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "typescript": "~4.3.5"
   }
 }
